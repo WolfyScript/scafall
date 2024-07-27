@@ -10,7 +10,7 @@ class SpigotLoaderPlugin : JavaPlugin() {
 
     init {
         val classLoader = InnerJarClassLoader(javaClass.classLoader, "scaffolding-spigot.innerjar")
-        plugin = classLoader.loadPlugin("com.wolfyscript.scaffolding.spigot.ScaffoldingSpigot", this)
+        plugin = classLoader.loadPlugin("com.wolfyscript.scaffolding.spigot.ScaffoldingSpigotBootstrap", this)
     }
 
     override fun onLoad() = plugin.onLoad()

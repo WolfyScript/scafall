@@ -3,6 +3,7 @@ package com.wolfyscript.scaffolding.common.api.dependencies
 import com.wolfyscript.scaffolding.Scaffolding
 import com.wolfyscript.scaffolding.dependencies.Dependency
 import com.wolfyscript.scaffolding.dependencies.DependencyHandler
+import net.kyori.adventure.key.Namespaced
 import java.nio.file.Path
 import kotlin.io.path.exists
 
@@ -21,7 +22,6 @@ class DependencyHandlerImpl(
         if (!loadedDependencies.containsKey(dependency)) {
             return
         }
-
         val source = downloadDependency(dependency)
         loadedDependencies[dependency] = source
 

@@ -2,6 +2,7 @@ package com.wolfyscript.scaffolding
 
 import com.wolfyscript.scaffolding.dependencies.DependencyHandler
 import com.wolfyscript.scaffolding.dependencies.RepositoryHandler
+import com.wolfyscript.scaffolding.factories.Factories
 import com.wolfyscript.scaffolding.registry.Registries
 import com.wolfyscript.scaffolding.scheduling.Scheduler
 import org.reflections.Reflections
@@ -22,5 +23,11 @@ interface Scaffolding {
     val dependencyHandler: DependencyHandler
 
     val repositoryHandler: RepositoryHandler
+
+    val factories: Factories
+
+    fun createOrGetPluginWrapper(pluginName: String) : PluginWrapper
+
+
 
 }

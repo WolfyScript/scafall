@@ -3,3 +3,6 @@ plugins {
     `maven-publish`
     id("scaffolding.common")
 }
+dependencies {
+    implementation(kotlin("reflect"))
+}

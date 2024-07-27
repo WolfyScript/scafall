@@ -20,7 +20,7 @@ class RepositoryImpl(
         }
     }" // Make sure it always ends with a leading /
 
-    fun connect(dependency: Dependency): URLConnection {
+    private fun connect(dependency: Dependency): URLConnection {
         return URL("$url${dependency.path}").openConnection()
     }
 

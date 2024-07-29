@@ -13,6 +13,9 @@ interface ScaffoldingProvider {
 
         @Internal
         internal fun register(scaffolding: Scaffolding) {
+            if (instance != null) {
+                throw IllegalStateException("ScaffoldingProvider already initialized.")
+            }
             instance = scaffolding
         }
 

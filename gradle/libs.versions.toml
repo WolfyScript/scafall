@@ -17,6 +17,7 @@ jetbrains-annotations = "23.0.0"
 junit-jupiter = "5.8.2"
 reflections = "0.10.2"
 typesafe-config = "1.3.1"
+shadow = "8.1.7"
 
 ## Spigot Impl dependencies ##
 papermc = "1.20.4-R0.1-SNAPSHOT"
@@ -61,3 +62,6 @@ adventure-platform-bukkit = { module = "net.kyori:adventure-platform-bukkit", ve
 [bundles]
 jackson = [ "jackson-core", "jackson-annotations", "jackson-databind", "jackson-dataformat-hocon" ]
 adventure = [ "adventure-api", "adventure-platform-api", "adventure-text-minimessage" ]
+
+[plugins]
+goooler-shadow = { id = "io.github.goooler.shadow", version.ref = "shadow" }

@@ -3,7 +3,7 @@ package com.wolfyscript.scaffolding.registry
 import com.wolfyscript.scaffolding.identifier.Key
 import kotlin.reflect.KClass
 
-interface Registries : Registry<Registry<*>> {
+interface Registries {
 
     fun <T : Any> get(key: Key, type: KClass<T>): Registry<T>?
 

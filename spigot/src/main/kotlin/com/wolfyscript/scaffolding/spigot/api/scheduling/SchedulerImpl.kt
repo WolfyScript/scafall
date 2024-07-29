@@ -1,4 +1,4 @@
-package com.wolfyscript.scaffolding.spigot.api.scheduler
+package com.wolfyscript.scaffolding.spigot.api.scheduling
 
 import com.wolfyscript.scaffolding.PluginWrapper
 import com.wolfyscript.scaffolding.scheduling.Scheduler

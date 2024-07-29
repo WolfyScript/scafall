@@ -1,9 +1,8 @@
-package com.wolfyscript.scaffolding.spigot.api.scheduler
+package com.wolfyscript.scaffolding.spigot.api.scheduling
 
 import com.wolfyscript.scaffolding.PluginWrapper
 import com.wolfyscript.scaffolding.function.ReceiverConsumer
 import com.wolfyscript.scaffolding.scheduling.Task
-import com.wolfyscript.scaffolding.spigot.api.ScaffoldingSpigot
 import com.wolfyscript.scaffolding.spigot.api.SpigotPluginWrapper
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin

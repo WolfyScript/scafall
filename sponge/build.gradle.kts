@@ -1,5 +1,4 @@
 import org.spongepowered.gradle.plugin.config.PluginLoaders
-import org.spongepowered.plugin.metadata.model.PluginDependency
 
 plugins {
     `java-library`
@@ -21,16 +20,6 @@ sponge {
         name(PluginLoaders.JAVA_PLAIN)
         version("1.0")
     }
-    plugin("scaffolding") {
-        displayName("scaffolding")
-        entrypoint("")
-        description("APIs and Utils to help in the creation of cross-platform plugins")
-        dependency("spongeapi") {
-            loadOrder(PluginDependency.LoadOrder.AFTER)
-            optional(false)
-        }
-    }
-
 }
 
 minecraftServers {

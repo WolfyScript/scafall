@@ -12,7 +12,7 @@ import com.wolfyscript.scaffolding.factories.Factories
 import com.wolfyscript.scaffolding.registry.Registries
 import com.wolfyscript.scaffolding.scheduling.Scheduler
 import com.wolfyscript.scaffolding.spigot.ScaffoldingSpigotBootstrap
-import com.wolfyscript.scaffolding.spigot.api.scheduler.SchedulerImpl
+import com.wolfyscript.scaffolding.spigot.api.scheduling.SchedulerImpl
 
 internal class ScaffoldingSpigot(bootstrap: ScaffoldingSpigotBootstrap) : AbstractScaffoldingImpl() {
 

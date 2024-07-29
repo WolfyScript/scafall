@@ -2,11 +2,8 @@ import org.jfrog.gradle.plugin.artifactory.task.ArtifactoryTask
 
 plugins {
     id("com.jfrog.artifactory") version "5.+"
-    kotlin("jvm") version "2.0.0"
+    kotlin("jvm")
 }
-
-group = "org.example"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()

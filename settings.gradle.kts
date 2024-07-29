@@ -1,7 +1,6 @@
 rootProject.name = "scaffolding"
 
 pluginManagement {
-    includeBuild("build-logic")
     repositories {
         mavenLocal()
         mavenCentral()

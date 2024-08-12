@@ -1,10 +1,8 @@
 package com.wolfyscript.scaffolding.sponge
 
-import com.wolfyscript.scaffolding.common.bootstrap.PluginBootstrap
+import com.wolfyscript.scaffolding.loader.PluginBootstrap
 
 class ScaffoldingSpongeBootstrap : PluginBootstrap {
-
-
 
     override fun onLoad() {
         TODO("Not yet implemented")

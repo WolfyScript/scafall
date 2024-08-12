@@ -10,6 +10,7 @@ plugins {
 }
 
 dependencies {
+    compileOnly(project(":loader-api"))
     implementation(project(":common"))
 }
 

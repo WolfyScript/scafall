@@ -11,8 +11,10 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":common"))
+    compileOnly(project(":loader-api"))
     compileOnly(libs.papermc.paper)
+
+    implementation(project(":common"))
 }
 
 tasks {

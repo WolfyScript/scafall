@@ -9,8 +9,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":api"))
-    compileOnly(project(":common"))
+    implementation(project(":loader-api"))
 }
 
 sponge {

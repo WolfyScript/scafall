@@ -14,7 +14,8 @@ plugins {
 
 sequenceOf(
     "api",
-    "common"
+    "common",
+    "loader-api"
 ).forEach {
     include(":$it")
     project(":$it").projectDir = file(it)

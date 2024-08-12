@@ -2,7 +2,7 @@ package com.wolfyscript.scaffolding
 
 import org.jetbrains.annotations.ApiStatus.Internal
 
-interface ScaffoldingProvider {
+internal interface ScaffoldingProvider {
 
     companion object {
         private var instance: Scaffolding? = null
@@ -11,9 +11,13 @@ interface ScaffoldingProvider {
             return instance ?: throw IllegalStateException("ScaffoldingProvider not initialized.")
         }
 
+        fun registered() : Boolean {
+            return instance != null
+        }
+
         @Internal
         internal fun register(scaffolding: Scaffolding) {
-            if (instance != null) {
+            if (registered()) {
                 throw IllegalStateException("ScaffoldingProvider already initialized.")
             }
             instance = scaffolding

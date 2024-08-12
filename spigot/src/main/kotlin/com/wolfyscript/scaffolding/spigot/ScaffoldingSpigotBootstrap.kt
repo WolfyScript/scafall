@@ -1,22 +1,19 @@
 package com.wolfyscript.scaffolding.spigot
 
+import com.wolfyscript.scaffolding.loader.PluginBootstrap
 import com.wolfyscript.scaffolding.Scaffolding
-import com.wolfyscript.scaffolding.ScaffoldingProvider
-import com.wolfyscript.scaffolding.common.bootstrap.PluginBootstrap
 import com.wolfyscript.scaffolding.spigot.api.ScaffoldingSpigot
 import com.wolfyscript.scaffolding.spigot.api.SpigotPluginWrapper
 import org.bukkit.plugin.java.JavaPlugin
+import java.util.function.Consumer
 
-internal class ScaffoldingSpigotBootstrap(plugin: JavaPlugin) : PluginBootstrap {
+internal class ScaffoldingSpigotBootstrap(applyScaffolding: Consumer<Scaffolding>, plugin: JavaPlugin) : PluginBootstrap {
 
-    private val api: ScaffoldingSpigot = createAPI()
+    private val api: ScaffoldingSpigot = ScaffoldingSpigot(this)
     internal val corePlugin: SpigotPluginWrapper = SpigotPluginWrapper(plugin)
 
-    private fun createAPI() : ScaffoldingSpigot {
-        val scaffolding = ScaffoldingSpigot(this)
-        @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-        ScaffoldingProvider.register(scaffolding);
-        return scaffolding
+    init {
+        applyScaffolding.accept(api)
     }
 
     override fun onLoad() {

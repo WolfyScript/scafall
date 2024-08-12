@@ -10,8 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":api"))
-    compileOnly(project(":common"))
+    implementation(project(":loader-api"))
 
     compileOnly(libs.papermc.paper)
 }
@@ -36,6 +35,8 @@ tasks {
 
         mergeServiceFiles()
 
+        // Include the inner jar files for api and internal implementation
+        from(project(":api").tasks.shadowJar.get().archiveFile)
         from(project(":spigot").tasks.shadowJar.get().archiveFile)
     }
 }

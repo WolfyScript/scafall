@@ -1,23 +1,12 @@
 name: Scaffolding
 version: '${version}'
-main: com.wolfyscript.scaffolding.spigot.loader.SpigotLoaderPlugin
+main: com.wolfyscript.scaffolding.loader.spigot.SpigotLoaderPlugin
 api-version: 1.21
 authors: [ WolfyScript ]
 load: STARTUP
 
 libraries:
   - "org.apache.commons:commons-lang3:3.12.0"
-  - "${libs.guice.get()}"
-  - "${libs.reflections.get()}"
-  - "${libs.fastutil.get()}"
-  - "${libs.hocon.get()}"
-  - "${libs.jackson.annotations.get()}"
-  - "${libs.jackson.core.get()}"
-  - "${libs.jackson.databind.get()}"
-  - "${libs.adventure.api.get()}"
-  - "${libs.adventure.text.minimessage.get()}"
-  - "${libs.adventure.platform.bukkit.get()}"
-  - "${libs.kotlin.stdlib.get()}"
 
 loadbefore:
   - ChatColor

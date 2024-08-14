@@ -1,6 +1,7 @@
 package com.wolfyscript.scaffolding.spigot.api
 
 import com.wolfyscript.scaffolding.PluginWrapper
+import com.wolfyscript.scaffolding.ScaffoldingProvider
 import com.wolfyscript.scaffolding.common.api.AbstractScaffoldingImpl
 import com.wolfyscript.scaffolding.common.api.dependencies.DependencyHandlerImpl
 import com.wolfyscript.scaffolding.common.api.dependencies.RepositoryHandlerImpl
@@ -16,7 +17,7 @@ import com.wolfyscript.scaffolding.spigot.api.scheduling.SchedulerImpl
 
 internal class ScaffoldingSpigot(bootstrap: ScaffoldingSpigotBootstrap) : AbstractScaffoldingImpl() {
 
-    override val registries: Registries = CommonRegistries()
+    override val registries: Registries = CommonRegistries(ScaffoldingProvider.get())
     override val scheduler: Scheduler = SchedulerImpl(this)
     override val dependencyHandler: DependencyHandler = DependencyHandlerImpl(this, bootstrap.corePlugin.plugin.dataFolder.toPath().resolve("libs"))
     override val repositoryHandler: RepositoryHandler = RepositoryHandlerImpl()

@@ -2,7 +2,7 @@ package com.wolfyscript.scaffolding
 
 import org.jetbrains.annotations.ApiStatus.Internal
 
-internal interface ScaffoldingProvider {
+public interface ScaffoldingProvider {
 
     companion object {
         private var instance: Scaffolding? = null

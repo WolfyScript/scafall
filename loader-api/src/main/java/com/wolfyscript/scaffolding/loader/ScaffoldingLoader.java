@@ -32,13 +32,6 @@ public class ScaffoldingLoader {
         sharedApiClassLoader = classloader;
     }
 
-    public static ScaffoldingModule loadShadedScaffolding(ClassLoader classLoader) {
-        var bootstrap = loadBootstrap(classLoader);
-
-//        bootstrap.initScaffoldingPlatform("", this); // TODO: When shading, aren't you usually shading the platform implementation anyway?
-        return null;
-    }
-
     /**
      * Loads the entrypoint from specified inner jar using a new classloader that provides access to the Scaffolding API.
      * The Scaffolding API is independent of other modules.
@@ -49,10 +42,8 @@ public class ScaffoldingLoader {
     public static ScaffoldingModule loadIndependentPlatformModule(ClassLoader parentClassLoader, String pathToInnerJar, String entrypoint, Object loader) {
         // Create independent api class loader. Load the API from the inner jar into this new class loader
         var encapsulatedAPILoader = InnerJarClassloader.create(parentClassLoader, ScaffoldingLoader.class.getClassLoader(), "scaffolding-api.innerJar");
-        // TODO: Create a new Scaffolding instance
-
         var classLoader = InnerJarClassloader.create(encapsulatedAPILoader, pathToInnerJar);
-        return loadModule(classLoader, entrypoint, loader);
+        return loadBootstrap(classLoader).createScaffoldingModule(entrypoint, loader);
     }
 
     /**
@@ -63,7 +54,7 @@ public class ScaffoldingLoader {
      * @param entrypoint
      * @return
      */
-    public static ScaffoldingModule loadSharedPlatformModule(String pathToInnerJar, String entrypoint, Object loader) {
+    public static ScaffoldingModule loadPlatformModule(String pathToInnerJar, String entrypoint, Object loader) {
         // Load the API from the shared API class loader, that was created by the Scaffolding Plugin
         return loadScaffoldingBootstrap(pathToInnerJar).createScaffoldingModule(entrypoint, loader);
     }
@@ -73,7 +64,7 @@ public class ScaffoldingLoader {
         return loadBootstrap(classLoader);
     }
 
-    private static ScaffoldingBootstrap loadBootstrap(ClassLoader loader) {
+    public static ScaffoldingBootstrap loadBootstrap(ClassLoader loader) {
         final Class<? extends ScaffoldingBootstrap> moduleBootstrapImpl;
         try {
             moduleBootstrapImpl = loader.loadClass("com.wolfyscript.scaffolding.InternalBootstrap").asSubclass(ScaffoldingBootstrap.class);

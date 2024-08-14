@@ -1,7 +1,7 @@
 package com.wolfyscript.scaffolding
 
-import com.wolfyscript.scaffolding.loader.ScaffoldingBootstrap
 import com.wolfyscript.scaffolding.loader.PluginBootstrap
+import com.wolfyscript.scaffolding.loader.ScaffoldingBootstrap
 import com.wolfyscript.scaffolding.loader.ScaffoldingModule
 import org.jetbrains.annotations.ApiStatus.Internal
 import java.lang.reflect.Constructor
@@ -14,8 +14,25 @@ import java.util.function.Consumer
 @Internal
 internal class InternalBootstrap : ScaffoldingBootstrap {
 
-    override fun createScaffoldingModule(entrypoint: String?, loader: Any?): ScaffoldingModule? {
-        TODO("Not yet implemented")
+    override fun createScaffoldingModule(entrypoint: String, loader: Any): ScaffoldingModule {
+        val moduleClass: Class<out ScaffoldingModule> = try {
+            javaClass.classLoader.loadClass(entrypoint).asSubclass(ScaffoldingModule::class.java)
+        } catch (e: ReflectiveOperationException) {
+            throw RuntimeException("Unable to load module: $entrypoint", e)
+        }
+
+        val constructor: Constructor<out ScaffoldingModule> = try {
+            moduleClass.getConstructor(loader.javaClass, Scaffolding::class.java)
+        } catch (e: ReflectiveOperationException) {
+            throw RuntimeException("Unable to find constructor for module: $entrypoint", e)
+        }
+
+        val module: ScaffoldingModule = try {
+            constructor.newInstance(loader, ScaffoldingProvider.get())
+        } catch (e: ReflectiveOperationException) {
+            throw RuntimeException(e)
+        }
+        return module
     }
 
     override fun initScaffoldingPlatform(pathToBootstrap: String, loader: Any): PluginBootstrap {

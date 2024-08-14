@@ -28,6 +28,6 @@ interface Scaffolding {
 
     fun createOrGetPluginWrapper(pluginName: String) : PluginWrapper
 
-
+    companion object
 
 }

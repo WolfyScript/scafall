@@ -1,0 +1,12 @@
+name: Example
+version: 0.1.0
+main: org.example.ExamplePlugin
+api-version: 1.21
+authors: [ WolfyScript ]
+load: STARTUP
+
+libraries:
+  - "${libs.adventure.api.get()}"
+  - "${libs.adventure.text.minimessage.get()}"
+  - "${libs.adventure.platform.bukkit.get()}"
+  - ""

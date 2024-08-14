@@ -47,12 +47,3 @@ dependencies {
 
     testImplementation(libs.junit.jupiter)
 }
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            from(components.getByName("java"))
-            artifact(file("$rootDir/gradle.properties"))
-        }
-    }
-}

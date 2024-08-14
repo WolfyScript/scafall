@@ -1,6 +1,5 @@
 plugins {
     `java-library`
-    `maven-publish`
     id("scaffolding.common")
     alias(libs.plugins.goooler.shadow)
 }
@@ -16,6 +15,16 @@ tasks {
 
         dependencies {
             include(dependency("com.wolfyscript.scaffolding:.*"))
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("lib") {
+            from(components.getByName("java"))
+            groupId = "com.wolfyscript.scaffolding"
+            artifactId = "api"
         }
     }
 }

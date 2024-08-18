@@ -1,43 +1,42 @@
-package com.wolfyscript.scaffolding.spigot.api.nbt;
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import com.wolfyscript.utilities.eval.value_provider.ValueProvider;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTType;
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProvider
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import de.tr7zw.changeme.nbtapi.NBTType
 
-import java.util.Optional;
-
-@KeyedStaticId(key = "string")
-public class QueryNodeString extends QueryNodePrimitive<String> {
-
-    @JsonCreator
-    public QueryNodeString(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("value") ValueProvider<String> value, @JacksonInject("key") String key, @JacksonInject("parent_path") String parentPath) {
-        super(wolfyUtils, value, key, parentPath);
-        this.nbtType = NBTType.NBTTagString;
+@StaticNamespacedKey(key = "string")
+class QueryNodeString : QueryNodePrimitive<String> {
+    @com.fasterxml.jackson.annotation.JsonCreator
+    constructor(
+        @com.fasterxml.jackson.annotation.JsonProperty("value") value: ValueProvider<String>,
+        @com.fasterxml.jackson.annotation.JacksonInject("key") key: String,
+        @com.fasterxml.jackson.annotation.JacksonInject("parent_path") parentPath: String?
+    ) : super(value, key, parentPath) {
+        this.nbtType = NBTType.NBTTagString
     }
 
-    public QueryNodeString(QueryNodePrimitive<String> other) {
-        super(other);
+    constructor(other: QueryNodePrimitive<String>) : super(other)
+
+    override fun readValue(
+        path: String?,
+        key: String?,
+        parent: de.tr7zw.changeme.nbtapi.NBTCompound
+    ): String? {
+        return parent.getString(key)
     }
 
-    @Override
-    protected Optional<String> readValue(String path, String key, NBTCompound parent) {
-        return Optional.ofNullable(parent.getString(key));
+    override fun applyValue(
+        path: String,
+        key: String,
+        context: EvalContext,
+        value: String,
+        resultContainer: de.tr7zw.changeme.nbtapi.NBTCompound
+    ) {
+        resultContainer.setString(key, value)
     }
 
-    @Override
-    protected void applyValue(String path, String key, EvalContext context, String value, NBTCompound resultContainer) {
-        resultContainer.setString(key, value);
+    override fun copy(): QueryNodeString {
+        return QueryNodeString(this)
     }
-
-    @Override
-    public QueryNodeString copy() {
-        return new QueryNodeString(this);
-    }
-
 }

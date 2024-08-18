@@ -19,144 +19,155 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-package com.wolfyscript.scaffolding.spigot.api.nbt;
+import com.fasterxml.jackson.annotation.*
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import de.tr7zw.changeme.nbtapi.NBTCompound
+import de.tr7zw.changeme.nbtapi.NBTList
+import de.tr7zw.changeme.nbtapi.NBTType
+import java.util.*
 
-import com.fasterxml.jackson.annotation.*;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTList;
-import de.tr7zw.changeme.nbtapi.NBTType;
-
-import java.util.List;
-import java.util.Optional;
-
-public abstract class QueryNodeList<VAL> extends QueryNode<NBTList<VAL>> {
-
+abstract class QueryNodeList<VAL> : QueryNode<NBTList<VAL>> {
     @JsonIgnore
-    private final Class<VAL> elementType;
-    private final List<Element<VAL>> elements;
+    private val elementType: Class<VAL>
+    val elements: List<Element<VAL>>
 
     @JsonCreator
-    public QueryNodeList(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("elements") List<Element<VAL>> elements, @JacksonInject("key") String key, @JacksonInject("parent_path") String path, NBTType elementType, Class<VAL> elementClass) {
-        super(wolfyUtils, key, path);
-        this.elementType = elementClass;
-        this.nbtType = elementType;
-        this.elements = elements;
+    constructor(
+        @JsonProperty("elements") elements: List<Element<VAL>>,
+        @JacksonInject("key") key: String,
+        @JacksonInject("parent_path") path: String?,
+        elementType: NBTType,
+        elementClass: Class<VAL>
+    ) : super(key, path) {
+        this.elementType = elementClass
+        this.nbtType = elementType
+        this.elements = elements
     }
 
-    protected QueryNodeList(QueryNodeList<VAL> other) {
-        super(other.wolfyUtils, other.key, other.parentPath);
-        this.nbtType = other.nbtType;
-        this.elementType = other.elementType;
-        this.elements = other.elements.stream().map(Element::copy).toList();
+    protected constructor(other: QueryNodeList<VAL>) : super(other.key, other.parentPath) {
+        this.nbtType = other.nbtType
+        this.elementType = other.elementType
+        this.elements = other.elements.stream().map { obj: Element<VAL> -> obj.copy() }.toList()
     }
 
-    public List<Element<VAL>> getElements() {
-        return elements;
+    override fun check(key: String?, nbtType: NBTType, context: EvalContext, value: NBTList<VAL>): Boolean {
+        return !value.isEmpty
     }
 
-    @Override
-    public boolean check(String key, NBTType nbtType, EvalContext context, NBTList<VAL> value) {
-        return !value.isEmpty();
+    override fun readValue(path: String?, key: String?, parent: NBTCompound): NBTList<VAL>? {
+        return readList(key, parent)
     }
 
-    @Override
-    protected Optional<NBTList<VAL>> readValue(String path, String key, NBTCompound parent) {
-        return Optional.ofNullable(readList(key, parent));
-    }
-
-    @Override
-    protected void applyValue(String path, String key, EvalContext context, NBTList<VAL> value, NBTCompound resultContainer) {
-        String newPath = path + "." + key;
-        NBTList<VAL> list = readList(key, resultContainer);
-        if (list != null && !value.isEmpty()) {
-            context.setVariable(newPath + "_size", list.size());
-            for (Element<VAL> element : elements) {
-                element.index().ifPresentOrElse(index -> {
-                    if (index < 0) {
-                        index = value.size() + (index % value.size()); //Convert the negative index to a positive reverted index, that starts from the end.
-                    }
-                    index = index % value.size(); //Prevent out of bounds
-                    if (value.size() > index) {
-                        int fIndex = index;
-                        element.value().ifPresentOrElse(queryNode -> queryNode.visit(newPath, fIndex, context, value, list), () -> list.add(value.get(fIndex)));
-                    }
-                }, () -> element.value().ifPresent(valQueryNode -> {
-                    for (int i = 0; i < value.size(); i++) {
-                        context.setVariable(newPath + "_index", i);
-                        valQueryNode.visit(newPath, i, context, value, list);
-                    }
-                }));
+    override fun applyValue(
+        path: String,
+        key: String,
+        context: EvalContext,
+        value: NBTList<VAL>,
+        resultContainer: NBTCompound
+    ) {
+        val newPath = "$path.$key"
+        val list: NBTList<VAL>? = readList(key, resultContainer)
+        if (list != null && !value.isEmpty) {
+            context.setVariable(newPath + "_size", list.size)
+            for (element in elements) {
+                element.index().ifPresentOrElse(
+                    { index: Int ->
+                        var index = index
+                        if (index < 0) {
+                            index =
+                                value.size + (index % value.size) //Convert the negative index to a positive reverted index, that starts from the end.
+                        }
+                        index %= value.size //Prevent out of bounds
+                        if (value.size > index) {
+                            val fIndex = index
+                            element.value()?.visit(newPath, fIndex, context, value, list) ?: run { list.add(value[fIndex]) }
+                        }
+                    },
+                    {
+                        element.value()?.let { valQueryNode ->
+                            for (i in value.indices) {
+                                context.setVariable(newPath + "_index", i)
+                                valQueryNode.visit(newPath, i, context, value, list)
+                            }
+                        }
+                    })
             }
         }
     }
 
-    protected NBTList<VAL> readList(String key, NBTCompound container) {
-        if (elementType == Integer.class) {
-            return (NBTList<VAL>) container.getIntegerList(key);
-        } else if (elementType == Long.class) {
-            return (NBTList<VAL>) container.getLongList(key);
-        } else if (elementType == Double.class) {
-            return (NBTList<VAL>) container.getDoubleList(key);
-        } else if (elementType == Float.class) {
-            return (NBTList<VAL>) container.getFloatList(key);
-        } else if (elementType == String.class) {
-            return (NBTList<VAL>) container.getStringList(key);
-        } else if (elementType == NBTCompound.class) {
-            return (NBTList<VAL>) container.getCompoundList(key);
-        } else if (elementType == int[].class) {
-            return (NBTList<VAL>) container.getIntArrayList(key);
+    protected fun readList(key: String?, container: NBTCompound): NBTList<VAL>? {
+        when (elementType) {
+            Int::class.java -> {
+                return container.getIntegerList(key) as NBTList<VAL>
+            }
+
+            Long::class.java -> {
+                return container.getLongList(key) as NBTList<VAL>
+            }
+
+            Double::class.java -> {
+                return container.getDoubleList(key) as NBTList<VAL>
+            }
+
+            Float::class.java -> {
+                return container.getFloatList(key) as NBTList<VAL>
+            }
+
+            String::class.java -> {
+                return container.getStringList(key) as NBTList<VAL>
+            }
+
+            NBTCompound::class.java -> {
+                return container.getCompoundList(key) as NBTList<VAL>
+            }
+
+            IntArray::class.java -> {
+                return container.getIntArrayList(key) as NBTList<VAL>
+            }
+
+            else -> return null
         }
-        return null;
     }
 
-    public static class Element<VAL> {
+    class Element<VAL> {
+        private var index: Int?
 
-        private Integer index;
-        private QueryNode<VAL> value;
+        @get:JsonGetter
+        @set:JsonSetter
+        var value: QueryNode<VAL>?
 
-        public Element() {
-            this.index = null;
-            this.value = null;
+        constructor() {
+            this.index = null
+            this.value = null
         }
 
-        private Element(Element<VAL> other) {
-            this.index = other.index;
-            this.value = other.value.copy();
+        private constructor(other: Element<VAL>) {
+            this.index = other.index
+            this.value = other.value!!.copy()
         }
 
-        private Optional<Integer> index() {
-            return Optional.ofNullable(index);
+        fun index(): Optional<Int> {
+            return Optional.ofNullable(index)
         }
 
-        private Optional<QueryNode<VAL>> value() {
-            return Optional.ofNullable(value);
-        }
-
-        @JsonSetter
-        public void setIndex(int index) {
-            this.index = index;
-        }
-
-        @JsonGetter
-        private int getIndex() {
-            return index;
+        fun value(): QueryNode<VAL>? {
+            return value
         }
 
         @JsonSetter
-        public void setValue(QueryNode<VAL> value) {
-            this.value = value;
+        fun setIndex(index: Int) {
+            this.index = index
         }
 
         @JsonGetter
-        public QueryNode<VAL> getValue() {
-            return value;
+        private fun getIndex(): Int {
+            return index!!
         }
 
-        public Element<VAL> copy() {
-            return new Element<>(this);
+        fun copy(): Element<VAL> {
+            return Element(this)
         }
     }
 }

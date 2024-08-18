@@ -1,43 +1,42 @@
-package com.wolfyscript.scaffolding.spigot.api.nbt;
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import com.wolfyscript.utilities.eval.value_provider.ValueProvider;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTType;
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProvider
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import de.tr7zw.changeme.nbtapi.NBTType
 
-import java.util.Optional;
-
-@KeyedStaticId(key = "float")
-public class QueryNodeFloat extends QueryNodePrimitive<Float> {
-
-    @JsonCreator
-    public QueryNodeFloat(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("value") ValueProvider<Float> valueNode, @JacksonInject("key") String key, @JacksonInject("parent_path") String parentPath) {
-        super(wolfyUtils, valueNode, key, parentPath);
-        this.nbtType = NBTType.NBTTagFloat;
+@StaticNamespacedKey(key = "float")
+class QueryNodeFloat : QueryNodePrimitive<Float> {
+    @com.fasterxml.jackson.annotation.JsonCreator
+    constructor(
+        @com.fasterxml.jackson.annotation.JsonProperty("value") valueNode: ValueProvider<Float>,
+        @com.fasterxml.jackson.annotation.JacksonInject("key") key: String,
+        @com.fasterxml.jackson.annotation.JacksonInject("parent_path") parentPath: String?
+    ) : super(valueNode, key, parentPath) {
+        this.nbtType = NBTType.NBTTagFloat
     }
 
-    private QueryNodeFloat(QueryNodeFloat other) {
-        super(other);
+    private constructor(other: QueryNodeFloat) : super(other)
+
+    override fun readValue(
+        path: String?,
+        key: String?,
+        parent: de.tr7zw.changeme.nbtapi.NBTCompound
+    ): Float? {
+        return parent.getFloat(key)
     }
 
-    @Override
-    protected Optional<Float> readValue(String path, String key, NBTCompound parent) {
-        return Optional.ofNullable(parent.getFloat(key));
+    override fun applyValue(
+        path: String,
+        key: String,
+        context: EvalContext,
+        value: Float,
+        resultContainer: de.tr7zw.changeme.nbtapi.NBTCompound
+    ) {
+        resultContainer.setFloat(key, value)
     }
 
-    @Override
-    protected void applyValue(String path, String key, EvalContext context, Float value, NBTCompound resultContainer) {
-        resultContainer.setFloat(key, value);
+    override fun copy(): QueryNodeFloat {
+        return QueryNodeFloat(this)
     }
-
-    @Override
-    public QueryNodeFloat copy() {
-        return new QueryNodeFloat(this);
-    }
-
 }

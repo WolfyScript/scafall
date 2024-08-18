@@ -1,43 +1,42 @@
-package com.wolfyscript.scaffolding.spigot.api.nbt;
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import com.wolfyscript.utilities.eval.value_provider.ValueProviderShort;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTType;
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProviderShort
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import de.tr7zw.changeme.nbtapi.NBTType
 
-import java.util.Optional;
-
-@KeyedStaticId(key = "short")
-public class QueryNodeShort extends QueryNodePrimitive<Short> {
-
-    @JsonCreator
-    public QueryNodeShort(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("value") ValueProviderShort value, @JacksonInject("key") String key, @JacksonInject("parent_path") String parentPath) {
-        super(wolfyUtils, value, key, parentPath);
-        this.nbtType = NBTType.NBTTagShort;
+@StaticNamespacedKey(key = "short")
+class QueryNodeShort : QueryNodePrimitive<Short> {
+    @com.fasterxml.jackson.annotation.JsonCreator
+    constructor(
+        @com.fasterxml.jackson.annotation.JsonProperty("value") value: ValueProviderShort,
+        @com.fasterxml.jackson.annotation.JacksonInject("key") key: String,
+        @com.fasterxml.jackson.annotation.JacksonInject("parent_path") parentPath: String?
+    ) : super(value, key, parentPath) {
+        this.nbtType = NBTType.NBTTagShort
     }
 
-    public QueryNodeShort(QueryNodePrimitive<Short> other) {
-        super(other);
+    constructor(other: QueryNodePrimitive<Short>) : super(other)
+
+    override fun readValue(
+        path: String?,
+        key: String?,
+        parent: de.tr7zw.changeme.nbtapi.NBTCompound
+    ): Short? {
+        return parent.getShort(key)
     }
 
-    @Override
-    protected Optional<Short> readValue(String path, String key, NBTCompound parent) {
-        return Optional.ofNullable(parent.getShort(key));
+    override fun applyValue(
+        path: String,
+        key: String,
+        context: EvalContext,
+        value: Short,
+        resultContainer: de.tr7zw.changeme.nbtapi.NBTCompound
+    ) {
+        resultContainer.setShort(key, value)
     }
 
-    @Override
-    protected void applyValue(String path, String key, EvalContext context, Short value, NBTCompound resultContainer) {
-        resultContainer.setShort(key, value);
+    override fun copy(): QueryNodeShort {
+        return QueryNodeShort(this)
     }
-
-    @Override
-    public QueryNodeShort copy() {
-        return new QueryNodeShort(this);
-    }
-
 }

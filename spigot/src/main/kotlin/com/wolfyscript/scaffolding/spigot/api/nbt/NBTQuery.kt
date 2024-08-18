@@ -19,86 +19,77 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-package com.wolfyscript.scaffolding.spigot.api.nbt;
-
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.config.jackson.JacksonUtil;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTContainer;
-import de.tr7zw.changeme.nbtapi.NBTType;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.fasterxml.jackson.databind.JsonNode
+import com.wolfyscript.scaffolding.config.jackson.JacksonUtil
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import de.tr7zw.changeme.nbtapi.NBTCompound
+import de.tr7zw.changeme.nbtapi.NBTContainer
+import de.tr7zw.changeme.nbtapi.NBTType
+import java.io.File
+import java.io.IOException
+import java.util.*
+import java.util.stream.Collectors
 
 // Override the QueryNode settings, as this class is not registered!
-@JsonTypeInfo(use = JsonTypeInfo.Id.NONE, defaultImpl = NBTQuery.class)
-public class NBTQuery extends QueryNodeCompound {
-
+@JsonTypeInfo(use = JsonTypeInfo.Id.NONE, defaultImpl = NBTQuery::class)
+class NBTQuery : QueryNodeCompound {
     @JsonCreator
-    public NBTQuery(@JacksonInject WolfyUtils wolfyUtils) {
-        super(wolfyUtils, "", "");
-        this.nbtType = NBTType.NBTTagCompound;
-        this.includes = new HashMap<>();
-        this.required = new HashMap<>();
-        this.children = new HashMap<>();
+    constructor() : super("", "") {
+        this.nbtType = NBTType.NBTTagCompound
+        this.includes = HashMap()
+        this.required = HashMap()
+        this.children = HashMap()
     }
 
-    private NBTQuery(NBTQuery other) {
-        super(other);
-        this.children = other.children.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().copy()));
+    private constructor(other: NBTQuery) : super(other) {
+        this.children = other.children.entries.stream().collect(
+            Collectors.toMap(
+                { it.key },
+                { entry: Map.Entry<String?, QueryNode<*>?> -> entry.value!!.copy() })
+        )
     }
 
     @JsonAnySetter
-    public void loadNonNestedChildren(String key, JsonNode node) {
+    override fun loadNonNestedChildren(key: String, node: JsonNode?) {
         // Sets the children that are specified in the root of the object without the "children" node!
         // That is supported behaviour!
-        QueryNode.loadFrom(node, "", key).ifPresent(queryNode -> children.putIfAbsent(key, queryNode));
-    }
-
-    public static Optional<NBTQuery> of(File file) {
-        try {
-            return Optional.ofNullable(JacksonUtil.getObjectMapper().readValue(file, NBTQuery.class));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Optional.empty();
+        loadFrom(node, "", key).ifPresent { queryNode: QueryNode<*>? ->
+            children.putIfAbsent(
+                key,
+                queryNode!!
+            )
         }
     }
 
-    public static Optional<NBTQuery> of(File file, WolfyUtils wolfyUtils) {
-        try {
-            return Optional.ofNullable(wolfyUtils.getJacksonMapperUtil().getGlobalMapper().readValue(file, NBTQuery.class));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Optional.empty();
-        }
+    fun run(input: NBTCompound?): NBTCompound {
+        return run(input, EvalContext())
     }
 
-    public NBTCompound run(NBTCompound input) {
-        return run(input, new EvalContext());
-    }
-
-    public NBTCompound run(NBTCompound input, EvalContext context) {
-        NBTContainer container = new NBTContainer();
+    fun run(input: NBTCompound?, context: EvalContext): NBTCompound {
+        val container = NBTContainer()
         // Start at the root of the container
-        applyChildrenToCompound("", context, input, container);
-        return container;
+        applyChildrenToCompound("", context, input!!, container)
+        return container
     }
 
-    @Override
-    public NBTQuery copy() {
-        return new NBTQuery(this);
+    override fun copy(): NBTQuery {
+        return NBTQuery(this)
     }
 
 
+    companion object {
+        fun of(file: File?): Optional<NBTQuery> {
+            try {
+                return Optional.ofNullable(JacksonUtil.objectMapper.readValue(file, NBTQuery::class.java))
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return Optional.empty()
+            }
+        }
+    }
 }

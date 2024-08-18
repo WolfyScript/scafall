@@ -1,26 +1,24 @@
-package com.wolfyscript.scaffolding.spigot.api.nbt;
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import de.tr7zw.changeme.nbtapi.NBTType;
+import com.fasterxml.jackson.annotation.JacksonInject
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import de.tr7zw.changeme.nbtapi.NBTType
 
-import java.util.List;
+@StaticNamespacedKey(key = "list/double")
+class QueryNodeListDouble : QueryNodeList<Double> {
+    constructor(
+        @JsonProperty("elements") elements: List<Element<Double>>,
+        @JacksonInject("key") key: String,
+        @JacksonInject("parent_path") path: String?
+    ) : super(
+        elements, key, path, NBTType.NBTTagByte,
+        Double::class.java
+    )
 
-@KeyedStaticId(key = "list/double")
-public class QueryNodeListDouble extends QueryNodeList<Double> {
+    constructor(other: QueryNodeList<Double>) : super(other)
 
-    public QueryNodeListDouble(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("elements") List<Element<Double>> elements, @JacksonInject("key") String key, @JacksonInject("parent_path") String path) {
-        super(wolfyUtils, elements, key, path, NBTType.NBTTagByte, Double.class);
-    }
-
-    public QueryNodeListDouble(QueryNodeList<Double> other) {
-        super(other);
-    }
-
-    @Override
-    public QueryNodeListDouble copy() {
-        return new QueryNodeListDouble(this);
+    override fun copy(): QueryNodeListDouble {
+        return QueryNodeListDouble(this)
     }
 }

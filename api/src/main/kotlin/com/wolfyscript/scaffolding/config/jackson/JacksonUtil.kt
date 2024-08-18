@@ -50,10 +50,10 @@ object JacksonUtil {
     }
 
     @JvmStatic
-    fun <T> addDeserializer(module: SimpleModule, type: Class<T>?, deserialize: Deserialize<T>) {
+    fun <T> addDeserializer(module: SimpleModule, type: Class<T>, deserialize: Deserialize<T>) {
         module.addDeserializer(type, object : StdDeserializer<T>(type) {
             @Throws(IOException::class)
-            override fun deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): T {
+            override fun deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): T? {
                 return deserialize.deserialize(jsonParser, deserializationContext)
             }
         })
@@ -62,7 +62,7 @@ object JacksonUtil {
     @JvmStatic
     fun <T> addSerializerAndDeserializer(
         module: SimpleModule,
-        t: Class<T>?,
+        t: Class<T>,
         serialize: Serialize<T>,
         deserialize: Deserialize<T>
     ) {

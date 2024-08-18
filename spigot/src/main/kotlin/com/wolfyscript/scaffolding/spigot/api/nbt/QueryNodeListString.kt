@@ -1,26 +1,24 @@
-package com.wolfyscript.scaffolding.spigot.api.nbt;
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import de.tr7zw.changeme.nbtapi.NBTType;
+import com.fasterxml.jackson.annotation.JacksonInject
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import de.tr7zw.changeme.nbtapi.NBTType
 
-import java.util.List;
+@StaticNamespacedKey(key = "list/string")
+class QueryNodeListString : QueryNodeList<String> {
+    constructor(
+        @JsonProperty("elements") elements: List<Element<String>>,
+        @JacksonInject("key") key: String,
+        @JacksonInject("parent_path") path: String?
+    ) : super(
+        elements, key, path, NBTType.NBTTagByte,
+        String::class.java
+    )
 
-@KeyedStaticId(key = "list/string")
-public class QueryNodeListString extends QueryNodeList<String> {
+    constructor(other: QueryNodeList<String>) : super(other)
 
-    public QueryNodeListString(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("elements") List<Element<String>> elements, @JacksonInject("key") String key, @JacksonInject("parent_path") String path) {
-        super(wolfyUtils, elements, key, path, NBTType.NBTTagByte, String.class);
-    }
-
-    public QueryNodeListString(QueryNodeList<String> other) {
-        super(other);
-    }
-
-    @Override
-    public QueryNodeListString copy() {
-        return new QueryNodeListString(this);
+    override fun copy(): QueryNodeListString {
+        return QueryNodeListString(this)
     }
 }

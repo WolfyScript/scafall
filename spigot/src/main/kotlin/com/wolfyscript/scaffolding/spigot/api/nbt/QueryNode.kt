@@ -19,190 +19,193 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-package com.wolfyscript.scaffolding.spigot.api.nbt;
+import com.fasterxml.jackson.annotation.*
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.core.JsonToken
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.InjectableValues
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
+import com.fasterxml.jackson.databind.annotation.JsonTypeResolver
+import com.fasterxml.jackson.databind.node.ObjectNode
+import com.wolfyscript.scaffolding.ScaffoldingProvider
+import com.wolfyscript.scaffolding.config.jackson.*
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import com.wolfyscript.scaffolding.identifier.Key
+import com.wolfyscript.scaffolding.identifier.Keyed
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import com.wolfyscript.scaffolding.spigot.platform.nbtQueries
+import de.tr7zw.changeme.nbtapi.NBTCompound
+import de.tr7zw.changeme.nbtapi.NBTList
+import de.tr7zw.changeme.nbtapi.NBTType
+import java.io.IOException
+import java.util.*
 
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.InjectableValues;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
-import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.wolfyscript.utilities.Keyed;
-import com.wolfyscript.utilities.NamespacedKey;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.bukkit.WolfyCoreCommon;
-import com.wolfyscript.utilities.config.jackson.KeyedTypeIdResolver;
-import com.wolfyscript.utilities.config.jackson.KeyedTypeResolver;
-import com.wolfyscript.utilities.config.jackson.OptionalValueDeserializer;
-import com.wolfyscript.utilities.config.jackson.ValueDeserializer;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import com.wolfyscript.utilities.spigot.WolfyCoreSpigot;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTList;
-import de.tr7zw.changeme.nbtapi.NBTType;
-
-import java.io.IOException;
-import java.util.Optional;
-
-@JsonTypeResolver(KeyedTypeResolver.class)
-@JsonTypeIdResolver(KeyedTypeIdResolver.class)
-@OptionalValueDeserializer(deserializer = QueryNode.OptionalValueDeserializer.class, delegateObjectDeserializer = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, property = "type", defaultImpl = QueryNodeCompound.class)
+@JsonTypeResolver(KeyedTypeResolver::class)
+@JsonTypeIdResolver(
+    KeyedTypeIdResolver::class
+)
+@OptionalValueDeserializer(deserializer = QueryNode.OptionalValueDeserializer::class, delegateObjectDeserializer = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, property = "type", defaultImpl = QueryNodeCompound::class)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-@JsonPropertyOrder(value = {"type"})
-public abstract class QueryNode<VAL> implements Keyed {
+@JsonPropertyOrder(value = ["type"])
+abstract class QueryNode<VAL> protected constructor(
+    @JsonIgnore @JacksonInject("key") protected val key: String,
+    @JsonIgnore @JacksonInject("path") protected val parentPath: String?
+) : Keyed {
 
-    private static final String ERROR_MISMATCH = "Mismatched NBT types! Requested type: %s but found type %s, at node %s.%s";
+    @get:JsonGetter
+    protected val type: Key = Key.parse(StaticNamespacedKey.KeyBuilder.createKeyString(javaClass))
 
-    protected final WolfyUtils wolfyUtils;
-
-    protected final NamespacedKey type;
     @JsonIgnore
-    protected final String parentPath;
-    @JsonIgnore
-    protected final String key;
-    @JsonIgnore
-    protected NBTType nbtType = NBTType.NBTTagEnd;
-
-    protected QueryNode(@JacksonInject WolfyUtils wolfyUtils, @JacksonInject("key") String key, @JacksonInject("path") String parentPath) {
-        this.wolfyUtils = wolfyUtils;
-        this.type = wolfyUtils.getIdentifiers().getNamespaced(getClass());
-        this.parentPath = parentPath;
-        this.key = key;
-    }
+    var nbtType: NBTType = NBTType.NBTTagEnd
+        protected set
 
     /**
-     * Reads the targeted value at the specified key of a parent NBTCompound.<br>
+     * Reads the targeted value at the specified key of a parent NBTCompound.<br></br>
      *
-     * @param path   The path of the <b>parent</b> NBTCompound.
+     * @param path   The path of the **parent** NBTCompound.
      * @param key    The key of child to read.
      * @param parent The parent NBTCompound to read the child from.
      * @return Optional value that is read from the parent.
      */
-    protected abstract Optional<VAL> readValue(String path, String key, NBTCompound parent);
+    protected abstract fun readValue(path: String?, key: String?, parent: NBTCompound): VAL?
 
     /**
-     * Reads the targeted value at the specified index of a parent NBTList.<br>
+     * Reads the targeted value at the specified index of a parent NBTList.<br></br>
      *
-     * @param path   The path of the <b>parent</b> NBTList.
+     * @param path   The path of the **parent** NBTList.
      * @param index  The index of child to read.
      * @param parent The parent NBTList to read the child from.
      * @return Optional value that is read from the parent.
      */
-    protected Optional<VAL> readValue(String path, int index, NBTList<VAL> parent) {
-        if (index < parent.size()) {
-            return Optional.ofNullable(parent.get(index));
+    protected fun readValue(path: String?, index: Int, parent: NBTList<VAL>): VAL? {
+        if (index < parent.size) {
+            return parent[index]
         }
-        return Optional.empty();
+        return null
     }
 
-    public abstract boolean check(String key, NBTType nbtType, EvalContext context, VAL value);
+    abstract fun check(key: String?, nbtType: NBTType, context: EvalContext, value: VAL): Boolean
 
     /**
      * Applies the value to the specified key in the result NBTCompound.
      *
-     * @param path            The path of the <b>parent</b> NBTCompound.
+     * @param path            The path of the **parent** NBTCompound.
      * @param key             The key of child to apply the value for.
-     * @param value           The available value read from the parent. (Read via {@link #readValue(String, String, NBTCompound)})
+     * @param value           The available value read from the parent. (Read via [.readValue])
      * @param resultContainer The result NBTCompound to apply the value to. This compound is part of the container that will be returned once the query is completed.
      */
-    protected abstract void applyValue(String path, String key, EvalContext context, VAL value, NBTCompound resultContainer);
+    protected abstract fun applyValue(
+        path: String,
+        key: String,
+        context: EvalContext,
+        value: VAL,
+        resultContainer: NBTCompound
+    )
 
     /**
      * Applies the value to result NBTList.
      *
-     * @param path       The path of the <b>parent</b> NBTList.
+     * @param path       The path of the **parent** NBTList.
      * @param index      The index of child to apply the value for.
-     * @param value      The available value read from the parent. (Read via {@link #readValue(String, int, NBTList)})
+     * @param value      The available value read from the parent. (Read via [.readValue])
      * @param resultList The result NBTList to apply the value to. This list is part of the container that will be returned once the query is completed.
      */
-    protected void applyValue(String path, int index, EvalContext context, VAL value, NBTList<VAL> resultList) {
-        resultList.add(value);
+    protected fun applyValue(path: String?, index: Int, context: EvalContext?, value: VAL, resultList: NBTList<VAL>) {
+        resultList.add(value)
     }
 
-    public final void visit(String path, String key, EvalContext context, NBTCompound parent, NBTCompound resultContainer) {
-        readValue(path, key, parent).filter(val -> check(key, parent.getType(key), context, val)).ifPresent(val -> applyValue(path, key, context, val, resultContainer));
+    fun visit(path: String, key: String, context: EvalContext, parent: NBTCompound, resultContainer: NBTCompound) {
+        readValue(path, key, parent)?.apply {
+            check(key, parent.getType(key), context, this)
+        }?.let {
+            applyValue(path, key, context, it, resultContainer)
+        }
     }
 
-    public void visit(String path, int index, EvalContext context, NBTList<VAL> parentList, NBTList<VAL> resultList) {
-        readValue(path, index, parentList).filter(val -> check(key, parentList.getType(), context, val)).ifPresent(val -> applyValue(path, index, context, val, resultList));
-    }
-
-    @JsonGetter("type")
-    public NamespacedKey getType() {
-        return type;
-    }
-
-    public NBTType getNbtType() {
-        return nbtType;
+    fun visit(path: String?, index: Int, context: EvalContext, parentList: NBTList<VAL>, resultList: NBTList<VAL>) {
+        readValue(path, index, parentList)?.apply {
+            check(key, parentList.type, context, this)
+        }?.let {
+            applyValue(path, index, context, it, resultList)
+        }
     }
 
     @JsonIgnore
-    @Override
-    public Key KEY() {
-        return type;
+    override fun key(): Key {
+        return type
     }
 
-    public static Optional<QueryNode<?>> loadFrom(JsonNode node, String parentPath, String key) {
-        var injectVars = new InjectableValues.Std();
-        injectVars.addValue("key", key);
-        injectVars.addValue("parent_path", parentPath);
-        try {
-            QueryNode<?> queryNode = WolfyCoreSpigot.getInstance().getWolfyUtils().getJacksonMapperUtil().getGlobalMapper().reader(injectVars).readValue(node, QueryNode.class);
-            return Optional.ofNullable(queryNode);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Optional.empty();
-        }
-    }
+    abstract fun copy(): QueryNode<VAL>
 
-    public abstract QueryNode<VAL> copy();
+    class OptionalValueDeserializer : ValueDeserializer<QueryNode<*>>(QueryNode::class.java) {
 
-    public static class OptionalValueDeserializer extends ValueDeserializer<QueryNode<?>> {
-
-        public OptionalValueDeserializer() {
-            super((Class<QueryNode<?>>) (Object) QueryNode.class);
-        }
-
-        @Override
-        public QueryNode<?> deserialize(JsonParser jsonParser, DeserializationContext context) throws IOException {
-            if (jsonParser.isExpectedStartObjectToken()) {
-                return null;
+        @Throws(IOException::class)
+        override fun deserialize(jsonParser: JsonParser, context: DeserializationContext): QueryNode<*>? {
+            if (jsonParser.isExpectedStartObjectToken) {
+                return null
             }
-            var token = jsonParser.currentToken();
-            JsonNode node = null;
-            var regNBTQueries = ((WolfyCoreCommon) WolfyCoreSpigot.getInstance()).getRegistries().getNbtQueryNodes();
-            NamespacedKey type = switch (token) {
-                case VALUE_STRING -> {
-                    node = jsonParser.readValueAsTree();
-                    var text = node.asText();
-                    yield switch (!text.isBlank() ? text.charAt(text.length() - 1) : '0') {
-                        case 'b', 'B' -> regNBTQueries.getKey(QueryNodeByte.class);
-                        case 's', 'S' -> regNBTQueries.getKey(QueryNodeShort.class);
-                        case 'i', 'I' -> regNBTQueries.getKey(QueryNodeInt.class);
-                        case 'l', 'L' -> regNBTQueries.getKey(QueryNodeLong.class);
-                        case 'f', 'F' -> regNBTQueries.getKey(QueryNodeFloat.class);
-                        case 'd', 'D' -> regNBTQueries.getKey(QueryNodeDouble.class);
-                        default -> regNBTQueries.getKey(QueryNodeString.class);
-                    };
+            val token = jsonParser.currentToken()
+            var node: JsonNode? = null
+            val regNBTQueries = ScaffoldingProvider.get().registries.nbtQueries
+            val type: Key? = when (token) {
+                JsonToken.VALUE_STRING -> {
+                    node = jsonParser.readValueAsTree()
+                    val text = node.asText()
+                    when (if (!text.isBlank()) text[text.length - 1] else '0') {
+                        'b', 'B' -> regNBTQueries.getKey(
+                            QueryNodeByte::class.java
+                        )
+
+                        's', 'S' -> regNBTQueries.getKey(QueryNodeShort::class.java)
+                        'i', 'I' -> regNBTQueries.getKey(QueryNodeInt::class.java)
+                        'l', 'L' -> regNBTQueries.getKey(QueryNodeLong::class.java)
+                        'f', 'F' -> regNBTQueries.getKey(QueryNodeFloat::class.java)
+                        'd', 'D' -> regNBTQueries.getKey(QueryNodeDouble::class.java)
+                        else -> regNBTQueries.getKey(QueryNodeString::class.java)
+                    }
                 }
-                case VALUE_NUMBER_INT -> regNBTQueries.getKey(QueryNodeInt.class);
-                case VALUE_NUMBER_FLOAT -> regNBTQueries.getKey(QueryNodeDouble.class);
-                case VALUE_FALSE, VALUE_TRUE -> regNBTQueries.getKey(QueryNodeBoolean.class);
-                default -> null;
-            };
-            if (type == null) return null;
-            if (node == null) {
-                node = jsonParser.readValueAsTree();
+
+                JsonToken.VALUE_NUMBER_INT -> regNBTQueries.getKey(QueryNodeInt::class.java)
+                JsonToken.VALUE_NUMBER_FLOAT -> regNBTQueries.getKey(QueryNodeDouble::class.java)
+                JsonToken.VALUE_FALSE, JsonToken.VALUE_TRUE -> regNBTQueries.getKey(
+                    QueryNodeBoolean::class.java
+                )
+
+                else -> null
             }
-            ObjectNode objNode = new ObjectNode(context.getNodeFactory());
-            objNode.put("type", type.toString());
-            objNode.set("value", node);
-            return context.readTreeAsValue(objNode, QueryNode.class);
+            if (type == null) return null
+            if (node == null) {
+                node = jsonParser.readValueAsTree()
+            }
+            val objNode = ObjectNode(context.nodeFactory)
+            objNode.put("type", type.toString())
+            objNode.set<JsonNode>("value", node)
+            return context.readTreeAsValue(objNode, QueryNode::class.java)
         }
     }
 
+    companion object {
+        private const val ERROR_MISMATCH = "Mismatched NBT types! Requested type: %s but found type %s, at node %s.%s"
+
+        fun loadFrom(node: JsonNode?, parentPath: String?, key: String?): Optional<QueryNode<*>> {
+            val injectVars = InjectableValues.Std()
+            injectVars.addValue("key", key)
+            injectVars.addValue("parent_path", parentPath)
+            try {
+                val queryNode: QueryNode<*> =
+                    JacksonUtil.objectMapper.reader(injectVars).readValue(
+                        node,
+                        QueryNode::class.java
+                    )
+                return Optional.ofNullable(queryNode)
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return Optional.empty()
+            }
+        }
+    }
 }

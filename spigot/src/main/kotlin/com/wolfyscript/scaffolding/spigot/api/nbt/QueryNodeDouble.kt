@@ -1,43 +1,42 @@
-package com.wolfyscript.scaffolding.spigot.api.nbt;
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import com.wolfyscript.utilities.eval.value_provider.ValueProvider;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTType;
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProvider
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import de.tr7zw.changeme.nbtapi.NBTType
 
-import java.util.Optional;
-
-@KeyedStaticId(key = "double")
-public class QueryNodeDouble extends QueryNodePrimitive<Double> {
-
-    @JsonCreator
-    public QueryNodeDouble(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("value") ValueProvider<Double> value, @JacksonInject("key") String key, @JacksonInject("parent_path") String parentPath) {
-        super(wolfyUtils, value, key, parentPath);
-        this.nbtType = NBTType.NBTTagDouble;
+@StaticNamespacedKey(key = "double")
+class QueryNodeDouble : QueryNodePrimitive<Double> {
+    @com.fasterxml.jackson.annotation.JsonCreator
+    constructor(
+        @com.fasterxml.jackson.annotation.JsonProperty("value") value: ValueProvider<Double>,
+        @com.fasterxml.jackson.annotation.JacksonInject("key") key: String,
+        @com.fasterxml.jackson.annotation.JacksonInject("parent_path") parentPath: String?
+    ) : super(value, key, parentPath) {
+        this.nbtType = NBTType.NBTTagDouble
     }
 
-    private QueryNodeDouble(QueryNodeDouble other) {
-        super(other);
+    private constructor(other: QueryNodeDouble) : super(other)
+
+    override fun readValue(
+        path: String?,
+        key: String?,
+        parent: de.tr7zw.changeme.nbtapi.NBTCompound
+    ): Double? {
+        return parent.getDouble(key)
     }
 
-    @Override
-    protected Optional<Double> readValue(String path, String key, NBTCompound parent) {
-        return Optional.ofNullable(parent.getDouble(key));
+    override fun applyValue(
+        path: String,
+        key: String,
+        context: EvalContext,
+        value: Double,
+        resultContainer: de.tr7zw.changeme.nbtapi.NBTCompound
+    ) {
+        resultContainer.setDouble(key, value)
     }
 
-    @Override
-    protected void applyValue(String path, String key, EvalContext context, Double value, NBTCompound resultContainer) {
-        resultContainer.setDouble(key, value);
+    override fun copy(): QueryNodeDouble {
+        return QueryNodeDouble(this)
     }
-
-    @Override
-    public QueryNodeDouble copy() {
-        return new QueryNodeDouble(this);
-    }
-
 }

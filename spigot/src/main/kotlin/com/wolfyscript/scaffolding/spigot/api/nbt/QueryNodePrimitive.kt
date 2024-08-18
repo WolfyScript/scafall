@@ -19,39 +19,35 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-package com.wolfyscript.scaffolding.spigot.api.nbt;
 
+import com.fasterxml.jackson.annotation.JacksonInject
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.wolfyscript.scaffolding.config.jackson.KeyedBaseType
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProvider
+import de.tr7zw.changeme.nbtapi.NBTType
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.config.jackson.KeyedBaseType;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import com.wolfyscript.utilities.eval.value_provider.ValueProvider;
-import de.tr7zw.changeme.nbtapi.NBTType;
-
-import java.util.Objects;
-
-@KeyedBaseType(baseType = QueryNode.class)
-public abstract class QueryNodePrimitive<VAL> extends QueryNode<VAL> {
-
-    protected final ValueProvider<VAL> value;
+@KeyedBaseType(baseType = QueryNode::class)
+abstract class QueryNodePrimitive<VAL> : QueryNode<VAL> {
+    protected val value: ValueProvider<VAL>
 
     @JsonCreator
-    protected QueryNodePrimitive(@JacksonInject WolfyUtils wolfyUtils, ValueProvider<VAL> value, @JacksonInject("key") String key, @JacksonInject("path") String parentPath) {
-        super(wolfyUtils, key, parentPath);
-        this.value = value;
+    protected constructor(
+        value: ValueProvider<VAL>,
+        @JacksonInject("key") key: String,
+        @JacksonInject("path") parentPath: String?
+    ) : super(key, parentPath) {
+        this.value = value
     }
 
-    protected QueryNodePrimitive(QueryNodePrimitive<VAL> other) {
-        super(other.wolfyUtils, other.key, other.parentPath);
-        this.nbtType = other.nbtType;
-        this.value = other.value;
+    protected constructor(other: QueryNodePrimitive<VAL>) : super(other.key, other.parentPath) {
+        this.nbtType = other.nbtType
+        this.value = other.value
     }
 
-    @Override
-    public boolean check(String key, NBTType nbtType, EvalContext context, VAL value) {
-        return Objects.equals(this.value.getValue(context), value);
+    override fun check(key: String?, nbtType: NBTType, context: EvalContext, value: VAL): Boolean {
+        return this.value.getValue(context) == value
     }
 }

@@ -2,6 +2,7 @@ package com.wolfyscript.scaffolding.spigot.platform
 
 import com.wolfyscript.scaffolding.identifier.Key
 import com.wolfyscript.scaffolding.registry.*
+import com.wolfyscript.scaffolding.spigot.api.nbt.QueryNode
 import com.wolfyscript.scaffolding.spigot.platform.particles.ParticleAnimation
 import com.wolfyscript.scaffolding.spigot.platform.particles.animators.Animator
 import com.wolfyscript.scaffolding.spigot.platform.particles.shapes.Shape
@@ -37,6 +38,9 @@ private var customItemDataRegistry: TypeRegistry<CustomItemData>? = null
 private var customItemActionsRegistry: TypeRegistry<Action<*>>? = null
 private var customItemEventsRegistry: TypeRegistry<Event<*>>? = null
 private var customItemDataChecksRegistry: TypeRegistry<Meta>? = null
+
+// nbt
+private var nbtQueriesRegistry: TypeRegistry<QueryNode<*>>? = null
 
 val Registries.customBlockData
     get() = customBlockDataRegistry ?: throw RuntimeException(errorNotRegistered)
@@ -75,6 +79,11 @@ val Registries.customItems
 val Registries.particleAnimations : Registry<ParticleAnimation>
     get() = particleAnimationsRegistry ?: throw RuntimeException(errorNotRegistered)
 
+// nbt
+val Registries.nbtQueries
+    get() = nbtQueriesRegistry ?: throw RuntimeException(errorNotRegistered)
+
+
 internal fun Registries.registerSpigotPlatform() {
     stackIdentifierParsersRegistry = RegistryStackIdentifierParsers(this)
     stackIdentifiersRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("stack_identifiers/types"), this)
@@ -95,4 +104,7 @@ internal fun Registries.registerSpigotPlatform() {
     customItemActionsRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("custom_items/actions"), this)
     customItemEventsRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("custom_items/events"), this)
     customItemDataChecksRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("custom_items/data_checks"), this)
+
+    // nbt
+    nbtQueriesRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("nbt/query/nodes"), this)
 }

@@ -1,43 +1,42 @@
-package com.wolfyscript.scaffolding.spigot.api.nbt;
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import com.wolfyscript.utilities.eval.value_provider.ValueProvider;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTType;
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProvider
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import de.tr7zw.changeme.nbtapi.NBTType
 
-import java.util.Optional;
-
-@KeyedStaticId(key = "int_array")
-public class QueryNodeIntArray extends QueryNodePrimitive<int[]> {
-
-    @JsonCreator
-    public QueryNodeIntArray(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("value") ValueProvider<int[]> value, @JacksonInject("key") String key, @JacksonInject("parent_path") String parentPath) {
-        super(wolfyUtils, value, key, parentPath);
-        this.nbtType = NBTType.NBTTagByteArray;
+@StaticNamespacedKey(key = "int_array")
+class QueryNodeIntArray : QueryNodePrimitive<IntArray> {
+    @com.fasterxml.jackson.annotation.JsonCreator
+    constructor(
+        @com.fasterxml.jackson.annotation.JsonProperty("value") value: ValueProvider<IntArray>,
+        @com.fasterxml.jackson.annotation.JacksonInject("key") key: String,
+        @com.fasterxml.jackson.annotation.JacksonInject("parent_path") parentPath: String?
+    ) : super(value, key, parentPath) {
+        this.nbtType = NBTType.NBTTagByteArray
     }
 
-    public QueryNodeIntArray(QueryNodeIntArray other) {
-        super(other.wolfyUtils, other.value, other.key, other.parentPath);
+    constructor(other: QueryNodeIntArray) : super(other.value, other.key, other.parentPath)
+
+    override fun readValue(
+        path: String?,
+        key: String?,
+        parent: de.tr7zw.changeme.nbtapi.NBTCompound
+    ): IntArray? {
+        return parent.getIntArray(key)
     }
 
-    @Override
-    protected Optional<int[]> readValue(String path, String key, NBTCompound parent) {
-        return Optional.ofNullable(parent.getIntArray(key));
+    override fun applyValue(
+        path: String,
+        key: String,
+        context: EvalContext,
+        value: IntArray,
+        resultContainer: de.tr7zw.changeme.nbtapi.NBTCompound
+    ) {
+        resultContainer.setIntArray(key, value)
     }
 
-    @Override
-    protected void applyValue(String path, String key, EvalContext context, int[] value, NBTCompound resultContainer) {
-        resultContainer.setIntArray(key, value);
+    override fun copy(): QueryNodeIntArray {
+        return QueryNodeIntArray(this)
     }
-
-    @Override
-    public QueryNodeIntArray copy() {
-        return new QueryNodeIntArray(this);
-    }
-
 }

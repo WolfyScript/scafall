@@ -19,108 +19,94 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.spigot.api.nbt
 
-package com.wolfyscript.scaffolding.spigot.api.nbt;
+import com.fasterxml.jackson.annotation.JacksonInject
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import com.wolfyscript.scaffolding.eval.operator.BoolOperator
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import de.tr7zw.changeme.nbtapi.NBTCompound
+import de.tr7zw.changeme.nbtapi.NBTList
+import de.tr7zw.changeme.nbtapi.NBTType
+import java.util.*
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import com.wolfyscript.utilities.eval.operator.BoolOperator;
-import de.tr7zw.changeme.nbtapi.NBTCompound;
-import de.tr7zw.changeme.nbtapi.NBTList;
-import de.tr7zw.changeme.nbtapi.NBTType;
-
-import java.util.Optional;
-
-@KeyedStaticId(key = "bool")
-public class QueryNodeBoolean extends QueryNode<Object> {
-
-    private final BoolOperator value;
+@StaticNamespacedKey(key = "bool")
+class QueryNodeBoolean : QueryNode<Any> {
+    private val value: BoolOperator
 
     @JsonCreator
-    public QueryNodeBoolean(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("value") BoolOperator value, @JacksonInject("key") String key, @JacksonInject("parent_path") String parentPath) {
-        super(wolfyUtils, key, parentPath);
-        this.value = value;
+    constructor(
+        @JsonProperty("value") value: BoolOperator,
+        @JacksonInject("key") key: String,
+        @JacksonInject("parent_path") parentPath: String?
+    ) : super(key, parentPath) {
+        this.value = value
     }
 
-    private QueryNodeBoolean(QueryNodeBoolean other) {
-        super(other.wolfyUtils, other.key, other.parentPath);
-        this.value = other.value;
+    private constructor(other: QueryNodeBoolean) : super(other.key, other.parentPath) {
+        this.value = other.value
     }
 
-    @Override
-    public boolean check(String key, NBTType nbtType, EvalContext context, Object value) {
-        return this.key.equals(key) && this.value.evaluate(context);
+    override fun check(key: String?, nbtType: NBTType, context: EvalContext, value: Any): Boolean {
+        return this.key == key && this.value.evaluate(context)
     }
 
-    @Override
-    protected Optional<Object> readValue(String path, String key, NBTCompound parent) {
-        var type = parent.getType(key);
-        return Optional.ofNullable(switch (type) {
-            case NBTTagInt -> parent.getInteger(key);
-            case NBTTagIntArray -> parent.getIntArray(key);
-            case NBTTagByte -> parent.getByte(key);
-            case NBTTagByteArray -> parent.getByteArray(key);
-            case NBTTagShort -> parent.getShort(key);
-            case NBTTagLong -> parent.getLong(key);
-            case NBTTagDouble -> parent.getDouble(key);
-            case NBTTagFloat -> parent.getFloat(key);
-            case NBTTagString -> parent.getString(key);
-            case NBTTagCompound -> parent.getCompound(key);
-            case NBTTagList -> getListOfType(parent.getListType(key), key, parent);
-            default -> null;
-        });
+    override fun readValue(path: String?, key: String?, parent: NBTCompound): Any? {
+        val type: NBTType = parent.getType(key)
+        return Optional.ofNullable<Any>(
+            when (type) {
+                NBTType.NBTTagInt -> parent.getInteger(key)
+                NBTType.NBTTagIntArray -> parent.getIntArray(key)
+                NBTType.NBTTagByte -> parent.getByte(key)
+                NBTType.NBTTagByteArray -> parent.getByteArray(key)
+                NBTType.NBTTagShort -> parent.getShort(key)
+                NBTType.NBTTagLong -> parent.getLong(key)
+                NBTType.NBTTagDouble -> parent.getDouble(key)
+                NBTType.NBTTagFloat -> parent.getFloat(key)
+                NBTType.NBTTagString -> parent.getString(key)
+                NBTType.NBTTagCompound -> parent.getCompound(key)
+                NBTType.NBTTagList -> getListOfType(parent.getListType(key), key, parent)
+                else -> null
+            }
+        )
     }
 
-    private NBTList<?> getListOfType(NBTType nbtType, String key, NBTCompound container) {
-        return switch (nbtType) {
-            case NBTTagInt -> container.getIntegerList(key);
-            case NBTTagIntArray -> container.getIntArrayList(key);
-            case NBTTagLong -> container.getLongList(key);
-            case NBTTagDouble -> container.getDoubleList(key);
-            case NBTTagFloat -> container.getFloatList(key);
-            case NBTTagString -> container.getStringList(key);
-            case NBTTagCompound -> container.getCompoundList(key);
-            default -> null;
-        };
+    private fun getListOfType(nbtType: NBTType, key: String?, container: NBTCompound): NBTList<*> {
+        return when (nbtType) {
+            NBTType.NBTTagInt -> container.getIntegerList(key)
+            NBTType.NBTTagIntArray -> container.getIntArrayList(key)
+            NBTType.NBTTagLong -> container.getLongList(key)
+            NBTType.NBTTagDouble -> container.getDoubleList(key)
+            NBTType.NBTTagFloat -> container.getFloatList(key)
+            NBTType.NBTTagString -> container.getStringList(key)
+            NBTType.NBTTagCompound -> container.getCompoundList(key)
+            else -> throw IllegalArgumentException("Cannot create NBTList of type $nbtType")
+        }
     }
 
-    @Override
-    protected void applyValue(String path, String key, EvalContext context, Object value, NBTCompound resultContainer) {
-        if (value instanceof Integer integer) {
-            resultContainer.setInteger(key, integer);
-        } else if (value instanceof Byte cVal) {
-            resultContainer.setByte(key, cVal);
-        } else if (value instanceof Short cVal) {
-            resultContainer.setShort(key, cVal);
-        } else if (value instanceof Long cVal) {
-            resultContainer.setLong(key, cVal);
-        } else if (value instanceof Double cVal) {
-            resultContainer.setDouble(key, cVal);
-        } else if (value instanceof Float cVal) {
-            resultContainer.setFloat(key, cVal);
-        } else if (value instanceof String cVal) {
-            resultContainer.setString(key, cVal);
-        } else if (value instanceof int[] cVal) {
-            resultContainer.setIntArray(key, cVal);
-        } else if (value instanceof byte[] cVal) {
-            resultContainer.setByteArray(key, cVal);
-        }else if (value instanceof NBTCompound cVal) {
-            resultContainer.getOrCreateCompound(key).mergeCompound(cVal);
-        } else if (value instanceof NBTList list) {
-            NBTList<?> nbtList = getListOfType(list.getType(), key, resultContainer);
-            if(nbtList != null) {
-                nbtList.clear();
-                nbtList.addAll(list);
+    override fun applyValue(path: String, key: String, context: EvalContext, value: Any, resultContainer: NBTCompound) {
+        when(value) {
+            is Int -> resultContainer.setInteger(key, value)
+            is Byte -> resultContainer.setByte(key, value)
+            is Short -> resultContainer.setShort(key, value)
+            is Long -> resultContainer.setLong(key, value)
+            is Double -> resultContainer.setDouble(key, value)
+            is Float -> resultContainer.setFloat(key, value)
+            is String -> resultContainer.setString(key, value)
+            is IntArray -> resultContainer.setIntArray(key, value)
+            is ByteArray -> resultContainer.setByteArray(key, value)
+            is NBTCompound -> resultContainer.getOrCreateCompound(key).mergeCompound(value)
+            is NBTList<*> -> {
+                val nbtList: NBTList<*> = getListOfType(value.type, key, resultContainer)
+                nbtList.clear()
+                nbtList.addAll(value as Collection<Nothing>)
             }
         }
     }
 
-    @Override
-    public QueryNodeBoolean copy() {
-        return new QueryNodeBoolean(this);
+    override fun copy(): QueryNodeBoolean {
+        return QueryNodeBoolean(this)
     }
 }

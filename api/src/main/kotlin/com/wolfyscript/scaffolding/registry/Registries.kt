@@ -25,6 +25,7 @@ import com.wolfyscript.scaffolding.identifier.Key
 import com.wolfyscript.scaffolding.identifier.Keyed
 import com.wolfyscript.scaffolding.nbt.NBTTagConfig
 import com.wolfyscript.scaffolding.wrappers.world.items.data.ItemDataKeyRegistry
+import java.lang.IllegalStateException
 
 /**
  * Includes all the Registries inside WolfyUtilities.<br></br>
@@ -79,7 +80,7 @@ abstract class Registries(val core: Scaffolding) {
 
     fun <V : Registry<*>> getByKeyOfType(key: Key, registryType: Class<V>): V {
         val registry = getByKey(key)
-        return registryType.cast(registry)
+        return registryType.cast(registry) ?: throw IllegalStateException("Requested registry $key or type $registryType could not be found!")
     }
 
 }

@@ -4,4 +4,5 @@ interface Factories {
 
     val identifierFactory: IdentifierFactory
 
+    val itemsFactory: ItemsFactory
 }

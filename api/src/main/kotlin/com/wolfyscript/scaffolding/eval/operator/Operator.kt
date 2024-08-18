@@ -42,7 +42,7 @@ abstract class Operator : Keyed {
         this.key = namespacedKey
     }
 
-    constructor(@JacksonInject wolfyUtils: PluginWrapper) {
+    constructor() {
         this.key = parse(createKeyString(javaClass))
     }
 

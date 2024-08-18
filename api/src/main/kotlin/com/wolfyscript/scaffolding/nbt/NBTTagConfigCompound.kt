@@ -15,67 +15,62 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.*
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import java.util.function.Function
+import java.util.stream.Collectors
 
-import com.fasterxml.jackson.annotation.*;
-import com.wolfyscript.scaffolding.PluginWrapper;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-@KeyedStaticId(key = "compound")
-public class NBTTagConfigCompound extends NBTTagConfig {
+@StaticNamespacedKey(key = "compound")
+class NBTTagConfigCompound : NBTTagConfig {
 
     @JsonIgnore
-    protected Map<String, NBTTagConfig> children;
+    var children: MutableMap<String, NBTTagConfig> = HashMap()
+        set(value) {
+            field = value.entries.stream().collect(
+                Collectors.toMap(
+                    { it.key },
+                    { entry: Map.Entry<String, NBTTagConfig> ->
+                        val value = entry.value
+                        value.parent = this
+                        value
+                    })
+            )
+        }
 
     @JsonCreator
-    NBTTagConfigCompound(@JacksonInject PluginWrapper wolfyUtils) {
-        super(wolfyUtils);
-        this.children = new HashMap<>();
+    internal constructor() : super() {
+        this.children = HashMap()
     }
 
-    public NBTTagConfigCompound(PluginWrapper wolfyUtils, NBTTagConfig parent) {
-        super(wolfyUtils, parent);
-        this.children = new HashMap<>();
+    constructor(parent: NBTTagConfig?) : super(parent) {
+        this.children = HashMap()
     }
 
-    protected NBTTagConfigCompound(NBTTagConfigCompound other) {
-        super(other.wolfyUtils);
-        this.children = other.children.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> {
-            NBTTagConfig value = entry.getValue().copy();
-            value.setParent(this);
-            return value;
-        }));
+    private constructor(other: NBTTagConfigCompound) : super() {
+        this.children = other.children
     }
 
     @JsonAnySetter
-    public void loadNonNestedChildren(String key, NBTTagConfig child) {
+    fun loadNonNestedChildren(key: String, child: NBTTagConfig) {
         //Sets the children that are specified in the root of the object without the "children" node!
         //That is supported behaviour!
-        children.putIfAbsent(key, child);
-        child.setParent(this);
+        children.putIfAbsent(key, child)
+        child.parent = this
     }
 
     @JsonSetter("children")
-    public void setChildren(Map<String, NBTTagConfig> children) {
-        this.children = children.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> {
-            NBTTagConfig value = entry.getValue();
-            value.setParent(this);
-            return value;
-        }));
+    private fun setJsonChildren(children: MutableMap<String, NBTTagConfig>) {
+        this.children = children
     }
 
     @JsonGetter
-    public Map<String, NBTTagConfig> getChildren() {
-        return children;
+    private fun getJsonChildren(): Map<String, NBTTagConfig> {
+        return children
     }
 
-    @Override
-    public NBTTagConfigCompound copy() {
-        return new NBTTagConfigCompound(this);
+    override fun copy(): NBTTagConfigCompound {
+        return NBTTagConfigCompound(this)
     }
-
 }

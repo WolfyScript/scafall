@@ -15,35 +15,29 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import com.wolfyscript.scaffolding.nbt.NBTTagConfigInt
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-
-import java.util.List;
-
-@KeyedStaticId(key = "list/int")
-public class NBTTagConfigListInt extends NBTTagConfigListPrimitive<Integer, NBTTagConfigInt> {
-
+@StaticNamespacedKey(key = "list/int")
+class NBTTagConfigListInt : NBTTagConfigListPrimitive<Int, NBTTagConfigInt> {
     @JsonCreator
-    NBTTagConfigListInt(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("values") List<NBTTagConfigInt> elements) {
-        super(wolfyUtils, elements, NBTTagConfigInt.class);
-    }
+    internal constructor(@JsonProperty("values") elements: List<NBTTagConfigInt>) : super(
+        elements,
+        NBTTagConfigInt::class.java
+    )
 
-    public NBTTagConfigListInt(WolfyUtils wolfyUtils, NBTTagConfig parent,  List<NBTTagConfigInt> elements) {
-        super(wolfyUtils, parent, NBTTagConfigInt.class, elements);
-    }
+    constructor(parent: NBTTagConfig?, elements: List<NBTTagConfigInt>) : super(
+        parent,
+        NBTTagConfigInt::class.java, elements
+    )
 
-    public NBTTagConfigListInt(NBTTagConfigList<NBTTagConfigInt> other) {
-        super(other);
-    }
+    constructor(other: NBTTagConfigList<NBTTagConfigInt>) : super(other)
 
-    @Override
-    public NBTTagConfigListInt copy() {
-        return new NBTTagConfigListInt(this);
+    override fun copy(): NBTTagConfigListInt {
+        return NBTTagConfigListInt(this)
     }
 }

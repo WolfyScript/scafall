@@ -22,4 +22,4 @@ import com.google.common.collect.HashBiMap
 import com.wolfyscript.scaffolding.identifier.Key
 import com.wolfyscript.scaffolding.identifier.Keyed
 
-class UniqueTypeRegistrySimple<V : Keyed>(key: Key, registries: Registries) : AbstractTypeRegistry<BiMap<Key, Class<out V>>, V>(key, HashBiMap.create(), registries)
+open class UniqueTypeRegistrySimple<V : Keyed>(key: Key, registries: Registries) : AbstractTypeRegistry<BiMap<Key, Class<out V>>, V>(key, HashBiMap.create(), registries)

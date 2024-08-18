@@ -15,25 +15,13 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.config.jackson
 
-package com.wolfyscript.scaffolding.config.jackson;
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationContext
+import java.io.IOException
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-
-import java.io.IOException;
-
-public abstract class ValueDeserializer<T> {
-
-    protected Class<T> type;
-
-    protected ValueDeserializer(Class<T> type) {
-        this.type = type;
-    }
-
-    public abstract T deserialize(JsonParser p, DeserializationContext ctxt) throws IOException;
-
-    public Class<T> getType() {
-        return type;
-    }
+abstract class ValueDeserializer<T> protected constructor(var type: Class<T>) {
+    @Throws(IOException::class)
+    abstract fun deserialize(p: JsonParser, ctxt: DeserializationContext): T?
 }

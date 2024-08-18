@@ -25,6 +25,12 @@ papermc = "1.20.4-R0.1-SNAPSHOT"
 bstats-bukkit = "3.0.0"
 item-nbt-api = "2.11.3"
 nbt-data-api = "2.11.3"
+# external plugins
+lwc = "5.0.16-SNAPSHOT"
+worldedit = "7.3.0-SNAPSHOT"
+worldguard = "7.1.0-SNAPSHOT"
+plotsquared = "6.4.0"
+mcmmo = "2.1.139-SNAPSHOT"
 ## ##
 
 ## Sponge Impl dependencies ##
@@ -62,11 +68,20 @@ bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats-buk
 tr7zw-item-nbt-api = { module = "de.tr7zw:item-nbt-api", version.ref = "item-nbt-api" }
 tr7zw-nbt-data-api = { module = "de.tr7zw:nbt-data-api", version.ref = "nbt-data-api" }
 adventure-platform-bukkit = { module = "net.kyori:adventure-platform-bukkit", version.ref = "adventure-platform-api" }
+# external plugins
+cubeside-lwc = { module = "de.iani.cubeside:LWC", version.ref="lwc" }
+worldedit-bukkit = { module = "com.sk89q.worldedit:worldedit-bukkit", version.ref="worldedit" }
+worldguard-bukkit = { module = "com.sk89q.worldguard:worldguard-bukkit", version.ref="worldguard" }
+plotsquared-core = { module = "com.plotsquared:PlotSquared-Core", version.ref = "plotsquared" }
+plotsquared-bukkit = { module = "com.plotsquared:PlotSquared-Bukkit", version.ref="plotsquared" }
+nossr50-mcmmo = { module = "com.gmail.nossr50.mcMMO:mcMMO", version.ref="mcmmo" }
+
 ## ##
 
 [bundles]
 jackson = [ "jackson-core", "jackson-annotations", "jackson-databind", "jackson-dataformat-hocon" ]
 adventure = [ "adventure-api", "adventure-platform-api", "adventure-text-minimessage" ]
+spigot-external-plugins = [ "cubeside-lwc", "worldedit-bukkit", "worldguard-bukkit", "plotsquared-bukkit", "plotsquared-core", "nossr50-mcmmo" ]
 
 [plugins]
 goooler-shadow = { id = "io.github.goooler.shadow", version.ref = "shadow" }

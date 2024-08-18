@@ -20,4 +20,4 @@ package com.wolfyscript.scaffolding.registry
 import com.wolfyscript.scaffolding.identifier.Key
 import com.wolfyscript.scaffolding.identifier.Keyed
 
-class TypeRegistrySimple<V : Keyed>(key: Key, registries: Registries) : AbstractTypeRegistry<MutableMap<Key, Class<out V>>, V>(key, HashMap(), registries)
+open class TypeRegistrySimple<V : Keyed>(key: Key, registries: Registries) : AbstractTypeRegistry<MutableMap<Key, Class<out V>>, V>(key, HashMap(), registries)

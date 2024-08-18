@@ -27,7 +27,7 @@ import com.wolfyscript.scaffolding.identifier.Keyed
  *
  * @param <V> The type of the value.
 </V> */
-class UniqueRegistrySimple<V : Keyed> : AbstractRegistry<BiMap<Key, V>, V> {
+open class UniqueRegistrySimple<V : Keyed> : AbstractRegistry<BiMap<Key, V>, V> {
     constructor(namespacedKey: Key, registries: Registries) : super(
         namespacedKey,
         HashBiMap.create<Key, V>(),

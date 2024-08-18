@@ -18,8 +18,7 @@
 package com.wolfyscript.scaffolding.eval.context
 
 class EvalContext {
-    private val variables: MutableMap<String, Any> =
-        HashMap()
+    private val variables: MutableMap<String, Any> = HashMap()
 
     fun getVariable(variableName: String): Any? {
         return variables[variableName]

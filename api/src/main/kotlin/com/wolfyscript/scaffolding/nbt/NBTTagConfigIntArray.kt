@@ -15,35 +15,23 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProvider
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.eval.value_provider.ValueProvider;
-
-@KeyedStaticId(key = "int_array")
-public class NBTTagConfigIntArray extends NBTTagConfigPrimitive<int[]> {
-
+@StaticNamespacedKey(key = "int_array")
+class NBTTagConfigIntArray : NBTTagConfigPrimitive<IntArray> {
     @JsonCreator
-    NBTTagConfigIntArray(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("value") ValueProvider<int[]> value) {
-        super(wolfyUtils, value);
-    }
+    internal constructor(@JsonProperty("value") value: ValueProvider<IntArray>) : super(value)
 
-    public NBTTagConfigIntArray(WolfyUtils wolfyUtils, NBTTagConfig parent, ValueProvider<int[]> value) {
-        super(wolfyUtils, parent, value);
-    }
+    constructor(parent: NBTTagConfig?, value: ValueProvider<IntArray>) : super(parent, value)
 
-    public NBTTagConfigIntArray(NBTTagConfigIntArray other) {
-        super(other.wolfyUtils, other.value);
-    }
+    constructor(other: NBTTagConfigIntArray) : super(other.value)
 
-    @Override
-    public NBTTagConfigIntArray copy() {
-        return new NBTTagConfigIntArray(this);
+    override fun copy(): NBTTagConfigIntArray {
+        return NBTTagConfigIntArray(this)
     }
-
 }

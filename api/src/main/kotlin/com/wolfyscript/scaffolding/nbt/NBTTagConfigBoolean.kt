@@ -15,73 +15,63 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.wolfyscript.scaffolding.config.jackson.OptionalValueSerializer
+import com.wolfyscript.scaffolding.config.jackson.ValueSerializer
+import com.wolfyscript.scaffolding.eval.context.EvalContext
+import com.wolfyscript.scaffolding.eval.operator.BoolOperator
+import com.wolfyscript.scaffolding.eval.operator.BoolOperatorConst
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import com.wolfyscript.scaffolding.nbt.NBTTagConfigBoolean
+import java.io.IOException
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.config.jackson.OptionalValueSerializer;
-import com.wolfyscript.utilities.config.jackson.ValueSerializer;
-import com.wolfyscript.utilities.eval.context.EvalContext;
-import com.wolfyscript.utilities.eval.operator.BoolOperator;
-import com.wolfyscript.utilities.eval.operator.BoolOperatorConst;
-
-import java.io.IOException;
-
-@OptionalValueSerializer(serializer = NBTTagConfigBoolean.OptionalValueSerializer.class)
-@KeyedStaticId(key = "bool")
-public class NBTTagConfigBoolean extends NBTTagConfig {
-
-    private final BoolOperator value;
+@OptionalValueSerializer(serializer = NBTTagConfigBoolean.OptionalValueSerializer::class)
+@StaticNamespacedKey(key = "bool")
+class NBTTagConfigBoolean : NBTTagConfig {
+    private val value: BoolOperator
 
     @JsonCreator
-    NBTTagConfigBoolean(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("value") BoolOperator value) {
-        super(wolfyUtils);
-        this.value = value;
+    internal constructor(@JsonProperty("value") value: BoolOperator) : super() {
+        this.value = value
     }
 
-    public NBTTagConfigBoolean(WolfyUtils wolfyUtils, NBTTagConfig parent, BoolOperator value) {
-        super(wolfyUtils, parent);
-        this.value = value;
+    constructor(parent: NBTTagConfig?, value: BoolOperator) : super(parent) {
+        this.value = value
     }
 
-    private NBTTagConfigBoolean(NBTTagConfigBoolean other) {
-        super(other.wolfyUtils);
-        this.value = other.value;
+    private constructor(other: NBTTagConfigBoolean) : super() {
+        this.value = other.value
     }
 
-    public boolean getValue(EvalContext context) {
-        return value.evaluate(context);
+    fun getValue(context: EvalContext): Boolean {
+        return value.evaluate(context)
     }
 
-    public boolean getValue() {
-        return getValue(new EvalContext());
+    fun getValue(): Boolean {
+        return getValue(EvalContext())
     }
 
-    @Override
-    public NBTTagConfigBoolean copy() {
-        return new NBTTagConfigBoolean(this);
+    override fun copy(): NBTTagConfigBoolean {
+        return NBTTagConfigBoolean(this)
     }
 
-    public static class OptionalValueSerializer extends ValueSerializer<NBTTagConfigBoolean> {
-
-        public OptionalValueSerializer() {
-            super(NBTTagConfigBoolean.class);
-        }
-
-        @Override
-        public boolean serialize(NBTTagConfigBoolean targetObject, JsonGenerator generator, SerializerProvider provider) throws IOException {
-            if (targetObject.value instanceof BoolOperatorConst operatorConst) {
-                generator.writeObject(operatorConst);
-                return true;
+    class OptionalValueSerializer : ValueSerializer<NBTTagConfigBoolean>(NBTTagConfigBoolean::class.java) {
+        @Throws(IOException::class)
+        override fun serialize(
+            targetObject: NBTTagConfigBoolean,
+            generator: JsonGenerator,
+            provider: SerializerProvider
+        ): Boolean {
+            if (targetObject.value is BoolOperatorConst) {
+                generator.writeObject(targetObject.value)
+                return true
             }
-            return false;
+            return false
         }
     }
-
 }

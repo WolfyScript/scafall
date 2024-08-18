@@ -17,13 +17,9 @@
  */
 package com.wolfyscript.scaffolding.wrappers.world.items
 
-import com.wolfyscript.scaffolding.PluginWrapper
 import com.wolfyscript.scaffolding.data.DataKeyProvider
-import com.wolfyscript.scaffolding.world.items.ItemStackConfig
 
 interface Items {
-
-    fun createStackConfig(wolfyUtils: PluginWrapper, itemId: String): ItemStackConfig
 
     val dataKeyProvider: DataKeyProvider
 }

@@ -15,73 +15,59 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.config.jackson
 
-package com.wolfyscript.scaffolding.config.jackson;
-
-import com.fasterxml.jackson.databind.InjectableValues;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.wolfyscript.scaffolding.PluginWrapper;
-import com.wolfyscript.scaffolding.Scaffolding;
-import com.wolfyscript.scaffolding.ScaffoldingProvider;
+import com.fasterxml.jackson.databind.InjectableValues
+import com.fasterxml.jackson.databind.JsonDeserializer
+import com.fasterxml.jackson.databind.JsonSerializer
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.module.SimpleModule
+import com.wolfyscript.scaffolding.PluginWrapper
+import com.wolfyscript.scaffolding.Scaffolding
+import com.wolfyscript.scaffolding.ScaffoldingProvider.Companion.get
 
 /**
  * Used to manage and cache Jackson mappers.
  */
-public class MapperUtil {
-
-    private ObjectMapper globalMapper;
-    private final PluginWrapper pluginWrapper;
-
-    public MapperUtil(PluginWrapper pluginWrapper) {
-        this.pluginWrapper = pluginWrapper;
-        this.globalMapper = new ObjectMapper();
-    }
-
-    /**
-     * Sets the global ObjectMapper to the one specified.
-     *
-     * @param globalMapper The ObjectMapper to cache.
-     */
-    public void setGlobalMapper(ObjectMapper globalMapper) {
-        this.globalMapper = globalMapper;
-    }
-
+class MapperUtil(private val pluginWrapper: PluginWrapper) {
     /**
      * Gets the currently cached ObjectMapper.
      *
      * @return The cached ObjectMapper or null
      */
-    public ObjectMapper getGlobalMapper() {
-        return globalMapper;
-    }
+    /**
+     * Sets the global ObjectMapper to the one specified.
+     *
+     * @param globalMapper The ObjectMapper to cache.
+     */
+    var globalMapper: ObjectMapper = ObjectMapper()
 
     /**
-     * Gets the currently cached ObjectMapper and casts it to the specified type.<br>
+     * Gets the currently cached ObjectMapper and casts it to the specified type.<br></br>
      * May cause ClassCastException, if it cannot be cast to the type.
      *
      * @return The cached ObjectMapper or null
      */
-    public <M extends ObjectMapper> M getGlobalMapper(Class<M> mapperType) {
-        return mapperType.cast(globalMapper);
+    fun <M : ObjectMapper?> getGlobalMapper(mapperType: Class<M>): M {
+        return mapperType.cast(globalMapper)
     }
 
-    public <M extends ObjectMapper> M applyWolfyUtilsInjectableValues(M mapper, InjectableValues.Std injectableValues) {
-        mapper.setInjectableValues(injectableValues
-                .addValue(Scaffolding.class, ScaffoldingProvider.Companion.get())
-                .addValue(PluginWrapper.class, pluginWrapper)
-        );
-        return mapper;
+    fun <M : ObjectMapper?> applyWolfyUtilsInjectableValues(mapper: M, injectableValues: InjectableValues.Std): M {
+        mapper!!.setInjectableValues(
+            injectableValues
+                .addValue(Scaffolding::class.java, get())
+                .addValue(PluginWrapper::class.java, pluginWrapper)
+        )
+        return mapper
     }
 
-    private static <T> void addSerializer(SimpleModule module, JsonSerializer<T> serializer) {
-        module.addSerializer(serializer.handledType(), serializer);
-    }
+    companion object {
+        private fun <T> addSerializer(module: SimpleModule, serializer: JsonSerializer<T>) {
+            module.addSerializer(serializer.handledType(), serializer)
+        }
 
-    private static <T> void addDeserializer(SimpleModule module, JsonDeserializer<T> deserializer) {
-        module.addDeserializer((Class<? super T>) deserializer.handledType(), deserializer);
+        private fun <T> addDeserializer(module: SimpleModule, deserializer: JsonDeserializer<T>) {
+            module.addDeserializer(deserializer.handledType() as Class<in T>, deserializer)
+        }
     }
-
 }

@@ -18,8 +18,8 @@
 package com.wolfyscript.scaffolding.data
 
 import com.wolfyscript.scaffolding.identifier.Key
-import com.wolfyscript.scaffolding.world.items.DyeColor
-import com.wolfyscript.scaffolding.world.items.MapColor
+import com.wolfyscript.scaffolding.wrappers.world.items.DyeColor
+import com.wolfyscript.scaffolding.wrappers.world.items.MapColor
 import com.wolfyscript.scaffolding.wrappers.world.items.data.Enchantments
 import com.wolfyscript.scaffolding.wrappers.world.items.data.MapInfo
 import com.wolfyscript.scaffolding.wrappers.world.items.data.Profile

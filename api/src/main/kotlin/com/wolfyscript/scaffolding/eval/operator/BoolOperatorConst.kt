@@ -17,12 +17,10 @@
  */
 package com.wolfyscript.scaffolding.eval.operator
 
-import com.fasterxml.jackson.annotation.JacksonInject
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.wolfyscript.scaffolding.PluginWrapper
 import com.wolfyscript.scaffolding.config.jackson.OptionalValueSerializer
 import com.wolfyscript.scaffolding.eval.context.EvalContext
 import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
@@ -31,11 +29,11 @@ import java.io.IOException
 @OptionalValueSerializer(serializer = BoolOperatorConst.ValueSerializer::class)
 @StaticNamespacedKey(key = "bool/const")
 class BoolOperatorConst @JsonCreator constructor(
-    @JacksonInject pluginWrapper: PluginWrapper, @param:JsonProperty(
+    @param:JsonProperty(
         "value"
     ) private val value: Boolean
 ) :
-    BoolOperator(pluginWrapper) {
+    BoolOperator() {
     override fun evaluate(context: EvalContext): Boolean {
         return value
     }

@@ -15,35 +15,28 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-
-import java.util.List;
-
-@KeyedStaticId(key = "list/compound")
-public class NBTTagConfigListCompound extends NBTTagConfigList<NBTTagConfigCompound> {
-
+@StaticNamespacedKey(key = "list/compound")
+class NBTTagConfigListCompound : NBTTagConfigList<NBTTagConfigCompound> {
     @JsonCreator
-    NBTTagConfigListCompound(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("values") List<NBTTagConfigCompound> elements) {
-        super(wolfyUtils, elements, NBTTagConfigCompound.class);
-    }
+    internal constructor(@JsonProperty("values") elements: List<NBTTagConfigCompound>) : super(
+        elements,
+        NBTTagConfigCompound::class.java
+    )
 
-    public NBTTagConfigListCompound(WolfyUtils wolfyUtils, NBTTagConfig parent, List<NBTTagConfigCompound> elements) {
-        super(wolfyUtils, parent, NBTTagConfigCompound.class, elements);
-    }
+    constructor(parent: NBTTagConfig?, elements: List<NBTTagConfigCompound>) : super(
+        parent,
+        NBTTagConfigCompound::class.java, elements
+    )
 
-    private NBTTagConfigListCompound(NBTTagConfigListCompound other) {
-        super(other);
-    }
+    private constructor(other: NBTTagConfigListCompound) : super(other)
 
-    @Override
-    public NBTTagConfigListCompound copy() {
-        return new NBTTagConfigListCompound(this);
+    override fun copy(): NBTTagConfigListCompound {
+        return NBTTagConfigListCompound(this)
     }
 }

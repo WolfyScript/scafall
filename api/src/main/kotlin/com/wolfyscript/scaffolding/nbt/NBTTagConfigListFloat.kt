@@ -15,35 +15,29 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import com.wolfyscript.scaffolding.nbt.NBTTagConfigFloat
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-
-import java.util.List;
-
-@KeyedStaticId(key = "list/float")
-public class NBTTagConfigListFloat extends NBTTagConfigListPrimitive<Float, NBTTagConfigFloat> {
-
+@StaticNamespacedKey(key = "list/float")
+class NBTTagConfigListFloat : NBTTagConfigListPrimitive<Float, NBTTagConfigFloat> {
     @JsonCreator
-    NBTTagConfigListFloat(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("values") List<NBTTagConfigFloat> elements) {
-        super(wolfyUtils, elements, NBTTagConfigFloat.class);
-    }
+    internal constructor(@JsonProperty("values") elements: List<NBTTagConfigFloat>) : super(
+        elements,
+        NBTTagConfigFloat::class.java
+    )
 
-    public NBTTagConfigListFloat(WolfyUtils wolfyUtils, NBTTagConfig parent, List<NBTTagConfigFloat> elements) {
-        super(wolfyUtils, parent, NBTTagConfigFloat.class, elements);
-    }
+    constructor(parent: NBTTagConfig?, elements: List<NBTTagConfigFloat>) : super(
+        parent,
+        NBTTagConfigFloat::class.java, elements
+    )
 
-    public NBTTagConfigListFloat(NBTTagConfigList<NBTTagConfigFloat> other) {
-        super(other);
-    }
+    constructor(other: NBTTagConfigList<NBTTagConfigFloat>) : super(other)
 
-    @Override
-    public NBTTagConfigListFloat copy() {
-        return new NBTTagConfigListFloat(this);
+    override fun copy(): NBTTagConfigListFloat {
+        return NBTTagConfigListFloat(this)
     }
 }

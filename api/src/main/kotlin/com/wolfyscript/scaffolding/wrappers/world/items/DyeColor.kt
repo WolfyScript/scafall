@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.wolfyscript.scaffolding.world.items
+package com.wolfyscript.scaffolding.wrappers.world.items
 
 enum class DyeColor(id: Int, name: String, rgb: Int, mapColor: Any, fireworkColor: Int, textColor: Int) {
 

@@ -73,15 +73,15 @@ annotation class OptionalValueDeserializer(
                 this.alwaysDelegate = reference.delegateObjectDeserializer
                 val constructedDeserializer: ValueDeserializer<*> =
                     reference.deserializer.primaryConstructor?.call() ?: throw IllegalArgumentException("")
-                if (genericType.isAssignableFrom(constructedDeserializer.getType())) {
+                if (genericType.isAssignableFrom(constructedDeserializer.type)) {
                     this.deserializer = constructedDeserializer as ValueDeserializer<T>
                 } else {
-                    throw IllegalArgumentException("ValueDeserializer of type \"" + constructedDeserializer.getType().name + "\" cannot construct type \"" + genericType.name + "\"")
+                    throw IllegalArgumentException("ValueDeserializer of type \"" + constructedDeserializer.type.name + "\" cannot construct type \"" + genericType.name + "\"")
                 }
             }
 
             @Throws(IOException::class)
-            override fun deserialize(p: JsonParser, ctxt: DeserializationContext): T {
+            override fun deserialize(p: JsonParser, ctxt: DeserializationContext): T? {
                 if (p.isExpectedStartObjectToken) {
                     if (alwaysDelegate) {
                         val value = deserializer!!.deserialize(p, ctxt)
@@ -104,7 +104,7 @@ annotation class OptionalValueDeserializer(
                 p: JsonParser,
                 ctxt: DeserializationContext,
                 typeDeserializer: TypeDeserializer
-            ): Any {
+            ): Any? {
                 if (p.isExpectedStartObjectToken) {
                     if (alwaysDelegate) {
                         val value = deserializer!!.deserialize(p, ctxt)

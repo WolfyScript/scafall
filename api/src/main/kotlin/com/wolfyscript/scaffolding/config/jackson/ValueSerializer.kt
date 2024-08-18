@@ -15,25 +15,13 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.config.jackson
 
-package com.wolfyscript.scaffolding.config.jackson;
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.databind.SerializerProvider
+import java.io.IOException
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-
-import java.io.IOException;
-
-public abstract class ValueSerializer<T> {
-
-    protected Class<T> type;
-
-    protected ValueSerializer(Class<T> type) {
-        this.type = type;
-    }
-
-    public abstract boolean serialize(T targetObject, JsonGenerator generator, SerializerProvider provider) throws IOException;
-
-    public Class<T> getType() {
-        return type;
-    }
+abstract class ValueSerializer<T> protected constructor(var type: Class<T>) {
+    @Throws(IOException::class)
+    abstract fun serialize(targetObject: T, generator: JsonGenerator, provider: SerializerProvider): Boolean
 }

@@ -17,11 +17,9 @@
  */
 package com.wolfyscript.scaffolding.eval.operator
 
-import com.fasterxml.jackson.annotation.JacksonInject
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonNode
-import com.wolfyscript.scaffolding.PluginWrapper
 import com.wolfyscript.scaffolding.config.jackson.KeyedBaseType
 import com.wolfyscript.scaffolding.config.jackson.OptionalValueDeserializer
 import com.wolfyscript.scaffolding.config.jackson.ValueDeserializer
@@ -37,7 +35,7 @@ import java.io.IOException
 abstract class BoolOperator : Operator {
     constructor(namespacedKey: Key) : super(namespacedKey)
 
-    constructor(@JacksonInject wolfyUtils: PluginWrapper) : super(wolfyUtils)
+    constructor() : super()
 
     abstract fun evaluate(context: EvalContext): Boolean
 
@@ -47,11 +45,7 @@ abstract class BoolOperator : Operator {
         override fun deserialize(p: JsonParser, ctxt: DeserializationContext): BoolOperator {
             val node = p.readValueAsTree<JsonNode>()
             return BoolOperatorConst(
-                ctxt.findInjectableValue(
-                    PluginWrapper::class.java.name,
-                    null,
-                    null
-                ) as PluginWrapper, node.asBoolean()
+                node.asBoolean()
             )
         }
 

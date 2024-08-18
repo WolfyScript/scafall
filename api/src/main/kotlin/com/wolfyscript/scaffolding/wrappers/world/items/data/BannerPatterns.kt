@@ -18,7 +18,7 @@
 package com.wolfyscript.scaffolding.wrappers.world.items.data
 
 import com.wolfyscript.scaffolding.identifier.Key
-import com.wolfyscript.scaffolding.world.items.DyeColor
+import com.wolfyscript.scaffolding.wrappers.world.items.DyeColor
 
 interface BannerPatterns {
     fun layers(): List<Layer>

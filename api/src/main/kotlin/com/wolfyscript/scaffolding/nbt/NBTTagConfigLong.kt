@@ -15,59 +15,48 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.wolfyscript.scaffolding.config.jackson.OptionalValueSerializer
+import com.wolfyscript.scaffolding.config.jackson.ValueSerializer
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProvider
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProviderLong
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProviderLongConst
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import com.wolfyscript.scaffolding.nbt.NBTTagConfigLong
+import java.io.IOException
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.config.jackson.OptionalValueSerializer;
-import com.wolfyscript.utilities.config.jackson.ValueSerializer;
-import com.wolfyscript.utilities.eval.value_provider.ValueProvider;
-import com.wolfyscript.utilities.eval.value_provider.ValueProviderLong;
-import com.wolfyscript.utilities.eval.value_provider.ValueProviderLongConst;
-
-import java.io.IOException;
-
-@OptionalValueSerializer(serializer = NBTTagConfigLong.OptionalValueSerializer.class)
-@KeyedStaticId(key = "long")
-public class NBTTagConfigLong extends NBTTagConfigPrimitive<Long> {
-
+@OptionalValueSerializer(serializer = NBTTagConfigLong.OptionalValueSerializer::class)
+@StaticNamespacedKey(key = "long")
+class NBTTagConfigLong : NBTTagConfigPrimitive<Long> {
     @JsonCreator
-    NBTTagConfigLong(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("value") ValueProviderLong value) {
-        super(wolfyUtils, value);
+    internal constructor(@JsonProperty("value") value: ValueProviderLong) : super(value)
+
+    constructor(parent: NBTTagConfig?, value: ValueProvider<Long>) : super(parent, value)
+
+    constructor(other: NBTTagConfigPrimitive<Long>) : super(other)
+
+    override fun copy(): NBTTagConfigLong {
+        return NBTTagConfigLong(this)
     }
 
-    public NBTTagConfigLong(WolfyUtils wolfyUtils, NBTTagConfig parent, ValueProvider<Long> value) {
-        super(wolfyUtils, parent, value);
-    }
-
-    public NBTTagConfigLong(NBTTagConfigPrimitive<Long> other) {
-        super(other);
-    }
-
-    @Override
-    public NBTTagConfigLong copy() {
-        return new NBTTagConfigLong(this);
-    }
-
-    public static class OptionalValueSerializer extends ValueSerializer<NBTTagConfigLong> {
-
-        public OptionalValueSerializer() {
-            super(NBTTagConfigLong.class);
-        }
-
-        @Override
-        public boolean serialize(NBTTagConfigLong targetObject, JsonGenerator generator, SerializerProvider provider) throws IOException {
-            if (targetObject.value instanceof ValueProviderLongConst longConst) {
-                generator.writeObject(longConst);
-                return true;
+    class OptionalValueSerializer :
+        ValueSerializer<NBTTagConfigLong>(NBTTagConfigLong::class.java) {
+        @Throws(IOException::class)
+        override fun serialize(
+            targetObject: NBTTagConfigLong,
+            generator: JsonGenerator,
+            provider: SerializerProvider
+        ): Boolean {
+            if (targetObject.value is ValueProviderLongConst) {
+                generator.writeObject(targetObject.value)
+                return true
             }
-            return false;
+            return false
         }
     }
 }

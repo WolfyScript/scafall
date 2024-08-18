@@ -15,35 +15,29 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import com.wolfyscript.scaffolding.nbt.NBTTagConfigIntArray
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-
-import java.util.List;
-
-@KeyedStaticId(key = "list/int_array")
-public class NBTTagConfigListIntArray extends NBTTagConfigListPrimitive<int[], NBTTagConfigIntArray> {
-
+@StaticNamespacedKey(key = "list/int_array")
+class NBTTagConfigListIntArray : NBTTagConfigListPrimitive<IntArray, NBTTagConfigIntArray> {
     @JsonCreator
-    NBTTagConfigListIntArray(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("values") List<NBTTagConfigIntArray> elements) {
-        super(wolfyUtils, elements, NBTTagConfigIntArray.class);
-    }
+    internal constructor(@JsonProperty("values") elements: List<NBTTagConfigIntArray>) : super(
+        elements,
+        NBTTagConfigIntArray::class.java
+    )
 
-    public NBTTagConfigListIntArray(WolfyUtils wolfyUtils, NBTTagConfig parent, List<NBTTagConfigIntArray> elements) {
-        super(wolfyUtils, parent, NBTTagConfigIntArray.class, elements);
-    }
+    constructor(parent: NBTTagConfig?, elements: List<NBTTagConfigIntArray>) : super(
+        parent,
+        NBTTagConfigIntArray::class.java, elements
+    )
 
-    public NBTTagConfigListIntArray(NBTTagConfigList<NBTTagConfigIntArray> other) {
-        super(other);
-    }
+    constructor(other: NBTTagConfigList<NBTTagConfigIntArray>) : super(other)
 
-    @Override
-    public NBTTagConfigListIntArray copy() {
-        return new NBTTagConfigListIntArray(this);
+    override fun copy(): NBTTagConfigListIntArray {
+        return NBTTagConfigListIntArray(this)
     }
 }

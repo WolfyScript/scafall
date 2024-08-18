@@ -37,4 +37,4 @@ abstract class LogicalOperator(
         "this"
     ) protected val thisValue: BoolOperator
 ) :
-    BoolOperator(wolfyUtils)
+    BoolOperator()

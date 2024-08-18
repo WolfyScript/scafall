@@ -19,7 +19,6 @@ package com.wolfyscript.scaffolding.wrappers.world.items
 
 import com.wolfyscript.scaffolding.data.DataHolder
 import com.wolfyscript.scaffolding.identifier.Key
-import com.wolfyscript.scaffolding.world.items.ItemStackConfig
 
 interface ItemStack : DataHolder<ItemStack> {
     /**

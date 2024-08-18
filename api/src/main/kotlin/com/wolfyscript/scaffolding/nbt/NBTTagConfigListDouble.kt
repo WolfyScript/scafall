@@ -15,35 +15,29 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import com.wolfyscript.scaffolding.nbt.NBTTagConfigDouble
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-
-import java.util.List;
-
-@KeyedStaticId(key = "list/double")
-public class NBTTagConfigListDouble extends NBTTagConfigListPrimitive<Double, NBTTagConfigDouble> {
-
+@StaticNamespacedKey(key = "list/double")
+class NBTTagConfigListDouble : NBTTagConfigListPrimitive<Double, NBTTagConfigDouble> {
     @JsonCreator
-    NBTTagConfigListDouble(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("values") List<NBTTagConfigDouble> elements) {
-        super(wolfyUtils, elements, NBTTagConfigDouble.class);
-    }
+    internal constructor(@JsonProperty("values") elements: List<NBTTagConfigDouble>) : super(
+        elements,
+        NBTTagConfigDouble::class.java
+    )
 
-    public NBTTagConfigListDouble(WolfyUtils wolfyUtils, NBTTagConfig parent, List<NBTTagConfigDouble> elements) {
-        super(wolfyUtils, parent, NBTTagConfigDouble.class, elements);
-    }
+    constructor(parent: NBTTagConfig?, elements: List<NBTTagConfigDouble>) : super(
+        parent,
+        NBTTagConfigDouble::class.java, elements
+    )
 
-    public NBTTagConfigListDouble(NBTTagConfigList<NBTTagConfigDouble> other) {
-        super(other);
-    }
+    constructor(other: NBTTagConfigList<NBTTagConfigDouble>) : super(other)
 
-    @Override
-    public NBTTagConfigListDouble copy() {
-        return new NBTTagConfigListDouble(this);
+    override fun copy(): NBTTagConfigListDouble {
+        return NBTTagConfigListDouble(this)
     }
 }

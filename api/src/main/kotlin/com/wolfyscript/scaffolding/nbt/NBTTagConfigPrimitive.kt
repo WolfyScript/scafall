@@ -15,38 +15,27 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.wolfyscript.scaffolding.config.jackson.KeyedBaseType
+import com.wolfyscript.scaffolding.eval.value_provider.ValueProvider
 
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.wolfyscript.utilities.WolfyUtils;
-import com.wolfyscript.utilities.config.jackson.KeyedBaseType;
-import com.wolfyscript.utilities.eval.value_provider.ValueProvider;
-
-@KeyedBaseType(baseType = NBTTagConfig.class)
-public abstract class NBTTagConfigPrimitive<VAL> extends NBTTagConfig {
-
-    protected final ValueProvider<VAL> value;
+@KeyedBaseType(baseType = NBTTagConfig::class)
+abstract class NBTTagConfigPrimitive<VAL> : NBTTagConfig {
+    val value: ValueProvider<VAL>
 
     @JsonCreator
-    protected NBTTagConfigPrimitive(@JacksonInject WolfyUtils wolfyUtils, ValueProvider<VAL> value) {
-        super(wolfyUtils);
-        this.value = value;
+    protected constructor(value: ValueProvider<VAL>) : super() {
+        this.value = value
     }
 
-    protected NBTTagConfigPrimitive(WolfyUtils wolfyUtils, NBTTagConfig parent, ValueProvider<VAL> value) {
-        super(wolfyUtils, parent);
-        this.value = value;
+    protected constructor(parent: NBTTagConfig?, value: ValueProvider<VAL>) : super(parent) {
+        this.value = value
     }
 
-    protected NBTTagConfigPrimitive(NBTTagConfigPrimitive<VAL> other) {
-        super(other.wolfyUtils);
-        this.value = other.value;
-    }
-
-    public ValueProvider<VAL> getValue() {
-        return value;
+    protected constructor(other: NBTTagConfigPrimitive<VAL>) : super() {
+        this.value = other.value
     }
 }

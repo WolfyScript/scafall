@@ -21,8 +21,8 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import java.io.IOException
 
-interface Deserialize<T> {
+fun interface Deserialize<T> {
 
     @Throws(IOException::class)
-    fun deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): T
+    fun deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): T?
 }

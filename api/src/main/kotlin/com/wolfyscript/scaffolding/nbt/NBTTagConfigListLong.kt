@@ -15,35 +15,29 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scaffolding.identifier.StaticNamespacedKey
+import com.wolfyscript.scaffolding.nbt.NBTTagConfigLong
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.KeyedStaticId;
-import com.wolfyscript.utilities.WolfyUtils;
-
-import java.util.List;
-
-@KeyedStaticId(key = "list/long")
-public class NBTTagConfigListLong extends NBTTagConfigListPrimitive<Long, NBTTagConfigLong> {
-
+@StaticNamespacedKey(key = "list/long")
+class NBTTagConfigListLong : NBTTagConfigListPrimitive<Long, NBTTagConfigLong> {
     @JsonCreator
-    NBTTagConfigListLong(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("values") List<NBTTagConfigLong> elements) {
-        super(wolfyUtils, elements, NBTTagConfigLong.class);
-    }
+    internal constructor(@JsonProperty("values") elements: List<NBTTagConfigLong>) : super(
+        elements,
+        NBTTagConfigLong::class.java
+    )
 
-    public NBTTagConfigListLong(WolfyUtils wolfyUtils, NBTTagConfig parent, List<NBTTagConfigLong> elements) {
-        super(wolfyUtils, parent, NBTTagConfigLong.class, elements);
-    }
+    constructor(parent: NBTTagConfig?, elements: List<NBTTagConfigLong>) : super(
+        parent,
+        NBTTagConfigLong::class.java, elements
+    )
 
-    public NBTTagConfigListLong(NBTTagConfigList<NBTTagConfigLong> other) {
-        super(other);
-    }
+    constructor(other: NBTTagConfigList<NBTTagConfigLong>) : super(other)
 
-    @Override
-    public NBTTagConfigListLong copy() {
-        return new NBTTagConfigListLong(this);
+    override fun copy(): NBTTagConfigListLong {
+        return NBTTagConfigListLong(this)
     }
 }

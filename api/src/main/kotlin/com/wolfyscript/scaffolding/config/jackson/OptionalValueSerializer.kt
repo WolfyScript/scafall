@@ -71,10 +71,10 @@ annotation class OptionalValueSerializer(val serializer: KClass<out ValueSeriali
             init {
                 val constructedDeserializer: ValueSerializer<*> =
                     reference.serializer.primaryConstructor?.call() ?: throw IllegalArgumentException("No primary constructor found")
-                if (genericType.isAssignableFrom(constructedDeserializer.getType())) {
+                if (genericType.isAssignableFrom(constructedDeserializer.type)) {
                     this.serializer = constructedDeserializer as ValueSerializer<T>
                 } else {
-                    throw IllegalArgumentException("ValueSerializer of type \"" + constructedDeserializer.getType().name + "\" cannot handle type \"" + genericType.name + "\"")
+                    throw IllegalArgumentException("ValueSerializer of type \"" + constructedDeserializer.type.name + "\" cannot handle type \"" + genericType.name + "\"")
                 }
             }
 

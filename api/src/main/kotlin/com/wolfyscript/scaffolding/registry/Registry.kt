@@ -32,7 +32,7 @@ interface Registry<V> : Iterable<V> {
      * @param key The [NamespacedKey] of the value.
      * @return The value of the [NamespacedKey].
      */
-    fun get(key: Key): V?
+    operator fun get(key: Key): V?
 
     /**
      * Receives the key under which the value is registered in this Registry.<br></br>

@@ -15,118 +15,80 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.*
+import java.util.*
+import kotlin.collections.ArrayList
 
-import com.fasterxml.jackson.annotation.*;
-import com.wolfyscript.utilities.WolfyUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-public abstract class NBTTagConfigList<VAL extends NBTTagConfig> extends NBTTagConfig {
+abstract class NBTTagConfigList<VAL : NBTTagConfig> : NBTTagConfig {
+    @JsonIgnore
+    val elementType: Class<VAL>
 
     @JsonIgnore
-    private final Class<VAL> elementType;
-    @JsonIgnore
-    private final List<Element<VAL>> elements;
-    private List<VAL> values;
+    val elements: List<Element<VAL>>
+    var values: List<VAL> = ArrayList()
+        set(value) {
+            field = value.stream().peek { it.parent = this }.toList()
+        }
 
     @JsonCreator
-    NBTTagConfigList(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("values") List<VAL> values, Class<VAL> elementClass) {
-        super(wolfyUtils);
-        this.elementType = elementClass;
-        setValues(values);
-        this.elements = new ArrayList<>();
+    internal constructor(@JsonProperty("values") values: List<VAL>, elementClass: Class<VAL>) : super() {
+        this.elementType = elementClass
+        this.values = values
+        this.elements = ArrayList()
     }
 
-    public NBTTagConfigList(WolfyUtils wolfyUtils, NBTTagConfig parent, Class<VAL> elementType, List<VAL> values) {
-        super(wolfyUtils, parent);
-        this.elementType = elementType;
-        setValues(values);
-        this.elements = new ArrayList<>();
+    constructor(parent: NBTTagConfig?, elementType: Class<VAL>, values: List<VAL>) : super(parent) {
+        this.elementType = elementType
+        this.values = values
+        this.elements = ArrayList()
     }
 
-    protected NBTTagConfigList(NBTTagConfigList<VAL> other) {
-        super(other.wolfyUtils);
-        this.elementType = other.elementType;
-        this.values = other.values.stream().map(val -> {
-            VAL copy = (VAL) val.copy();
-            copy.setParent(this);
-            return copy;
-        }).toList();
-        this.elements = other.elements.stream().map(element -> {
-            Element<VAL> copyElem = element.copy();
-            copyElem.getValue().setParent(this);
-            return copyElem;
-        }).toList();
+    protected constructor(other: NBTTagConfigList<VAL>) : super() {
+        this.elementType = other.elementType
+        this.values = other.values.map { it.copy() as VAL }
+        this.elements = other.elements.stream().map { element: Element<VAL> ->
+            val copyElem = element.copy()
+            copyElem.value.parent = this
+            copyElem
+        }.toList()
     }
 
-    public List<Element<VAL>> getElements() {
-        return elements;
-    }
-
-    public void setValues(List<VAL> values) {
-        this.values = values.stream().peek(val -> val.setParent(this)).toList();
-    }
-
-    public List<VAL> getValues() {
-        return values;
-    }
-
-    public Class<VAL> getElementType() {
-        return elementType;
-    }
-
-    public static class Element<VAL extends NBTTagConfig> {
-
+    class Element<VAL : NBTTagConfig> private constructor(other: Element<VAL>) {
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer index;
+        private var index: Int?
+
+        @get:JsonGetter
+        @set:JsonSetter
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private VAL value;
+        var value: VAL
 
-        public Element() {
-            this.index = null;
-            this.value = null;
+        init {
+            this.index = other.index
+            this.value = other.value.copy() as VAL
         }
 
-        private Element(Element<VAL> other) {
-            this.index = other.index;
-            this.value = (VAL) other.getValue().copy();
+        private fun index(): Optional<Int> {
+            return Optional.ofNullable(index)
         }
 
-        private Optional<Integer> index() {
-            return Optional.ofNullable(index);
-        }
-
-        private Optional<VAL> value() {
-            return Optional.ofNullable(value);
+        private fun value(): Optional<VAL> {
+            return Optional.ofNullable(value)
         }
 
         @JsonSetter
-        public void setIndex(int index) {
-            this.index = index;
+        fun setIndex(index: Int) {
+            this.index = index
         }
 
         @JsonGetter
-        private Integer getIndex() {
-            return index;
+        private fun getIndex(): Int? {
+            return index
         }
 
-        @JsonSetter
-        public void setValue(VAL value) {
-            this.value = value;
-        }
-
-        @JsonGetter
-        public VAL getValue() {
-            return value;
-        }
-
-        public Element<VAL> copy() {
-            return new Element<>(this);
+        fun copy(): Element<VAL> {
+            return Element(this)
         }
     }
-
 }

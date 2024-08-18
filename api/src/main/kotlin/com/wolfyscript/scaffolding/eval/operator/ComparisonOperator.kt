@@ -40,6 +40,6 @@ abstract class ComparisonOperator<V : Comparable<V>?> protected constructor(
     @JvmField protected var thisValue: ValueProvider<V>,
     @JvmField protected var thatValue: ValueProvider<V>
 ) :
-    BoolOperator(wolfyUtils) {
+    BoolOperator() {
     abstract override fun evaluate(context: EvalContext): Boolean
 }

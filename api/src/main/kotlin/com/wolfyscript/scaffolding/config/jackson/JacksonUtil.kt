@@ -15,58 +15,58 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.config.jackson
 
-package com.wolfyscript.scaffolding.config.jackson;
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter
+import com.fasterxml.jackson.databind.*
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer
+import com.fasterxml.jackson.databind.module.SimpleModule
+import com.fasterxml.jackson.databind.ser.std.StdSerializer
+import java.io.IOException
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import org.jetbrains.annotations.NotNull;
+object JacksonUtil {
+    val objectMapper: ObjectMapper = ObjectMapper()
 
-import java.io.IOException;
-
-public class JacksonUtil {
-
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-
-    public static ObjectMapper getObjectMapper() {
-        return objectMapper;
+    @JvmStatic
+    fun getObjectWriter(prettyPrinting: Boolean): ObjectWriter {
+        return objectMapper.writer(if (prettyPrinting) DefaultPrettyPrinter() else null)
     }
 
-    public static ObjectWriter getObjectWriter(boolean prettyPrinting) {
-        return objectMapper.writer(prettyPrinting ? new DefaultPrettyPrinter() : null);
+    @JvmStatic
+    fun registerModule(module: Module?) {
+        objectMapper.registerModule(module)
     }
 
-    public static void registerModule(Module module) {
-        objectMapper.registerModule(module);
-    }
-
-    public static <T> void addSerializer(SimpleModule module, Class<T> type, @NotNull Serialize<T> serialize) {
-        module.addSerializer(type, new StdSerializer<>(type) {
-            @Override
-            public void serialize(T t, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-                serialize.serialize(t, jsonGenerator, serializerProvider);
+    @JvmStatic
+    fun <T> addSerializer(module: SimpleModule, type: Class<T>?, serialize: Serialize<T>) {
+        module.addSerializer(type, object : StdSerializer<T>(type) {
+            @Throws(IOException::class)
+            override fun serialize(t: T, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider) {
+                serialize.serialize(t, jsonGenerator, serializerProvider)
             }
-        });
+        })
     }
 
-    public static <T> void addDeserializer(SimpleModule module, Class<T> type, @NotNull Deserialize<T> deserialize) {
-        module.addDeserializer(type, new StdDeserializer<>(type) {
-            @Override
-            public T deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-                return deserialize.deserialize(jsonParser, deserializationContext);
+    @JvmStatic
+    fun <T> addDeserializer(module: SimpleModule, type: Class<T>?, deserialize: Deserialize<T>) {
+        module.addDeserializer(type, object : StdDeserializer<T>(type) {
+            @Throws(IOException::class)
+            override fun deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): T {
+                return deserialize.deserialize(jsonParser, deserializationContext)
             }
-        });
+        })
     }
 
-    public static <T> void addSerializerAndDeserializer(SimpleModule module, Class<T> t, @NotNull Serialize<T> serialize, @NotNull Deserialize<T> deserialize) {
-        addSerializer(module, t, serialize);
-        addDeserializer(module, t, deserialize);
+    @JvmStatic
+    fun <T> addSerializerAndDeserializer(
+        module: SimpleModule,
+        t: Class<T>?,
+        serialize: Serialize<T>,
+        deserialize: Deserialize<T>
+    ) {
+        addSerializer(module, t, serialize)
+        addDeserializer(module, t, deserialize)
     }
-
 }

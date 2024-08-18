@@ -15,29 +15,19 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+package com.wolfyscript.scaffolding.nbt
 
-package com.wolfyscript.scaffolding.nbt;
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wolfyscript.utilities.WolfyUtils;
-
-import java.util.List;
-
-public abstract class NBTTagConfigListPrimitive<VAL, T extends NBTTagConfigPrimitive<VAL>> extends NBTTagConfigList<T> {
-
+abstract class NBTTagConfigListPrimitive<VAL, T : NBTTagConfigPrimitive<VAL>> : NBTTagConfigList<T> {
     @JsonCreator
-    NBTTagConfigListPrimitive(@JacksonInject WolfyUtils wolfyUtils, @JsonProperty("values") List<T> elements, Class<T> elementType) {
-        super(wolfyUtils, elements, elementType);
-    }
+    internal constructor(@JsonProperty("values") elements: List<T>, elementType: Class<T>) : super(
+        elements,
+        elementType
+    )
 
-    public NBTTagConfigListPrimitive(WolfyUtils wolfyUtils, NBTTagConfig parent, Class<T> elementType, List<T> values) {
-        super(wolfyUtils, parent, elementType, values);
-    }
+    constructor(parent: NBTTagConfig?, elementType: Class<T>, values: List<T>) : super(parent, elementType, values)
 
-    public NBTTagConfigListPrimitive(NBTTagConfigList<T> other) {
-        super(other);
-    }
-
+    constructor(other: NBTTagConfigList<T>) : super(other)
 }

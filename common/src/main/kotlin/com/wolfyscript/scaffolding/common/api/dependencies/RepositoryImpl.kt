@@ -1,7 +1,7 @@
 package com.wolfyscript.scaffolding.common.api.dependencies
 
-import com.wolfyscript.scaffolding.dependencies.Dependency
-import com.wolfyscript.scaffolding.dependencies.Repository
+import com.wolfyscript.scaffolding.maven.MavenDependency
+import com.wolfyscript.scaffolding.maven.MavenRepository
 import java.io.OutputStream
 import java.net.URL
 import java.net.URLConnection
@@ -10,7 +10,7 @@ import kotlin.io.path.outputStream
 
 class RepositoryImpl(
     url: String
-) : Repository {
+) : MavenRepository {
 
     override val url: String = "$url${
         if (url.endsWith("/")) {
@@ -20,12 +20,12 @@ class RepositoryImpl(
         }
     }" // Make sure it always ends with a leading /
 
-    private fun connect(dependency: Dependency): URLConnection {
-        return URL("$url${dependency.path}").openConnection()
+    private fun connect(mavenDependency: MavenDependency): URLConnection {
+        return URL("$url${mavenDependency.path}").openConnection()
     }
 
-    override fun download(dependency: Dependency, out: OutputStream) {
-        val connection = connect(dependency)
+    override fun download(mavenDependency: MavenDependency, out: OutputStream) {
+        val connection = connect(mavenDependency)
 
         connection.getInputStream().use { input ->
             out.use { out ->
@@ -34,8 +34,8 @@ class RepositoryImpl(
         }
     }
 
-    override fun download(dependency: Dependency, file: Path) {
-        download(dependency, file.outputStream())
+    override fun download(mavenDependency: MavenDependency, file: Path) {
+        download(mavenDependency, file.outputStream())
     }
 
 

@@ -15,12 +15,10 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package com.wolfyscript.scaffolding.world.items
+package com.wolfyscript.scaffolding.wrappers.world.items
 
 import com.fasterxml.jackson.annotation.JsonGetter
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.wolfyscript.scaffolding.PluginWrapper
 import com.wolfyscript.scaffolding.eval.context.EvalContext
 import com.wolfyscript.scaffolding.eval.operator.BoolOperator
 import com.wolfyscript.scaffolding.eval.operator.BoolOperatorConst
@@ -41,7 +39,6 @@ import java.util.Collections
 </I> */
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 abstract class ItemStackConfig(
-    @JsonIgnore protected val plugin: PluginWrapper,
     /**
      * The id of the item in the `<namespace>:<item_key>` format.
      */
@@ -69,7 +66,7 @@ abstract class ItemStackConfig(
     var amount: ValueProvider<Int> = ValueProviderIntegerConst(1)
     var repairCost: ValueProvider<Int> = ValueProviderIntegerConst(0)
     var damage: ValueProvider<Int> = ValueProviderIntegerConst(0)
-    var unbreakable: BoolOperator = BoolOperatorConst(plugin, false)
+    var unbreakable: BoolOperator = BoolOperatorConst(false)
     var customModelData: ValueProvider<Int>? = ValueProviderIntegerConst(0)
     var enchants: Map<String, ValueProvider<Int>> = HashMap()
         get() = Collections.unmodifiableMap(field)
@@ -78,14 +75,7 @@ abstract class ItemStackConfig(
      * Unhandled NBT Tags
      * ********************/
     @get:JsonGetter("nbt")
-    var nbt: NBTTagConfigCompound = NBTTagConfigCompound(plugin, null)
-
-    /**
-     * Constructs the implementation specific ItemStack from the settings.
-     *
-     * @return The constructed ItemStack.
-     */
-    abstract fun constructItemStack(): ItemStack?
+    var nbt: NBTTagConfigCompound = NBTTagConfigCompound(null)
 
     /**
      * Constructs the implementation specific ItemStack from the settings.
@@ -94,12 +84,12 @@ abstract class ItemStackConfig(
      * @param context The context to use.
      * @return The constructed ItemStack.
      */
-    abstract fun constructItemStack(context: EvalContext?): ItemStack?
+    abstract fun constructItemStack(context: EvalContext = EvalContext()): ItemStack?
 
     abstract fun constructItemStack(
-        context: EvalContext?,
+        context: EvalContext,
         miniMessage: MiniMessage?,
-        tagResolvers: TagResolver?
+        tagResolvers: TagResolver = TagResolver.empty()
     ): ItemStack?
 
 }

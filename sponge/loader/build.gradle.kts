@@ -21,7 +21,7 @@ sponge {
     }
     plugin("scaffolding") {
         displayName("scaffolding")
-        entrypoint("com.wolfyscript.scaffolding.sponge.loader.SpongeLoaderPlugin")
+        entrypoint("com.wolfyscript.scafall.sponge.loader.SpongeLoaderPlugin")
         description("APIs and Utils to help in the creation of cross-platform plugins")
         dependency("spongeapi") {
             loadOrder(PluginDependency.LoadOrder.AFTER)

@@ -1,8 +1,8 @@
-package com.wolfyscript.scaffolding.sponge.api.scheduling
+package com.wolfyscript.scafall.sponge.api.scheduling
 
-import com.wolfyscript.scaffolding.PluginWrapper
-import com.wolfyscript.scaffolding.scheduling.Scheduler
-import com.wolfyscript.scaffolding.scheduling.Task
+import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.scheduling.Scheduler
+import com.wolfyscript.scafall.scheduling.Task
 
 class SchedulerImpl : Scheduler {
 

@@ -1,13 +1,13 @@
-package com.wolfyscript.scaffolding.common.api.dependencies
+package com.wolfyscript.scafall.common.api.dependencies
 
-import com.wolfyscript.scaffolding.Scaffolding
-import com.wolfyscript.scaffolding.maven.MavenDependency
-import com.wolfyscript.scaffolding.maven.MavenDependencyHandler
+import com.wolfyscript.scafall.Scafall
+import com.wolfyscript.scafall.maven.MavenDependency
+import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import java.nio.file.Path
 import kotlin.io.path.exists
 
 class MavenDependencyHandlerImpl(
-    private val scaffolding: Scaffolding,
+    private val scafall: Scafall,
     private val cacheDir: Path
 ) : MavenDependencyHandler {
 
@@ -33,7 +33,7 @@ class MavenDependencyHandlerImpl(
             return cachePath;
         }
 
-        for (repository in scaffolding.mavenRepositoryHandler.repositories) {
+        for (repository in scafall.mavenRepositoryHandler.repositories) {
             try {
                 repository.download(mavenDependency, cachePath)
                 return cachePath

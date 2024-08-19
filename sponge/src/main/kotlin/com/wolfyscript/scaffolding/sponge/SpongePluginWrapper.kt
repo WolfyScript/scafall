@@ -1,7 +1,7 @@
-package com.wolfyscript.scaffolding.sponge
+package com.wolfyscript.scafall.sponge
 
-import com.wolfyscript.scaffolding.PluginWrapper
-import com.wolfyscript.scaffolding.common.api.into
+import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.common.api.into
 import org.spongepowered.plugin.PluginContainer
 
 class SpongePluginWrapper(val plugin: PluginContainer) : PluginWrapper {

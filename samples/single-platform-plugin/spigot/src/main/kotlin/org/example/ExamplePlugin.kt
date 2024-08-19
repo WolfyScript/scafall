@@ -1,7 +1,6 @@
 package org.example
 
-import com.wolfyscript.scaffolding.Scaffolding
-import com.wolfyscript.scaffolding.spigot.initOnSpigot
+import com.wolfyscript.scafall.spigot.initOnSpigot
 import org.bukkit.plugin.java.JavaPlugin
 
 class ExamplePlugin : JavaPlugin() {

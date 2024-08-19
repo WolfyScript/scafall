@@ -1,9 +1,9 @@
-package com.wolfyscript.scaffolding.common.api.identifiers
+package com.wolfyscript.scafall.common.api.identifiers
 
 import com.google.common.base.Preconditions
-import com.wolfyscript.scaffolding.identifier.Key
-import com.wolfyscript.scaffolding.identifier.Key.Companion.KEY_REGEX
-import com.wolfyscript.scaffolding.identifier.Key.Companion.NAMESPACE_REGEX
+import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.identifier.Key.Companion.KEY_REGEX
+import com.wolfyscript.scafall.identifier.Key.Companion.NAMESPACE_REGEX
 import java.util.regex.Pattern
 
 class KeyImpl(override val namespace: String, override val value: String) : Key {

@@ -1,7 +1,7 @@
-package com.wolfyscript.scaffolding.common.api.dependencies
+package com.wolfyscript.scafall.common.api.dependencies
 
-import com.wolfyscript.scaffolding.maven.MavenDependency
-import com.wolfyscript.scaffolding.maven.MavenRepository
+import com.wolfyscript.scafall.maven.MavenDependency
+import com.wolfyscript.scafall.maven.MavenRepository
 import java.io.OutputStream
 import java.net.URL
 import java.net.URLConnection

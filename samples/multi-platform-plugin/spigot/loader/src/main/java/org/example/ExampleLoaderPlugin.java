@@ -1,6 +1,6 @@
 package org.example;
 
-import com.wolfyscript.scaffolding.loader.ScaffoldingLoader;
+import com.wolfyscript.scafall.loader.ScaffoldingLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ExampleLoaderPlugin extends JavaPlugin {

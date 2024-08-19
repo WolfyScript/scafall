@@ -1,9 +1,9 @@
-package com.wolfyscript.scaffolding.common.api.factories
+package com.wolfyscript.scafall.common.api.factories
 
 import com.google.common.base.Preconditions
-import com.wolfyscript.scaffolding.common.api.identifiers.KeyImpl
-import com.wolfyscript.scaffolding.factories.IdentifierFactory
-import com.wolfyscript.scaffolding.identifier.Key
+import com.wolfyscript.scafall.common.api.identifiers.KeyImpl
+import com.wolfyscript.scafall.factories.IdentifierFactory
+import com.wolfyscript.scafall.identifier.Key
 
 class IdentifierFactoryImpl : IdentifierFactory {
 

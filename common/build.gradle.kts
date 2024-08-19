@@ -12,7 +12,7 @@ publishing {
     publications {
         create<MavenPublication>("lib") {
             from(components.getByName("java"))
-            groupId = "com.wolfyscript.scaffolding.common"
+            groupId = "com.wolfyscript.scafall.common"
             artifactId = "common"
         }
     }

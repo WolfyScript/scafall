@@ -1,6 +1,6 @@
-package com.wolfyscript.scaffolding.sponge
+package com.wolfyscript.scafall.sponge
 
-import com.wolfyscript.scaffolding.loader.PluginBootstrap
+import com.wolfyscript.scafall.loader.PluginBootstrap
 
 class ScaffoldingSpongeBootstrap : PluginBootstrap {
 

@@ -1,6 +1,6 @@
 name: Scaffolding
 version: '${version}'
-main: com.wolfyscript.scaffolding.loader.spigot.SpigotLoaderPlugin
+main: com.wolfyscript.scafall.loader.spigot.SpigotLoaderPlugin
 api-version: 1.21
 authors: [ WolfyScript ]
 load: STARTUP

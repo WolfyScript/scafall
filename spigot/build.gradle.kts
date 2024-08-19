@@ -82,7 +82,7 @@ publishing {
     publications {
         create<MavenPublication>("lib") {
             from(components.getByName("java"))
-            groupId = "com.wolfyscript.scaffolding.spigot"
+            groupId = "com.wolfyscript.scafall.spigot"
             artifactId = "spigot-implementation"
         }
     }

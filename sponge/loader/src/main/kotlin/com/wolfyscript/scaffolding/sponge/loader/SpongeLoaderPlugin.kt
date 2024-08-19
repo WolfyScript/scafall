@@ -1,10 +1,10 @@
-package com.wolfyscript.scaffolding.sponge.loader
+package com.wolfyscript.scafall.sponge.loader
 
 import com.google.inject.Inject
 import com.google.inject.Injector
-import com.wolfyscript.scaffolding.loader.PluginBootstrap
-import com.wolfyscript.scaffolding.loader.ScaffoldingLoader
-import com.wolfyscript.scaffolding.loader.InnerJarClassloader
+import com.wolfyscript.scafall.loader.PluginBootstrap
+import com.wolfyscript.scafall.loader.ScaffoldingLoader
+import com.wolfyscript.scafall.loader.InnerJarClassloader
 import org.spongepowered.api.Server
 import org.spongepowered.api.command.Command
 import org.spongepowered.api.event.Listener
@@ -22,7 +22,7 @@ class SpongeLoaderPlugin @Inject constructor(private val injector: Injector) {
     init {
         ScaffoldingLoader.initAPIClassLoader(InnerJarClassloader.create(javaClass.classLoader, "scaffolding-api.innerjar"))
         val bootstrap = ScaffoldingLoader.loadScaffoldingBootstrap("scaffolding-sponge.innerjar")
-        plugin = bootstrap.initScaffoldingPlatform("com.wolfyscript.scaffolding.sponge.ScaffoldingSpongeBootstrap", this)
+        plugin = bootstrap.initScaffoldingPlatform("com.wolfyscript.scafall.sponge.ScaffoldingSpongeBootstrap", this)
     }
 
     @Listener

@@ -1,8 +1,8 @@
-package com.wolfyscript.scaffolding.common.api.dependencies
+package com.wolfyscript.scafall.common.api.dependencies
 
-import com.wolfyscript.scaffolding.PluginWrapper
-import com.wolfyscript.scaffolding.maven.MavenRepository
-import com.wolfyscript.scaffolding.maven.MavenRepositoryHandler
+import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.maven.MavenRepository
+import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import java.util.Collections.unmodifiableSet
 
 class MavenRepositoryHandlerImpl() : MavenRepositoryHandler {

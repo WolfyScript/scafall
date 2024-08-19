@@ -1,6 +1,6 @@
-package com.wolfyscript.scaffolding.common.api
+package com.wolfyscript.scafall.common.api
 
-import com.wolfyscript.scaffolding.PluginWrapper
+import com.wolfyscript.scafall.PluginWrapper
 
 inline fun <reified T : PluginWrapper> PluginWrapper.into(): T {
     if (this is T) {

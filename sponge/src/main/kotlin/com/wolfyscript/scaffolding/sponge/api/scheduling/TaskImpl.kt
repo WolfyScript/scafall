@@ -1,9 +1,9 @@
-package com.wolfyscript.scaffolding.sponge.api.scheduling
+package com.wolfyscript.scafall.sponge.api.scheduling
 
-import com.wolfyscript.scaffolding.PluginWrapper
-import com.wolfyscript.scaffolding.function.ReceiverConsumer
-import com.wolfyscript.scaffolding.scheduling.Task
-import com.wolfyscript.scaffolding.sponge.SpongePluginWrapper
+import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.function.ReceiverConsumer
+import com.wolfyscript.scafall.scheduling.Task
+import com.wolfyscript.scafall.sponge.SpongePluginWrapper
 import org.spongepowered.api.Sponge
 import org.spongepowered.api.scheduler.ScheduledTask
 import org.spongepowered.api.util.Ticks

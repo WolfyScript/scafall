@@ -1,7 +1,7 @@
-package com.wolfyscript.scaffolding.common.api.factories
+package com.wolfyscript.scafall.common.api.factories
 
-import com.wolfyscript.scaffolding.factories.Factories
-import com.wolfyscript.scaffolding.factories.IdentifierFactory
+import com.wolfyscript.scafall.factories.Factories
+import com.wolfyscript.scafall.factories.IdentifierFactory
 
 abstract class CommonFactories : Factories {
 

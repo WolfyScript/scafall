@@ -1,4 +1,4 @@
-rootProject.name = "scaffolding"
+rootProject.name = "scafall"
 
 pluginManagement {
     repositories {

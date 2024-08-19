@@ -1,7 +1,7 @@
 plugins {
     `java-library`
     `maven-publish`
-    id("scaffolding.common")
+    id("scafall.common")
     alias(libs.plugins.goooler.shadow)
 }
 

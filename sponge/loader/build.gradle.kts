@@ -4,7 +4,7 @@ import org.spongepowered.plugin.metadata.model.PluginDependency
 plugins {
     `java-library`
     `maven-publish`
-    id("scaffolding.common")
+    id("scafall.common")
     alias(libs.plugins.spongepowered.gradle)
 }
 

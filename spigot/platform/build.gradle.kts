@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 
 plugins {
     `java-library`
-    id("scaffolding.common")
+    id("scafall.common")
     alias(libs.plugins.goooler.shadow)
 }
 
@@ -18,7 +18,7 @@ dependencies {
     compileOnly(libs.papermc.paper)
 }
 
-archivesName = "scaffolding-spigot-platform"
+archivesName = "scafall-spigot-platform"
 
 tasks {
     processResources {
@@ -30,12 +30,12 @@ tasks {
         dependsOn(project(":spigot").tasks.shadowJar.get())
         mustRunAfter("jar")
 
-        archiveBaseName = "scaffolding-spigot-platform"
+        archiveBaseName = "scafall-spigot-platform"
         archiveClassifier = ""
         archiveAppendix = ""
 
         dependencies {
-            include(dependency("com.wolfyscript.scaffolding:.*"))
+            include(dependency("com.wolfyscript.scafall:.*"))
         }
 
         mergeServiceFiles()

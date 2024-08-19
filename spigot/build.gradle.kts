@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.ir.backend.js.compile
 plugins {
     `java-library`
     `maven-publish`
-    id("scaffolding.common")
-    id("scaffolding.docker.run")
+    id("scafall.common")
+    id("scafall.docker.run")
     alias(libs.plugins.goooler.shadow)
 }
 
@@ -45,7 +45,7 @@ dependencies {
 
 tasks {
     shadowJar {
-        archiveFileName = "scaffolding-spigot.innerjar"
+        archiveFileName = "scafall-spigot.innerjar"
 
         dependencies {
             include(dependency("com.wolfyscript.scaffolding:.*"))

@@ -1,6 +1,6 @@
 plugins {
     `java-library`
-    id("scaffolding.common")
+    id("scafall.common")
     alias(libs.plugins.goooler.shadow)
 }
 
@@ -11,10 +11,10 @@ dependencies {
 
 tasks {
     shadowJar {
-        archiveFileName = "scaffolding-api.innerjar"
+        archiveFileName = "scafall-api.innerjar"
 
         dependencies {
-            include(dependency("com.wolfyscript.scaffolding:.*"))
+            include(dependency("com.wolfyscript.scafall:.*"))
         }
     }
 }
@@ -23,7 +23,7 @@ publishing {
     publications {
         create<MavenPublication>("lib") {
             from(components.getByName("java"))
-            groupId = "com.wolfyscript.scaffolding"
+            groupId = "com.wolfyscript.scafall"
             artifactId = "api"
         }
     }

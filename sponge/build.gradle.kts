@@ -3,8 +3,8 @@ import org.spongepowered.gradle.plugin.config.PluginLoaders
 plugins {
     `java-library`
     `maven-publish`
-    id("scaffolding.common")
-    id("scaffolding.docker.run")
+    id("scafall.common")
+    id("scafall.docker.run")
     alias(libs.plugins.spongepowered.gradle)
     alias(libs.plugins.goooler.shadow)
 }

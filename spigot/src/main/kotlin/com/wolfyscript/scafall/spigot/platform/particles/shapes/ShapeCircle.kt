@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonSetter
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.util.Vector
 import java.util.function.Consumer
 import java.util.function.Function
@@ -83,6 +83,6 @@ class ShapeCircle(
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("circle")
+        val KEY: Key = defaultKey("circle")
     }
 }

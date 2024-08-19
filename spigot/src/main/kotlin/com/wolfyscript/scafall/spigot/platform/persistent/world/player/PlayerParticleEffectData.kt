@@ -2,7 +2,7 @@ package com.wolfyscript.scafall.spigot.platform.persistent.world.player
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
 import com.wolfyscript.scafall.spigot.platform.particles.ParticleUtils
 import org.bukkit.inventory.EquipmentSlot
@@ -52,6 +52,6 @@ class PlayerParticleEffectData : CustomPlayerData(ID) {
     }
 
     companion object {
-        val ID: Key = scaffoldingKey("particles/effects")
+        val ID: Key = defaultKey("particles/effects")
     }
 }

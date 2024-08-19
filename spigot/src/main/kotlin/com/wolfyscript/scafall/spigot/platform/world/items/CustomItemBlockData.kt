@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.customItems
 import com.wolfyscript.scafall.spigot.platform.particles.ParticleLocation
 import com.wolfyscript.scafall.spigot.platform.particles.ParticleUtils.stopAnimation
@@ -122,6 +122,6 @@ class CustomItemBlockData : CustomBlockData {
     }
 
     companion object {
-        val ID: Key = scaffoldingKey("custom_item")
+        val ID: Key = defaultKey("custom_item")
     }
 }

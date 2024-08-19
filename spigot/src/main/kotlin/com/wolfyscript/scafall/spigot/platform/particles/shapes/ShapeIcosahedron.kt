@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.math.MathUtil.getLineVectors
 import com.wolfyscript.scafall.spigot.platform.math.Triangle
 import org.bukkit.util.Vector
@@ -148,7 +148,7 @@ class ShapeIcosahedron @JsonCreator constructor(
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("icosahedron")
+        val KEY: Key = defaultKey("icosahedron")
         const val X: Double = 0.525731112119133606
         const val Z: Double = 0.850650808352039932
 

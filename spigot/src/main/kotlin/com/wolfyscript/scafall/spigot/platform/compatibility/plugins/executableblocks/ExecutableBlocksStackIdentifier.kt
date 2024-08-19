@@ -77,6 +77,6 @@ class ExecutableBlocksStackIdentifier : StackIdentifier {
     }
 
     companion object {
-        val ID: Key = Key.scaffoldingKey("executableblocks")
+        val ID: Key = Key.defaultKey("executableblocks")
     }
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.ScafallProvider.Companion.get
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
 import com.wolfyscript.scafall.spigot.platform.customItems
@@ -102,7 +102,7 @@ class CustomItemStackIdentifier @JsonCreator constructor(
 
 
     companion object {
-        private val CUSTOM_ITEM_KEY: NamespacedKey = scaffoldingKey("custom_item").bukkit()
-        val ID: Key = scaffoldingKey("wolfyutils")
+        private val CUSTOM_ITEM_KEY: NamespacedKey = defaultKey("custom_item").bukkit()
+        val ID: Key = defaultKey("wolfyutils")
     }
 }

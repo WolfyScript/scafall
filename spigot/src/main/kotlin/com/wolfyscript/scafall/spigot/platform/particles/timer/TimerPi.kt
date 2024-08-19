@@ -19,7 +19,7 @@ package com.wolfyscript.scafall.spigot.platform.particles.timer
 
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 
 /**
  * Provides an increasing value by a fraction of PI.<br></br>
@@ -69,6 +69,6 @@ class TimerPi @JvmOverloads constructor(
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("pi_fraction")
+        val KEY: Key = defaultKey("pi_fraction")
     }
 }

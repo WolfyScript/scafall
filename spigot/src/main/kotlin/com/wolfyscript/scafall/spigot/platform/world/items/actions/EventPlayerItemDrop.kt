@@ -18,10 +18,10 @@
 package com.wolfyscript.scafall.spigot.platform.world.items.actions
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.event.player.PlayerDropItemEvent
 
 
-object EventPlayerItemDrop : EventPlayer<DataPlayerEvent<PlayerDropItemEvent>>(scaffoldingKey("player/item_drop"), DataPlayerEvent::class.java as Class<DataPlayerEvent<PlayerDropItemEvent>>) {
-    val KEY: Key = scaffoldingKey("player/item_drop")
+object EventPlayerItemDrop : EventPlayer<DataPlayerEvent<PlayerDropItemEvent>>(defaultKey("player/item_drop"), DataPlayerEvent::class.java as Class<DataPlayerEvent<PlayerDropItemEvent>>) {
+    val KEY: Key = defaultKey("player/item_drop")
 }

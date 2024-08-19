@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonSetter
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.util.Vector
 import java.util.function.BiFunction
 import java.util.function.Consumer
@@ -94,6 +94,6 @@ class ShapeSphere(
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("sphere")
+        val KEY: Key = defaultKey("sphere")
     }
 }

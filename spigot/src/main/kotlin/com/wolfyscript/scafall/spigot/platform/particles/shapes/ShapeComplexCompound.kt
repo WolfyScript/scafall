@@ -19,7 +19,7 @@ package com.wolfyscript.scafall.spigot.platform.particles.shapes
 
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.util.Vector
 import java.util.*
 import java.util.function.Consumer
@@ -50,6 +50,6 @@ class ShapeComplexCompound(vararg shapes: Shape) : Shape(KEY) {
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("complex/compound")
+        val KEY: Key = defaultKey("complex/compound")
     }
 }

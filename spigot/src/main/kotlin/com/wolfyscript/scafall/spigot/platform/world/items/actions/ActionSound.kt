@@ -19,7 +19,7 @@ package com.wolfyscript.scafall.spigot.platform.world.items.actions
 
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.Sound
 import org.bukkit.SoundCategory
 
@@ -67,6 +67,6 @@ class ActionSound protected constructor() :
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("location/sound")
+        val KEY: Key = defaultKey("location/sound")
     }
 }

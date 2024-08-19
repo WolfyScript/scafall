@@ -27,7 +27,7 @@ import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.config.jackson.JacksonUtil.objectMapper
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.parse
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.identifier.Keyed
 import com.wolfyscript.scafall.spigot.api.compatibilityManager
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
@@ -232,7 +232,7 @@ class CustomItem : AbstractItemBuilder<CustomItem>, Keyed {
                         if (value is ObjectNode) {
                             val key = entry.key.lowercase()
                             val namespacedKey =
-                                if (key.contains(":")) parse(key) else scaffoldingKey(
+                                if (key.contains(":")) parse(key) else defaultKey(
                                     key
                                 )
                             value.put("key", namespacedKey.toString())
@@ -479,7 +479,7 @@ class CustomItem : AbstractItemBuilder<CustomItem>, Keyed {
                 val container = itemMeta.persistentDataContainer
                 synchronized(container.javaClass) { // The container has a thread-unsafe map usage, so we need to synchronise it
                     container.set(
-                        scaffoldingKey("custom_item").bukkit(),
+                        defaultKey("custom_item").bukkit(),
                         PersistentDataType.STRING,
                         namespacedKey.toString()
                     )
@@ -1148,7 +1148,7 @@ class CustomItem : AbstractItemBuilder<CustomItem>, Keyed {
 
     companion object {
         @JvmField
-        val PERSISTENT_KEY_TAG: NamespacedKey = scaffoldingKey("custom_item").bukkit()
+        val PERSISTENT_KEY_TAG: NamespacedKey = defaultKey("custom_item").bukkit()
 
         /**
          *

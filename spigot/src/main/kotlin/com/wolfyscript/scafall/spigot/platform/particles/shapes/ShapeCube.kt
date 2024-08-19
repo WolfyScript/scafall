@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonSetter
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.util.Vector
 import java.util.function.Consumer
 import kotlin.math.max
@@ -80,6 +80,6 @@ class ShapeCube(@get:JsonGetter val radius: Double, private var pointsPerSide: I
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("cube")
+        val KEY: Key = defaultKey("cube")
     }
 }

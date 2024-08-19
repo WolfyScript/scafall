@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 
 class ValueProviderIntegerPAPI @JsonCreator protected constructor(@JsonProperty("value") value: String) : ValueProviderPlaceholderAPI<Int>(KEY, value) {
 
@@ -36,6 +36,6 @@ class ValueProviderIntegerPAPI @JsonCreator protected constructor(@JsonProperty(
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("int/papi")
+        val KEY: Key = defaultKey("int/papi")
     }
 }

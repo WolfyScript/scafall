@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackIdentifierParser.DisplayConfiguration
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackIdentifierParser.DisplayConfiguration.MaterialIconSettings
@@ -69,6 +69,6 @@ class BukkitStackIdentifier @JsonCreator constructor(
     }
 
     companion object {
-        val ID: Key = scaffoldingKey("bukkit")
+        val ID: Key = defaultKey("bukkit")
     }
 }

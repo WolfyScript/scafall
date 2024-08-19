@@ -18,7 +18,7 @@
 package com.wolfyscript.scafall.spigot.platform.world.items.meta
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.world.items.CustomItem
 import com.wolfyscript.scafall.spigot.platform.world.items.ItemBuilder
 
@@ -29,6 +29,6 @@ class NBTTagMeta : Meta(KEY) {
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("player_head")
+        val KEY: Key = defaultKey("player_head")
     }
 }

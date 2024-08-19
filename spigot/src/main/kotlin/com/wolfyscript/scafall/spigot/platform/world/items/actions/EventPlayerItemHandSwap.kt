@@ -18,10 +18,10 @@
 package com.wolfyscript.scafall.spigot.platform.world.items.actions
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
 
 
-object EventPlayerItemHandSwap : EventPlayer<DataPlayerEvent<PlayerSwapHandItemsEvent>>(scaffoldingKey("player/item_swap_hand"), DataPlayerEvent::class.java as Class<DataPlayerEvent<PlayerSwapHandItemsEvent>>) {
-    val KEY: Key = scaffoldingKey("player/item_swap_hand")
+object EventPlayerItemHandSwap : EventPlayer<DataPlayerEvent<PlayerSwapHandItemsEvent>>(defaultKey("player/item_swap_hand"), DataPlayerEvent::class.java as Class<DataPlayerEvent<PlayerSwapHandItemsEvent>>) {
+    val KEY: Key = defaultKey("player/item_swap_hand")
 }

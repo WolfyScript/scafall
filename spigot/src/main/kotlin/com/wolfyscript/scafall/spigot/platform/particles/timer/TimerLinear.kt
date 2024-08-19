@@ -19,7 +19,7 @@ package com.wolfyscript.scafall.spigot.platform.particles.timer
 
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 
 /**
  * Provides a linear increasing value by a specified increment.<br></br>
@@ -55,6 +55,6 @@ class TimerLinear @JvmOverloads constructor(increment: Double = 1.0, stopValue: 
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("linear")
+        val KEY: Key = defaultKey("linear")
     }
 }

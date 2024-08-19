@@ -39,9 +39,6 @@ tasks {
         }
 
         mergeServiceFiles()
-
-        // Include the inner jar files for api and internal implementation
-//        from(project(":spigot").tasks.shadowJar.get().archiveFile)
     }
 }
 

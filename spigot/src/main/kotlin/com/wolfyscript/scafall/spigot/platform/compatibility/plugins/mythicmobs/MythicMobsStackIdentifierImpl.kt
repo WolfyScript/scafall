@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.dependency.DependencyResolverSettings
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
 import com.wolfyscript.scafall.spigot.platform.compatibility.PluginIntegrationDependencyResolver
 import com.wolfyscript.scafall.spigot.platform.compatibility.PluginIntegrationDependencyResolverSettings
@@ -84,6 +84,6 @@ class MythicMobsStackIdentifierImpl @JsonCreator constructor(@get:JsonGetter("it
 
     companion object {
         protected const val ITEM_KEY: String = "MYTHIC_TYPE"
-        val ID: Key = scaffoldingKey("mythicmobs")
+        val ID: Key = defaultKey("mythicmobs")
     }
 }

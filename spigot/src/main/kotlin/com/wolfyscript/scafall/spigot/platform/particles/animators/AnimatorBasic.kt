@@ -18,7 +18,7 @@
 package com.wolfyscript.scafall.spigot.platform.particles.animators
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.particles.ParticleEffect
 import com.wolfyscript.scafall.spigot.platform.particles.timer.Timer
 import org.bukkit.Location
@@ -35,6 +35,6 @@ class AnimatorBasic : Animator(KEY) {
 
 
     companion object {
-        val KEY: Key = scaffoldingKey("basic")
+        val KEY: Key = defaultKey("basic")
     }
 }

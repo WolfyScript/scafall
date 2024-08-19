@@ -18,7 +18,7 @@
 package com.wolfyscript.scafall.spigot.platform.particles.shapes
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.math.MathUtil.degreeToRadiansVector
 import com.wolfyscript.scafall.spigot.platform.math.MathUtil.getRotationAngles
 import com.wolfyscript.scafall.spigot.platform.math.MathUtil.rotate
@@ -65,6 +65,6 @@ class ShapeComplexRotation @JvmOverloads constructor(angle: Vector, shape: Shape
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("complex/rotation")
+        val KEY: Key = defaultKey("complex/rotation")
     }
 }

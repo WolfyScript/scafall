@@ -15,7 +15,7 @@ interface Key : Namespaced {
         @field:RegExp const val KEY_REGEX = "[a-z0-9._-]+"
 
         @JvmStatic
-        fun scaffoldingKey(key: String): Key = key(SCAFFOLDING_NAMESPACE, key)
+        fun defaultKey(key: String): Key = key(SCAFFOLDING_NAMESPACE, key)
 
         @JvmStatic
         fun key(namespace: String, key: String): Key = ScafallProvider.get().factories.identifierFactory.key(namespace, key)

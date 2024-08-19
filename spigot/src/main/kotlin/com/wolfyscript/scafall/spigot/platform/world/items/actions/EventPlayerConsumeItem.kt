@@ -18,9 +18,9 @@
 package com.wolfyscript.scafall.spigot.platform.world.items.actions
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.event.player.PlayerItemConsumeEvent
 
-object EventPlayerConsumeItem : EventPlayer<DataPlayerEvent<PlayerItemConsumeEvent>>(scaffoldingKey("player/consume_item"), DataPlayerEvent::class.java as Class<DataPlayerEvent<PlayerItemConsumeEvent>>) {
-    val KEY: Key = scaffoldingKey("player/consume_item")
+object EventPlayerConsumeItem : EventPlayer<DataPlayerEvent<PlayerItemConsumeEvent>>(defaultKey("player/consume_item"), DataPlayerEvent::class.java as Class<DataPlayerEvent<PlayerItemConsumeEvent>>) {
+    val KEY: Key = defaultKey("player/consume_item")
 }

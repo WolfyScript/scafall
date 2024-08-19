@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonSetter
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.util.Vector
 import java.util.function.Consumer
 import java.util.function.Function
@@ -111,6 +111,6 @@ class ShapeSquare(@get:JsonGetter val radius: Double, private var pointsPerSide:
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("square")
+        val KEY: Key = defaultKey("square")
     }
 }

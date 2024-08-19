@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.math.MathUtil.rotateAroundAxisX
 import com.wolfyscript.scafall.spigot.platform.math.MathUtil.rotateAroundAxisY
 import com.wolfyscript.scafall.spigot.platform.particles.ParticleEffect
@@ -135,6 +135,6 @@ class AnimatorVectorPath @JvmOverloads constructor(
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("vector_path")
+        val KEY: Key = defaultKey("vector_path")
     }
 }

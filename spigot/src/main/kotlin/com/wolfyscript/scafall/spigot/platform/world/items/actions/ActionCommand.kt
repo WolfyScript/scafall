@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallProvider.Companion.get
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.api.compatibilityManager
 import com.wolfyscript.scafall.spigot.platform.compatibility.plugins.PlaceholderAPIIntegration
 import org.bukkit.Bukkit
@@ -74,6 +74,6 @@ class ActionCommand : Action<DataPlayer>(
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("player/command")
+        val KEY: Key = defaultKey("player/command")
     }
 }

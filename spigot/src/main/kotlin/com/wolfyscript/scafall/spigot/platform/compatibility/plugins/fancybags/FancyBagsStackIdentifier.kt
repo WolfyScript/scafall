@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.dependency.DependencyResolverSettings
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
 import com.wolfyscript.scafall.spigot.platform.compatibility.PluginIntegrationDependencyResolver
 import com.wolfyscript.scafall.spigot.platform.compatibility.PluginIntegrationDependencyResolverSettings
@@ -80,6 +80,6 @@ class FancyBagsStackIdentifier @JsonCreator constructor(
 
     companion object {
         private const val ID_TAG = "BackpackID"
-        val ID: Key = scaffoldingKey("fancybags")
+        val ID: Key = defaultKey("fancybags")
     }
 }

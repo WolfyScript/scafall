@@ -25,12 +25,12 @@ tasks {
         dependsOn(project(":spigot").tasks.shadowJar.get())
         mustRunAfter("jar")
 
-        archiveBaseName = "scaffolding-spigot"
+        archiveBaseName = "scafall-spigot"
         archiveClassifier = ""
         archiveAppendix = ""
 
         dependencies {
-            include(dependency("com.wolfyscript.scaffolding:.*"))
+            include(dependency("com.wolfyscript.scafall:.*"))
         }
 
         mergeServiceFiles()

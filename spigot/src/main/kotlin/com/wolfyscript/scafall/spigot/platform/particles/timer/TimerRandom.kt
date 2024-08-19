@@ -19,7 +19,7 @@ package com.wolfyscript.scafall.spigot.platform.particles.timer
 
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import java.util.*
 
 /**
@@ -62,6 +62,6 @@ class TimerRandom @JvmOverloads constructor(
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("random")
+        val KEY: Key = defaultKey("random")
     }
 }

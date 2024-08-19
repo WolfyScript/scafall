@@ -18,9 +18,9 @@
 package com.wolfyscript.scafall.spigot.platform.world.items.actions
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.event.player.PlayerInteractAtEntityEvent
 
-object EventPlayerInteractEntity : EventPlayerInteractEntityAbstract<PlayerInteractAtEntityEvent>(scaffoldingKey("player/interact_entity")) {
-    val KEY: Key = scaffoldingKey("player/interact_entity")
+object EventPlayerInteractEntity : EventPlayerInteractEntityAbstract<PlayerInteractAtEntityEvent>(defaultKey("player/interact_entity")) {
+    val KEY: Key = defaultKey("player/interact_entity")
 }

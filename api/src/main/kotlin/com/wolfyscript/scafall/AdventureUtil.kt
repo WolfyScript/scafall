@@ -28,9 +28,17 @@ interface AdventureUtil {
 
 }
 
+/* ****************************************** *
+ *  Util extension functions for MiniMessage  *
+ * ****************************************** */
+
 fun String.deserialize(miniMsg: MiniMessage = MiniMessage.miniMessage(), tagResolver: TagResolver = TagResolver.empty()) = miniMsg.deserialize(this, tagResolver)
 
 fun String.deserialize(miniMsg: MiniMessage = MiniMessage.miniMessage(), vararg tagResolver: TagResolver = emptyArray()) = miniMsg.deserialize(this, *tagResolver)
+
+/* ************************************************************** *
+ *  Util extension functions for creating simple text components  *
+ * ************************************************************** */
 
 fun Char.text(style: Style = Style.empty()) : TextComponent = Component.text(this, style)
 

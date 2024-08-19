@@ -86,25 +86,25 @@ val Registries.nbtQueries
 
 internal fun Registries.registerSpigotPlatform() {
     stackIdentifierParsersRegistry = RegistryStackIdentifierParsers(this)
-    stackIdentifiersRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("stack_identifiers/types"), this)
+    stackIdentifiersRegistry = UniqueTypeRegistrySimple(Key.defaultKey("stack_identifiers/types"), this)
     customItemsRegistry = RegistryCustomItem(this)
 
-    customBlockDataRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("persistent/block"), this)
-    customPlayerDataRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("persistent/player"), this)
+    customBlockDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("persistent/block"), this)
+    customPlayerDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("persistent/player"), this)
 
-    particleTimersRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("particles/timers"), this)
-    particleShapesRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("particles/shapes"), this)
-    particleAnimatorsRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("particles/animators"), this)
-
-    //
-    particleAnimationsRegistry = RegistrySimple(Key.scaffoldingKey("particles/animations"), this)
+    particleTimersRegistry = UniqueTypeRegistrySimple(Key.defaultKey("particles/timers"), this)
+    particleShapesRegistry = UniqueTypeRegistrySimple(Key.defaultKey("particles/shapes"), this)
+    particleAnimatorsRegistry = UniqueTypeRegistrySimple(Key.defaultKey("particles/animators"), this)
 
     //
-    customItemDataRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("custom_items/data"), this)
-    customItemActionsRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("custom_items/actions"), this)
-    customItemEventsRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("custom_items/events"), this)
-    customItemDataChecksRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("custom_items/data_checks"), this)
+    particleAnimationsRegistry = RegistrySimple(Key.defaultKey("particles/animations"), this)
+
+    //
+    customItemDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/data"), this)
+    customItemActionsRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/actions"), this)
+    customItemEventsRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/events"), this)
+    customItemDataChecksRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/data_checks"), this)
 
     // nbt
-    nbtQueriesRegistry = UniqueTypeRegistrySimple(Key.scaffoldingKey("nbt/query/nodes"), this)
+    nbtQueriesRegistry = UniqueTypeRegistrySimple(Key.defaultKey("nbt/query/nodes"), this)
 }

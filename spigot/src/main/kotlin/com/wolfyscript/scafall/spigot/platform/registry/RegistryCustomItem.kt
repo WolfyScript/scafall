@@ -19,7 +19,7 @@ package com.wolfyscript.scafall.spigot.platform.registry
 
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.parse
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.registry.RegistrySimple
 import com.wolfyscript.scafall.spigot.platform.world.items.CustomItem
@@ -31,7 +31,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 class RegistryCustomItem internal constructor(registries: Registries) :
-    RegistrySimple<CustomItem>(scaffoldingKey("custom_items"), registries) {
+    RegistrySimple<CustomItem>(defaultKey("custom_items"), registries) {
 
     val namespaces: List<String>
         get() = map.keys.stream().map(Key::namespace).distinct().collect(Collectors.toList())

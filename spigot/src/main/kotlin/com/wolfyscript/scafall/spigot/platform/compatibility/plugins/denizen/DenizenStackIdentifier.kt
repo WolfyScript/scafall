@@ -69,6 +69,6 @@ class DenizenStackIdentifier @JsonCreator constructor(
     }
 
     companion object {
-        val ID: Key = Key.scaffoldingKey("denizen")
+        val ID: Key = Key.defaultKey("denizen")
     }
 }

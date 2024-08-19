@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 
 class ValueProviderFloatPAPI @JsonCreator protected constructor(@JsonProperty("value") value: String) : ValueProviderPlaceholderAPI<Float>(KEY, value) {
 
@@ -36,6 +36,6 @@ class ValueProviderFloatPAPI @JsonCreator protected constructor(@JsonProperty("v
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("float/papi")
+        val KEY: Key = defaultKey("float/papi")
     }
 }

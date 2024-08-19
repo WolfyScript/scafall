@@ -2,7 +2,7 @@ package com.wolfyscript.scafall.spigot.platform.registry
 
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.registry.RegistrySimple
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.BukkitStackIdentifier
@@ -14,7 +14,7 @@ import java.util.*
 
 class RegistryStackIdentifierParsers(registries: Registries) :
     RegistrySimple<StackIdentifierParser<*>>(
-        scaffoldingKey("stack_identifiers/parsers"),
+        defaultKey("stack_identifiers/parsers"),
         registries,
         StackIdentifierParser::class.java
     ) {

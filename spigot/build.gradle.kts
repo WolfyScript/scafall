@@ -48,7 +48,7 @@ tasks {
         archiveFileName = "scafall-spigot.innerjar"
 
         dependencies {
-            include(dependency("com.wolfyscript.scaffolding:.*"))
+            include(dependency("com.wolfyscript.scafall:.*"))
         }
     }
 }

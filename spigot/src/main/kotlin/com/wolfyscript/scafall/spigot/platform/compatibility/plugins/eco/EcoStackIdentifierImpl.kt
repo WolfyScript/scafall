@@ -72,6 +72,6 @@ class EcoStackIdentifierImpl @JsonCreator constructor(
     }
 
     companion object {
-        val ID: Key = Key.scaffoldingKey("eco")
+        val ID: Key = Key.defaultKey("eco")
     }
 }

@@ -19,7 +19,7 @@ package com.wolfyscript.scafall.spigot.platform.world.items.actions
 
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.block.BlockFace
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
@@ -56,6 +56,6 @@ class EventPlayerInteract protected constructor() : EventPlayer<DataPlayerEvent<
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("player/interact")
+        val KEY: Key = defaultKey("player/interact")
     }
 }

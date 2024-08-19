@@ -18,11 +18,10 @@
 package com.wolfyscript.scafall.spigot.platform.world.items.actions
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.event.player.PlayerItemBreakEvent
-import org.bukkit.event.player.PlayerItemConsumeEvent
 
 
-object EventPlayerItemBreak : EventPlayer<DataPlayerEvent<PlayerItemBreakEvent>>(scaffoldingKey("player/item_break"), DataPlayerEvent::class.java as Class<DataPlayerEvent<PlayerItemBreakEvent>>) {
-    val KEY: Key = scaffoldingKey("player/item_break")
+object EventPlayerItemBreak : EventPlayer<DataPlayerEvent<PlayerItemBreakEvent>>(defaultKey("player/item_break"), DataPlayerEvent::class.java as Class<DataPlayerEvent<PlayerItemBreakEvent>>) {
+    val KEY: Key = defaultKey("player/item_break")
 }

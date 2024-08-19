@@ -19,7 +19,7 @@ package com.wolfyscript.scafall.spigot.platform.world.items.meta
 
 import com.google.common.collect.Multimap
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.world.items.CustomItem
 import com.wolfyscript.scafall.spigot.platform.world.items.ItemBuilder
 import org.bukkit.attribute.Attribute
@@ -40,7 +40,7 @@ class AttributesModifiersMeta : Meta(KEY) {
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("attributes_modifiers")
+        val KEY: Key = defaultKey("attributes_modifiers")
 
         private fun compareModifiers(
             first: Multimap<Attribute, AttributeModifier>?,

@@ -7,19 +7,16 @@ import com.wolfyscript.scafall.spigot.api.wrappers.BukkitRefAdapter
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import org.bukkit.inventory.ItemStack
 
-class ItemStackImpl(bukkitRef: ItemStack?) : BukkitRefAdapter<ItemStack?>(bukkitRef), com.wolfyscript.scafall.wrappers.world.items.ItemStack {
+class ItemStackImpl(bukkitRef: ItemStack) : BukkitRefAdapter<ItemStack>(bukkitRef), com.wolfyscript.scafall.wrappers.world.items.ItemStack {
     private val componentMap = ItemStackDataComponentMap(this)
 
     override val item: Key
         get() {
-            if (bukkitRef == null) {
-                return Key.parse("minecraft:air")
-            }
             return bukkitRef.type.key.api()
         }
 
     override val amount: Int
-        get() =  bukkitRef?.amount ?: 0
+        get() = bukkitRef.amount
 
     override fun snapshot(): ItemStackConfig {
         return BukkitItemStackConfig(this)

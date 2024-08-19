@@ -18,10 +18,10 @@
 package com.wolfyscript.scafall.spigot.platform.world.items.actions
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import org.bukkit.event.player.PlayerItemDamageEvent
 
 
-object EventPlayerItemDamage : EventPlayer<DataPlayerEvent<PlayerItemDamageEvent>>(scaffoldingKey("player/item_damage"), DataPlayerEvent::class.java as Class<DataPlayerEvent<PlayerItemDamageEvent>>) {
-    val KEY: Key = scaffoldingKey("player/item_damage")
+object EventPlayerItemDamage : EventPlayer<DataPlayerEvent<PlayerItemDamageEvent>>(defaultKey("player/item_damage"), DataPlayerEvent::class.java as Class<DataPlayerEvent<PlayerItemDamageEvent>>) {
+    val KEY: Key = defaultKey("player/item_damage")
 }

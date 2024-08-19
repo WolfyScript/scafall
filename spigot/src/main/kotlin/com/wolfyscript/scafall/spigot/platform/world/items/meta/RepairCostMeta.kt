@@ -18,7 +18,7 @@
 package com.wolfyscript.scafall.spigot.platform.world.items.meta
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.world.items.CustomItem
 import com.wolfyscript.scafall.spigot.platform.world.items.ItemBuilder
 import org.bukkit.inventory.meta.Repairable
@@ -46,6 +46,6 @@ class RepairCostMeta : Meta(KEY) {
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("repair_cost")
+        val KEY: Key = defaultKey("repair_cost")
     }
 }

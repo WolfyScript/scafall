@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.dependency.DependencyResolverSettings
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
 import com.wolfyscript.scafall.spigot.platform.compatibility.PluginIntegrationDependencyResolver
 import com.wolfyscript.scafall.spigot.platform.compatibility.PluginIntegrationDependencyResolverSettings
@@ -78,7 +78,7 @@ class MagicStackIdentifierImpl(magicAPI: MagicAPI, itemKey: String) : StackIdent
     }
 
     companion object {
-        val ID: Key = scaffoldingKey("magic")
+        val ID: Key = defaultKey("magic")
 
         fun getMagicAPI() : MagicAPI {
             val plugin = Bukkit.getPluginManager().getPlugin("Magic")

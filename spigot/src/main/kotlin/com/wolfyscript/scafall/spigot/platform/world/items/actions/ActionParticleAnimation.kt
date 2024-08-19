@@ -19,7 +19,7 @@ package com.wolfyscript.scafall.spigot.platform.world.items.actions
 
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.particles.ParticleAnimation
 
 class ActionParticleAnimation protected constructor() :
@@ -42,6 +42,6 @@ class ActionParticleAnimation protected constructor() :
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("location/particle_animation")
+        val KEY: Key = defaultKey("location/particle_animation")
     }
 }

@@ -83,6 +83,6 @@ class ExecutableItemsStackIdentifier : StackIdentifier {
     }
 
     companion object {
-        val ID: Key = Key.scaffoldingKey("executableitems")
+        val ID: Key = Key.defaultKey("executableitems")
     }
 }

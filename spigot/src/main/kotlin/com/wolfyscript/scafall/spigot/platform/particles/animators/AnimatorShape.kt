@@ -20,7 +20,7 @@ package com.wolfyscript.scafall.spigot.platform.particles.animators
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.scaffoldingKey
+import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.particles.ParticleEffect
 import com.wolfyscript.scafall.spigot.platform.particles.shapes.Shape
 import com.wolfyscript.scafall.spigot.platform.particles.timer.Timer
@@ -53,6 +53,6 @@ class AnimatorShape @JsonCreator constructor(
     }
 
     companion object {
-        val KEY: Key = scaffoldingKey("shape")
+        val KEY: Key = defaultKey("shape")
     }
 }

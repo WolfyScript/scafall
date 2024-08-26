@@ -1,9 +1,7 @@
 package com.wolfyscript.scafall.spigot.api
 
-import com.wolfyscript.scafall.AdventureUtil
 import com.wolfyscript.scafall.PluginWrapper
 import com.wolfyscript.scafall.Scafall
-import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.common.api.AbstractScafallImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
@@ -30,8 +28,7 @@ internal class ScafallSpigot(private val bootstrap: ScaffoldingSpigotBootstrap) 
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
     override lateinit var factories: Factories
     override var corePlugin: PluginWrapper = bootstrap.corePlugin
-    override val adventure: AdventureUtil
-        get() = TODO("Not yet implemented")
+    override lateinit var adventure: SpigotAdventureUtil
 
     // Spigot only features
     internal lateinit var persistentStorageInternal : PersistentStorage
@@ -41,7 +38,7 @@ internal class ScafallSpigot(private val bootstrap: ScaffoldingSpigotBootstrap) 
         TODO("Not yet implemented")
     }
 
-    override fun enable() {
+    override fun load() {
         factories = SpigotFactoriesImpl()
         scheduler = SchedulerImpl(this)
         registries = CommonRegistries(this)
@@ -52,6 +49,16 @@ internal class ScafallSpigot(private val bootstrap: ScaffoldingSpigotBootstrap) 
 
         persistentStorageInternal = PersistentStorage(this)
         compatibilityManagerInternal = CompatibilityManagerBukkit(this)
+
+        adventure = SpigotAdventureUtil(this)
+    }
+
+    override fun enable() {
+        adventure.init()
+    }
+
+    override fun unload() {
+        adventure.unload()
     }
 
 }

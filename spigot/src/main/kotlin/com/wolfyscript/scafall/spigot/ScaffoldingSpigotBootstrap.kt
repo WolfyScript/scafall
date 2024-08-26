@@ -21,12 +21,13 @@ internal class ScaffoldingSpigotBootstrap(applyScafall: Consumer<Scafall>, plugi
     }
 
     override fun onLoad() {
-        val module = SimpleModule()
-
-        module.addAbstractTypeMapping(ItemStackConfig::class.java, BukkitItemStackConfig::class.java)
+        api.load()
 
         // Register platform specific registries
         api.registries.registerSpigotPlatform()
+
+        val module = SimpleModule()
+        module.addAbstractTypeMapping(ItemStackConfig::class.java, BukkitItemStackConfig::class.java)
     }
 
     override fun onEnable() {
@@ -34,6 +35,6 @@ internal class ScaffoldingSpigotBootstrap(applyScafall: Consumer<Scafall>, plugi
     }
 
     override fun onUnload() {
-
+        api.unload()
     }
 }

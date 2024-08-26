@@ -25,6 +25,7 @@ interface AdventureUtil {
     fun system() : Audience
 
     val miniMsg: MiniMessage
+        get() = MiniMessage.miniMessage()
 
 }
 

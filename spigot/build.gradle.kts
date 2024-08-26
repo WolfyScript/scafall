@@ -49,6 +49,7 @@ tasks {
 
         dependencies {
             include(dependency("com.wolfyscript.scafall:.*"))
+            include(project(":common"))
         }
     }
 }

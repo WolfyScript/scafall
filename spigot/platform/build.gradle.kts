@@ -14,6 +14,7 @@ dependencies {
     compileOnly(project(":loader-api"))
     api(project(":api"))
     compileOnly(project(":spigot"))
+    compileOnly(project(":common"))
 
     compileOnly(libs.papermc.paper)
 }
@@ -39,7 +40,11 @@ tasks {
         archiveClassifier = ""
         archiveAppendix = ""
 
+        include("**")
+
         dependencies {
+            include(project(":common"))
+            include(project(":spigot"))
             include(dependency("com.wolfyscript.scafall:.*"))
         }
 

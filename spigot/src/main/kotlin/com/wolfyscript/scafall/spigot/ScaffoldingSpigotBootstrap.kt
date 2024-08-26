@@ -13,8 +13,8 @@ import java.util.function.Consumer
 
 internal class ScaffoldingSpigotBootstrap(applyScafall: Consumer<Scafall>, plugin: JavaPlugin) : PluginBootstrap {
 
-    private val api: ScafallSpigot = ScafallSpigot(this)
     internal val corePlugin: SpigotPluginWrapper = SpigotPluginWrapper(plugin)
+    private val api: ScafallSpigot = ScafallSpigot(this)
 
     init {
         applyScafall.accept(api)

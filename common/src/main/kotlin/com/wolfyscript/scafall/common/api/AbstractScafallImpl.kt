@@ -17,7 +17,7 @@ abstract class AbstractScafallImpl : Scafall {
             .addScanners(*Scanners.entries.toTypedArray())
     )
 
-    fun enable() {
+    open fun enable() {
 
     }
 

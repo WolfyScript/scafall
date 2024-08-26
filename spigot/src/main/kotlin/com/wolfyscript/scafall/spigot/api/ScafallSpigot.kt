@@ -21,24 +21,37 @@ import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManage
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManagerBukkit
 import com.wolfyscript.scafall.spigot.platform.persistent.PersistentStorage
 
-internal class ScafallSpigot(bootstrap: ScaffoldingSpigotBootstrap) : AbstractScafallImpl() {
+internal class ScafallSpigot(private val bootstrap: ScaffoldingSpigotBootstrap) : AbstractScafallImpl() {
 
-    override val registries: Registries = CommonRegistries(ScafallProvider.get())
-    override val scheduler: Scheduler = SchedulerImpl(this)
-    override val platformType: PlatformType = PlatformType.SPIGOT // TODO: Proper detection
-    override val mavenDependencyHandler: MavenDependencyHandler = MavenDependencyHandlerImpl(this, bootstrap.corePlugin.plugin.dataFolder.toPath().resolve("libs"))
-    override val mavenRepositoryHandler: MavenRepositoryHandler = MavenRepositoryHandlerImpl()
-    override val factories: Factories = SpigotFactoriesImpl()
-    override val corePlugin: PluginWrapper = bootstrap.corePlugin
+    override lateinit var registries: Registries
+    override lateinit var scheduler: Scheduler
+    override var platformType: PlatformType = PlatformType.SPIGOT // TODO: Proper detection
+    override lateinit var mavenDependencyHandler: MavenDependencyHandler
+    override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
+    override lateinit var factories: Factories
+    override var corePlugin: PluginWrapper = bootstrap.corePlugin
     override val adventure: AdventureUtil
         get() = TODO("Not yet implemented")
 
     // Spigot only features
-    internal val persistentStorageInternal : PersistentStorage = PersistentStorage(this)
-    internal val compatibilityManagerInternal : CompatibilityManager = CompatibilityManagerBukkit(this)
+    internal lateinit var persistentStorageInternal : PersistentStorage
+    internal lateinit var compatibilityManagerInternal : CompatibilityManager
 
     override fun createOrGetPluginWrapper(pluginName: String): PluginWrapper {
         TODO("Not yet implemented")
+    }
+
+    override fun enable() {
+        factories = SpigotFactoriesImpl()
+        scheduler = SchedulerImpl(this)
+        registries = CommonRegistries(this)
+
+        // maven
+        mavenDependencyHandler = MavenDependencyHandlerImpl(this, bootstrap.corePlugin.plugin.dataFolder.toPath().resolve("libs"))
+        mavenRepositoryHandler = MavenRepositoryHandlerImpl()
+
+        persistentStorageInternal = PersistentStorage(this)
+        compatibilityManagerInternal = CompatibilityManagerBukkit(this)
     }
 
 }

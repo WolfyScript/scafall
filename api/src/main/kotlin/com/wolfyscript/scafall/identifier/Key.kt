@@ -12,7 +12,7 @@ interface Key : Namespaced {
 
         const val SEPARATOR = ':'
         @field:RegExp const val NAMESPACE_REGEX = "[a-z0-9._-]+"
-        @field:RegExp const val KEY_REGEX = "[a-z0-9._-]+"
+        @field:RegExp const val KEY_REGEX = "[a-z0-9/._-]+"
 
         @JvmStatic
         fun defaultKey(key: String): Key = key(SCAFFOLDING_NAMESPACE, key)

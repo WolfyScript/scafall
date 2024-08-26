@@ -13,7 +13,7 @@ repositories {
 dependencies {
     compileOnly(project(":loader-api"))
     api(project(":api"))
-    implementation(project(":spigot"))
+    compileOnly(project(":spigot"))
 
     compileOnly(libs.papermc.paper)
 }
@@ -29,6 +29,11 @@ tasks {
     shadowJar {
         dependsOn(project(":spigot").tasks.shadowJar.get())
         mustRunAfter("jar")
+
+        configurations = listOf(
+            project.configurations.runtimeClasspath.get(),
+            project.configurations.compileClasspath.get() // Include compileOnly dependencies to hide implementation from
+        )
 
         archiveBaseName = "scafall-spigot-platform"
         archiveClassifier = ""

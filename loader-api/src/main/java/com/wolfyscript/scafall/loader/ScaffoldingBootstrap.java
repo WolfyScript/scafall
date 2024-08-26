@@ -15,6 +15,6 @@ public interface ScaffoldingBootstrap {
      * @return The Bootstrap for the platform implementation
      */
     @ApiStatus.Internal
-    PluginBootstrap initScaffoldingPlatform(String pathToBootstrap, Object loader);
+    PluginBootstrap initScaffoldingPlatform(String pathToBootstrap, Class<?> loaderType, Object loader);
 
 }

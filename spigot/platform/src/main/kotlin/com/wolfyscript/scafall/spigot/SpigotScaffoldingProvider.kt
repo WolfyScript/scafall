@@ -10,8 +10,9 @@ fun Scafall.Companion.initOnSpigot(plugin: JavaPlugin, apiClassLoader: ClassLoad
         return ScafallProvider.get()
     }
     ScaffoldingLoader.initAPIClassLoader(apiClassLoader)
-    val bootstrap = ScaffoldingLoader.loadScaffoldingBootstrap("scaffolding-spigot.innerjar")
-    bootstrap.initScaffoldingPlatform("com.wolfyscript.scafall.spigot.ScaffoldingSpigotBootstrap", plugin)
+    val bootstrap = ScaffoldingLoader.loadBootstrap(apiClassLoader)
+    val pluginBootstrap = bootstrap.initScaffoldingPlatform("com.wolfyscript.scafall.spigot.ScaffoldingSpigotBootstrap", JavaPlugin::class.java, plugin)
+    pluginBootstrap.onEnable()
 
     return ScafallProvider.get()
 }

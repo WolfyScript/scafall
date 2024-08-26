@@ -35,7 +35,7 @@ internal class InternalBootstrap : ScaffoldingBootstrap {
         return module
     }
 
-    override fun initScaffoldingPlatform(pathToBootstrap: String, loader: Any): PluginBootstrap {
+    override fun initScaffoldingPlatform(pathToBootstrap: String, loaderType: Class<*>, loader: Any): PluginBootstrap {
         if (ScafallProvider.registered()) {
             throw IllegalStateException("Scaffolding Platform is already initialized!")
         }
@@ -47,7 +47,7 @@ internal class InternalBootstrap : ScaffoldingBootstrap {
         }
 
         val constructor: Constructor<out PluginBootstrap> = try {
-            plugin.getConstructor(Consumer::class.java, loader.javaClass)
+            plugin.getConstructor(Consumer::class.java, loaderType)
         } catch (e: ReflectiveOperationException) {
             throw IllegalStateException("Unable to find plugin bootstrap constructor $pathToBootstrap", e)
         }

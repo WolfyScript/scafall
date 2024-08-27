@@ -17,6 +17,8 @@ class KeyImpl(override val namespace: String, override val value: String) : Key 
         return net.kyori.adventure.key.Key.key(namespace, value)
     }
 
+    override fun toString(): String = "$namespace:$value"
+
 }
 
 val NAMESPACE_PATTERN: Pattern = Pattern.compile(NAMESPACE_REGEX)

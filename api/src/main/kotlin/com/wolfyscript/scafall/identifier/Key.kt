@@ -35,4 +35,6 @@ interface Key : Namespaced {
 
     fun into() : net.kyori.adventure.key.Key
 
+    override fun toString(): String
+
 }

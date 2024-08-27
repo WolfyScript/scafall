@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 plugins {
     `java-library`
     id("scafall.common")
+    id("scafall.spigot")
     alias(libs.plugins.goooler.shadow)
 }
 

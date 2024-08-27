@@ -8,12 +8,12 @@ import com.wolfyscript.scafall.eval.value_provider.*
 import com.wolfyscript.scafall.nbt.*
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
-import de.tr7zw.changeme.nbtapi.NBTCompound
-import de.tr7zw.changeme.nbtapi.NBTItem
-import de.tr7zw.changeme.nbtapi.NBTList
-import de.tr7zw.changeme.nbtapi.NBTType
-import de.tr7zw.changeme.nbtapi.iface.ReadableNBT
-import de.tr7zw.changeme.nbtapi.iface.ReadableNBTList
+import de.tr7zw.nbtapi.NBTCompound
+import de.tr7zw.nbtapi.NBTItem
+import de.tr7zw.nbtapi.NBTList
+import de.tr7zw.nbtapi.NBTType
+import de.tr7zw.nbtapi.iface.ReadableNBT
+import de.tr7zw.nbtapi.iface.ReadableNBTList
 import net.kyori.adventure.platform.bukkit.BukkitComponentSerializer
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -182,11 +182,7 @@ class BukkitItemStackConfig : ItemStackConfig {
             }
             val childConfig = when (currentCompound.getType(key)) {
                 NBTType.NBTTagCompound -> {
-                    val readConfigCompound =
-                        readFromItemStack(currentCompound.getCompound(key), childPath, configCompound)
-                    if (readConfigCompound.children.isEmpty()) {
-                        null
-                    }
+                    val readConfigCompound = currentCompound.getCompound(key)?.let { readFromItemStack(it, childPath, configCompound) }
                     readConfigCompound
                 }
 
@@ -276,7 +272,7 @@ class BukkitItemStackConfig : ItemStackConfig {
 
                 NBTType.NBTTagByteArray -> NBTTagConfigByteArray(
                     configCompound,
-                    ValueProviderByteArrayConst(currentCompound.getByteArray(key))
+                    ValueProviderByteArrayConst(currentCompound.getByteArray(key) ?: ByteArray(0))
                 )
 
                 NBTType.NBTTagShort -> NBTTagConfigShort(
@@ -291,7 +287,7 @@ class BukkitItemStackConfig : ItemStackConfig {
 
                 NBTType.NBTTagIntArray -> NBTTagConfigIntArray(
                     configCompound,
-                    ValueProviderIntArrayConst(currentCompound.getIntArray(key))
+                    ValueProviderIntArrayConst(currentCompound.getIntArray(key) ?: IntArray(0))
                 )
 
                 NBTType.NBTTagLong -> NBTTagConfigLong(

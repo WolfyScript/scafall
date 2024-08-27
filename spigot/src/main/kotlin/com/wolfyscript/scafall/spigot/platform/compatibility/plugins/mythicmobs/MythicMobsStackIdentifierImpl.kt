@@ -14,7 +14,7 @@ import com.wolfyscript.scafall.spigot.platform.world.items.ItemUtils.isAirOrNull
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.ItemCreateContext
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackIdentifier
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackIdentifierParser
-import de.tr7zw.changeme.nbtapi.NBTItem
+import de.tr7zw.nbtapi.NBTItem
 import io.lumine.mythic.bukkit.MythicBukkit
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor

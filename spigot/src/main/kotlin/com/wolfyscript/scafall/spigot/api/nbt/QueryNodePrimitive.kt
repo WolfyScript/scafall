@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.wolfyscript.scafall.config.jackson.KeyedBaseType
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
-import de.tr7zw.changeme.nbtapi.NBTType
+import de.tr7zw.nbtapi.NBTType
 
 @KeyedBaseType(baseType = QueryNode::class)
 abstract class QueryNodePrimitive<VAL> : QueryNode<VAL> {

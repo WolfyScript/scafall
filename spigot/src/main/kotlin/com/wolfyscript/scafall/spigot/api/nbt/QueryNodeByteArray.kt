@@ -3,7 +3,7 @@ package com.wolfyscript.scafall.spigot.api.nbt
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
-import de.tr7zw.changeme.nbtapi.NBTType
+import de.tr7zw.nbtapi.NBTType
 
 @StaticNamespacedKey(key = "byte_array")
 class QueryNodeByteArray : QueryNodePrimitive<ByteArray> {
@@ -21,9 +21,9 @@ class QueryNodeByteArray : QueryNodePrimitive<ByteArray> {
     override fun readValue(
         path: String?,
         key: String?,
-        parent: de.tr7zw.changeme.nbtapi.NBTCompound
+        parent: de.tr7zw.nbtapi.NBTCompound
     ): ByteArray {
-        return parent.getByteArray(key)
+        return parent.getByteArray(key) ?: ByteArray(0)
     }
 
     override fun applyValue(
@@ -31,7 +31,7 @@ class QueryNodeByteArray : QueryNodePrimitive<ByteArray> {
         key: String,
         context: EvalContext,
         value: ByteArray,
-        resultContainer: de.tr7zw.changeme.nbtapi.NBTCompound
+        resultContainer: de.tr7zw.nbtapi.NBTCompound
     ) {
         resultContainer.setByteArray(key, value)
     }

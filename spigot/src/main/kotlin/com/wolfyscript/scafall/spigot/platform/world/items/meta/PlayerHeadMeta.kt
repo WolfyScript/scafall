@@ -22,13 +22,9 @@ import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.platform.world.items.CustomItem
 import com.wolfyscript.scafall.spigot.platform.world.items.ItemBuilder
 
-
 class PlayerHeadMeta : Meta(KEY) {
-    override fun check(item: CustomItem, itemOther: ItemBuilder): Boolean {
-        val valueOther = itemOther.playerHeadValue
-        val value = item.playerHeadValue
-        return valueOther == value
-    }
+
+    override fun check(item: CustomItem, itemOther: ItemBuilder): Boolean = TODO("Not yet implemented")
 
     companion object {
         val KEY: Key = defaultKey("player_head")

@@ -26,8 +26,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.operator.BoolOperatorConst
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
-import de.tr7zw.changeme.nbtapi.NBTCompound
-import de.tr7zw.changeme.nbtapi.NBTType
+import de.tr7zw.nbtapi.NBTCompound
+import de.tr7zw.nbtapi.NBTType
 import java.util.*
 import java.util.stream.Collectors
 

@@ -20,8 +20,6 @@ package com.wolfyscript.scafall.spigot.platform.world.items
 import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wolfyscript.scafall.ScafallProvider
-import de.tr7zw.changeme.nbtapi.NBTCompound
-import de.tr7zw.changeme.nbtapi.NBTItem
 import net.kyori.adventure.platform.bukkit.BukkitComponentSerializer
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
@@ -34,9 +32,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.Damageable
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.inventory.meta.SkullMeta
-import org.bukkit.persistence.PersistentDataContainer
 import org.bukkit.persistence.PersistentDataType
-import java.lang.reflect.Field
 import java.net.MalformedURLException
 import java.net.URL
 import java.util.*
@@ -70,7 +66,7 @@ abstract class AbstractItemBuilder<Self: AbstractItemBuilder<Self>> protected co
     }
 
     @get:JsonIgnore
-    val itemMeta: ItemMeta
+    val itemMeta: ItemMeta?
         get() = itemStack.itemMeta
 
     fun hasItemMeta(): Boolean {
@@ -254,7 +250,7 @@ abstract class AbstractItemBuilder<Self: AbstractItemBuilder<Self>> protected co
             val dataContainer = itemMeta.persistentDataContainer
             var miniMsg = false
             var content = ""
-            if (dataContainer.has<PersistentDataContainer, PersistentDataContainer>(
+            if (dataContainer.has(
                     CUSTOM_DURABILITY_TAG,
                     PersistentDataType.TAG_CONTAINER
                 )
@@ -264,7 +260,7 @@ abstract class AbstractItemBuilder<Self: AbstractItemBuilder<Self>> protected co
                     tagContainer!!.getOrDefault(CUSTOM_DURABILITY_TAG_MINIMSG, PersistentDataType.BYTE, 1.toByte())
                         .toInt() == 1
                 content = tagContainer.getOrDefault(CUSTOM_DURABILITY_TAG_CONTENT, PersistentDataType.STRING, "")
-            } else if (dataContainer.has<String, String>(CUSTOM_DURABILITY_TAG, PersistentDataType.STRING)) {
+            } else if (dataContainer.has(CUSTOM_DURABILITY_TAG, PersistentDataType.STRING)) {
                 //Using old tag version
                 content = dataContainer.getOrDefault(CUSTOM_DURABILITY_TAG, PersistentDataType.STRING, "")
                     .replace("%dur%", "<dur>").replace("%max_dur%", "<max_dur>")
@@ -298,7 +294,7 @@ abstract class AbstractItemBuilder<Self: AbstractItemBuilder<Self>> protected co
             val tag = BukkitComponentSerializer.legacy().serialize(getCustomDurabilityTagComponent(itemMeta))
             val dataContainer = itemMeta.persistentDataContainer
             val lore = if (itemMeta.lore != null) itemMeta.lore else ArrayList()
-            if (dataContainer.has<Int, Int>(CUSTOM_DURABILITY_INDEX, PersistentDataType.INTEGER)) {
+            if (dataContainer.has(CUSTOM_DURABILITY_INDEX, PersistentDataType.INTEGER)) {
                 val index = dataContainer.get(CUSTOM_DURABILITY_INDEX, PersistentDataType.INTEGER)!!
                 if (index < lore!!.size) {
                     lore[index] = tag
@@ -315,129 +311,26 @@ abstract class AbstractItemBuilder<Self: AbstractItemBuilder<Self>> protected co
 
     fun removePlayerHeadValue(): Self {
         if (itemMeta is SkullMeta) {
-            //GameProfile profile = new GameProfile(UUID.randomUUID(), null);
-            //profile.getProperties().put("textures", new Property("textures", null));
-            var profileField: Field? = null
-            try {
-                profileField = itemMeta.javaClass.getDeclaredField("profile")
-                profileField.isAccessible = true
-                profileField[itemMeta] = null
-            } catch (e: NoSuchFieldException) {
-                e.printStackTrace()
-            } catch (e: SecurityException) {
-                e.printStackTrace()
-            } catch (e: IllegalAccessException) {
-                e.printStackTrace()
-            }
+            (itemMeta as SkullMeta).ownerProfile = null
             return setItemMeta(itemMeta)
         }
         return get()
     }
 
-    fun setPlayerHeadURL(value: String): Self {
-        if (value.startsWith("http://textures.minecraft.net/texture/")) {
-            return setPlayerHeadValue(value)
-        }
-        return setPlayerHeadValue("http://textures.minecraft.net/texture/$value")
-    }
-
     fun setPlayerHeadURL(value: String, name: String?, uuid: UUID?): Self {
-        if (value.startsWith("http://textures.minecraft.net/texture/")) {
-            return setPlayerHeadValue(value, name, uuid)
-        }
         return setPlayerHeadValue("http://textures.minecraft.net/texture/$value", name, uuid)
     }
-
-    val playerHeadValue: String
-        get() {
-            if (itemMeta is SkullMeta) {
-                val nbtItem = NBTItem(itemStack)
-                val skull = nbtItem.getCompound("SkullOwner")
-                if (skull != null) {
-                    if (skull.hasKey("Properties")) {
-                        val properties = skull.getCompound("Properties")
-                        if (properties.hasKey("textures")) {
-                            val textures = properties.getCompoundList("textures")
-                            if (textures.size > 0) {
-                                val `object`: NBTCompound = textures[0]
-                                val value = `object`.getString("Value")
-                                return value ?: ""
-                            }
-                        }
-                    }
-                }
-            }
-            return ""
-        }
 
     fun setPlayerHeadValue(value: String, name: String?, uuid: UUID?): Self {
         if (itemMeta is SkullMeta) {
             val profile = Bukkit.createPlayerProfile(uuid, name)
-
-            var textureUrl = value
-            if (!value.startsWith("https://") && !value.startsWith("http://")) {
-                //WolfyUtilCore.getInstance().getLogger().log(Level.WARNING, String.format("Using Base64 Texture property (%s) to create player head: %s", value, getItemStack()));
-                // The value is a base64 encoded texture value. This was previously supported, but requires a conversion now.
-                try {
-                    val decoded = String(Base64.getDecoder().decode(value))
-                    val matcher = SKIN_TEXTURE_PATTERN.matcher(decoded)
-                    if (!matcher.find()) {
-                        ScafallProvider.get().logger.error(
-                            "Could not apply player head texture \"{}\" to stack {}: Failed to match decoded value {}",
-                            value,
-                            itemStack,
-                            decoded
-                        )
-                        return get()
-                    }
-                    try {
-                        textureUrl = matcher.group(1)
-                    } catch (e: IllegalStateException) {
-                        ScafallProvider.get().logger.error(
-                            String.format(
-                                "Could not apply player head texture \"%s\" to stack %s: Failed to match decoded value %s",
-                                value,
-                                itemStack,
-                                decoded
-                            ), e
-                        )
-                        return get()
-                    } catch (e: IndexOutOfBoundsException) {
-                        ScafallProvider.get().logger.error(
-                            String.format(
-                                "Could not apply player head texture \"%s\" to stack %s: Failed to match decoded value %s",
-                                value,
-                                itemStack,
-                                decoded
-                            ), e
-                        )
-                        return get()
-                    }
-                } catch (e: IllegalArgumentException) {
-                    ScafallProvider.get().logger.error(
-                        String.format(
-                            "Could not apply player head texture \"%s\" to stack %s: Value is neither an URL nor a base64 encoded texture value!",
-                            value,
-                            itemStack
-                        ), e
-                    )
-                    return get()
-                }
-            }
-
             try {
-                profile.textures.skin = URL(textureUrl)
+                profile.textures.skin = URL(value)
             } catch (e: MalformedURLException) {
-                ScafallProvider.get().logger.warn(
-                    String.format(
-                        "Could not apply player head texture \"%s\" to stack %s", value,
-                        itemStack
-                    ), e
-                )
+                ScafallProvider.get().logger.warn(String.format("Could not apply player head texture \"%s\" to stack %s", value, itemStack), e)
                 return get()
             }
-
-            (itemMeta as SkullMeta).setOwnerProfile(profile)
+            (itemMeta as SkullMeta).ownerProfile = profile
             setItemMeta(itemMeta)
         }
         return get()

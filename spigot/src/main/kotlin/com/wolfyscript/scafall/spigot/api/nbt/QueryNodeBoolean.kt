@@ -27,9 +27,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.operator.BoolOperator
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
-import de.tr7zw.changeme.nbtapi.NBTCompound
-import de.tr7zw.changeme.nbtapi.NBTList
-import de.tr7zw.changeme.nbtapi.NBTType
+import de.tr7zw.nbtapi.NBTCompound
+import de.tr7zw.nbtapi.NBTList
+import de.tr7zw.nbtapi.NBTType
 import java.util.*
 
 @StaticNamespacedKey(key = "bool")
@@ -67,7 +67,7 @@ class QueryNodeBoolean : QueryNode<Any> {
                 NBTType.NBTTagFloat -> parent.getFloat(key)
                 NBTType.NBTTagString -> parent.getString(key)
                 NBTType.NBTTagCompound -> parent.getCompound(key)
-                NBTType.NBTTagList -> getListOfType(parent.getListType(key), key, parent)
+                NBTType.NBTTagList -> parent.getListType(key)?.let { getListOfType(it, key, parent) }
                 else -> null
             }
         )

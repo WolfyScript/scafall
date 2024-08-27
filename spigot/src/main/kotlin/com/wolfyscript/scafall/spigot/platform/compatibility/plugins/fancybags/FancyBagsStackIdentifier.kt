@@ -13,8 +13,8 @@ import com.wolfyscript.scafall.spigot.platform.world.items.ItemUtils.isAirOrNull
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.ItemCreateContext
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackIdentifier
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackIdentifierParser
-import de.tr7zw.changeme.nbtapi.NBTItem
-import de.tr7zw.changeme.nbtapi.NBTType
+import de.tr7zw.nbtapi.NBTItem
+import de.tr7zw.nbtapi.NBTType
 import me.chickenstyle.backpack.Utils
 import me.chickenstyle.backpack.configs.CustomBackpacks
 import org.bukkit.Material

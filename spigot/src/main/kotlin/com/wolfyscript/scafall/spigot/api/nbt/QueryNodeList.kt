@@ -23,9 +23,9 @@ package com.wolfyscript.scafall.spigot.api.nbt
 
 import com.fasterxml.jackson.annotation.*
 import com.wolfyscript.scafall.eval.context.EvalContext
-import de.tr7zw.changeme.nbtapi.NBTCompound
-import de.tr7zw.changeme.nbtapi.NBTList
-import de.tr7zw.changeme.nbtapi.NBTType
+import de.tr7zw.nbtapi.NBTCompound
+import de.tr7zw.nbtapi.NBTList
+import de.tr7zw.nbtapi.NBTType
 import java.util.*
 
 abstract class QueryNodeList<VAL> : QueryNode<NBTList<VAL>> {

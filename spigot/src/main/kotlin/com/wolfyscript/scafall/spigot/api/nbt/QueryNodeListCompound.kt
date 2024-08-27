@@ -3,8 +3,8 @@ package com.wolfyscript.scafall.spigot.api.nbt
 import com.fasterxml.jackson.annotation.JacksonInject
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
-import de.tr7zw.changeme.nbtapi.NBTCompound
-import de.tr7zw.changeme.nbtapi.NBTType
+import de.tr7zw.nbtapi.NBTCompound
+import de.tr7zw.nbtapi.NBTType
 
 @StaticNamespacedKey(key = "list/compound")
 class QueryNodeListCompound : QueryNodeList<NBTCompound> {

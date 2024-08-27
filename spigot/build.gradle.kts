@@ -5,6 +5,7 @@ plugins {
     `maven-publish`
     id("scafall.common")
     id("scafall.docker.run")
+    id("scafall.spigot")
     alias(libs.plugins.goooler.shadow)
 }
 

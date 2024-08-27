@@ -3,7 +3,7 @@ package com.wolfyscript.scafall.spigot.api.nbt
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.value_provider.ValueProviderLong
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
-import de.tr7zw.changeme.nbtapi.NBTType
+import de.tr7zw.nbtapi.NBTType
 
 @StaticNamespacedKey(key = "long")
 class QueryNodeLong : QueryNodePrimitive<Long> {
@@ -21,7 +21,7 @@ class QueryNodeLong : QueryNodePrimitive<Long> {
     override fun readValue(
         path: String?,
         key: String?,
-        parent: de.tr7zw.changeme.nbtapi.NBTCompound
+        parent: de.tr7zw.nbtapi.NBTCompound
     ): Long? {
         return parent.getLong(key)
     }
@@ -31,7 +31,7 @@ class QueryNodeLong : QueryNodePrimitive<Long> {
         key: String,
         context: EvalContext,
         value: Long,
-        resultContainer: de.tr7zw.changeme.nbtapi.NBTCompound
+        resultContainer: de.tr7zw.nbtapi.NBTCompound
     ) {
         resultContainer.setLong(key, value)
     }

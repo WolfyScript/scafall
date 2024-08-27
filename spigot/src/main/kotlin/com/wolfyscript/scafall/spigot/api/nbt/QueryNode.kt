@@ -37,9 +37,9 @@ import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Keyed
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
 import com.wolfyscript.scafall.spigot.platform.nbtQueries
-import de.tr7zw.changeme.nbtapi.NBTCompound
-import de.tr7zw.changeme.nbtapi.NBTList
-import de.tr7zw.changeme.nbtapi.NBTType
+import de.tr7zw.nbtapi.NBTCompound
+import de.tr7zw.nbtapi.NBTList
+import de.tr7zw.nbtapi.NBTType
 import java.io.IOException
 import java.util.*
 

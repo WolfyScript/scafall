@@ -22,9 +22,7 @@ devtools-docker = "2.0-SNAPSHOT"
 
 ## Spigot Impl dependencies ##
 papermc = "1.20.4-R0.1-SNAPSHOT"
-bstats-bukkit = "3.0.0"
-item-nbt-api = "2.11.3"
-nbt-data-api = "2.11.3"
+item-nbt-api = "2.13.1"
 # external plugins
 lwc = "5.0.16-SNAPSHOT"
 worldedit = "7.3.0-SNAPSHOT"
@@ -64,9 +62,7 @@ junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jun
 
 ## Spigot Impl dependencies ##
 papermc-paper = { module = "io.papermc.paper:paper-api", version.ref = "papermc" }
-bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats-bukkit" }
-tr7zw-item-nbt-api = { module = "de.tr7zw:item-nbt-api", version.ref = "item-nbt-api" }
-tr7zw-nbt-data-api = { module = "de.tr7zw:nbt-data-api", version.ref = "nbt-data-api" }
+tr7zw-item-nbt-api = { module = "de.tr7zw:item-nbt-api-plugin", version.ref = "item-nbt-api" }
 adventure-platform-bukkit = { module = "net.kyori:adventure-platform-bukkit", version.ref = "adventure-platform-api" }
 # external plugins
 cubeside-lwc = { module = "de.iani.cubeside:LWC", version.ref="lwc" }

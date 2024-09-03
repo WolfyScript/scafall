@@ -83,11 +83,9 @@ abstract class ItemStackConfig(
      * @param context The context to use.
      * @return The constructed ItemStack.
      */
-    abstract fun constructItemStack(context: EvalContext = EvalContext()): ItemStack?
-
     abstract fun constructItemStack(
-        context: EvalContext,
-        miniMessage: MiniMessage?,
+        context: EvalContext = EvalContext(),
+        miniMessage: MiniMessage? = MiniMessage.miniMessage(),
         tagResolvers: TagResolver = TagResolver.empty()
     ): ItemStack?
 

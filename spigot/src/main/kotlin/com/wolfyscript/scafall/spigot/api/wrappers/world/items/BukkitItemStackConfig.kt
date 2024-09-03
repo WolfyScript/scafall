@@ -85,13 +85,9 @@ class BukkitItemStackConfig : ItemStackConfig {
         }
     }
 
-    override fun constructItemStack(context: EvalContext): ItemStackImpl? {
-        return constructItemStack(context, MiniMessage.miniMessage() /* TODO */, TagResolver.empty())
-    }
-
     override fun constructItemStack(
         context: EvalContext,
-        miniMsg: MiniMessage?,
+        miniMessage: MiniMessage?,
         tagResolvers: TagResolver
     ): ItemStackImpl? {
         val type = Material.matchMaterial(itemId)
@@ -114,12 +110,12 @@ class BukkitItemStackConfig : ItemStackConfig {
                     val nameVal = getValue(context)
                     if (usePaperDisplayOptions) {
                         if (nameVal != null) {
-                            meta.displayName(miniMsg!!.deserialize(nameVal, tagResolvers))
+                            meta.displayName(miniMessage!!.deserialize(nameVal, tagResolvers))
                         }
                     } else {
                         if (nameVal != null) {
                             meta.setDisplayName(
-                                BukkitComponentSerializer.legacy().serialize(miniMsg!!.deserialize(nameVal,
+                                BukkitComponentSerializer.legacy().serialize(miniMessage!!.deserialize(nameVal,
                                     tagResolvers
                                 ))
                             )
@@ -133,13 +129,13 @@ class BukkitItemStackConfig : ItemStackConfig {
                         if (isNotEmpty()) {
                             meta.lore(
                                 lore.map { provider ->
-                                    miniMsg!!.deserialize(provider.getValue(context), tagResolvers)
+                                    miniMessage!!.deserialize(provider.getValue(context), tagResolvers)
                                 }
                             )
                         }
                     } else {
                         meta.lore = lore.map { provider ->
-                            BukkitComponentSerializer.legacy().serialize(miniMsg!!.deserialize(provider.getValue(context),
+                            BukkitComponentSerializer.legacy().serialize(miniMessage!!.deserialize(provider.getValue(context),
                                 tagResolvers
                             ))
                         }

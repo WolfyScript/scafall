@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall
 
 import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.Style
@@ -28,6 +29,8 @@ interface AdventureUtil {
         get() = MiniMessage.miniMessage()
 
 }
+
+fun Key.toAPI() : com.wolfyscript.scafall.identifier.Key = ScafallProvider.get().factories.identifierFactory.key(this.namespace(), this.value())
 
 /* ****************************************** *
  *  Util extension functions for MiniMessage  *

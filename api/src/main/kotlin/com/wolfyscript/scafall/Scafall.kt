@@ -37,7 +37,7 @@ interface Scafall {
     val logger: Logger
         get() = corePlugin.logger
 
-    fun createOrGetPluginWrapper(pluginName: String) : PluginWrapper
+    fun createOrGetPluginWrapper(pluginName: String) : PluginWrapper?
 
     companion object
 

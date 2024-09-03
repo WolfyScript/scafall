@@ -18,6 +18,7 @@ import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManager
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManagerBukkit
 import com.wolfyscript.scafall.spigot.platform.persistent.PersistentStorage
+import org.bukkit.Bukkit
 
 internal class ScafallSpigot(private val bootstrap: ScaffoldingSpigotBootstrap) : AbstractScafallImpl() {
 
@@ -34,8 +35,8 @@ internal class ScafallSpigot(private val bootstrap: ScaffoldingSpigotBootstrap) 
     internal lateinit var persistentStorageInternal : PersistentStorage
     internal lateinit var compatibilityManagerInternal : CompatibilityManager
 
-    override fun createOrGetPluginWrapper(pluginName: String): PluginWrapper {
-        TODO("Not yet implemented")
+    override fun createOrGetPluginWrapper(pluginName: String): PluginWrapper? {
+        return Bukkit.getPluginManager().getPlugin(pluginName)?.let { SpigotPluginWrapper(it) }
     }
 
     override fun load() {

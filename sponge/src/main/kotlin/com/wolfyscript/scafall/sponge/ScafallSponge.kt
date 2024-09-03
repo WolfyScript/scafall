@@ -15,7 +15,9 @@ import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.sponge.api.SpongeAdventureUtil
 import com.wolfyscript.scafall.sponge.api.factories.SpongeFactories
 import com.wolfyscript.scafall.sponge.api.scheduling.SchedulerImpl
+import org.spongepowered.api.Sponge
 import kotlin.io.path.Path
+import kotlin.jvm.optionals.getOrNull
 
 class ScafallSponge(private val bootstrap: ScaffoldingSpongeBootstrap) : AbstractScafallImpl() {
 
@@ -46,8 +48,8 @@ class ScafallSponge(private val bootstrap: ScaffoldingSpongeBootstrap) : Abstrac
 
     }
 
-    override fun createOrGetPluginWrapper(pluginName: String): PluginWrapper {
-        TODO("Not yet implemented")
+    override fun createOrGetPluginWrapper(pluginName: String): PluginWrapper? {
+        return Sponge.pluginManager().plugin(pluginName).getOrNull()?.let { SpongePluginWrapper(it) }
     }
 
 }

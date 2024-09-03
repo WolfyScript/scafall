@@ -6,6 +6,7 @@ plugins {
     `maven-publish`
     alias(libs.plugins.spongepowered.gradle)
     alias(libs.plugins.spongepowered.repository)
+    id("scafall.docker.run")
 
     kotlin("jvm")
 }
@@ -38,10 +39,24 @@ sponge {
     }
     plugin("scafall") {
         displayName("scafall")
-        entrypoint("com.wolfyscript.scafall.sponge.")
+        entrypoint("com.wolfyscript.scafall.sponge.loader.SpongeLoaderPlugin")
         dependency("spongeapi") {
             loadOrder(LoadOrder.AFTER)
             optional(false)
+        }
+    }
+}
+
+minecraftServers {
+    val debugPort = System.getProperty("debugPort") ?: "5006"
+    val debugPortMapping = "${debugPort}:${debugPort}"
+    servers {
+        register("spongevanilla_11") {
+            val spongeVersion = "1.20.6-11.0.0"
+            type.set("CUSTOM")
+            extraEnv.put("SPONGEVERSION", spongeVersion)
+            extraEnv.put("CUSTOM_SERVER", "https://repo.spongepowered.org/repository/maven-public/org/spongepowered/spongevanilla/${spongeVersion}/spongevanilla-${spongeVersion}-universal.jar")
+            ports.set(setOf(debugPortMapping, "25595:25565"))
         }
     }
 }

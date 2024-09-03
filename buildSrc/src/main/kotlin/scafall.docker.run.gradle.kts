@@ -22,7 +22,7 @@ minecraftDockerRun {
 
 
 minecraftServers {
-    libDir = project("${project.path}:loader").layout.buildDirectory
+    libDir = project(project.path).layout.buildDirectory
     serversDir.set(file("${System.getProperty("user.home")}${File.separator}minecraft${File.separator}test_servers_v5"))
     libName.set("${project.name}-${version}.jar")
 }

@@ -3,7 +3,7 @@ plugins {
     `maven-publish`
     id("scafall.common")
     id("scafall.docker.run")
-    alias(libs.plugins.goooler.shadow)
+    alias(libs.plugins.shadow)
 }
 
 repositories {

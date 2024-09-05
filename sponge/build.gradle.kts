@@ -3,13 +3,8 @@ import org.spongepowered.gradle.plugin.config.PluginLoaders
 plugins {
     `java-library`
     `maven-publish`
-//    id("scafall.common")
-    id("scafall.docker.run")
-    alias(libs.plugins.spongepowered.gradle)
-    alias(libs.plugins.goooler.shadow)
-    alias(libs.plugins.spongepowered.repository)
-
-    kotlin("jvm")
+    id("scafall.common")
+    alias(libs.plugins.shadow)
 }
 
 repositories {

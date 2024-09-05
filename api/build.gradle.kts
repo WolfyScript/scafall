@@ -1,7 +1,7 @@
 plugins {
     `java-library`
     id("scafall.common")
-    alias(libs.plugins.goooler.shadow)
+    alias(libs.plugins.shadow)
 }
 
 dependencies {

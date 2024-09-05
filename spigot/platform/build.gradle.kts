@@ -4,7 +4,7 @@ plugins {
     `java-library`
     id("scafall.common")
     id("scafall.spigot")
-    alias(libs.plugins.goooler.shadow)
+    alias(libs.plugins.shadow)
 }
 
 repositories {

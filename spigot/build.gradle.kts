@@ -3,19 +3,7 @@ plugins {
     `maven-publish`
     id("scafall.common")
     id("scafall.spigot")
-    alias(libs.plugins.goooler.shadow)
-}
-
-repositories {
-    maven("https://repo.papermc.io/repository/maven-public/")
-
-    maven(url = "https://maven.enginehub.org/repo/")
-    maven(url = "https://repo.citizensnpcs.co")
-    maven(url = "https://repo.codemc.io/repository/maven-public/")
-    maven(url = "https://repo.extendedclip.com/content/repositories/placeholderapi/")
-    maven(url = "https://nexus.phoenixdevt.fr/repository/maven-public/")
-    maven(url = "https://mvn.lumine.io/repository/maven-public/")
-    maven(url = "https://www.iani.de/nexus/content/repositories/public/")
+    alias(libs.plugins.shadow)
 }
 
 dependencies {

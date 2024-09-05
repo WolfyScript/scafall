@@ -12,7 +12,7 @@ import com.wolfyscript.scafall.factories.Factories
 import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
-import com.wolfyscript.scafall.spigot.ScaffoldingSpigotBootstrap
+import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
 import com.wolfyscript.scafall.spigot.api.factories.SpigotFactoriesImpl
 import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManager
@@ -20,7 +20,7 @@ import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManage
 import com.wolfyscript.scafall.spigot.platform.persistent.PersistentStorage
 import org.bukkit.Bukkit
 
-internal class ScafallSpigot(private val bootstrap: ScaffoldingSpigotBootstrap) : AbstractScafallImpl() {
+internal class ScafallSpigot(private val bootstrap: ScafallSpigotBootstrap) : AbstractScafallImpl() {
 
     override lateinit var registries: Registries
     override lateinit var scheduler: Scheduler

@@ -1,5 +1,3 @@
-import org.spongepowered.gradle.plugin.config.PluginLoaders
-
 plugins {
     `java-library`
     `maven-publish`
@@ -9,13 +7,8 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven(url = "https://artifacts.wolfyscript.com/artifactory/gradle-dev")
-    sponge.snapshots()
-    sponge.releases()
-}
-
-kotlin {
-    jvmToolchain(21)
+    maven("https://artifacts.wolfyscript.com/artifactory/gradle-dev")
+    maven("https://repo.spongepowered.org/repository/maven-public/")
 }
 
 dependencies {
@@ -25,13 +18,30 @@ dependencies {
     compileOnly(libs.reflections)
     compileOnly(libs.fastutil)
     compileOnly(libs.jetbrains.annotations)
+    compileOnly(libs.spongepowered.api)
 }
 
-sponge {
-    apiVersion("11.0.0-SNAPSHOT")
-    license("GNU GPL 3.0")
-    loader {
-        name(PluginLoaders.JAVA_PLAIN)
-        version("1.0")
+tasks {
+    shadowJar {
+        archiveFileName = "scafall-sponge.innerjar"
+
+        dependencies {
+            include(dependency("com.wolfyscript.scafall:.*"))
+            include(project(":common"))
+        }
+    }
+}
+
+artifacts {
+    archives(tasks.shadowJar)
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("lib") {
+            from(components.getByName("java"))
+            groupId = "com.wolfyscript.scafall.sponge"
+            artifactId = "sponge-implementation"
+        }
     }
 }

@@ -25,7 +25,6 @@ import com.wolfyscript.scafall.spigot.platform.world.items.ItemBuilder
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 
-
 class AttributesModifiersMeta : Meta(KEY) {
     override fun check(item: CustomItem, itemOther: ItemBuilder): Boolean {
         val metaOther = itemOther.itemMeta

@@ -1,4 +1,4 @@
-package com.wolfyscript.scafall.sponge
+package com.wolfyscript.scafall.sponge.api
 
 import com.wolfyscript.scafall.AdventureUtil
 import com.wolfyscript.scafall.PluginWrapper
@@ -12,14 +12,14 @@ import com.wolfyscript.scafall.factories.Factories
 import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
-import com.wolfyscript.scafall.sponge.api.SpongeAdventureUtil
+import com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap
 import com.wolfyscript.scafall.sponge.api.factories.SpongeFactories
 import com.wolfyscript.scafall.sponge.api.scheduling.SchedulerImpl
 import org.spongepowered.api.Sponge
 import kotlin.io.path.Path
 import kotlin.jvm.optionals.getOrNull
 
-class ScafallSponge(private val bootstrap: ScaffoldingSpongeBootstrap) : AbstractScafallImpl() {
+class ScafallSponge(private val bootstrap: ScafallSpongeBootstrap) : AbstractScafallImpl() {
 
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler

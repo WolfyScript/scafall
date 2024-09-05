@@ -8,9 +8,6 @@ pluginManagement {
         maven("https://artifacts.wolfyscript.com/artifactory/gradle-dev")
     }
 }
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
-}
 
 sequenceOf(
     "api",
@@ -36,6 +33,9 @@ sequenceOf(
 
 include(":spigot:platform")
 project(":spigot:platform").projectDir = file("spigot/platform")
+
+include(":sponge:platform")
+project(":sponge:platform").projectDir = file("sponge/platform")
 
 // Sample Plugin Modules
 val samplesDir: String = "samples"

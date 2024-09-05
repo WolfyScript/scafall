@@ -3,7 +3,7 @@ package com.wolfyscript.scafall.sponge.api.scheduling
 import com.wolfyscript.scafall.PluginWrapper
 import com.wolfyscript.scafall.function.ReceiverConsumer
 import com.wolfyscript.scafall.scheduling.Task
-import com.wolfyscript.scafall.sponge.SpongePluginWrapper
+import com.wolfyscript.scafall.sponge.api.SpongePluginWrapper
 import org.spongepowered.api.Sponge
 import org.spongepowered.api.scheduler.ScheduledTask
 import org.spongepowered.api.util.Ticks

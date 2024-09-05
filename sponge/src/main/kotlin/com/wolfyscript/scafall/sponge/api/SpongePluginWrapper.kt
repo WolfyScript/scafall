@@ -1,4 +1,4 @@
-package com.wolfyscript.scafall.sponge
+package com.wolfyscript.scafall.sponge.api
 
 import com.wolfyscript.scafall.PluginWrapper
 import com.wolfyscript.scafall.common.api.into

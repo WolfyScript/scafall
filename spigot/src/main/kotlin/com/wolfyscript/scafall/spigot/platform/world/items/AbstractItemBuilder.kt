@@ -66,7 +66,7 @@ abstract class AbstractItemBuilder<Self: AbstractItemBuilder<Self>> protected co
     }
 
     @get:JsonIgnore
-    val itemMeta: ItemMeta?
+    val itemMeta: ItemMeta
         get() = itemStack.itemMeta
 
     fun hasItemMeta(): Boolean {

@@ -2,9 +2,9 @@ package com.wolfyscript.scafall.loader;
 
 import org.jetbrains.annotations.ApiStatus;
 
-public interface ScaffoldingBootstrap {
+public interface ScafallBootstrap {
 
-    ScaffoldingModule createScaffoldingModule(String entrypoint, Object loader);
+    ScafallModule createScaffoldingModule(String entrypoint, Object loader);
 
     /**
      * Used by Scaffolding itself to initialise Platform implementations.

@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall.spigot
 
 import com.fasterxml.jackson.databind.module.SimpleModule
+import com.google.inject.Inject
 import com.wolfyscript.scafall.loader.PluginBootstrap
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.spigot.api.ScafallSpigot
@@ -11,7 +12,7 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.function.Consumer
 
-internal class ScaffoldingSpigotBootstrap(applyScafall: Consumer<Scafall>, plugin: JavaPlugin) : PluginBootstrap {
+class ScafallSpigotBootstrap @Inject constructor(applyScafall: Consumer<Scafall>, plugin: JavaPlugin) : PluginBootstrap {
 
     internal val corePlugin: SpigotPluginWrapper = SpigotPluginWrapper(plugin)
     private val api: ScafallSpigot = ScafallSpigot(this)

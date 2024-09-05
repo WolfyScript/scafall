@@ -35,7 +35,7 @@ mcmmo = "2.1.139-SNAPSHOT"
 
 ## Sponge Impl dependencies ##
 sponge-gradle = "2.2.0"
-
+sponge-api = "11.0.0-SNAPSHOT"
 
 [libraries]
 # Kotlin & Jetbrains dependencies
@@ -75,8 +75,10 @@ worldguard-bukkit = { module = "com.sk89q.worldguard:worldguard-bukkit", version
 plotsquared-core = { module = "com.plotsquared:PlotSquared-Core", version.ref = "plotsquared" }
 plotsquared-bukkit = { module = "com.plotsquared:PlotSquared-Bukkit", version.ref="plotsquared" }
 nossr50-mcmmo = { module = "com.gmail.nossr50.mcMMO:mcMMO", version.ref="mcmmo" }
-
 ## ##
+
+## Sponge Impl dependencies ##
+spongepowered-api = { module = "org.spongepowered:spongeapi", version.ref = "sponge-api" }
 
 [bundles]
 jackson = [ "jackson-core", "jackson-annotations", "jackson-databind", "jackson-dataformat-hocon" ]

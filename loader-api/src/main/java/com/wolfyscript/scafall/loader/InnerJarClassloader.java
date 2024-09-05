@@ -76,22 +76,22 @@ public class InnerJarClassloader extends URLClassLoader {
         addURL(url);
     }
 
-    public <T> ScaffoldingModule loadModule(String boostrapClass, T loader) {
-        final Class<? extends ScaffoldingModule> moduleClass;
+    public <T> ScafallModule loadModule(String boostrapClass, T loader) {
+        final Class<? extends ScafallModule> moduleClass;
         try {
-            moduleClass = loadClass(boostrapClass).asSubclass(ScaffoldingModule.class);
+            moduleClass = loadClass(boostrapClass).asSubclass(ScafallModule.class);
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Unable to load module: " + boostrapClass, e);
         }
 
-        final Constructor<? extends ScaffoldingModule> constructor;
+        final Constructor<? extends ScafallModule> constructor;
         try {
             constructor = moduleClass.getConstructor(loader.getClass());
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Unable to find constructor for module: " + boostrapClass, e);
         }
 
-        final ScaffoldingModule module;
+        final ScafallModule module;
         try {
             module = constructor.newInstance(loader);
         } catch (ReflectiveOperationException e) {

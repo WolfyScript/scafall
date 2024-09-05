@@ -35,23 +35,16 @@ tasks {
 
         dependencies {
             include(dependency("com.wolfyscript.scafall:.*"))
-            include(project(":common"))
         }
     }
 }
-
-artifacts {
-    archives(tasks.shadowJar)
-}
-
-
 
 publishing {
     publications {
         create<MavenPublication>("lib") {
             from(components.getByName("java"))
             groupId = "com.wolfyscript.scafall.spigot"
-            artifactId = "spigot-implementation"
+            artifactId = "spigot"
         }
     }
 }

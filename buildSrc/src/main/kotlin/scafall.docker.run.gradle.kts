@@ -19,10 +19,3 @@ minecraftDockerRun {
     env.set(customEnv)
     arguments("--cpus", "2", "-it") // Constrain to only use 2 cpus, and allow for console interactivity with 'docker attach'
 }
-
-
-minecraftServers {
-    libDir = project(project.path).layout.buildDirectory
-    serversDir.set(file("${System.getProperty("user.home")}${File.separator}minecraft${File.separator}test_servers_v5"))
-    libName.set("${project.name}-${version}.jar")
-}

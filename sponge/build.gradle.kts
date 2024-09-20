@@ -41,7 +41,7 @@ publishing {
         create<MavenPublication>("lib") {
             from(components.getByName("java"))
             groupId = "com.wolfyscript.scafall.sponge"
-            artifactId = "sponge-implementation"
+            artifactId = "sponge"
         }
     }
 }

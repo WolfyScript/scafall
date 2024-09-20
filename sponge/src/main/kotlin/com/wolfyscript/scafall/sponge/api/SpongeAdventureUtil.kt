@@ -10,7 +10,7 @@ import java.util.*
 class SpongeAdventureUtil(private val scafall: Scafall) : AdventureUtil {
 
     override fun player(uuid: UUID): Audience {
-        return Sponge.server().player(uuid).orElseThrow()
+        return Sponge.server().player(uuid).map { it as Audience }.orElseGet { Audience.empty() }
     }
 
     override fun all(): Audience {

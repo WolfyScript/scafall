@@ -1,8 +1,11 @@
 package com.wolfyscript.scafall.spigot
 
+import com.wolfyscript.scafall.PluginWrapper
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallProvider
+import com.wolfyscript.scafall.common.api.into
 import com.wolfyscript.scafall.loader.ScafallLoader
+import com.wolfyscript.scafall.spigot.api.SpigotPluginWrapper
 import org.bukkit.plugin.java.JavaPlugin
 
 fun Scafall.Companion.init(plugin: JavaPlugin, apiClassLoader: ClassLoader = this::class.java.classLoader) : Scafall {
@@ -16,4 +19,8 @@ fun Scafall.Companion.init(plugin: JavaPlugin, apiClassLoader: ClassLoader = thi
     pluginBootstrap.onEnable()
 
     return ScafallProvider.get()
+}
+
+fun PluginWrapper.spigot() : SpigotPluginWrapper {
+    return into()
 }

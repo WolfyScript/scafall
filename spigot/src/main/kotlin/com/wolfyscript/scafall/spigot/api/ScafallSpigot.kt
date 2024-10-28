@@ -5,6 +5,7 @@ import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.common.api.AbstractScafallImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
+import com.wolfyscript.scafall.common.api.factories.CommonFactories
 import com.wolfyscript.scafall.common.api.registries.CommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
@@ -27,7 +28,7 @@ internal class ScafallSpigot(private val bootstrap: ScafallSpigotBootstrap) : Ab
     override var platformType: PlatformType = PlatformType.SPIGOT // TODO: Proper detection
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
-    override lateinit var factories: Factories
+    override lateinit var factories: CommonFactories
     override var corePlugin: PluginWrapper = bootstrap.corePlugin
     override lateinit var adventure: SpigotAdventureUtil
 
@@ -40,7 +41,9 @@ internal class ScafallSpigot(private val bootstrap: ScafallSpigotBootstrap) : Ab
     }
 
     override fun load() {
-        factories = SpigotFactoriesImpl()
+        factories = SpigotFactoriesImpl(this)
+        factories.init()
+
         scheduler = SchedulerImpl(this)
         registries = CommonRegistries(this)
 

@@ -2,12 +2,15 @@ package com.wolfyscript.scafall.spigot.api.wrappers.world.items
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.wolfyscript.scafall.ScafallProvider
+import com.wolfyscript.scafall.common.api.data.SnapshotDataComponentMap
+import com.wolfyscript.scafall.data.DataKey
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.operator.BoolOperatorConst
 import com.wolfyscript.scafall.eval.value_provider.*
 import com.wolfyscript.scafall.nbt.*
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import de.tr7zw.nbtapi.NBTCompound
 import de.tr7zw.nbtapi.NBTItem
 import de.tr7zw.nbtapi.NBTList
@@ -30,59 +33,25 @@ class BukkitItemStackConfig : ItemStackConfig {
 
     @JsonCreator
     constructor(@JsonProperty("itemId") itemId: String) : super(
-        itemId
+        itemId, SnapshotDataComponentMap()
     )
 
     constructor(wrappedStack: ItemStack) : super(
-        (wrappedStack as ItemStackImpl).bukkitRef!!.type.key.toString()
+        (wrappedStack as ItemStackImpl).bukkitRef!!.type.key.toString(),
+        SnapshotDataComponentMap()
     ) {
         val stack = wrappedStack.bukkitRef
 
         // Read from ItemStack
         this.amount = ValueProviderIntegerConst(stack!!.amount)
-        val meta = stack.itemMeta
-        if (meta != null) {
-            val miniMsg : MiniMessage = MiniMessage.miniMessage() // TODO
-            if (usePaperDisplayOptions) {
-                if (meta.hasDisplayName()) {
-                    this.name(miniMsg.serialize(meta.displayName()!!))
-                }
-                if (meta.hasLore()) {
-                    this.lore = meta.lore()!!
-                        .map<Component, ValueProvider<String>> { ValueProviderStringConst(miniMsg.serialize(it)) }
-                        .toList()
-                }
-            } else {
-                // First need to convert the Strings to Component and then back to mini message!
-                if (meta.hasDisplayName()) {
-                    this.name(miniMsg.serialize(BukkitComponentSerializer.legacy().deserialize(meta.displayName)))
-                }
-                if (meta.hasLore()) {
-                    this.lore = meta.lore!!
-                        .stream().map { s: String? ->
-                            ValueProviderStringConst(miniMsg.serialize(BukkitComponentSerializer.legacy().deserialize(s!!)))
-                        }.toList()
-                }
-            }
-            this.unbreakable = BoolOperatorConst(meta.isUnbreakable)
-            this.customModelData =
-                if (meta.hasCustomModelData()) ValueProviderIntegerConst(meta.customModelData) else null
-        }
-        this.enchants = stack.enchantments.entries.stream().collect(
-            Collectors.toMap<Map.Entry<Enchantment, Int?>, String, ValueProviderIntegerConst>(
-                { entry: Map.Entry<Enchantment, Int?> -> entry.key.key.toString() },
-                { entry: Map.Entry<Enchantment, Int?> ->
-                    ValueProviderIntegerConst(
-                        entry.value!!
-                    )
-                })
-        )
 
-        this.nbt = if (stack.type != Material.AIR && stack.amount > 0) {
-            readFromItemStack(NBTItem(stack), "", null)
-        } else {
-            NBTTagConfigCompound(null)
+        for (dataKey in ScafallProvider.get().registries.itemDataKeyRegistry) {
+            // We iterate over all the available dataKeys and check if it finds anything... this may be optimized
+            dataKey.readFrom(wrappedStack)?.let {
+                data().set(dataKey, it)
+            }
         }
+
     }
 
     override fun constructItemStack(
@@ -92,75 +61,24 @@ class BukkitItemStackConfig : ItemStackConfig {
     ): ItemStackImpl? {
         val type = Material.matchMaterial(itemId)
         if (type != null) {
-            var itemStack = org.bukkit.inventory.ItemStack(type)
+            val itemStack = org.bukkit.inventory.ItemStack(type)
             itemStack.amount = amount.getValue(context)
 
-            // Apply the NBT of the stack
-            if (type != Material.AIR && itemStack.amount > 0) {
-                val nbtItem = NBTItem(itemStack)
-                applyCompound(nbtItem, nbt, context)
-                itemStack = nbtItem.item
-            }
-
             // Apply ItemMeta afterwards to override possible NBT Tags
-            val meta = itemStack.itemMeta
-            if (meta != null) {
-                // Apply Display options
-                this.name?.apply {
-                    val nameVal = getValue(context)
-                    if (usePaperDisplayOptions) {
-                        if (nameVal != null) {
-                            meta.displayName(miniMessage!!.deserialize(nameVal, tagResolvers))
-                        }
-                    } else {
-                        if (nameVal != null) {
-                            meta.setDisplayName(
-                                BukkitComponentSerializer.legacy().serialize(miniMessage!!.deserialize(nameVal,
-                                    tagResolvers
-                                ))
-                            )
-                        }
-                    }
-                }
+            val wrappedStack = ItemStackImpl(itemStack)
 
-                this.lore.apply {
-                    if (isEmpty()) return@apply
-                    if (usePaperDisplayOptions) {
-                        if (isNotEmpty()) {
-                            meta.lore(
-                                lore.map { provider ->
-                                    miniMessage!!.deserialize(provider.getValue(context), tagResolvers)
-                                }
-                            )
-                        }
-                    } else {
-                        meta.lore = lore.map { provider ->
-                            BukkitComponentSerializer.legacy().serialize(miniMessage!!.deserialize(provider.getValue(context),
-                                tagResolvers
-                            ))
-                        }
-                    }
-                }
-
-                // Apply enchants
-                for ((key, value) in enchants) {
-                    val enchant = Enchantment.getByKey(NamespacedKey.fromString(key))
-                    if (enchant != null) {
-                        meta.addEnchant(enchant, value.getValue(context), true)
-                    }
-                }
-
-                if (customModelData != null) {
-                    meta.setCustomModelData(customModelData!!.getValue(context))
-                }
-
-                meta.isUnbreakable = unbreakable.evaluate(context)
-
-                itemStack.setItemMeta(meta)
+            for (dataKey in data().keys()) {
+                applyDataKey(wrappedStack, dataKey)
             }
-            return ItemStackImpl(itemStack)
+            return wrappedStack
         }
         return null
+    }
+
+    private fun <T: Any> applyDataKey(stack: ItemStack, dataKey: DataKey<T, ItemStack>) {
+        data().get(dataKey)?.let {
+            dataKey.writeTo(it, stack)
+        }
     }
 
     private fun readFromItemStack(
@@ -178,7 +96,8 @@ class BukkitItemStackConfig : ItemStackConfig {
             }
             val childConfig = when (currentCompound.getType(key)) {
                 NBTType.NBTTagCompound -> {
-                    val readConfigCompound = currentCompound.getCompound(key)?.let { readFromItemStack(it, childPath, configCompound) }
+                    val readConfigCompound =
+                        currentCompound.getCompound(key)?.let { readFromItemStack(it, childPath, configCompound) }
                     readConfigCompound
                 }
 
@@ -406,15 +325,6 @@ class BukkitItemStackConfig : ItemStackConfig {
     override fun toString(): String {
         return "BukkitItemStackConfig{" +
                 "itemId='" + itemId + '\'' +
-                ", name=" + name +
-                ", lore=" + lore +
-                ", amount=" + amount +
-                ", repairCost=" + repairCost +
-                ", damage=" + damage +
-                ", unbreakable=" + unbreakable +
-                ", customModelData=" + customModelData +
-                ", enchants=" + enchants +
-                ", nbt=" + nbt +
                 "} "
     }
 }

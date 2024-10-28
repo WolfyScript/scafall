@@ -19,6 +19,5 @@ package com.wolfyscript.scafall.wrappers.world.items.data
 
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 
-interface BundleContents {
-    fun contents(): List<ItemStack>
+data class BundleContents(val contents: List<ItemStack>) {
 }

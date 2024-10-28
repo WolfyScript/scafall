@@ -18,5 +18,5 @@
 package com.wolfyscript.scafall.wrappers.world.items.data
 
 interface Bees {
-    fun entityCount(): Int // TODO
+    val entityCount: Int // TODO
 }

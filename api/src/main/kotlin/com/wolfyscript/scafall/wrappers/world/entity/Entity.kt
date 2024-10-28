@@ -32,14 +32,7 @@ interface Entity {
     fun getLocation(loc: Location): Location?
 
     /**
-     * Gets this entity's current velocity
-     *
-     * @return Current traveling velocity of this entity
-     */
-    /**
-     * Sets this entity's velocity in meters per tick
-     *
-     * @param velocity New velocity to travel with
+     * This entity's current velocity in meters per tick
      */
     var velocity: Vector3D
 

@@ -21,11 +21,11 @@ import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 
 interface BannerPatterns {
-    fun layers(): List<Layer>
+
+    val layers: List<Layer>
 
     interface Layer {
-        fun shape(): Key
-
-        fun color(): DyeColor
+        val shape: Key
+        val color: DyeColor
     }
 }

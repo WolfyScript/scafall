@@ -17,4 +17,4 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-interface Unbreakable : TooltipApplicable
+data class Unbreakable(override val showInTooltip: Boolean) : TooltipApplicable

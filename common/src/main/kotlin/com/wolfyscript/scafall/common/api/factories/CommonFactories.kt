@@ -7,4 +7,6 @@ abstract class CommonFactories : Factories {
 
     override val identifierFactory: IdentifierFactory = IdentifierFactoryImpl()
 
+    abstract fun init()
+
 }

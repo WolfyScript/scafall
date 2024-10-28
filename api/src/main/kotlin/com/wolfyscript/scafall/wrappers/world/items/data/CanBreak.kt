@@ -21,5 +21,5 @@ import com.wolfyscript.scafall.identifier.Key
 
 interface CanBreak : TooltipApplicable {
     // TODO: Other predicates
-    fun blocks(): List<Key>
+    val blocks: List<Key>
 }

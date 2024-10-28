@@ -17,4 +17,21 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-interface Fireworks 
+import com.wolfyscript.scafall.identifier.Key
+
+interface Fireworks {
+
+    val explosions: List<FireworkExplosion>
+    val flightDuration: Byte
+
+}
+
+interface FireworkExplosion {
+
+    val shape: Key
+    val colors: List<DyedColor>
+    val fadeColors: List<DyedColor>
+    val trail: Boolean
+    val twinkle: Boolean
+
+}

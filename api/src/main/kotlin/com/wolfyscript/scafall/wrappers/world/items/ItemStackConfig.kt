@@ -19,16 +19,20 @@ package com.wolfyscript.scafall.wrappers.world.items
 
 import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonSetter
+import com.fasterxml.jackson.databind.JsonNode
+import com.wolfyscript.scafall.ScafallProvider
+import com.wolfyscript.scafall.config.jackson.JacksonUtil
+import com.wolfyscript.scafall.data.DataComponentMap
+import com.wolfyscript.scafall.data.DataHolder
 import com.wolfyscript.scafall.eval.context.EvalContext
-import com.wolfyscript.scafall.eval.operator.BoolOperator
-import com.wolfyscript.scafall.eval.operator.BoolOperatorConst
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.eval.value_provider.ValueProviderIntegerConst
-import com.wolfyscript.scafall.eval.value_provider.ValueProviderStringConst
+import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.nbt.NBTTagConfigCompound
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
-import java.util.Collections
 
 /**
  * A cross-platform ItemStack configuration using the jackson library.
@@ -41,34 +45,37 @@ abstract class ItemStackConfig(
     /**
      * The id of the item in the `<namespace>:<item_key>` format.
      */
-    val itemId: String
-) {
+    @JsonProperty("item") val itemId: String,
+    private val dataComponentMap: DataComponentMap<ItemStack>
+) : DataHolder<ItemStack> {
+
+    override fun data(): DataComponentMap<ItemStack> = dataComponentMap
+
+    @JsonSetter("data_components")
+    internal fun readDataComponents(raw: Map<String, JsonNode>) {
+        val keysRegistry = ScafallProvider.get().registries.itemDataKeyRegistry
+        for ((rawKey, value) in raw) {
+            val key = Key.parse(rawKey)
+            keysRegistry[key]?.let {
+                try {
+                    val obj = JacksonUtil.objectMapper.convertValue(value, it.type.java)
+                    dataComponentMap.set(it, obj) // When this is reached the type is correct, because otherwise the deserialization would fail
+                } catch (e: IllegalArgumentException) {
+                    // TODO: Present the error e.g. log it
+                }
+            }
+        }
+    }
+
+    @JsonGetter("data_components")
+    internal fun writeDataComponents() : Map<String, Any> {
+        return TODO()
+    }
+
     /* ********************
      * Common NBT Settings
      * ********************/
-    /**
-     * The display name of the stack.
-     * Direct support for Adventure tags.
-     */
-    var name: ValueProvider<String>? = null
-
-    fun name(name: String) {
-        this.name = ValueProviderStringConst(name)
-    }
-
-    /**
-     * The lore of the stack. Direct support for Adventure tags.
-     */
-    var lore: List<ValueProvider<String>> = ArrayList()
-        get() = Collections.unmodifiableList(field)
-
     var amount: ValueProvider<Int> = ValueProviderIntegerConst(1)
-    var repairCost: ValueProvider<Int> = ValueProviderIntegerConst(0)
-    var damage: ValueProvider<Int> = ValueProviderIntegerConst(0)
-    var unbreakable: BoolOperator = BoolOperatorConst(false)
-    var customModelData: ValueProvider<Int>? = ValueProviderIntegerConst(0)
-    var enchants: Map<String, ValueProvider<Int>> = HashMap()
-        get() = Collections.unmodifiableMap(field)
 
     /* ********************
      * Unhandled NBT Tags

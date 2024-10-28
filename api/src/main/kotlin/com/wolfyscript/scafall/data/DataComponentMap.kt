@@ -44,7 +44,6 @@ interface DataComponentMap<H : DataHolder<H>> {
 
     fun has(key: DataKey<*, H>): Boolean
 
-    fun keySet(): Set<DataKey<*, H>>
+    fun keys(): Set<DataKey<*, H>>
 
-    fun size(): Int
 }

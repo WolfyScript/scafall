@@ -1,11 +1,16 @@
 package com.wolfyscript.scafall.spigot.api.factories
 
+import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.common.api.factories.CommonFactories
 import com.wolfyscript.scafall.factories.Factories
 import com.wolfyscript.scafall.factories.ItemsFactory
 
-class SpigotFactoriesImpl : CommonFactories() {
+class SpigotFactoriesImpl(val scafall: Scafall) : CommonFactories() {
 
-    override val itemsFactory: ItemsFactory = SpigotItemsFactoryImpl()
+    override lateinit var itemsFactory: ItemsFactory
+
+    override fun init() {
+        itemsFactory = SpigotItemsFactoryImpl(scafall)
+    }
 
 }

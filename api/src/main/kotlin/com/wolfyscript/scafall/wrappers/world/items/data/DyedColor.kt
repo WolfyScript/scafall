@@ -17,6 +17,4 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-interface DyedColor : TooltipApplicable {
-    fun rgb(): Int
-}
+data class DyedColor(override val showInTooltip: Boolean, val rgb: Int) : TooltipApplicable

@@ -19,7 +19,4 @@ package com.wolfyscript.scafall.wrappers.world.items.data
 
 import com.wolfyscript.scafall.identifier.Key
 
-interface CanPlaceOn : TooltipApplicable {
-    // TODO: Other predicates
-    val blocks: List<Key>
-}
+data class CanPlaceOn(override val showInTooltip: Boolean, val blocks: List<Key>) : TooltipApplicable

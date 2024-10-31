@@ -12,9 +12,9 @@ import org.bukkit.inventory.ItemFlag
 internal val canPlaceOnItemMetaConverter = ItemMetaDataKeyConverter<CanPlaceOn>({
     val show = !hasItemFlag(ItemFlag.HIDE_PLACED_ON)
     return@ItemMetaDataKeyConverter if (ScafallProvider.get().platformType == PlatformType.PAPER) {
-        CanPlaceOnImpl(show, placeableKeys.map { Key.key(it.namespace, it.key) })
+        CanPlaceOn(show, placeableKeys.map { Key.key(it.namespace, it.key) })
     } else {
-        CanPlaceOnImpl(show, canPlaceOn.map { it.key.api() })
+        CanPlaceOn(show, canPlaceOn.map { it.key.api() })
     }
 }, { placeOn ->
     if (ScafallProvider.get().platformType == PlatformType.PAPER) {
@@ -28,5 +28,3 @@ internal val canPlaceOnItemMetaConverter = ItemMetaDataKeyConverter<CanPlaceOn>(
         canPlaceOn = placeOn.blocks.map { Material.getMaterial(it.toString()) }.toSet()
     }
 })
-
-class CanPlaceOnImpl(override val showInTooltip: Boolean, override val blocks: List<Key>) : CanPlaceOn

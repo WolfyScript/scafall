@@ -12,9 +12,9 @@ import org.bukkit.inventory.ItemFlag
 internal val canBreakItemMetaConverter = ItemMetaDataKeyConverter<CanBreak>({
     val show = !hasItemFlag(ItemFlag.HIDE_PLACED_ON)
     return@ItemMetaDataKeyConverter if (ScafallProvider.get().platformType == PlatformType.PAPER) {
-        CanBreakImpl(show, destroyableKeys.map { Key.key(it.namespace, it.key) })
+        CanBreak(show, destroyableKeys.map { Key.key(it.namespace, it.key) })
     } else {
-        CanBreakImpl(show, canDestroy.map { it.key.api() })
+        CanBreak(show, canDestroy.map { it.key.api() })
     }
 }, { canBreak ->
     if (ScafallProvider.get().platformType == PlatformType.PAPER) {
@@ -28,5 +28,3 @@ internal val canBreakItemMetaConverter = ItemMetaDataKeyConverter<CanBreak>({
         canDestroy = canBreak.blocks.map { Material.getMaterial(it.toString()) }.toSet()
     }
 })
-
-class CanBreakImpl(override val showInTooltip: Boolean, override val blocks: List<Key>) : CanBreak

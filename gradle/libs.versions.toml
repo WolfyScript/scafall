@@ -23,7 +23,7 @@ slf4j-api = "2.0.16"
 #log4j-slf4j = ""
 
 ## Spigot Impl dependencies ##
-papermc = "1.20.4-R0.1-SNAPSHOT"
+papermc = "1.21.3-R0.1-SNAPSHOT"
 item-nbt-api = "2.13.1"
 # external plugins
 lwc = "5.0.16-SNAPSHOT"

@@ -27,7 +27,10 @@ val damageConverter = ItemStackDataKeyConverter({
     }
 })
 
-val displayNameConverter = ItemStackDataKeyConverter({ get(Keys.DISPLAY_NAME).getOrNull() }, { offer(Keys.DISPLAY_NAME, it) })
+// item display options
+val displayNameConverter = ItemStackDataKeyConverter({ get(Keys.CUSTOM_NAME).getOrNull() }, {
+    offer(Keys.CUSTOM_NAME, it)
+})
 val displayLoreConverter = ItemStackDataKeyConverter({ ItemLore(get(Keys.LORE).getOrElse { emptyList() }) }, { offer(Keys.LORE, it.lines) })
 val customModelDataConverter = ItemStackDataKeyConverter({
     get(Keys.CUSTOM_MODEL_DATA).getOrNull()

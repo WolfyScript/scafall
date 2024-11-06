@@ -28,3 +28,5 @@ internal val enchantmentsDataConverter = ItemStackDataKeyConverter<Enchantments>
         org.spongepowered.api.item.enchantment.Enchantment.of(type, it.value)
     })
 })
+
+internal val enchantmentOverrideDataConverter = ItemStackDataKeyConverter<Boolean>({ TODO("Not implemented yet!") }, { TODO("Not implemented yet!") })

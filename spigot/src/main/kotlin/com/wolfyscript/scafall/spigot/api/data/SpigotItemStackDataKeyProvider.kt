@@ -58,7 +58,7 @@ class SpigotItemStackDataKeyProvider(private val scafall: Scafall) : DataKeyProv
     override val potDecorations: DataKey<List<Key>, ItemStack> = register<List<Key>>("pot_decorations", potDecorationsItemMetaConverter)
     override val container: DataKey<Container, ItemStack> = register<Container>("container", containerItemMetaConverter)
     override val bees: DataKey<Bees, ItemStack> = register<Bees>("bees", beesItemMetaConverter)
-    override val lock: DataKey<String, ItemStack> = register<String>("lock", lockItemMetaConverter)
+    override val lock: DataKey<Lock, ItemStack> = register<Lock>("lock", lockItemMetaConverter)
     override val containerLoot: DataKey<ContainerLoot, ItemStack> = register<ContainerLoot>("container_loot", containerLootItemMetaConverter)
     override val blockEntityData: DataKey<BlockEntityData, ItemStack> = register<BlockEntityData>("block_entity_data", blockEntityItemMetaConverter)
     override val blockState: DataKey<BlockState, ItemStack> = register<BlockState>("block_state", blockStateItemMetaConverter)

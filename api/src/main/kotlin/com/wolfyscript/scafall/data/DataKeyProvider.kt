@@ -66,7 +66,7 @@ interface DataKeyProvider {
     val potDecorations: DataKey<List<Key>, ItemStack>
     val container: DataKey<Container, ItemStack>
     val bees: DataKey<Bees, ItemStack>
-    val lock: DataKey<String, ItemStack>
+    val lock: DataKey<Lock, ItemStack>
     val containerLoot: DataKey<ContainerLoot, ItemStack>
     val blockEntityData: DataKey<BlockEntityData, ItemStack>
     val blockState: DataKey<BlockState, ItemStack>

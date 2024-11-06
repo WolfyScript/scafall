@@ -6,12 +6,12 @@ import com.wolfyscript.scafall.spigot.api.wrappers.world.items.ItemStackImpl
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toBukkit
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toWrapper
 import com.wolfyscript.scafall.wrappers.world.items.data.BundleContents
+import com.wolfyscript.scafall.wrappers.world.items.data.Lock
 import com.wolfyscript.scafall.wrappers.world.items.data.Unbreakable
 import org.bukkit.Bukkit
 import org.bukkit.Registry
 import org.bukkit.block.Banner
 import org.bukkit.block.DecoratedPot
-import org.bukkit.block.Lockable
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.meta.*
 
@@ -154,20 +154,10 @@ internal val potDecorationsItemMetaConverter = ItemMetaDataKeyConverter({
 
 })
 
-internal val lockItemMetaConverter = ItemMetaDataKeyConverter({
-    if (this is BlockStateMeta) {
-        val state = blockState
-        if (state is Lockable) {
-            return@ItemMetaDataKeyConverter state.lock
-        }
-    }
-    null
+internal val lockItemMetaConverter = ItemMetaDataKeyConverter<Lock>({
+    TODO("Not implemented yet!")
 }, {
-    if (this !is BlockStateMeta) return@ItemMetaDataKeyConverter
-    val state = blockState
-    if (state !is Lockable) return@ItemMetaDataKeyConverter
-    state.setLock(it)
-    blockState = state
+    TODO("Not implemented yet!")
 })
 
 internal val bundleContentsItemMetaConverter = ItemMetaDataKeyConverter({

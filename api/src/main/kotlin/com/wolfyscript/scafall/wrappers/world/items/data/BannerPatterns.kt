@@ -20,12 +20,13 @@ package com.wolfyscript.scafall.wrappers.world.items.data
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 
-interface BannerPatterns {
-
+data class BannerPatterns(
     val layers: List<Layer>
+) {
 
-    interface Layer {
-        val shape: Key
+    data class Layer(
+        val shape: Key,
         val color: DyeColor
-    }
+    )
+
 }

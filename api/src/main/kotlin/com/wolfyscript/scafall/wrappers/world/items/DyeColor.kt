@@ -18,7 +18,11 @@
 
 package com.wolfyscript.scafall.wrappers.world.items
 
-enum class DyeColor(id: Int, name: String, rgb: Int, mapColor: Any, fireworkColor: Int, textColor: Int) {
+import com.wolfyscript.scafall.identifier.Key
+
+internal val keyIndexed : MutableMap<Key, DyeColor> = mutableMapOf()
+
+enum class DyeColor(val id: Int, val key: Key, rgb: Int, mapColor: Any, fireworkColor: Int, textColor: Int) {
 
     WHITE(0, "white", 16383998, MapColor.SNOW, 15790320, 16777215),
     ORANGE(1, "orange", 16351261, MapColor.COLOR_ORANGE, 15435844, 16738335),
@@ -36,4 +40,21 @@ enum class DyeColor(id: Int, name: String, rgb: Int, mapColor: Any, fireworkColo
     GREEN(13, "green", 6192150, MapColor.COLOR_GREEN, 3887386, 65280),
     RED(14, "red", 11546150, MapColor.COLOR_RED, 11743532, 16711680),
     BLACK(15, "black", 1908001, MapColor.COLOR_BLACK, 1973019, 0);
+
+    constructor(id: Int, name: String, rgb: Int, mapColor: Any, fireworkColor: Int, textColor: Int) : this(id, Key.defaultKey(name), rgb, mapColor, fireworkColor, textColor);
+
+    companion object {
+
+        fun findByKey(key: Key): DyeColor? {
+            return keyIndexed[key]
+        }
+
+    }
+
+    init {
+        keyIndexed[key] = this
+    }
+
+    override fun toString(): String = name
+
 }

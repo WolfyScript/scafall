@@ -2,10 +2,8 @@ package com.wolfyscript.scafall.sponge.api.data
 
 import com.wolfyscript.scafall.data.DataKey
 import com.wolfyscript.scafall.data.DataKeyProvider
-import com.wolfyscript.scafall.function.ReceiverBiConsumer
-import com.wolfyscript.scafall.function.ReceiverFunction
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.sponge.api.wrappers.world.items.ItemStackWrapper
+import com.wolfyscript.scafall.sponge.api.wrappers.unwrap
 import com.wolfyscript.scafall.sponge.api.wrappers.world.items.data.*
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
@@ -57,32 +55,21 @@ class SpongeItemStackDataKeyProvider : DataKeyProvider {
 
     private inline fun <reified T : Any> register(
         key: String,
-        fetcher: ReceiverFunction<org.spongepowered.api.item.inventory.ItemStack, T?>,
-        applier: ReceiverBiConsumer<org.spongepowered.api.item.inventory.ItemStack, T>
+        crossinline fetcher: org.spongepowered.api.item.inventory.ItemStack.() -> T?,
+        crossinline applier: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit
     ) : DataKey<T, ItemStack> {
         return register(Key.key(Key.MINECRAFT_NAMESPACE, key), fetcher, applier)
     }
 
     private inline fun <reified T : Any> register(
         key: Key,
-        fetcher: ReceiverFunction<org.spongepowered.api.item.inventory.ItemStack, T?>,
-        applier: ReceiverBiConsumer<org.spongepowered.api.item.inventory.ItemStack, T>
+        crossinline fetcher: org.spongepowered.api.item.inventory.ItemStack.() -> T?,
+        crossinline applier: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit
     ) : DataKey<T, ItemStack> {
         val dataKey = DataKey<T, ItemStack>(T::class, key,
-            fetcher = {
-                if (this is ItemStackWrapper) {
-                    return@DataKey ref.let { meta ->
-                        with(fetcher) {
-                            meta.apply()
-                        }
-                    }
-                }
-                null
-            },
-            applier = { data ->
-                if (this is ItemStackWrapper) {
-                    with(applier) { ref.consume(data) }
-                }
+            fetcher = { unwrap().fetcher() },
+            applier = {
+                unwrap().applier(it)
                 this
             })
         map[key] = dataKey
@@ -107,4 +94,4 @@ class SpongeItemStackDataKeyProvider : DataKeyProvider {
 
 }
 
-data class ItemStackDataKeyConverter<T: Any>(val fetcher: ReceiverFunction<org.spongepowered.api.item.inventory.ItemStack, T?>, val applier: ReceiverBiConsumer<org.spongepowered.api.item.inventory.ItemStack, T>)
+data class ItemStackDataKeyConverter<T: Any>(val fetcher: org.spongepowered.api.item.inventory.ItemStack.() -> T?, val applier: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit)

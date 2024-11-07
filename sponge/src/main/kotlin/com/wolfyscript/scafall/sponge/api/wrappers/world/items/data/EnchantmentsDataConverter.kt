@@ -24,9 +24,14 @@ internal val enchantmentsDataConverter = ItemStackDataKeyConverter<Enchantments>
     enchantments as EnchantmentsImpl
     offer(Keys.HIDE_ENCHANTMENTS, enchantments.showInTooltip)
     offer(Keys.APPLIED_ENCHANTMENTS, enchantments.enchants.map {
-        val type = EnchantmentTypes.registry().findValue<EnchantmentType>(ResourceKey.resolve(it.key.key().toString())).getOrNull()
+        val type = EnchantmentTypes.registry().findValue<EnchantmentType>(ResourceKey.resolve(it.key.key().toString()))
+            .getOrNull()
         org.spongepowered.api.item.enchantment.Enchantment.of(type, it.value)
     })
 })
 
-internal val enchantmentOverrideDataConverter = ItemStackDataKeyConverter<Boolean>({ TODO("Not implemented yet!") }, { TODO("Not implemented yet!") })
+internal val enchantmentOverrideDataConverter = ItemStackDataKeyConverter<Boolean>({
+    get(Keys.ENCHANTMENT_GLINT_OVERRIDE).getOrNull()
+}, {
+    offer(Keys.HIDE_ENCHANTMENTS, it)
+})

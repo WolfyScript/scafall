@@ -1,10 +1,12 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 
+import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.identifiers.api
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.ItemStackImpl
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toBukkit
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toWrapper
+import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.data.BundleContents
 import com.wolfyscript.scafall.wrappers.world.items.data.Lock
 import com.wolfyscript.scafall.wrappers.world.items.data.Unbreakable
@@ -132,21 +134,18 @@ internal val baseColorItemMetaConverter = ItemMetaDataKeyConverter({
 
 internal val potDecorationsItemMetaConverter = ItemMetaDataKeyConverter({
     if (this is BlockStateMeta) {
+        // Why? A BlockState? really Spigot? How does it work together with the block_state data component?
         val state = blockState
         if (state is DecoratedPot) {
-            val sherds = state.shards
-            return@ItemMetaDataKeyConverter sherds.map {
-                it.key.api()
+            // north, west, east, south // when placed facing north
+            // The data component internally just uses a list of sherds
+            return@ItemMetaDataKeyConverter buildList<Key> {
+                // Assumed based on facing direction when placed down
+                add(state.sherds[DecoratedPot.Side.FRONT]!!.key.toAPI())
+                add(state.sherds[DecoratedPot.Side.RIGHT]!!.key.toAPI())
+                add(state.sherds[DecoratedPot.Side.LEFT]!!.key.toAPI())
+                add(state.sherds[DecoratedPot.Side.BACK]!!.key.toAPI())
             }
-            /*
-        buildList<NamespacedKey> {
-            // TODO: What is the order of shards here?
-            add(BukkitNamespacedKey.fromBukkit(sherds[DecoratedPot.Side.FRONT]!!.key))
-            add(BukkitNamespacedKey.fromBukkit(sherds[DecoratedPot.Side.LEFT]!!.key))
-            add(BukkitNamespacedKey.fromBukkit(sherds[DecoratedPot.Side.BACK]!!.key))
-            add(BukkitNamespacedKey.fromBukkit(sherds[DecoratedPot.Side.RIGHT]!!.key))
-        }
-             */
         }
     }
     null

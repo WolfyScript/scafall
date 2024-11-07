@@ -170,10 +170,14 @@ internal val bundleContentsItemMetaConverter = ItemMetaDataKeyConverter({
 })
 
 internal val enchantmentGlintOverrideItemMetaConverter =
-    ItemMetaDataKeyConverter<Boolean>({
-        TODO("Not yet implemented")
+    ItemMetaDataKeyConverter({
+        if (hasEnchantmentGlintOverride()) {
+            true
+        } else {
+            null
+        }
     }, {
-        TODO("Not yet implemented")
+        setEnchantmentGlintOverride(it)
     })
 
 

@@ -10,10 +10,10 @@ import kotlin.jvm.optionals.getOrNull
 
 val chargedProjectilesDataConverter = ItemStackDataKeyConverter({
     get(Keys.CHARGED_PROJECTILES).map {
-        ChargedProjectiles(it.map { stack -> stack.createStack().wrap() })
+        ChargedProjectiles(it.map { stack -> stack.asMutableCopy().wrap() })
     }.getOrNull()
 }, {
-    offer(Keys.CHARGED_PROJECTILES, it.projectiles.map { stack -> stack.unwrap().createSnapshot() })
+    offer(Keys.CHARGED_PROJECTILES, it.projectiles.map { stack -> stack.unwrap().asImmutable() })
 })
 
 val intangibleProjectilesDataConverter = ItemStackDataKeyConverter({

@@ -68,8 +68,16 @@ abstract class ItemStackConfig(
     }
 
     @JsonGetter("data_components")
-    internal fun writeDataComponents() : Map<String, Any> {
-        return TODO()
+    internal fun writeDataComponents(): Map<String, JsonNode> {
+        return buildMap {
+            for (dataKey in data().keys()) {
+                data().get(dataKey)?.let {
+                    JacksonUtil.objectMapper.convertValue(it, JsonNode::class.java)?.let { jsonNode ->
+                        this[dataKey.key().toString()] = jsonNode
+                    }
+                }
+            }
+        }
     }
 
     var amount: ValueProvider<Int> = ValueProviderIntegerConst(1)

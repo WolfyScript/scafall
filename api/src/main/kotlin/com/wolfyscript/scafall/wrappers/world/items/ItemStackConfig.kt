@@ -30,7 +30,6 @@ import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.eval.value_provider.ValueProviderIntegerConst
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.nbt.NBTTagConfigCompound
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 

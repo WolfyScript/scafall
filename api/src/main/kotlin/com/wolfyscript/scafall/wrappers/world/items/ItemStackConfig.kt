@@ -72,16 +72,7 @@ abstract class ItemStackConfig(
         return TODO()
     }
 
-    /* ********************
-     * Common NBT Settings
-     * ********************/
     var amount: ValueProvider<Int> = ValueProviderIntegerConst(1)
-
-    /* ********************
-     * Unhandled NBT Tags
-     * ********************/
-    @get:JsonGetter("nbt")
-    var nbt: NBTTagConfigCompound = NBTTagConfigCompound(null)
 
     /**
      * Constructs the implementation specific ItemStack from the settings.

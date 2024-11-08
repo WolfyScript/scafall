@@ -17,31 +17,13 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items
 
-import com.wolfyscript.scafall.data.DataHolder
-import com.wolfyscript.scafall.identifier.Key
-
-interface ItemStack : DataHolder<ItemStack> {
-    /**
-     * The id representing the item of this ItemStack.<br></br>
-     * Usually e.g. <pre>minecraft:&lt;item_id&gt;</pre>
-     *
-     * @return The id of the item.
-     */
-    val item: Key
+interface ItemStack : ItemStackLike {
 
     /**
-     * The stack amount of this ItemStack.
+     * Creates a snapshot of the whole ItemStack
      *
-     * @return The stack amount.
+     * @return The snapshot ItemStack of this ItemStack.
      */
-    val amount: Int
+    fun snapshot(): ItemStackSnapshot
 
-    /**
-     * Creates a snapshot of the whole ItemStack including the full NBT.<br></br>
-     * **This can be quite resource heavy!**<br></br>
-     * The snapshot can be simply written to json using the Json mapper of WolfyUtils.
-     *
-     * @return The snapshot ItemStack config of this ItemStack.
-     */
-    fun snapshot(): ItemStackConfig
 }

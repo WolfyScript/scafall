@@ -6,26 +6,19 @@ import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.common.api.data.SnapshotDataComponentMap
 import com.wolfyscript.scafall.data.DataKey
 import com.wolfyscript.scafall.eval.context.EvalContext
-import com.wolfyscript.scafall.eval.operator.BoolOperatorConst
 import com.wolfyscript.scafall.eval.value_provider.*
 import com.wolfyscript.scafall.nbt.*
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import de.tr7zw.nbtapi.NBTCompound
-import de.tr7zw.nbtapi.NBTItem
 import de.tr7zw.nbtapi.NBTList
 import de.tr7zw.nbtapi.NBTType
 import de.tr7zw.nbtapi.iface.ReadableNBT
 import de.tr7zw.nbtapi.iface.ReadableNBTList
-import net.kyori.adventure.platform.bukkit.BukkitComponentSerializer
-import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.enchantments.Enchantment
 import java.util.function.BiFunction
-import java.util.stream.Collectors
 
 class BukkitItemStackConfig : ItemStackConfig {
     private val usePaperDisplayOptions: Boolean = false // TODO
@@ -37,7 +30,7 @@ class BukkitItemStackConfig : ItemStackConfig {
     )
 
     constructor(wrappedStack: ItemStack) : super(
-        (wrappedStack as ItemStackImpl).bukkitRef!!.type.key.toString(),
+        (wrappedStack as BukkitItemStack).bukkitRef!!.type.key.toString(),
         SnapshotDataComponentMap()
     ) {
         val stack = wrappedStack.bukkitRef
@@ -58,14 +51,14 @@ class BukkitItemStackConfig : ItemStackConfig {
         context: EvalContext,
         miniMessage: MiniMessage?,
         tagResolvers: TagResolver
-    ): ItemStackImpl? {
+    ): BukkitItemStack? {
         val type = Material.matchMaterial(itemId)
         if (type != null) {
             val itemStack = org.bukkit.inventory.ItemStack(type)
             itemStack.amount = amount.getValue(context)
 
             // Apply ItemMeta afterwards to override possible NBT Tags
-            val wrappedStack = ItemStackImpl(itemStack)
+            val wrappedStack = BukkitItemStack(itemStack)
 
             for (dataKey in data().keys()) {
                 applyDataKey(wrappedStack, dataKey)

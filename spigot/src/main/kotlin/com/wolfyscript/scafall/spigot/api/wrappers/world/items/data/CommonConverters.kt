@@ -3,9 +3,10 @@ package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.identifiers.api
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
-import com.wolfyscript.scafall.spigot.api.wrappers.world.items.ItemStackImpl
+import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toBukkit
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toWrapper
+import com.wolfyscript.scafall.spigot.api.wrappers.wrap
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.data.BundleContents
 import com.wolfyscript.scafall.wrappers.world.items.data.Lock
@@ -161,12 +162,12 @@ internal val lockItemMetaConverter = ItemMetaDataKeyConverter<Lock>({
 
 internal val bundleContentsItemMetaConverter = ItemMetaDataKeyConverter({
     if (this is BundleMeta) {
-        return@ItemMetaDataKeyConverter BundleContents(items.map { ItemStackImpl(it) })
+        return@ItemMetaDataKeyConverter BundleContents(items.map { it.wrap() })
     }
     return@ItemMetaDataKeyConverter BundleContents(emptyList())
 }, {
     if (this !is BundleMeta) return@ItemMetaDataKeyConverter
-    setItems(it.contents.map { stack -> (stack as ItemStackImpl).bukkitRef })
+    setItems(it.contents.map { stack -> stack.unwrap() })
 })
 
 internal val enchantmentGlintOverrideItemMetaConverter =

@@ -4,7 +4,7 @@ import com.wolfyscript.scafall.spigot.api.wrappers.world.BukkitLocation
 import com.wolfyscript.scafall.spigot.api.wrappers.world.BukkitWorld
 import com.wolfyscript.scafall.spigot.api.wrappers.world.entity.BukkitEntity
 import com.wolfyscript.scafall.spigot.api.wrappers.world.entity.BukkitPlayer
-import com.wolfyscript.scafall.spigot.api.wrappers.world.items.ItemStackImpl
+import com.wolfyscript.scafall.spigot.api.wrappers.world.items.BukkitItemStack
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.entity.Entity
@@ -19,7 +19,7 @@ fun Entity.wrap() : com.wolfyscript.scafall.wrappers.world.entity.Entity = Bukki
 
 fun Player.wrap() : com.wolfyscript.scafall.wrappers.world.entity.Player = BukkitPlayer(this)
 
-fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStack = ItemStackImpl(this)
+fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStack = BukkitItemStack(this)
 
 /* ******************
  * Unwrap on Spigot
@@ -33,4 +33,4 @@ fun com.wolfyscript.scafall.wrappers.world.entity.Entity.unwrap() : Entity = (th
 
 fun com.wolfyscript.scafall.wrappers.world.entity.Player.unwrap() : Player = (this as BukkitPlayer).bukkitRef
 
-fun com.wolfyscript.scafall.wrappers.world.items.ItemStack.unwrap() : ItemStack = (this as ItemStackImpl).bukkitRef
+fun com.wolfyscript.scafall.wrappers.world.items.ItemStack.unwrap() : ItemStack = (this as BukkitItemStack).bukkitRef

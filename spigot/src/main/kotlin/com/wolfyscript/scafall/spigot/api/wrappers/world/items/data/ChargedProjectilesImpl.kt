@@ -1,14 +1,14 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 
 import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
-import com.wolfyscript.scafall.spigot.api.wrappers.world.items.ItemStackImpl
+import com.wolfyscript.scafall.spigot.api.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.items.data.ChargedProjectiles
 import org.bukkit.inventory.meta.CrossbowMeta
 
 internal val chargedProjectilesItemMetaConverter = ItemMetaDataKeyConverter<ChargedProjectiles>(
     {
         if (this is CrossbowMeta) {
-            val projectiles = chargedProjectiles.map { ItemStackImpl(it) }
+            val projectiles = chargedProjectiles.map { it.wrap() }
             return@ItemMetaDataKeyConverter ChargedProjectiles(projectiles)
         }
         null

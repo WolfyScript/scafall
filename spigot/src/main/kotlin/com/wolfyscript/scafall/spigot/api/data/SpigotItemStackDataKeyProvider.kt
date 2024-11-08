@@ -6,7 +6,7 @@ import com.wolfyscript.scafall.data.DataKeyProvider
 import com.wolfyscript.scafall.function.ReceiverBiConsumer
 import com.wolfyscript.scafall.function.ReceiverFunction
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.spigot.api.wrappers.world.items.ItemStackImpl
+import com.wolfyscript.scafall.spigot.api.wrappers.world.items.BukkitItemStack
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.*
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
@@ -87,7 +87,7 @@ class SpigotItemStackDataKeyProvider(private val scafall: Scafall) : DataKeyProv
     ) : DataKey<T, ItemStack> {
         val dataKey = DataKey<T, ItemStack>(T::class, key,
             fetcher = {
-                if (this is ItemStackImpl) {
+                if (this is BukkitItemStack) {
                     return@DataKey bukkitRef?.itemMeta?.let { meta ->
                         with(fetcher) {
                             meta.apply()
@@ -97,7 +97,7 @@ class SpigotItemStackDataKeyProvider(private val scafall: Scafall) : DataKeyProv
                 null
             },
             applier = { data ->
-                if (this is ItemStackImpl) {
+                if (this is BukkitItemStack) {
                     val meta = bukkitRef?.itemMeta
                     if (meta != null) {
                         with(applier) { meta.consume(data) }

@@ -20,4 +20,16 @@ interface ItemStackLike : DataHolder<ItemStack> {
      */
     val amount: Int
 
+    /**
+     * Returns the vanilla NBT mojangJson representation of this ItemStackLike.
+     * This is multiplatform compatible and can easily be parsed/updated using Minecraft DataFixer.
+     */
+    fun toNBTString() : String
+
+    /**
+     * Returns the vanilla NBT binary bytes representation of this ItemStackLike.
+     * This is multiplatform compatible and can easily be read/updated using Minecraft DataFixer.
+     */
+    fun toNBTBytes() : ByteArray
+
 }

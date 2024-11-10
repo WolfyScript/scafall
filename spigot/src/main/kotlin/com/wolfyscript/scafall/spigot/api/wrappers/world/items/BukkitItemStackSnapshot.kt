@@ -7,6 +7,8 @@ import com.wolfyscript.scafall.spigot.api.identifiers.api
 import com.wolfyscript.scafall.spigot.api.wrappers.BukkitRefAdapter
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
+import de.tr7zw.nbtapi.NBT
+import java.io.ByteArrayOutputStream
 
 class BukkitItemStackSnapshot(bukkitRef: org.bukkit.inventory.ItemStack) : BukkitRefAdapter<org.bukkit.inventory.ItemStack>(bukkitRef), ItemStackSnapshot {
 
@@ -15,7 +17,17 @@ class BukkitItemStackSnapshot(bukkitRef: org.bukkit.inventory.ItemStack) : Bukki
     override val item: Key = bukkitRef.type.key.api()
     override val amount: Int = bukkitRef.amount
 
-    override fun createStack(): ItemStack = BukkitItemStack(bukkitRef)
+    override fun toNBTString(): String {
+        return NBT.itemStackToNBT(bukkitRef).toString()
+    }
+
+    override fun toNBTBytes(): ByteArray {
+        val stream = ByteArrayOutputStream()
+        stream.use {
+            NBT.itemStackToNBT(bukkitRef).writeCompound(it)
+        }
+        return stream.toByteArray()
+    }
 
     override fun data(): DataComponentMap<ItemStack> = componentMap
 

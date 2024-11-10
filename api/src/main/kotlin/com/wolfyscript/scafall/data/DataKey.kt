@@ -23,18 +23,8 @@ import kotlin.reflect.KClass
 
 class DataKey<T : Any, V : DataHolder<*, *>>(
     val type: KClass<T>,
-    private val key: Key,
-    private val fetcher: V.() -> T? = { null },
-    private val applier: V.(T) -> V = { this }
+    private val key: Key
 ) : Keyed {
-
-    fun readFrom(source: V): T? {
-        return source.fetcher()
-    }
-
-    fun writeTo(value: T, target: V) {
-        target.applier(value)
-    }
 
     override fun key(): Key = key
 

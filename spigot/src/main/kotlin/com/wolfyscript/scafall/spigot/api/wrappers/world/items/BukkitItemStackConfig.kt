@@ -2,14 +2,12 @@ package com.wolfyscript.scafall.spigot.api.wrappers.world.items
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.common.api.data.SnapshotDataComponentMap
-import com.wolfyscript.scafall.data.DataKey
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.value_provider.*
 import com.wolfyscript.scafall.nbt.*
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import de.tr7zw.nbtapi.NBTCompound
 import de.tr7zw.nbtapi.NBTList
 import de.tr7zw.nbtapi.NBTType
@@ -17,61 +15,19 @@ import de.tr7zw.nbtapi.iface.ReadableNBT
 import de.tr7zw.nbtapi.iface.ReadableNBTList
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
-import org.bukkit.Material
 import java.util.function.BiFunction
 
-class BukkitItemStackConfig : ItemStackConfig {
-    private val usePaperDisplayOptions: Boolean = false // TODO
-    private val HANDLED_NBT_TAGS = setOf("display.Name", "display.Lore", "CustomModelData", "Damage", "Enchantments")
-
-    @JsonCreator
-    constructor(@JsonProperty("itemId") itemId: String) : super(
-        itemId, SnapshotDataComponentMap()
-    )
-
-    constructor(wrappedStack: ItemStack) : super(
-        (wrappedStack as BukkitItemStack).bukkitRef!!.type.key.toString(),
-        SnapshotDataComponentMap()
-    ) {
-        val stack = wrappedStack.bukkitRef
-
-        // Read from ItemStack
-        this.amount = ValueProviderIntegerConst(stack!!.amount)
-
-        for (dataKey in ScafallProvider.get().registries.itemDataKeyRegistry) {
-            // We iterate over all the available dataKeys and check if it finds anything... this may be optimized
-            dataKey.readFrom(wrappedStack)?.let {
-                data().set(dataKey, it)
-            }
-        }
-
-    }
+class BukkitItemStackConfig @JsonCreator constructor(@JsonProperty("stack") stack: ItemStackSnapshot) :
+    ItemStackConfig(stack) {
 
     override fun constructItemStack(
         context: EvalContext,
         miniMessage: MiniMessage?,
         tagResolvers: TagResolver
-    ): BukkitItemStack? {
-        val type = Material.matchMaterial(itemId)
-        if (type != null) {
-            val itemStack = org.bukkit.inventory.ItemStack(type)
-            itemStack.amount = amount.getValue(context)
-
-            // Apply ItemMeta afterwards to override possible NBT Tags
-            val wrappedStack = BukkitItemStack(itemStack)
-
-            for (dataKey in data().keys()) {
-                applyDataKey(wrappedStack, dataKey)
-            }
-            return wrappedStack
-        }
-        return null
-    }
-
-    private fun <T: Any> applyDataKey(stack: ItemStack, dataKey: DataKey<T, ItemStack>) {
-        data().get(dataKey)?.let {
-            dataKey.writeTo(it, stack)
-        }
+    ): ItemStack {
+        // Apply ItemMeta afterwards to override possible NBT Tags
+        val wrappedStack = stack.createStack()
+        return wrappedStack
     }
 
     private fun readFromItemStack(
@@ -83,10 +39,6 @@ class BukkitItemStackConfig : ItemStackConfig {
         val children: MutableMap<String, NBTTagConfig> = HashMap()
         for (key in currentCompound.keys) {
             val childPath = if (path.isEmpty()) key else ("$path.$key")
-            if (HANDLED_NBT_TAGS.contains(childPath)) {
-                // Skip already handled NBT Tags, so they are not both in common and NBT settings!
-                continue
-            }
             val childConfig = when (currentCompound.getType(key)) {
                 NBTType.NBTTagCompound -> {
                     val readConfigCompound =
@@ -316,8 +268,6 @@ class BukkitItemStackConfig : ItemStackConfig {
     }
 
     override fun toString(): String {
-        return "BukkitItemStackConfig{" +
-                "itemId='" + itemId + '\'' +
-                "} "
+        return "BukkitItemStackConfig{} "
     }
 }

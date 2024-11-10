@@ -17,19 +17,11 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items
 
-import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.annotation.JsonSetter
-import com.fasterxml.jackson.databind.JsonNode
-import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.config.jackson.JacksonUtil
-import com.wolfyscript.scafall.data.DataComponentMap
-import com.wolfyscript.scafall.data.DataHolder
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.eval.value_provider.ValueProviderIntegerConst
-import com.wolfyscript.scafall.identifier.Key
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 
@@ -44,8 +36,7 @@ abstract class ItemStackConfig(
     /**
      * The id of the item in the `<namespace>:<item_key>` format.
      */
-    @JsonProperty("stack") val stack: ItemStackSnapshot,
-    private val dataComponentMap: DataComponentMap<ItemStack>
+    @JsonProperty("stack") val stack: ItemStackSnapshot
 ) {
 
     var amount: ValueProvider<Int> = ValueProviderIntegerConst(1)

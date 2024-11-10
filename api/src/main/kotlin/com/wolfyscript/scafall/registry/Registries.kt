@@ -19,6 +19,7 @@ package com.wolfyscript.scafall.registry
 
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.Scafall
+import com.wolfyscript.scafall.data.ItemStackDataComponentConverterRegistry
 import com.wolfyscript.scafall.eval.operator.Operator
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
@@ -49,7 +50,9 @@ abstract class Registries(val core: Scafall) {
     val valueProviders: TypeRegistry<ValueProvider<*>> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "value_providers"), this)
     val operators: TypeRegistry<Operator> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "operators"), this)
     val nbtTagConfigs: TypeRegistry<NBTTagConfig> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "nbt_configs"), this)
+
     val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "data_components/item"), this)
+    abstract val itemStackDataComponentConverterRegistry: ItemStackDataComponentConverterRegistry
 
     fun indexTypedRegistry(registry: Registry<*>) {
         Preconditions.checkArgument(!REGISTRIES_BY_KEY.containsKey(registry.key), "A registry with the key \"" + registry.key + "\" already exists!")

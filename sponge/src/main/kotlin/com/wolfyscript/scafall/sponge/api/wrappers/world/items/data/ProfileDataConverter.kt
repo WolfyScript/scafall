@@ -3,14 +3,14 @@ package com.wolfyscript.scafall.sponge.api.wrappers.world.items.data
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.config.jackson.JacksonUtil
-import com.wolfyscript.scafall.sponge.api.data.ItemStackDataKeyConverter
+import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverter
 import com.wolfyscript.scafall.wrappers.world.items.data.Profile
 import org.spongepowered.api.data.Keys
 import org.spongepowered.api.profile.property.ProfileProperty
 import java.net.URL
 import kotlin.jvm.optionals.getOrNull
 
-internal val profileDataConverter = ItemStackDataKeyConverter<Profile>({
+internal val profileDataConverter = SpongeItemStackDataComponentConverter<Profile>({
     get(Keys.GAME_PROFILE).map { profile ->
         // TODO: wrap texture properties
         val textureProperty = profile.properties().find {

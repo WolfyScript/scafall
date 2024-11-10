@@ -17,12 +17,20 @@
  */
 package com.wolfyscript.scafall.data
 
-interface DataHolder<H : DataHolder<H>> {
+interface DataHolder<H : DataHolder<H, M>, M: DataComponentMap<H>> {
 
-    fun data(): DataComponentMap<H>
+    fun data(): M
 
     fun <T : Any> get(key: DataKey<T, H>): T? {
         return data().get(key)
+    }
+
+    interface Mutable<H : Mutable<H>> : DataHolder<H, DataComponentMap.Mutable<H>> {
+
+    }
+
+    interface Immutable<H : Immutable<H>> : DataHolder<H, DataComponentMap.Immutable<H>> {
+
     }
 
 }

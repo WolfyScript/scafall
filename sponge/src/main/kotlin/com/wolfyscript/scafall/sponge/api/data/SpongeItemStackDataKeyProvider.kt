@@ -1,90 +1,73 @@
 package com.wolfyscript.scafall.sponge.api.data
 
-import com.wolfyscript.scafall.data.DataKey
-import com.wolfyscript.scafall.data.DataKeyProvider
+import com.wolfyscript.scafall.data.*
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.sponge.api.wrappers.unwrap
 import com.wolfyscript.scafall.sponge.api.wrappers.world.items.data.*
-import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
-import com.wolfyscript.scafall.wrappers.world.items.data.*
-import net.kyori.adventure.text.Component
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import kotlin.reflect.KClass
 
 class SpongeItemStackDataKeyProvider : DataKeyProvider {
 
-    private val map: MutableMap<Key, DataKey<*, ItemStack>> = mutableMapOf()
+    private val map: MutableMap<Key, ItemStackDataComponentConverter<*>> = mutableMapOf()
 
-    override val damage: DataKey<Int, ItemStack> = register("damage", damageConverter)
-    override val repairCost: DataKey<Int, ItemStack> = register("repair_cost", repairCostConverter)
-    override val unbreakable: DataKey<Unbreakable, ItemStack> = register("unbreakable", unbreakableDataConverter)
-    override val enchantments: DataKey<Enchantments, ItemStack> = register("enchantments", enchantmentsDataConverter)
-    override val storedEnchantments: DataKey<Enchantments, ItemStack> = register("stored_enchantments", enchantmentsDataConverter)
-    override val customName: DataKey<Component, ItemStack> = register("custom_name", displayNameConverter)
-    override val itemLore: DataKey<ItemLore, ItemStack> = register("item_lore", displayLoreConverter)
-    override val canBreak: DataKey<CanBreak, ItemStack> = register("can_break", canBreakDataConverter)
-    override val canPlaceOn: DataKey<CanPlaceOn, ItemStack> = register("can_place_on", canPlaceOnDataConverter)
-    override val dyedColor: DataKey<DyedColor, ItemStack> = register("dyed_color", dyedColorDataConverter)
-    override val attributeModifiers: DataKey<AttributeModifiers, ItemStack> = register("attribute_modifiers", attributeModifiersDataConverter)
-    override val chargedProjectiles: DataKey<ChargedProjectiles, ItemStack> = register("charged_projectiles", chargedProjectilesDataConverter)
-    override val intangibleProjectiles: DataKey<IntangibleProjectiles, ItemStack> = register("intangible_projectiles", intangibleProjectilesDataConverter)
-    override val mapId: DataKey<Int, ItemStack> = register("map_id", mapIdDataConverter)
-    override val customModelData: DataKey<Int, ItemStack> = register("custom_model_data", customModelDataConverter)
-    override val potionEffects: DataKey<PotionContents, ItemStack> = register("potion_contents", potionContentsDataConverter)
-    override val instrument: DataKey<Key, ItemStack> = register("instrument", instrumentConverter)
-    override val recipes: DataKey<List<Key>, ItemStack> = register("recipes", recipesDataConverter)
-    override val fireworkExplosion: DataKey<FireworkExplosion, ItemStack> = register("firework_explosions", fireworkExplosionDataConverter)
-    override val fireworks: DataKey<Fireworks, ItemStack> = register("fireworks", fireworksDataConverter)
-    override val profile: DataKey<Profile, ItemStack> = register("profile", profileDataConverter)
-    override val noteBlockSound: DataKey<Key, ItemStack> = register("note_block_sound", noteBlockSoundConverter)
-    override val baseColor: DataKey<DyeColor, ItemStack> = register("base_color", baseColorDataConverter)
-    override val bannerPatterns: DataKey<BannerPatterns, ItemStack> = register("banner_patterns", bannerPatternDataConverter)
-    override val potDecorations: DataKey<List<Key>, ItemStack> = register("pot_decorations", potDecorationsDataConverter)
-    override val container: DataKey<Container, ItemStack> = register("container", containerDataConverter)
-    override val bees: DataKey<Bees, ItemStack> = register("bees", beesDataConverter)
-    override val lock: DataKey<Lock, ItemStack> = register("lock", lockDataConverter)
-    override val containerLoot: DataKey<ContainerLoot, ItemStack> = register("container_loot", containerLootDataConverter)
-    override val blockEntityData: DataKey<BlockEntityData, ItemStack> = register("block_entity_data", blockEntityDataConverter)
-    override val blockState: DataKey<BlockState, ItemStack> = register("block_state", blockStateDataConverter)
-    override val enchantmentGlintOverride: DataKey<Boolean, ItemStack> = register("enchantment_glint_override", enchantmentOverrideDataConverter)
-    override val bundleContents: DataKey<BundleContents, ItemStack> = register("bundle_contents", bundleContentsDataConverter)
-
-    private inline fun <reified T : Any> register(key: String, converter: ItemStackDataKeyConverter<T>) : DataKey<T, ItemStack> {
-        return register(key, converter.fetcher, converter.applier)
-    }
+    override val damage = register(ItemStackDataKeys.DAMAGE, damageConverter)
+    override val repairCost = register(ItemStackDataKeys.REPAIR_COST, repairCostConverter)
+    override val unbreakable = register(ItemStackDataKeys.UNBREAKABLE, unbreakableDataConverter)
+    override val enchantments = register(ItemStackDataKeys.ENCHANTMENTS, enchantmentsDataConverter)
+    override val storedEnchantments = register(ItemStackDataKeys.STORED_ENCHANTMENTS, enchantmentsDataConverter)
+    override val customName = register(ItemStackDataKeys.CUSTOM_NAME, displayNameConverter)
+    override val itemLore = register(ItemStackDataKeys.ITEM_LORE, displayLoreConverter)
+    override val canBreak = register(ItemStackDataKeys.CAN_BREAK, canBreakDataConverter)
+    override val canPlaceOn = register(ItemStackDataKeys.CAN_PLACE_ON, canPlaceOnDataConverter)
+    override val dyedColor = register(ItemStackDataKeys.DYED_COLOR, dyedColorDataConverter)
+    override val attributeModifiers = register(ItemStackDataKeys.ATTRIBUTE_MODIFIERS, attributeModifiersDataConverter)
+    override val chargedProjectiles = register(ItemStackDataKeys.CHARGED_PROJECTILES, chargedProjectilesDataConverter)
+    override val intangibleProjectiles = register(ItemStackDataKeys.INTANGIBLE_PROJECTILES, intangibleProjectilesDataConverter)
+    override val mapId = register(ItemStackDataKeys.MAP_ID, mapIdDataConverter)
+    override val customModelData = register(ItemStackDataKeys.CUSTOM_MODEL_DATA, customModelDataConverter)
+    override val potionEffects = register(ItemStackDataKeys.POTION_CONTENTS, potionContentsDataConverter)
+    override val instrument = register(ItemStackDataKeys.INSTRUMENT, instrumentConverter)
+    override val recipes = register(ItemStackDataKeys.RECIPES, recipesDataConverter)
+    override val fireworkExplosion = register(ItemStackDataKeys.FIREWORKS_EXPLOSION, fireworkExplosionDataConverter)
+    override val fireworks = register(ItemStackDataKeys.FIREWORKS, fireworksDataConverter)
+    override val profile = register(ItemStackDataKeys.PROFILE, profileDataConverter)
+    override val noteBlockSound = register(ItemStackDataKeys.NOTE_BLOCK_SOUND, noteBlockSoundConverter)
+    override val baseColor = register(ItemStackDataKeys.BASE_COLOR, baseColorDataConverter)
+    override val bannerPatterns = register(ItemStackDataKeys.BANNER_PATTERNS, bannerPatternDataConverter)
+    override val potDecorations = register(ItemStackDataKeys.POT_DECORATIONS, potDecorationsDataConverter)
+    override val container = register(ItemStackDataKeys.CONTAINER, containerDataConverter)
+    override val bees = register(ItemStackDataKeys.BEES, beesDataConverter)
+    override val lock = register(ItemStackDataKeys.LOCK, lockDataConverter)
+    override val containerLoot = register(ItemStackDataKeys.CONTAINER_LOOT, containerLootDataConverter)
+    override val blockEntityData = register(ItemStackDataKeys.BLOCK_ENTITY_DATA, blockEntityDataConverter)
+    override val blockState = register(ItemStackDataKeys.BLOCK_STATE, blockStateDataConverter)
+    override val enchantmentGlintOverride = register(ItemStackDataKeys.ENCHANTMENT_GLINT_OVERRIDE, enchantmentOverrideDataConverter)
+    override val bundleContents = register(ItemStackDataKeys.BUNDLE_CONTENTS, bundleContentsDataConverter)
 
     private inline fun <reified T : Any> register(
-        key: String,
-        crossinline fetcher: org.spongepowered.api.item.inventory.ItemStack.() -> T?,
-        crossinline applier: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit
-    ) : DataKey<T, ItemStack> {
-        return register(Key.key(Key.MINECRAFT_NAMESPACE, key), fetcher, applier)
+        dataKey: DataKey<T, ItemStackLike<*, *>>,
+        converter: SpongeItemStackDataComponentConverter<T>
+    ): ItemStackDataComponentConverter<T> {
+        val converterImpl = ItemStackDataComponentConverterImpl(
+            dataKey.key(),
+            T::class,
+            converter.fetcher,
+            converter.applier
+        )
+        map[dataKey.key()] = converterImpl
+        return converterImpl
     }
 
-    private inline fun <reified T : Any> register(
-        key: Key,
-        crossinline fetcher: org.spongepowered.api.item.inventory.ItemStack.() -> T?,
-        crossinline applier: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit
-    ) : DataKey<T, ItemStack> {
-        val dataKey = DataKey<T, ItemStack>(T::class, key,
-            fetcher = { unwrap().fetcher() },
-            applier = {
-                unwrap().applier(it)
-                this
-            })
-        map[key] = dataKey
-        return dataKey
-    }
-
-
-    override fun <T : Any> getDataKey(type: KClass<T>, key: Key): DataKey<T, ItemStack> {
+    override fun <T : Any> getDataKey(type: KClass<T>, key: Key): DataKey<T, ItemStackLike<*, *>> {
         val builder = map[key]
         if (builder != null) {
             if (builder.type != type) {
                 throw IllegalArgumentException("Cannot create Builder $key! Invalid value type: Registered Builder contains value of type ${builder.type}, but requested value type was $type")
             }
             @Suppress("UNCHECKED_CAST") // We checked that the key and type is the same, so we can cast it here
-            return builder as DataKey<T, ItemStack>
+            return builder as DataKey<T, ItemStackLike<*,*>>
         }
 
         // TODO: Get logger from plugins
@@ -94,4 +77,31 @@ class SpongeItemStackDataKeyProvider : DataKeyProvider {
 
 }
 
-data class ItemStackDataKeyConverter<T: Any>(val fetcher: org.spongepowered.api.item.inventory.ItemStack.() -> T?, val applier: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit)
+data class SpongeItemStackDataComponentConverter<T : Any>(
+    val fetcher: org.spongepowered.api.item.inventory.ItemStackLike.() -> T?,
+    val applier: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit
+)
+
+class ItemStackDataComponentConverterImpl<T : Any, H : DataHolder<H, *>>(
+    override val key: Key,
+    override val type: KClass<T>,
+    reader: org.spongepowered.api.item.inventory.ItemStackLike.() -> T?,
+    writer: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit
+) : ItemStackDataComponentConverter<T> {
+
+    override val reader: DataComponentConverter.Reader<T, ItemStackLike<*, *>> =
+        object : DataComponentConverter.Reader<T, ItemStackLike<*, *>> {
+            override val converter: ItemStackLike<*, *>.() -> T? = {
+                unwrap().reader()
+            }
+        }
+
+    override val writer: DataComponentConverter.Writer<T, ItemStack> =
+        object : DataComponentConverter.Writer<T, ItemStack> {
+            override val converter: ItemStack.(T) -> ItemStack = {
+                unwrap().writer(it)
+                this
+            }
+        }
+
+}

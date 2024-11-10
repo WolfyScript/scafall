@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items.data
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.sponge.api.data.ItemStackDataKeyConverter
+import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverter
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.data.ItemLore
@@ -15,16 +15,16 @@ import kotlin.jvm.optionals.getOrElse
 import kotlin.jvm.optionals.getOrNull
 
 // durability
-val unbreakableDataConverter = ItemStackDataKeyConverter({
+val unbreakableDataConverter = SpongeItemStackDataComponentConverter({
     if (get(Keys.IS_UNBREAKABLE).getOrNull() == true) {
-        return@ItemStackDataKeyConverter Unbreakable(get(Keys.HIDE_UNBREAKABLE).getOrNull() ?: false)
+        return@SpongeItemStackDataComponentConverter Unbreakable(get(Keys.HIDE_UNBREAKABLE).getOrNull() ?: false)
     }
     null
 }, {
     offer(Keys.IS_UNBREAKABLE, true)
     offer(Keys.HIDE_UNBREAKABLE, it.showInTooltip)
 })
-val damageConverter = ItemStackDataKeyConverter({
+val damageConverter = SpongeItemStackDataComponentConverter({
     get(Keys.ITEM_DURABILITY).map {
         get(Keys.MAX_DURABILITY).getOrElse { 0 } - it
     }.getOrNull()
@@ -33,25 +33,25 @@ val damageConverter = ItemStackDataKeyConverter({
         offer(Keys.ITEM_DURABILITY, max - damage)
     }
 })
-val repairCostConverter = ItemStackDataKeyConverter({
+val repairCostConverter = SpongeItemStackDataComponentConverter({
     get(Keys.REPAIR_COST).getOrNull()
 }, {
     offer(Keys.REPAIR_COST, it)
 })
 
 // item display options
-val displayNameConverter = ItemStackDataKeyConverter({ get(Keys.CUSTOM_NAME).getOrNull() }, {
+val displayNameConverter = SpongeItemStackDataComponentConverter({ get(Keys.CUSTOM_NAME).getOrNull() }, {
     offer(Keys.CUSTOM_NAME, it)
 })
-val displayLoreConverter = ItemStackDataKeyConverter({ ItemLore(get(Keys.LORE).getOrElse { emptyList() }) }, { offer(Keys.LORE, it.lines) })
-val customModelDataConverter = ItemStackDataKeyConverter({
+val displayLoreConverter = SpongeItemStackDataComponentConverter({ ItemLore(get(Keys.LORE).getOrElse { emptyList() }) }, { offer(Keys.LORE, it.lines) })
+val customModelDataConverter = SpongeItemStackDataComponentConverter({
     get(Keys.CUSTOM_MODEL_DATA).getOrNull()
 }, {
     offer(Keys.CUSTOM_MODEL_DATA, it)
 })
 
 // Note blocks
-val instrumentConverter = ItemStackDataKeyConverter<Key>({
+val instrumentConverter = SpongeItemStackDataComponentConverter<Key>({
     get(Keys.INSTRUMENT_TYPE).map {
         InstrumentTypes.registry().valueKey(it).toAPI()
     }.getOrNull()
@@ -60,7 +60,7 @@ val instrumentConverter = ItemStackDataKeyConverter<Key>({
         offer(Keys.INSTRUMENT_TYPE, instrument)
     }
 })
-val noteBlockSoundConverter = ItemStackDataKeyConverter({
+val noteBlockSoundConverter = SpongeItemStackDataComponentConverter({
     get(Keys.NOTE_BLOCK_SOUND).map {
         it.toAPI()
     }.getOrNull()
@@ -68,7 +68,7 @@ val noteBlockSoundConverter = ItemStackDataKeyConverter({
     offer(Keys.NOTE_BLOCK_SOUND, ResourceKey.resolve(it.toString()))
 })
 
-internal val baseColorDataConverter = ItemStackDataKeyConverter<DyeColor>({
+internal val baseColorDataConverter = SpongeItemStackDataComponentConverter<DyeColor>({
     val key = get(Keys.DYE_COLOR).flatMap { DyeColors.registry().findValueKey(it) }.getOrNull()?.toAPI()
     key?.let { DyeColor.findByKey(it) }
 }, {
@@ -77,7 +77,7 @@ internal val baseColorDataConverter = ItemStackDataKeyConverter<DyeColor>({
     }
 })
 
-internal val recipesDataConverter = ItemStackDataKeyConverter<List<Key>>({
+internal val recipesDataConverter = SpongeItemStackDataComponentConverter<List<Key>>({
     // TODO: Cannot find a data key for this in sponges API ?!
     null
 }, { })

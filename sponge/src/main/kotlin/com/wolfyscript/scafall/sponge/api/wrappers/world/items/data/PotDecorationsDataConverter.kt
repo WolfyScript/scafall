@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items.data
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.sponge.api.data.ItemStackDataKeyConverter
+import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverter
 import com.wolfyscript.scafall.toAPI
 import org.spongepowered.api.ResourceKey
 import org.spongepowered.api.data.Keys
@@ -9,9 +9,9 @@ import org.spongepowered.api.item.ItemType
 import org.spongepowered.api.item.ItemTypes
 import kotlin.jvm.optionals.getOrNull
 
-internal val potDecorationsDataConverter = ItemStackDataKeyConverter<List<Key>>({
+internal val potDecorationsDataConverter = SpongeItemStackDataComponentConverter<List<Key>>({
     if (this.type() == ItemTypes.DECORATED_POT) {
-        return@ItemStackDataKeyConverter buildList {
+        return@SpongeItemStackDataComponentConverter buildList {
             get(Keys.POT_FRONT_DECORATION).map { ItemTypes.registry().findValueKey(it).getOrNull()?.toAPI() }.orElseGet { Key.defaultKey("brick") }
             get(Keys.POT_RIGHT_DECORATION).map { ItemTypes.registry().findValueKey(it).getOrNull()?.toAPI() }.orElseGet { Key.defaultKey("brick") }
             get(Keys.POT_LEFT_DECORATION).map { ItemTypes.registry().findValueKey(it).getOrNull()?.toAPI() }.orElseGet { Key.defaultKey("brick") }

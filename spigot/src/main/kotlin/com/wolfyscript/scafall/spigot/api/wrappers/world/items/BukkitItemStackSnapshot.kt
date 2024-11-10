@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items
 
-import com.wolfyscript.scafall.common.api.data.CommonDataComponentMap
+import com.wolfyscript.scafall.common.api.data.ItemStackSnapshotDataComponentMap
 import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.identifiers.api
@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream
 
 class BukkitItemStackSnapshot(bukkitRef: org.bukkit.inventory.ItemStack) : BukkitRefAdapter<org.bukkit.inventory.ItemStack>(bukkitRef), ItemStackSnapshot {
 
-    private val componentMap = CommonDataComponentMap(this.createStack()) // TODO: this is not how it was meant to work...
+    private val componentMap = ItemStackSnapshotDataComponentMap(this)
 
     override val item: Key = bukkitRef.type.key.api()
     override val amount: Int = bukkitRef.amount
@@ -29,6 +29,8 @@ class BukkitItemStackSnapshot(bukkitRef: org.bukkit.inventory.ItemStack) : Bukki
         return stream.toByteArray()
     }
 
-    override fun data(): DataComponentMap<ItemStack> = componentMap
+    override fun createStack(): ItemStack = BukkitItemStack(bukkitRef.clone())
+
+    override fun data(): DataComponentMap.Immutable<ItemStackSnapshot> = componentMap
 
 }

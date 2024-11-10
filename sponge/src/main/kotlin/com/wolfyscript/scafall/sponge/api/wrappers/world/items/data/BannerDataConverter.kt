@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items.data
 
-import com.wolfyscript.scafall.sponge.api.data.ItemStackDataKeyConverter
+import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverter
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.data.BannerPatterns
@@ -12,7 +12,7 @@ import org.spongepowered.api.data.type.BannerPatternShapes
 import org.spongepowered.api.data.type.DyeColors
 import kotlin.jvm.optionals.getOrNull
 
-val bannerPatternDataConverter = ItemStackDataKeyConverter<BannerPatterns>({
+val bannerPatternDataConverter = SpongeItemStackDataComponentConverter<BannerPatterns>({
     get(Keys.BANNER_PATTERN_LAYERS).map { patterns ->
         BannerPatterns(patterns.mapNotNull {
             val shapeKey = BannerPatternShapes.registry().findValueKey(it.shape()).getOrNull()

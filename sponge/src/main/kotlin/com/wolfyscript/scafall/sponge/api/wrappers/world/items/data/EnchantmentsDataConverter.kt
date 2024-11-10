@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items.data
 
 import com.wolfyscript.scafall.common.api.wrappers.world.items.data.EnchantmentsImpl
-import com.wolfyscript.scafall.sponge.api.data.ItemStackDataKeyConverter
+import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverter
 import com.wolfyscript.scafall.sponge.api.wrappers.world.items.enchanting.EnchantmentImpl
 import com.wolfyscript.scafall.wrappers.world.items.data.Enchantments
 import com.wolfyscript.scafall.wrappers.world.items.enchanting.Enchantment
@@ -11,7 +11,7 @@ import org.spongepowered.api.item.enchantment.EnchantmentType
 import org.spongepowered.api.item.enchantment.EnchantmentTypes
 import kotlin.jvm.optionals.getOrNull
 
-internal val enchantmentsDataConverter = ItemStackDataKeyConverter<Enchantments>({
+internal val enchantmentsDataConverter = SpongeItemStackDataComponentConverter<Enchantments>({
     EnchantmentsImpl(
         get(Keys.HIDE_ENCHANTMENTS).orElse(false),
         get(Keys.APPLIED_ENCHANTMENTS).map {
@@ -30,7 +30,7 @@ internal val enchantmentsDataConverter = ItemStackDataKeyConverter<Enchantments>
     })
 })
 
-internal val enchantmentOverrideDataConverter = ItemStackDataKeyConverter<Boolean>({
+internal val enchantmentOverrideDataConverter = SpongeItemStackDataComponentConverter<Boolean>({
     get(Keys.ENCHANTMENT_GLINT_OVERRIDE).getOrNull()
 }, {
     offer(Keys.HIDE_ENCHANTMENTS, it)

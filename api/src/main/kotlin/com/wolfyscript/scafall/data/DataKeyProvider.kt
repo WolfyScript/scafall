@@ -21,31 +21,32 @@ package com.wolfyscript.scafall.data
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.data.*
 import net.kyori.adventure.text.Component
 import kotlin.reflect.KClass
 
 interface DataKeyProvider {
 
-    val damage: DataKey<Int, ItemStack>
-    val repairCost: DataKey<Int, ItemStack>
-    val unbreakable: DataKey<Unbreakable, ItemStack>
-    val enchantments: DataKey<Enchantments, ItemStack>
-    val storedEnchantments: DataKey<Enchantments, ItemStack>
-    val customName: DataKey<Component, ItemStack>
-    val itemLore: DataKey<ItemLore, ItemStack>
-    val canBreak: DataKey<CanBreak, ItemStack>
-    val canPlaceOn: DataKey<CanPlaceOn, ItemStack>
-    val dyedColor: DataKey<DyedColor, ItemStack>
-    val attributeModifiers: DataKey<AttributeModifiers, ItemStack>
-    val chargedProjectiles: DataKey<ChargedProjectiles, ItemStack>
-    val intangibleProjectiles: DataKey<IntangibleProjectiles, ItemStack>
+    val damage: ItemStackDataComponentConverter<Int>
+    val repairCost: ItemStackDataComponentConverter<Int>
+    val unbreakable: ItemStackDataComponentConverter<Unbreakable>
+    val enchantments: ItemStackDataComponentConverter<Enchantments>
+    val storedEnchantments: ItemStackDataComponentConverter<Enchantments>
+    val customName: ItemStackDataComponentConverter<Component>
+    val itemLore: ItemStackDataComponentConverter<ItemLore>
+    val canBreak: ItemStackDataComponentConverter<CanBreak>
+    val canPlaceOn: ItemStackDataComponentConverter<CanPlaceOn>
+    val dyedColor: ItemStackDataComponentConverter<DyedColor>
+    val attributeModifiers: ItemStackDataComponentConverter<AttributeModifiers>
+    val chargedProjectiles: ItemStackDataComponentConverter<ChargedProjectiles>
+    val intangibleProjectiles: ItemStackDataComponentConverter<IntangibleProjectiles>
     // TODO: map color
     // TODO: map decoration
-    val mapId: DataKey<Int, ItemStack>
+    val mapId: ItemStackDataComponentConverter<Int>
     // TODO: map info
-    val customModelData: DataKey<Int, ItemStack>
-    val potionEffects: DataKey<PotionContents, ItemStack>
+    val customModelData: ItemStackDataComponentConverter<Int>
+    val potionEffects: ItemStackDataComponentConverter<PotionContents>
     // TODO: Writable Book Contents
     // TODO: Written Book Contents
     // TODO: Trim
@@ -54,26 +55,25 @@ interface DataKeyProvider {
     // TODO: Debug Stick State
     // TODO: Entity Data
     // TODO: Bucket Entity Data
-    val instrument: DataKey<Key, ItemStack>
-    val recipes: DataKey<List<Key>, ItemStack>
+    val instrument: ItemStackDataComponentConverter<Key>
+    val recipes: ItemStackDataComponentConverter<List<Key>>
     // TODO: Lodestone tracker
-    val fireworkExplosion: DataKey<FireworkExplosion, ItemStack>
-    val fireworks: DataKey<Fireworks, ItemStack>
-    val profile: DataKey<Profile, ItemStack>
-    val noteBlockSound: DataKey<Key, ItemStack>
-    val baseColor: DataKey<DyeColor, ItemStack>
-    val bannerPatterns: DataKey<BannerPatterns, ItemStack>
-    val potDecorations: DataKey<List<Key>, ItemStack>
-    val container: DataKey<Container, ItemStack>
-    val bees: DataKey<Bees, ItemStack>
-    val lock: DataKey<Lock, ItemStack>
-    val containerLoot: DataKey<ContainerLoot, ItemStack>
-    val blockEntityData: DataKey<BlockEntityData, ItemStack>
-    val blockState: DataKey<BlockState, ItemStack>
-    val enchantmentGlintOverride: DataKey<Boolean, ItemStack>
-    val bundleContents: DataKey<BundleContents, ItemStack>
+    val fireworkExplosion: ItemStackDataComponentConverter<FireworkExplosion>
+    val fireworks: ItemStackDataComponentConverter<Fireworks>
+    val profile: ItemStackDataComponentConverter<Profile>
+    val noteBlockSound: ItemStackDataComponentConverter<Key>
+    val baseColor: ItemStackDataComponentConverter<DyeColor>
+    val bannerPatterns: ItemStackDataComponentConverter<BannerPatterns>
+    val potDecorations: ItemStackDataComponentConverter<List<Key>>
+    val container: ItemStackDataComponentConverter<Container>
+    val bees: ItemStackDataComponentConverter<Bees>
+    val lock: ItemStackDataComponentConverter<Lock>
+    val containerLoot: ItemStackDataComponentConverter<ContainerLoot>
+    val blockEntityData: ItemStackDataComponentConverter<BlockEntityData>
+    val blockState: ItemStackDataComponentConverter<BlockState>
+    val enchantmentGlintOverride: ItemStackDataComponentConverter<Boolean>
+    val bundleContents: ItemStackDataComponentConverter<BundleContents>
 
-
-    fun <T : Any> getDataKey(type: KClass<T>, key: Key) : DataKey<T, ItemStack>
+    fun <T : Any> getDataKey(type: KClass<T>, key: Key) : DataKey<T, ItemStackLike<*, *>>
 
 }

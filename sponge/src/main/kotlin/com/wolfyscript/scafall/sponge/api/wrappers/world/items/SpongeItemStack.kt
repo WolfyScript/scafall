@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items
 
-import com.wolfyscript.scafall.common.api.data.CommonDataComponentMap
+import com.wolfyscript.scafall.common.api.data.ItemStackDataComponentMap
 import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.sponge.api.wrappers.SpongeRefWrapper
@@ -12,9 +12,9 @@ import org.spongepowered.api.data.persistence.DataFormats
 import org.spongepowered.api.item.ItemTypes
 import java.io.ByteArrayOutputStream
 
-class ItemStackWrapper(ref: org.spongepowered.api.item.inventory.ItemStack) : SpongeRefWrapper<org.spongepowered.api.item.inventory.ItemStack>(ref), ItemStack {
+class SpongeItemStack(ref: org.spongepowered.api.item.inventory.ItemStack) : SpongeRefWrapper<org.spongepowered.api.item.inventory.ItemStack>(ref), ItemStack {
 
-    private val componentMap = CommonDataComponentMap(this)
+    private val componentMap = ItemStackDataComponentMap(this)
 
     override val item: Key = ItemTypes.registry().valueKey(ref.type()).toAPI()
     override val amount: Int = ref.quantity()
@@ -35,7 +35,7 @@ class ItemStackWrapper(ref: org.spongepowered.api.item.inventory.ItemStack) : Sp
         return ref.asImmutable().wrap()
     }
 
-    override fun data(): DataComponentMap<ItemStack> = componentMap
+    override fun data(): DataComponentMap.Mutable<ItemStack> = componentMap
 
     override fun toString() : String = toNBTString()
 }

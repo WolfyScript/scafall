@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items
 
-import com.wolfyscript.scafall.common.api.data.CommonDataComponentMap
+import com.wolfyscript.scafall.common.api.data.ItemStackSnapshotDataComponentMap
+import com.wolfyscript.scafall.common.api.data.SnapshotDataComponentMap
 import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.toAPI
@@ -10,12 +11,12 @@ import org.spongepowered.api.data.persistence.DataFormats
 import org.spongepowered.api.item.ItemTypes
 import java.io.ByteArrayOutputStream
 
-class SpongeItemStackSnapshot(private val ref: org.spongepowered.api.item.inventory.ItemStackSnapshot) : ItemStackSnapshot {
+class SpongeItemStackSnapshot(val ref: org.spongepowered.api.item.inventory.ItemStackSnapshot) : ItemStackSnapshot {
 
-    private val componentMap = CommonDataComponentMap(this.createStack()) // TODO: this is not how it was meant to work...
+    private val componentMap = ItemStackSnapshotDataComponentMap(this)
 
     override fun createStack(): ItemStack {
-        return ItemStackWrapper(ref.asMutable())
+        return SpongeItemStack(ref.asMutable())
     }
 
     override fun toNBTString(): String {
@@ -33,6 +34,6 @@ class SpongeItemStackSnapshot(private val ref: org.spongepowered.api.item.invent
     override val item: Key = ItemTypes.registry().valueKey(ref.type()).toAPI()
     override val amount: Int = ref.quantity()
 
-    override fun data(): DataComponentMap<ItemStack> = componentMap
+    override fun data(): DataComponentMap.Immutable<ItemStackSnapshot> = componentMap
 
 }

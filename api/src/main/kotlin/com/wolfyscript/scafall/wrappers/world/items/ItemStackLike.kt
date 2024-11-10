@@ -1,9 +1,10 @@
 package com.wolfyscript.scafall.wrappers.world.items
 
+import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.data.DataHolder
 import com.wolfyscript.scafall.identifier.Key
 
-interface ItemStackLike : DataHolder<ItemStack> {
+interface ItemStackLike<H: ItemStackLike<H, M>, M: DataComponentMap<H>> : DataHolder<H, M> {
 
     /**
      * The id representing the item of this ItemStack.<br></br>

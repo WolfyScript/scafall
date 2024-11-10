@@ -5,4 +5,6 @@ interface Factories {
     val identifierFactory: IdentifierFactory
 
     val itemsFactory: ItemsFactory
+
+    val dataKeyFactory: DataKeyFactory
 }

@@ -21,7 +21,7 @@ import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Keyed
 import kotlin.reflect.KClass
 
-class DataKey<T : Any, V : DataHolder<V>>(
+class DataKey<T : Any, V : DataHolder<*, *>>(
     val type: KClass<T>,
     private val key: Key,
     private val fetcher: V.() -> T? = { null },

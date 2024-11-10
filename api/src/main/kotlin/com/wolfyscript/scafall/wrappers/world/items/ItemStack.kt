@@ -17,7 +17,10 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items
 
-interface ItemStack : ItemStackLike {
+import com.wolfyscript.scafall.data.DataComponentMap
+import com.wolfyscript.scafall.data.DataHolder
+
+interface ItemStack : DataHolder.Mutable<ItemStack>, ItemStackLike<ItemStack, DataComponentMap.Mutable<ItemStack>> {
 
     /**
      * Creates a snapshot of the whole ItemStack

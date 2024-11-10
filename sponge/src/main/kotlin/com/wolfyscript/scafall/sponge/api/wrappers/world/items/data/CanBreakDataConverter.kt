@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items.data
 
-import com.wolfyscript.scafall.sponge.api.data.ItemStackDataKeyConverter
+import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverter
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.data.CanBreak
 import org.spongepowered.api.ResourceKey
@@ -9,7 +9,7 @@ import org.spongepowered.api.block.BlockTypes
 import org.spongepowered.api.data.Keys
 import kotlin.jvm.optionals.getOrNull
 
-val canBreakDataConverter = ItemStackDataKeyConverter({
+val canBreakDataConverter = SpongeItemStackDataComponentConverter({
     val keyList = get(Keys.BREAKABLE_BLOCK_TYPES).map { keys ->
         keys.mapNotNull {
             BlockTypes.registry().findValueKey(it).getOrNull()?.toAPI()

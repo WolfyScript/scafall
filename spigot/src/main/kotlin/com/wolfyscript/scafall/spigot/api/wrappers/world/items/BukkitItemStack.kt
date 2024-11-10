@@ -30,7 +30,7 @@ class BukkitItemStack(bukkitRef: ItemStack) : BukkitRefAdapter<ItemStack>(bukkit
     }
 
     override fun snapshot(): ItemStackSnapshot {
-        return BukkitItemStackSnapshot(bukkitRef)
+        return BukkitItemStackSnapshot(bukkitRef.clone())
     }
 
     override fun data(): DataComponentMap.Mutable<com.wolfyscript.scafall.wrappers.world.items.ItemStack> = componentMap

@@ -35,7 +35,7 @@ class SpongeItemStack(ref: org.spongepowered.api.item.inventory.ItemStack) : Spo
         return ref.asImmutable().wrap()
     }
 
-    override fun data(): DataComponentMap.Mutable<ItemStack> = componentMap
+    override val data: DataComponentMap.Mutable<ItemStack> = componentMap
 
     override fun toString() : String = toNBTString()
 }

@@ -1,7 +1,6 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items
 
 import com.wolfyscript.scafall.common.api.data.ItemStackSnapshotDataComponentMap
-import com.wolfyscript.scafall.common.api.data.SnapshotDataComponentMap
 import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.toAPI
@@ -34,6 +33,6 @@ class SpongeItemStackSnapshot(val ref: org.spongepowered.api.item.inventory.Item
     override val item: Key = ItemTypes.registry().valueKey(ref.type()).toAPI()
     override val amount: Int = ref.quantity()
 
-    override fun data(): DataComponentMap.Immutable<ItemStackSnapshot> = componentMap
+    override val data: DataComponentMap.Immutable<ItemStackSnapshot> = componentMap
 
 }

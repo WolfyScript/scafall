@@ -31,6 +31,6 @@ class BukkitItemStackSnapshot(bukkitRef: org.bukkit.inventory.ItemStack) : Bukki
 
     override fun createStack(): ItemStack = BukkitItemStack(bukkitRef.clone())
 
-    override fun data(): DataComponentMap.Immutable<ItemStackSnapshot> = componentMap
+    override val data: DataComponentMap.Immutable<ItemStackSnapshot> = componentMap
 
 }

@@ -8,13 +8,16 @@ import com.wolfyscript.scafall.spigot.api.data.SpigotItemStackDataKeyProvider
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.BukkitItemStackConfig
 import com.wolfyscript.scafall.spigot.api.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import de.tr7zw.nbtapi.NBT
+import org.bukkit.Bukkit
+import org.bukkit.Material
+import org.bukkit.inventory.ItemType
 
 class SpigotItemsFactoryImpl(scafall: Scafall) : ItemsFactory {
 
-    override fun createStackConfig(itemKey: Key): ItemStackConfig {
-        return BukkitItemStackConfig(itemKey.toString())
+    override fun createStack(item: Key): ItemStack {
+        val material = Material.matchMaterial(item.toString())
+        return material?.let { org.bukkit.inventory.ItemStack.of(it).wrap() } ?: throw IllegalArgumentException("Cannot create stack of type $item")
     }
 
     override fun createFromSNBT(snbt: String): ItemStack {

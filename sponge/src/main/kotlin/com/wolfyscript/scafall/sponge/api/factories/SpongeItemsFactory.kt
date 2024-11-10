@@ -7,14 +7,19 @@ import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataKeyProvider
 import com.wolfyscript.scafall.sponge.api.wrappers.world.items.SpongeItemStackConfig
 import com.wolfyscript.scafall.sponge.api.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
+import org.spongepowered.api.ResourceKey
 import org.spongepowered.api.Sponge
 import org.spongepowered.api.data.persistence.DataFormats
+import org.spongepowered.api.item.ItemType
+import org.spongepowered.api.item.ItemTypes
+import kotlin.jvm.optionals.getOrNull
 
 class SpongeItemsFactory : ItemsFactory {
 
-    override fun createStackConfig(itemKey: Key): ItemStackConfig {
-        return SpongeItemStackConfig(itemKey.toString())
+    override fun createStack(item: Key): ItemStack {
+        return ItemTypes.registry().findValue<ItemType>(ResourceKey.resolve(item.toString())).map {
+            org.spongepowered.api.item.inventory.ItemStack.of(it).wrap()
+        }.orElseThrow { IllegalArgumentException("Cannot create stack of type $item") }
     }
 
     override fun createFromSNBT(snbt: String): ItemStack {

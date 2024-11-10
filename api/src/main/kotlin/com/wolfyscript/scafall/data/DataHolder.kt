@@ -19,17 +19,25 @@ package com.wolfyscript.scafall.data
 
 interface DataHolder<H : DataHolder<H, M>, M: DataComponentMap<H>> {
 
-    fun data(): M
+    val data: M
 
-    fun <T : Any> get(key: DataKey<T, H>): T? {
-        return data().get(key)
-    }
+    fun <T : Any> get(key: DataKey<T, H>): T? = data.get(key)
 
     interface Mutable<H : Mutable<H>> : DataHolder<H, DataComponentMap.Mutable<H>> {
+
+        /**
+         * Sets the value of the specified Key
+         */
+        fun <T : Any> set(key: DataKey<T, H>, data: T) = this.data.set(key, data)
 
     }
 
     interface Immutable<H : Immutable<H>> : DataHolder<H, DataComponentMap.Immutable<H>> {
+
+        /**
+         * Sets the value of the specified Key
+         */
+        fun <T : Any> set(key: DataKey<T, H>, data: T) : H = this.data.set(key, data)
 
     }
 

@@ -4,6 +4,9 @@ import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.data.DataHolder
 import com.wolfyscript.scafall.identifier.Key
 
+/**
+ * The base type of [ItemStack] and [ItemStackSnapshot], combining common properties and functions
+ */
 interface ItemStackLike<H: ItemStackLike<H, M>, M: DataComponentMap<H>> : DataHolder<H, M> {
 
     /**

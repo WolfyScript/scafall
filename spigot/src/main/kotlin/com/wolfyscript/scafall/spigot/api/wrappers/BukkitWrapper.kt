@@ -5,6 +5,8 @@ import com.wolfyscript.scafall.spigot.api.wrappers.world.BukkitWorld
 import com.wolfyscript.scafall.spigot.api.wrappers.world.entity.BukkitEntity
 import com.wolfyscript.scafall.spigot.api.wrappers.world.entity.BukkitPlayer
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.BukkitItemStack
+import com.wolfyscript.scafall.spigot.api.wrappers.world.items.BukkitItemStackSnapshot
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.entity.Entity
@@ -34,3 +36,11 @@ fun com.wolfyscript.scafall.wrappers.world.entity.Entity.unwrap() : Entity = (th
 fun com.wolfyscript.scafall.wrappers.world.entity.Player.unwrap() : Player = (this as BukkitPlayer).bukkitRef
 
 fun com.wolfyscript.scafall.wrappers.world.items.ItemStack.unwrap() : ItemStack = (this as BukkitItemStack).bukkitRef
+
+fun <T: ItemStackLike<*, *>> T.unwrap(): ItemStack {
+    return when (this) {
+        is BukkitItemStack -> { bukkitRef }
+        is BukkitItemStackSnapshot -> { bukkitRef }
+        else -> throw Exception("Cannot unwrap ItemStackLike of type ${this.javaClass}")
+    }
+}

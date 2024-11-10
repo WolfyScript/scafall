@@ -74,6 +74,4 @@ interface DataKeyProvider {
     val enchantmentGlintOverride: ItemStackDataComponentConverter<Boolean>
     val bundleContents: ItemStackDataComponentConverter<BundleContents>
 
-    fun <T : Any> getDataKey(type: KClass<T>, key: Key) : DataKey<T, ItemStackLike<*, *>>
-
 }

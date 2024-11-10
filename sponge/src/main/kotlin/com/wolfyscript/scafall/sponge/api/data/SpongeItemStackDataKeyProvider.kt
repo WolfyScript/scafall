@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.sponge.api.data
 
+import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.data.*
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.sponge.api.wrappers.unwrap
@@ -9,8 +10,6 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import kotlin.reflect.KClass
 
 class SpongeItemStackDataKeyProvider : DataKeyProvider {
-
-    private val map: MutableMap<Key, ItemStackDataComponentConverter<*>> = mutableMapOf()
 
     override val damage = register(ItemStackDataKeys.DAMAGE, damageConverter)
     override val repairCost = register(ItemStackDataKeys.REPAIR_COST, repairCostConverter)
@@ -56,23 +55,8 @@ class SpongeItemStackDataKeyProvider : DataKeyProvider {
             converter.fetcher,
             converter.applier
         )
-        map[dataKey.key()] = converterImpl
+        ScafallProvider.get().registries.itemStackDataComponentConverterRegistry.register(dataKey.key(), converterImpl)
         return converterImpl
-    }
-
-    override fun <T : Any> getDataKey(type: KClass<T>, key: Key): DataKey<T, ItemStackLike<*, *>> {
-        val builder = map[key]
-        if (builder != null) {
-            if (builder.type != type) {
-                throw IllegalArgumentException("Cannot create Builder $key! Invalid value type: Registered Builder contains value of type ${builder.type}, but requested value type was $type")
-            }
-            @Suppress("UNCHECKED_CAST") // We checked that the key and type is the same, so we can cast it here
-            return builder as DataKey<T, ItemStackLike<*,*>>
-        }
-
-        // TODO: Get logger from plugins
-//        scaffolding.wolfyUtils.logger.warning("Cannot create Builder $key! Builder was not registered! Falling back to empty DataKey!")
-        return DataKey(type, key, fetcher = { null }, applier = { this })
     }
 
 }

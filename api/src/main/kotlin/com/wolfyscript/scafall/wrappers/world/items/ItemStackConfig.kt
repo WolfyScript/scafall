@@ -44,40 +44,9 @@ abstract class ItemStackConfig(
     /**
      * The id of the item in the `<namespace>:<item_key>` format.
      */
-    @JsonProperty("item") val itemId: String,
+    @JsonProperty("stack") val stack: ItemStackSnapshot,
     private val dataComponentMap: DataComponentMap<ItemStack>
-) : DataHolder<ItemStack> {
-
-    override fun data(): DataComponentMap<ItemStack> = dataComponentMap
-
-    @JsonSetter("data_components")
-    internal fun readDataComponents(raw: Map<String, JsonNode>) {
-        val keysRegistry = ScafallProvider.get().registries.itemDataKeyRegistry
-        for ((rawKey, value) in raw) {
-            val key = Key.parse(rawKey)
-            keysRegistry[key]?.let {
-                try {
-                    val obj = JacksonUtil.objectMapper.convertValue(value, it.type.java)
-                    dataComponentMap.set(it, obj) // When this is reached the type is correct, because otherwise the deserialization would fail
-                } catch (e: IllegalArgumentException) {
-                    // TODO: Present the error e.g. log it
-                }
-            }
-        }
-    }
-
-    @JsonGetter("data_components")
-    internal fun writeDataComponents(): Map<String, JsonNode> {
-        return buildMap {
-            for (dataKey in data().keys()) {
-                data().get(dataKey)?.let {
-                    JacksonUtil.objectMapper.convertValue(it, JsonNode::class.java)?.let { jsonNode ->
-                        this[dataKey.key().toString()] = jsonNode
-                    }
-                }
-            }
-        }
-    }
+) {
 
     var amount: ValueProvider<Int> = ValueProviderIntegerConst(1)
 

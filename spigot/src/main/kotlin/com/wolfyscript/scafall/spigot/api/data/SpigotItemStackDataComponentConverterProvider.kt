@@ -3,11 +3,8 @@ package com.wolfyscript.scafall.spigot.api.data
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.data.*
-import com.wolfyscript.scafall.function.ReceiverBiConsumer
-import com.wolfyscript.scafall.function.ReceiverFunction
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
-import com.wolfyscript.scafall.spigot.api.wrappers.world.items.BukkitItemStack
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.*
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
@@ -17,7 +14,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.inventory.meta.*
 import kotlin.reflect.KClass
 
-class SpigotItemStackDataKeyProvider(private val scafall: Scafall) : DataKeyProvider {
+class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall) : DataComponentConverterProvider {
 
     override val damage = register(ItemStackDataKeys.DAMAGE, damageItemMetaConverter)
     override val repairCost = register<Int>(ItemStackDataKeys.REPAIR_COST, repairCostItemMetaConverter)

@@ -20,13 +20,10 @@ package com.wolfyscript.scafall.data
 
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
-import com.wolfyscript.scafall.wrappers.world.items.ItemStack
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.data.*
 import net.kyori.adventure.text.Component
-import kotlin.reflect.KClass
 
-interface DataKeyProvider {
+interface DataComponentConverterProvider {
 
     val damage: ItemStackDataComponentConverter<Int>
     val repairCost: ItemStackDataComponentConverter<Int>

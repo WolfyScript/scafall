@@ -9,7 +9,7 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import kotlin.reflect.KClass
 
-class SpongeItemStackDataKeyProvider : DataKeyProvider {
+class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProvider {
 
     override val damage = register(ItemStackDataKeys.DAMAGE, damageConverter)
     override val repairCost = register(ItemStackDataKeys.REPAIR_COST, repairCostConverter)

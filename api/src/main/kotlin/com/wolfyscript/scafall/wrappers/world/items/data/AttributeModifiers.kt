@@ -17,4 +17,43 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-interface AttributeModifiers : TooltipApplicable
+import com.wolfyscript.scafall.identifier.Key
+
+interface AttributeModifiers : TooltipApplicable {
+
+    val modifiers: List<Modifier>
+
+    interface Modifier {
+
+        val type: String
+        val slot: Slot
+        val id: Key
+        val amount: Double
+        val operation: Operation
+
+        enum class Slot(val id: String) {
+
+            ANY("any"),
+            HAND("hand"),
+            ARMOR("armor"),
+            MAIN_HAND("mainhand"),
+            OFF_HAND("offhand"),
+            HEAD("head"),
+            CHEST("chest"),
+            LEGS("legs"),
+            FEET("feet"),
+            BODY("body")
+
+        }
+
+        enum class Operation(val id: String) {
+
+            ADD_VALUE("add_value"),
+            ADD_MULTIPLIED_BASE("add_multiplied_base"),
+            ADD_MULTIPLIED_TOTAL("add_multiplied_total"),;
+
+        }
+    }
+
+
+}

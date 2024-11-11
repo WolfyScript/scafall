@@ -46,7 +46,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
     override val instrument = register<Key>(ItemStackDataKeys.INSTRUMENT, instrumentItemMetaConverter)
     override val recipes = register<List<Key>>(ItemStackDataKeys.RECIPES, recipesItemMetaConverter)
     // TODO: Lodestone Tracker
-    override val fireworkExplosion = register(ItemStackDataKeys.FIREWORKS_EXPLOSION, fireworkExplosionItemMetaConverter)
+    override val fireworkExplosion = register(ItemStackDataKeys.FIREWORK_EXPLOSION, fireworkExplosionItemMetaConverter)
     override val fireworks = register(ItemStackDataKeys.FIREWORKS, fireworksItemMetaConverter)
     override val profile = register<Profile>(ItemStackDataKeys.PROFILE, profileItemMetaConverter)
     override val noteBlockSound = register<Key>(ItemStackDataKeys.NOTE_BLOCK_SOUND, noteBlockSoundItemMetaConverter)

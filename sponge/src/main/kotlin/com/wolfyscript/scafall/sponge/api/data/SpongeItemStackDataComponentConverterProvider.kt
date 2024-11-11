@@ -29,7 +29,7 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
     override val potionEffects = register(ItemStackDataKeys.POTION_CONTENTS, potionContentsDataConverter)
     override val instrument = register(ItemStackDataKeys.INSTRUMENT, instrumentConverter)
     override val recipes = register(ItemStackDataKeys.RECIPES, recipesDataConverter)
-    override val fireworkExplosion = register(ItemStackDataKeys.FIREWORKS_EXPLOSION, fireworkExplosionDataConverter)
+    override val fireworkExplosion = register(ItemStackDataKeys.FIREWORK_EXPLOSION, fireworkExplosionDataConverter)
     override val fireworks = register(ItemStackDataKeys.FIREWORKS, fireworksDataConverter)
     override val profile = register(ItemStackDataKeys.PROFILE, profileDataConverter)
     override val noteBlockSound = register(ItemStackDataKeys.NOTE_BLOCK_SOUND, noteBlockSoundConverter)

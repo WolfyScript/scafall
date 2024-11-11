@@ -90,11 +90,13 @@ interface ItemStackDataKeys {
         // ***********
 
         fun <T : Any> register(type: KClass<T>, key: Key): DataKey<T, ItemStackLike<*, *>> {
-            return ScafallProvider.get().factories.dataKeyFactory.create(key)
+            val dataKey = ScafallProvider.get().factories.dataKeyFactory.create<T, ItemStackLike<*,*>>(type, key)
+            ScafallProvider.get().registries.itemDataKeyRegistry.register(key, dataKey)
+            return dataKey
         }
 
         fun <T : Any> register(type: KClass<T>, key: String): DataKey<T, ItemStackLike<*, *>> {
-            return ScafallProvider.get().factories.dataKeyFactory.create(Key.key(Key.MINECRAFT_NAMESPACE, key))
+            return register(type, Key.key(Key.MINECRAFT_NAMESPACE, key))
         }
 
         inline fun <reified T : Any> register(key: String): DataKey<T, ItemStackLike<*, *>> {

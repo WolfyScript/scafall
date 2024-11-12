@@ -19,17 +19,18 @@ package com.wolfyscript.scafall.wrappers.world.items.data
 
 import com.wolfyscript.scafall.identifier.Key
 
-interface AttributeModifiers : TooltipApplicable {
+data class AttributeModifiers(
+    val modifiers: List<Modifier>,
+    override val showInTooltip: Boolean
+) : TooltipApplicable {
 
-    val modifiers: List<Modifier>
-
-    interface Modifier {
-
-        val type: String
-        val slot: Slot
-        val id: Key
-        val amount: Double
+    data class Modifier(
+        val type: Key,
+        val slot: Slot,
+        val id: Key,
+        val amount: Double,
         val operation: Operation
+    ) {
 
         enum class Slot(val id: String) {
 
@@ -50,7 +51,7 @@ interface AttributeModifiers : TooltipApplicable {
 
             ADD_VALUE("add_value"),
             ADD_MULTIPLIED_BASE("add_multiplied_base"),
-            ADD_MULTIPLIED_TOTAL("add_multiplied_total"),;
+            ADD_MULTIPLIED_TOTAL("add_multiplied_total"), ;
 
         }
     }

@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
-
 plugins {
     `java-library`
     id("scafall.common")
@@ -19,8 +17,6 @@ dependencies {
 
     compileOnly(libs.spongepowered.api)
 }
-
-archivesName = "scafall-sponge-platform"
 
 tasks {
     processResources {

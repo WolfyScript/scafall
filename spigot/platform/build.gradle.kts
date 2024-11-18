@@ -56,7 +56,7 @@ artifacts {
 publishing {
     publications {
         create<MavenPublication>("lib") {
-            from(components.getByName("java"))
+            project.shadow.component(this)
             groupId = "com.wolfyscript.scafall.spigot"
             artifactId = "spigot-platform"
         }

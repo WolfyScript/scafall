@@ -2,7 +2,6 @@ package com.wolfyscript.scafall
 
 import com.wolfyscript.scafall.loader.PluginBootstrap
 import com.wolfyscript.scafall.loader.ScafallBootstrap
-import com.wolfyscript.scafall.loader.ScafallModule
 import org.jetbrains.annotations.ApiStatus.Internal
 import java.lang.reflect.Constructor
 import java.util.function.Consumer
@@ -13,27 +12,6 @@ import java.util.function.Consumer
  */
 @Internal
 internal class InternalBootstrap : ScafallBootstrap {
-
-    override fun createScaffoldingModule(entrypoint: String, loader: Any): ScafallModule {
-        val moduleClass: Class<out ScafallModule> = try {
-            javaClass.classLoader.loadClass(entrypoint).asSubclass(ScafallModule::class.java)
-        } catch (e: ReflectiveOperationException) {
-            throw RuntimeException("Unable to load module: $entrypoint", e)
-        }
-
-        val constructor: Constructor<out ScafallModule> = try {
-            moduleClass.getConstructor(loader.javaClass, Scafall::class.java)
-        } catch (e: ReflectiveOperationException) {
-            throw RuntimeException("Unable to find constructor for module: $entrypoint", e)
-        }
-
-        val module: ScafallModule = try {
-            constructor.newInstance(loader, ScafallProvider.get())
-        } catch (e: ReflectiveOperationException) {
-            throw RuntimeException(e)
-        }
-        return module
-    }
 
     override fun initScaffoldingPlatform(pathToBootstrap: String, loaderType: Class<*>, loader: Any): PluginBootstrap {
         if (ScafallProvider.registered()) {

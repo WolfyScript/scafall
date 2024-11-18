@@ -60,7 +60,6 @@ tasks {
         mergeServiceFiles()
 
         // Include the inner jar files for api and internal implementation
-        from(project(":api").tasks.shadowJar.get().archiveFile)
         from(project(":sponge").tasks.shadowJar.get().archiveFile)
     }
 

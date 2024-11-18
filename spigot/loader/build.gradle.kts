@@ -35,11 +35,11 @@ tasks {
 
         dependencies {
             include(dependency("com.wolfyscript.scafall:.*"))
+            include(project(":api"))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
 
-        // Include the inner jar files for api and internal implementation
-        from(project(":api").tasks.shadowJar.get().archiveFile)
+        // Include the inner jar files of the internal implementation
         from(project(":spigot").tasks.shadowJar.get().archiveFile)
     }
 

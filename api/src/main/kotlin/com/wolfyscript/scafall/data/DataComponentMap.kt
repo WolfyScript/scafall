@@ -31,9 +31,9 @@ interface DataComponentMap<H : DataHolder<*, *>> {
      *
      * @return The data associated with the key; null otherwise.
      */
-    fun <T : Any> get(key: DataKey<T,H>): T?
+    fun <T : Any> get(key: DataKey<T, in H>): T?
 
-    fun <T : Any> getOrDefault(key: DataKey<T,H>, def: T): T {
+    fun <T : Any> getOrDefault(key: DataKey<T, in H>, def: T): T {
         val value: T? = this.get(key)
         return value ?: def
     }
@@ -41,9 +41,9 @@ interface DataComponentMap<H : DataHolder<*, *>> {
     /**
      * Checks if the DataKey has an associated value
      */
-    fun has(key: DataKey<*, H>): Boolean
+    fun has(key: DataKey<*, in H>): Boolean
 
-    fun keys(): Set<DataKey<*, H>>
+    fun keys(): Set<DataKey<*, in H>>
 
     interface Mutable<H: DataHolder.Mutable<*>> : DataComponentMap<H> {
 
@@ -55,7 +55,7 @@ interface DataComponentMap<H : DataHolder<*, *>> {
         /**
          * Removes the value association of the specified Key
          */
-        fun remove(key: DataKey<*, H>) : Boolean
+        fun remove(key: DataKey<*, in H>) : Boolean
 
     }
 

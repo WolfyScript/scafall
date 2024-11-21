@@ -21,7 +21,7 @@ interface DataHolder<H : DataHolder<H, M>, M: DataComponentMap<H>> {
 
     val data: M
 
-    fun <T : Any> get(key: DataKey<T, H>): T? = data.get(key)
+    fun <T : Any> get(key: DataKey<T, in H>): T? = data.get(key)
 
     interface Mutable<H : Mutable<H>> : DataHolder<H, DataComponentMap.Mutable<H>> {
 

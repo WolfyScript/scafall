@@ -28,7 +28,7 @@ interface DataHolder<H : DataHolder<H, M>, M: DataComponentMap<H>> {
         /**
          * Sets the value of the specified Key
          */
-        fun <T : Any> set(key: DataKey<T, H>, data: T) = this.data.set(key, data)
+        fun <T : Any> set(key: DataKey<T, in H>, data: T) = this.data.set(key, data)
 
     }
 
@@ -37,7 +37,7 @@ interface DataHolder<H : DataHolder<H, M>, M: DataComponentMap<H>> {
         /**
          * Sets the value of the specified Key
          */
-        fun <T : Any> set(key: DataKey<T, H>, data: T) : H = this.data.set(key, data)
+        fun <T : Any> set(key: DataKey<T, in H>, data: T) : H = this.data.set(key, data)
 
     }
 

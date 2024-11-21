@@ -50,7 +50,7 @@ interface DataComponentMap<H : DataHolder<*, *>> {
         /**
          * Sets the value of the specified Key
          */
-        fun <T : Any> set(key: DataKey<T, H>, data: T)
+        fun <T : Any> set(key: DataKey<T, in H>, data: T)
 
         /**
          * Removes the value association of the specified Key
@@ -64,7 +64,7 @@ interface DataComponentMap<H : DataHolder<*, *>> {
         /**
          * Sets the value of the specified Key
          */
-        fun <T : Any> set(key: DataKey<T, H>, data: T) : H
+        fun <T : Any> set(key: DataKey<T, in H>, data: T) : H
 
     }
 

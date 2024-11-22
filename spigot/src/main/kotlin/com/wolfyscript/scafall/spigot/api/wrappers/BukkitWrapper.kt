@@ -7,6 +7,7 @@ import com.wolfyscript.scafall.spigot.api.wrappers.world.entity.BukkitPlayer
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.BukkitItemStack
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.BukkitItemStackSnapshot
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
+import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.entity.Entity
@@ -22,6 +23,8 @@ fun Entity.wrap() : com.wolfyscript.scafall.wrappers.world.entity.Entity = Bukki
 fun Player.wrap() : com.wolfyscript.scafall.wrappers.world.entity.Player = BukkitPlayer(this)
 
 fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStack = BukkitItemStack(this)
+
+fun Color.wrap() : com.wolfyscript.scafall.wrappers.world.Color = com.wolfyscript.scafall.wrappers.world.Color(this.red, this.green, this.blue, this.alpha)
 
 /* ******************
  * Unwrap on Spigot
@@ -44,3 +47,5 @@ fun <T: ItemStackLike<*, *>> T.unwrap(): ItemStack {
         else -> throw Exception("Cannot unwrap ItemStackLike of type ${this.javaClass}")
     }
 }
+
+fun com.wolfyscript.scafall.wrappers.world.Color.unwrap() : Color = Color.fromARGB(this.alpha.toInt(), this.red.toInt(), this.green.toInt(), this.blue.toInt())

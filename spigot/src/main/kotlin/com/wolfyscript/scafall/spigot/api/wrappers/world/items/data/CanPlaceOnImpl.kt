@@ -3,6 +3,7 @@ package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.platform.PlatformType
+import com.wolfyscript.scafall.spigot.api.data.ItemMetaDataKeyConverter
 import com.wolfyscript.scafall.spigot.api.identifiers.api
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
 import com.wolfyscript.scafall.wrappers.world.items.data.CanPlaceOn

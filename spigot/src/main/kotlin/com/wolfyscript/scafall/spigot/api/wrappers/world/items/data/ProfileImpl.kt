@@ -2,6 +2,7 @@ package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.platform.PlatformType
+import com.wolfyscript.scafall.spigot.api.data.ItemMetaDataKeyConverter
 import com.wolfyscript.scafall.wrappers.world.items.data.Profile
 import org.bukkit.Bukkit
 import org.bukkit.inventory.meta.SkullMeta

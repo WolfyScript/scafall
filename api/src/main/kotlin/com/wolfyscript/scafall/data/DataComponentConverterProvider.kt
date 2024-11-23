@@ -20,55 +20,75 @@ package com.wolfyscript.scafall.data
 
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
+import com.wolfyscript.scafall.wrappers.world.items.MapColor
 import com.wolfyscript.scafall.wrappers.world.items.data.*
 import net.kyori.adventure.text.Component
 
 interface DataComponentConverterProvider {
 
-    val damage: ItemStackDataComponentConverter<Int>
-    val repairCost: ItemStackDataComponentConverter<Int>
-    val unbreakable: ItemStackDataComponentConverter<Unbreakable>
-    val enchantments: ItemStackDataComponentConverter<Enchantments>
-    val storedEnchantments: ItemStackDataComponentConverter<Enchantments>
-    val customName: ItemStackDataComponentConverter<Component>
-    val itemLore: ItemStackDataComponentConverter<ItemLore>
-    val canBreak: ItemStackDataComponentConverter<CanBreak>
-    val canPlaceOn: ItemStackDataComponentConverter<CanPlaceOn>
-    val dyedColor: ItemStackDataComponentConverter<DyedColor>
     val attributeModifiers: ItemStackDataComponentConverter<AttributeModifiers>
-    val chargedProjectiles: ItemStackDataComponentConverter<ChargedProjectiles>
-    val intangibleProjectiles: ItemStackDataComponentConverter<IntangibleProjectiles>
-    // TODO: map color
-    // TODO: map decoration
-    val mapId: ItemStackDataComponentConverter<Int>
-    // TODO: map info
-    val customModelData: ItemStackDataComponentConverter<Int>
-    val potionEffects: ItemStackDataComponentConverter<PotionContents>
-    // TODO: Writable Book Contents
-    // TODO: Written Book Contents
-    // TODO: Trim
-    // TODO: Suspicious Stew
-    // TODO: Hide Additional Tooltip
-    // TODO: Debug Stick State
-    // TODO: Entity Data
-    // TODO: Bucket Entity Data
-    val instrument: ItemStackDataComponentConverter<Key>
-    val recipes: ItemStackDataComponentConverter<List<Key>>
-    // TODO: Lodestone tracker
-    val fireworkExplosion: ItemStackDataComponentConverter<FireworkExplosion>
-    val fireworks: ItemStackDataComponentConverter<Fireworks>
-    val profile: ItemStackDataComponentConverter<Profile>
-    val noteBlockSound: ItemStackDataComponentConverter<Key>
-    val baseColor: ItemStackDataComponentConverter<DyeColor>
     val bannerPatterns: ItemStackDataComponentConverter<BannerPatterns>
-    val potDecorations: ItemStackDataComponentConverter<List<Key>>
-    val container: ItemStackDataComponentConverter<Container>
+    val baseColor: ItemStackDataComponentConverter<DyeColor>
     val bees: ItemStackDataComponentConverter<Bees>
-    val lock: ItemStackDataComponentConverter<Lock>
-    val containerLoot: ItemStackDataComponentConverter<ContainerLoot>
     val blockEntityData: ItemStackDataComponentConverter<BlockEntityData>
     val blockState: ItemStackDataComponentConverter<BlockState>
-    val enchantmentGlintOverride: ItemStackDataComponentConverter<Boolean>
+    val bucketEntityData: ItemStackDataComponentConverter<BucketEntityData>
     val bundleContents: ItemStackDataComponentConverter<BundleContents>
+    val canBreak: ItemStackDataComponentConverter<CanBreak>
+    val canPlaceOn: ItemStackDataComponentConverter<CanPlaceOn>
+    val chargedProjectiles: ItemStackDataComponentConverter<ChargedProjectiles>
+    val consumables: ItemStackDataComponentConverter<Consumable>
+    val container: ItemStackDataComponentConverter<Container>
+    val containerLoot: ItemStackDataComponentConverter<ContainerLoot>
+    val customData: ItemStackDataComponentConverter<CustomData>
+    val customModelData: ItemStackDataComponentConverter<Int>
+    val customName: ItemStackDataComponentConverter<Component>
+    val damage: ItemStackDataComponentConverter<Int>
+    val damageResistant: ItemStackDataComponentConverter<DamageResistant>
+    val debugStickState: ItemStackDataComponentConverter<DebugStickState>
+    val deathProtection: ItemStackDataComponentConverter<DeathProtection>
+    val dyedColor: ItemStackDataComponentConverter<DyedColor>
+    val enchantable: ItemStackDataComponentConverter<Enchantable>
+    val enchantmentGlintOverride: ItemStackDataComponentConverter<Boolean>
+    val enchantments: ItemStackDataComponentConverter<Enchantments>
+    val entityData: ItemStackDataComponentConverter<EntityData>
+    val fireworkExplosion: ItemStackDataComponentConverter<FireworkExplosion>
+    val fireworks: ItemStackDataComponentConverter<Fireworks>
+    val food: ItemStackDataComponentConverter<Food>
+    val glider: ItemStackDataComponentConverter<Glider>
+    val hideAdditionalTooltip: ItemStackDataComponentConverter<HideAdditionalTooltip>
+    val hideTooltip: ItemStackDataComponentConverter<HideTooltip>
+    val instrument: ItemStackDataComponentConverter<Key>
+    val intangibleProjectiles: ItemStackDataComponentConverter<IntangibleProjectiles>
+    val itemModel: ItemStackDataComponentConverter<Key>
+    val itemName: ItemStackDataComponentConverter<Component>
+    val jukeboxPlayable: ItemStackDataComponentConverter<JukeboxPlayable>
+    val lodestoneTracker: ItemStackDataComponentConverter<LodestoneTracker>
+    val lore: ItemStackDataComponentConverter<ItemLore>
+    val lock: ItemStackDataComponentConverter<Lock>
+    val mapColor: ItemStackDataComponentConverter<MapColor>
+    val mapDecorations: ItemStackDataComponentConverter<MapDecorations>
+    val mapId: ItemStackDataComponentConverter<Int>
+    val maxDamage: ItemStackDataComponentConverter<Int>
+    val maxStackSize: ItemStackDataComponentConverter<Int>
+    val noteBlockSound: ItemStackDataComponentConverter<Key>
+    val ominousBottleAmplifier: ItemStackDataComponentConverter<OminousBottleAmplifier>
+    val potDecorations: ItemStackDataComponentConverter<List<Key>>
+    val potionContents: ItemStackDataComponentConverter<PotionContents>
+    val profile: ItemStackDataComponentConverter<Profile>
+    val rarity: ItemStackDataComponentConverter<Rarity>
+    val recipes: ItemStackDataComponentConverter<List<Key>>
+    val repairable: ItemStackDataComponentConverter<Repairable>
+    val repairCost: ItemStackDataComponentConverter<Int>
+    val storedEnchantments: ItemStackDataComponentConverter<Enchantments>
+    val suspiciousStewEffects: ItemStackDataComponentConverter<SuspiciousStewEffects>
+    val tool: ItemStackDataComponentConverter<Tool>
+    val tooltipStyle: ItemStackDataComponentConverter<Key>
+    val trim: ItemStackDataComponentConverter<Trim>
+    val unbreakable: ItemStackDataComponentConverter<Unbreakable>
+    val useCooldown: ItemStackDataComponentConverter<UseCooldown>
+    val useRemainder: ItemStackDataComponentConverter<UseRemainder>
+    val writableBookContent: ItemStackDataComponentConverter<WriteableBookContent>
+    val writtenBookContent: ItemStackDataComponentConverter<WrittenBookContent>
 
 }

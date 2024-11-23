@@ -92,15 +92,15 @@ interface ItemStackDataKeys {
         val REPAIRABLE = register<Repairable>("repairable")
         val REPAIR_COST = register<Int>("repair_cost")
         val STORED_ENCHANTMENTS = register<Enchantments>("stored_enchantments")
-        val SUSPICIOUS_STEW_EFFECTS = register<SuspiciousStew>("suspicious_stew_effects")
+        val SUSPICIOUS_STEW_EFFECTS = register<SuspiciousStewEffects>("suspicious_stew_effects")
         val TOOL = register<Tool>("tool")
         val TOOLTIP_STYLE = register<String>("tooltip_style")
         val TRIM = register<Trim>("trim")
         val UNBREAKABLE = register<Unbreakable>("unbreakable")
         val USE_COOLDOWN = register<UseCooldown>("use_cooldown")
         val USE_REMAINDER = register<UseRemainder>("use_remainder")
-        val WRITABLE_BOOK_CONTENTS = register<WriteableBookContents>("writable_book_contents")
-        val WRITTEN_BOOK_CONTENTS = register<WrittenBookContents>("written_book_contents")
+        val WRITABLE_BOOK_CONTENTS = register<WriteableBookContent>("writable_book_contents")
+        val WRITTEN_BOOK_CONTENTS = register<WrittenBookContent>("written_book_contents")
 
         fun <T : Any> register(type: KClass<T>, key: Key): DataKey<T, ItemStackLike<*, *>> {
             val dataKey = ScafallProvider.get().factories.dataKeyFactory.create<T, ItemStackLike<*,*>>(type, key)

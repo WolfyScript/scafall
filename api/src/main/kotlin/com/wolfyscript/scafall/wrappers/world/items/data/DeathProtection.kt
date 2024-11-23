@@ -1,4 +1,7 @@
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-interface DeathProtection {
-}
+import com.wolfyscript.scafall.wrappers.world.items.ItemEffect
+
+data class DeathProtection(
+    val deathEffects: List<ItemEffect>,
+)

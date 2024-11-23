@@ -17,4 +17,4 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-interface SuspiciousStew 
+interface WriteableBookContent

@@ -1,4 +1,5 @@
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-interface Enchantable {
-}
+data class Enchantable(
+    val value: Int
+)

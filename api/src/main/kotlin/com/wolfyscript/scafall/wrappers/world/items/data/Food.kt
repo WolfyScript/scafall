@@ -1,4 +1,7 @@
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-interface Food {
-}
+data class Food(
+    val nutrition: Int,
+    val saturation: Float,
+    val canAlwaysEat: Boolean = false,
+)

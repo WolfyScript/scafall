@@ -6,8 +6,8 @@ import com.wolfyscript.scafall.wrappers.world.sound.SoundEvent
 data class Equippable(
     val slot: String,
     val equipSound: SoundEvent,
-    val assetId: Key,
-    val allowedEntities: List<Key>,
+    val assetId: Key?,
+    val allowedEntities: List<Key>?,
     val dispensable: Boolean = true,
     val swappable: Boolean = true,
     val damageOnHurt: Boolean = true,

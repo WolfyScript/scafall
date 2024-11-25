@@ -52,6 +52,7 @@ interface DataComponentConverterProvider {
     val enchantmentGlintOverride: ItemStackDataComponentConverter<Boolean>
     val enchantments: ItemStackDataComponentConverter<Enchantments>
     val entityData: ItemStackDataComponentConverter<EntityData>
+    val equippable: ItemStackDataComponentConverter<Equippable>
     val fireworkExplosion: ItemStackDataComponentConverter<FireworkExplosion>
     val fireworks: ItemStackDataComponentConverter<Fireworks>
     val food: ItemStackDataComponentConverter<Food>

@@ -16,6 +16,7 @@ import com.wolfyscript.scafall.wrappers.world.items.data.DeathProtection
 import com.wolfyscript.scafall.wrappers.world.items.data.DebugStickState
 import com.wolfyscript.scafall.wrappers.world.items.data.Enchantable
 import com.wolfyscript.scafall.wrappers.world.items.data.EntityData
+import com.wolfyscript.scafall.wrappers.world.items.data.Equippable
 import com.wolfyscript.scafall.wrappers.world.items.data.Food
 import com.wolfyscript.scafall.wrappers.world.items.data.Glider
 import com.wolfyscript.scafall.wrappers.world.items.data.HideAdditionalTooltip
@@ -57,6 +58,8 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
         get() = TODO("Not yet implemented")
     override val enchantments = register(ItemStackDataKeys.ENCHANTMENTS, enchantmentsDataConverter)
     override val entityData: ItemStackDataComponentConverter<EntityData>
+        get() = TODO("Not yet implemented")
+    override val equippable: ItemStackDataComponentConverter<Equippable>
         get() = TODO("Not yet implemented")
     override val storedEnchantments = register(ItemStackDataKeys.STORED_ENCHANTMENTS, enchantmentsDataConverter)
     override val suspiciousStewEffects: ItemStackDataComponentConverter<SuspiciousStewEffects>

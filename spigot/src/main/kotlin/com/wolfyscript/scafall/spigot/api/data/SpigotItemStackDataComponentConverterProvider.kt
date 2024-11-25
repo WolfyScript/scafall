@@ -37,6 +37,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
     override val enchantments = register<Enchantments>(ItemStackDataKeys.ENCHANTMENTS, enchantmentsItemMetaConverter)
     override val entityData: ItemStackDataComponentConverter<EntityData>
         get() = TODO("Not yet implemented")
+    override val equippable: ItemStackDataComponentConverter<Equippable> = register<Equippable>(ItemStackDataKeys.EQUIPPABLE, equippableItemMetaConverter)
     override val storedEnchantments = register<Enchantments>(ItemStackDataKeys.STORED_ENCHANTMENTS, enchantmentsItemMetaConverter)
     override val suspiciousStewEffects: ItemStackDataComponentConverter<SuspiciousStewEffects>
         get() = TODO("Not yet implemented")

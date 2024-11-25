@@ -71,7 +71,7 @@ interface ItemStackDataKeys {
         val HIDE_TOOLTIP = register<HideTooltip>("hide_tooltip")
         val INSTRUMENT = register<Key>("instrument")
         val INTANGIBLE_PROJECTILES = register<IntangibleProjectiles>("intangible_projectiles")
-        val ITEM_MODEL = register<String>("item_model")
+        val ITEM_MODEL = register<Key>("item_model")
         val ITEM_NAME = register<Component>("item_name")
         val JUKEBOX_PLAYABLE = register<JukeboxPlayable>("jukebox_playable")
         val ITEM_LORE = register<ItemLore>("item_lore")

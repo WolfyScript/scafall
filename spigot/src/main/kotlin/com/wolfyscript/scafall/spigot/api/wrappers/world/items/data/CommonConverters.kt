@@ -55,8 +55,6 @@ internal val repairCostItemMetaConverter = ItemMetaDataKeyConverter({
     repairCost = it
 })
 
-internal val displayNameItemMetaConverter = ItemMetaDataKeyConverter({ displayName() }, { data -> displayName(data) })
-
 internal val mapIdItemMetaConverter = ItemMetaDataKeyConverter({
     if (this !is MapMeta || !hasMapId()) return@ItemMetaDataKeyConverter null
     mapId
@@ -67,14 +65,6 @@ internal val mapIdItemMetaConverter = ItemMetaDataKeyConverter({
             mapView = map
         }
     }
-})
-
-internal val customModelDataItemMetaConverter = ItemMetaDataKeyConverter({
-    return@ItemMetaDataKeyConverter if (hasCustomModelData()) {
-        customModelData
-    } else null
-}, {
-    setCustomModelData(it)
 })
 
 internal val instrumentItemMetaConverter = ItemMetaDataKeyConverter({

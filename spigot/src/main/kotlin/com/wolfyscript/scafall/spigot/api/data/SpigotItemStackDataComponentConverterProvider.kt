@@ -44,7 +44,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
     override val tooltipStyle: ItemStackDataComponentConverter<Key> = register(ItemStackDataKeys.TOOLTIP_STYLE, tooltipStyleItemMetaConverter)
     override val trim: ItemStackDataComponentConverter<Trim>
         get() = TODO("Not yet implemented")
-    override val customName = register<Component>(ItemStackDataKeys.CUSTOM_NAME, displayNameItemMetaConverter)
+    override val customName = register<Component>(ItemStackDataKeys.CUSTOM_NAME, customNameItemMetaConverter)
     override val lore = register<ItemLore>(ItemStackDataKeys.ITEM_LORE, itemLoreItemMetaConverter)
     override val canBreak = register<CanBreak>(ItemStackDataKeys.CAN_BREAK, canBreakItemMetaConverter)
     override val canPlaceOn = register<CanPlaceOn>(ItemStackDataKeys.CAN_PLACE_ON, canPlaceOnItemMetaConverter)
@@ -55,10 +55,8 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
     override val consumables: ItemStackDataComponentConverter<Consumable>
         get() = TODO("Not yet implemented")
     override val intangibleProjectiles = register<IntangibleProjectiles>(ItemStackDataKeys.INTANGIBLE_PROJECTILES, intangibleProjectilesItemMetaConverter)
-    override val itemModel: ItemStackDataComponentConverter<Key>
-        get() = TODO("Not yet implemented")
-    override val itemName: ItemStackDataComponentConverter<Component>
-        get() = TODO("Not yet implemented")
+    override val itemModel: ItemStackDataComponentConverter<Key> = register(ItemStackDataKeys.ITEM_MODEL, itemModelItemMetaConverter)
+    override val itemName: ItemStackDataComponentConverter<Component> = register(ItemStackDataKeys.ITEM_NAME, itemNameItemMetaConverter)
     override val jukeboxPlayable: ItemStackDataComponentConverter<JukeboxPlayable>
         get() = TODO("Not yet implemented")
     override val lodestoneTracker: ItemStackDataComponentConverter<LodestoneTracker>

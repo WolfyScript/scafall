@@ -94,7 +94,7 @@ interface ItemStackDataKeys {
         val STORED_ENCHANTMENTS = register<Enchantments>("stored_enchantments")
         val SUSPICIOUS_STEW_EFFECTS = register<SuspiciousStewEffects>("suspicious_stew_effects")
         val TOOL = register<Tool>("tool")
-        val TOOLTIP_STYLE = register<String>("tooltip_style")
+        val TOOLTIP_STYLE = register<Key>("tooltip_style")
         val TRIM = register<Trim>("trim")
         val UNBREAKABLE = register<Unbreakable>("unbreakable")
         val USE_COOLDOWN = register<UseCooldown>("use_cooldown")

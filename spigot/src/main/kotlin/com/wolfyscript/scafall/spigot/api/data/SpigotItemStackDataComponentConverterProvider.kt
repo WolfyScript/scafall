@@ -42,8 +42,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
         get() = TODO("Not yet implemented")
     override val tool: ItemStackDataComponentConverter<Tool>
         get() = TODO("Not yet implemented")
-    override val tooltipStyle: ItemStackDataComponentConverter<Key>
-        get() = TODO("Not yet implemented")
+    override val tooltipStyle: ItemStackDataComponentConverter<Key> = register(ItemStackDataKeys.TOOLTIP_STYLE, tooltipStyleItemMetaConverter)
     override val trim: ItemStackDataComponentConverter<Trim>
         get() = TODO("Not yet implemented")
     override val customName = register<Component>(ItemStackDataKeys.CUSTOM_NAME, displayNameItemMetaConverter)

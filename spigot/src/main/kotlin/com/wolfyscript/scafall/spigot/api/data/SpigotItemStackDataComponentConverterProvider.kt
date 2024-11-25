@@ -40,8 +40,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
     override val storedEnchantments = register<Enchantments>(ItemStackDataKeys.STORED_ENCHANTMENTS, enchantmentsItemMetaConverter)
     override val suspiciousStewEffects: ItemStackDataComponentConverter<SuspiciousStewEffects>
         get() = TODO("Not yet implemented")
-    override val tool: ItemStackDataComponentConverter<Tool>
-        get() = TODO("Not yet implemented")
+    override val tool: ItemStackDataComponentConverter<Tool> = register(ItemStackDataKeys.TOOL, toolItemMetaConverter)
     override val tooltipStyle: ItemStackDataComponentConverter<Key> = register(ItemStackDataKeys.TOOLTIP_STYLE, tooltipStyleItemMetaConverter)
     override val trim: ItemStackDataComponentConverter<Trim>
         get() = TODO("Not yet implemented")

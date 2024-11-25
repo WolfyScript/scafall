@@ -51,8 +51,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
     override val canBreak = register<CanBreak>(ItemStackDataKeys.CAN_BREAK, canBreakItemMetaConverter)
     override val canPlaceOn = register<CanPlaceOn>(ItemStackDataKeys.CAN_PLACE_ON, canPlaceOnItemMetaConverter)
     override val dyedColor = register<DyedColor>(ItemStackDataKeys.DYED_COLOR, dyedColorItemMetaConverter)
-    override val enchantable: ItemStackDataComponentConverter<Enchantable>
-        get() = TODO("Not yet implemented")
+    override val enchantable: ItemStackDataComponentConverter<Enchantable> = register<Enchantable>(ItemStackDataKeys.ENCHANTABLE, enchantableItemMetaConverter)
     override val attributeModifiers = register<AttributeModifiers>(ItemStackDataKeys.ATTRIBUTE_MODIFIERS, attributeModifiersItemMetaConverter)
     override val chargedProjectiles = register<ChargedProjectiles>(ItemStackDataKeys.CHARGED_PROJECTILES, chargedProjectilesItemMetaConverter)
     override val consumables: ItemStackDataComponentConverter<Consumable>

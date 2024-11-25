@@ -3,6 +3,7 @@ package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 import com.wolfyscript.scafall.common.api.wrappers.world.items.data.EnchantmentsImpl
 import com.wolfyscript.scafall.spigot.api.data.ItemMetaDataKeyConverter
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.enchanting.EnchantmentImpl
+import com.wolfyscript.scafall.wrappers.world.items.data.Enchantable
 import com.wolfyscript.scafall.wrappers.world.items.data.Enchantments
 import com.wolfyscript.scafall.wrappers.world.items.enchanting.Enchantment
 import org.bukkit.inventory.ItemFlag
@@ -26,5 +27,14 @@ internal val enchantmentsItemMetaConverter = ItemMetaDataKeyConverter<Enchantmen
         } else {
             addItemFlags(ItemFlag.HIDE_ENCHANTS)
         }
+    }
+)
+
+internal val enchantableItemMetaConverter = ItemMetaDataKeyConverter<Enchantable>(
+    {
+        Enchantable(enchantable)
+    },
+    {
+        setEnchantable(it.value)
     }
 )

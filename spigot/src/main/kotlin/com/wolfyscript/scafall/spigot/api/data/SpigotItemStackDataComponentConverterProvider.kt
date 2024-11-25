@@ -79,8 +79,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
         get() = TODO("Not yet implemented")
     override val fireworkExplosion = register(ItemStackDataKeys.FIREWORK_EXPLOSION, fireworkExplosionItemMetaConverter)
     override val fireworks = register(ItemStackDataKeys.FIREWORKS, fireworksItemMetaConverter)
-    override val food: ItemStackDataComponentConverter<Food>
-        get() = TODO("Not yet implemented")
+    override val food: ItemStackDataComponentConverter<Food> = register<Food>(ItemStackDataKeys.FOOD, foodItemMetaConverter)
     override val glider: ItemStackDataComponentConverter<Glider>
         get() = TODO("Not yet implemented")
     override val hideAdditionalTooltip: ItemStackDataComponentConverter<HideAdditionalTooltip>

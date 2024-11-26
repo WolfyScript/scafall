@@ -10,6 +10,7 @@ import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toWrapper
 import com.wolfyscript.scafall.spigot.api.wrappers.wrap
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.data.BundleContents
+import com.wolfyscript.scafall.wrappers.world.items.data.Glider
 import com.wolfyscript.scafall.wrappers.world.items.data.Lock
 import com.wolfyscript.scafall.wrappers.world.items.data.Unbreakable
 import org.bukkit.Bukkit
@@ -46,6 +47,22 @@ internal val damageItemMetaConverter = ItemMetaDataKeyConverter(
         }
     }
 )
+
+internal val maxDamageItemMetaConverter = ItemMetaDataKeyConverter({
+
+    null
+}, {
+
+})
+
+internal val maxStackSizeItemMetaConverter = ItemMetaDataKeyConverter<Int>({
+    if (hasMaxStackSize()) {
+        return@ItemMetaDataKeyConverter maxStackSize
+    }
+    null
+}, {
+    setMaxStackSize(it)
+})
 
 internal val repairCostItemMetaConverter = ItemMetaDataKeyConverter({
     if (this !is Repairable) return@ItemMetaDataKeyConverter null
@@ -142,7 +159,7 @@ internal val potDecorationsItemMetaConverter = ItemMetaDataKeyConverter({
     }
     null
 }, {
-
+    // TODO
 })
 
 internal val lockItemMetaConverter = ItemMetaDataKeyConverter<Lock>({
@@ -172,4 +189,11 @@ internal val enchantmentGlintOverrideItemMetaConverter =
         setEnchantmentGlintOverride(it)
     })
 
+internal val gliderItemMetaConverter = ItemMetaDataKeyConverter<Glider>({
+    if (isGlider) {
+        Glider()
+    } else null
+}, {
+    isGlider = true
+})
 

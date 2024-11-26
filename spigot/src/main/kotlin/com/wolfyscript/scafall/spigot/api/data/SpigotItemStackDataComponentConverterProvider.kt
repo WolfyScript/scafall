@@ -65,8 +65,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
     override val mapId = register<Int>(ItemStackDataKeys.MAP_ID, mapIdItemMetaConverter)
     override val maxDamage: ItemStackDataComponentConverter<Int>
         get() = TODO("Not yet implemented")
-    override val maxStackSize: ItemStackDataComponentConverter<Int>
-        get() = TODO("Not yet implemented")
+    override val maxStackSize: ItemStackDataComponentConverter<Int> = register(ItemStackDataKeys.MAX_STACK_SIZE, maxStackSizeItemMetaConverter)
     override val customModelData = register(ItemStackDataKeys.CUSTOM_MODEL_DATA, customModelDataItemMetaConverter)
     override val potionContents = register<PotionContents>(ItemStackDataKeys.POTION_CONTENTS, potionContentsItemMetaConverter)
     override val instrument = register<Key>(ItemStackDataKeys.INSTRUMENT, instrumentItemMetaConverter)
@@ -76,8 +75,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
     override val fireworkExplosion = register(ItemStackDataKeys.FIREWORK_EXPLOSION, fireworkExplosionItemMetaConverter)
     override val fireworks = register(ItemStackDataKeys.FIREWORKS, fireworksItemMetaConverter)
     override val food: ItemStackDataComponentConverter<Food> = register<Food>(ItemStackDataKeys.FOOD, foodItemMetaConverter)
-    override val glider: ItemStackDataComponentConverter<Glider>
-        get() = TODO("Not yet implemented")
+    override val glider: ItemStackDataComponentConverter<Glider> = register(ItemStackDataKeys.GLIDER, gliderItemMetaConverter)
     override val hideAdditionalTooltip: ItemStackDataComponentConverter<HideAdditionalTooltip>
         get() = TODO("Not yet implemented")
     override val hideTooltip: ItemStackDataComponentConverter<HideTooltip>

@@ -18,10 +18,14 @@ internal val foodItemMetaConverter = ItemMetaDataKeyConverter<Food>(
         }
         null
     }, {
-        val food = this.food
-        food.nutrition = it.nutrition
-        food.saturation = it.saturation
-        food.setCanAlwaysEat(it.canAlwaysEat)
-        setFood(food)
+        if (it != null) {
+            val food = this.food
+            food.nutrition = it.nutrition
+            food.saturation = it.saturation
+            food.setCanAlwaysEat(it.canAlwaysEat)
+            setFood(food)
+        } else {
+            setFood(null)
+        }
     }
 )

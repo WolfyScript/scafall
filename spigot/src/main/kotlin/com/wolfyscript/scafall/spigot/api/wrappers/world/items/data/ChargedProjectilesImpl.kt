@@ -16,7 +16,7 @@ internal val chargedProjectilesItemMetaConverter = ItemMetaDataKeyConverter<Char
     },
     { projectiles ->
         if (this is CrossbowMeta) {
-            setChargedProjectiles(projectiles.projectiles.map { it.unwrap() })
+            setChargedProjectiles(projectiles?.projectiles?.map { it.unwrap() } ?: emptyList())
         }
     }
 )

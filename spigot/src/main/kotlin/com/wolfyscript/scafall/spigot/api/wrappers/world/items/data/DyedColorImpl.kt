@@ -15,7 +15,11 @@ internal val dyedColorItemMetaConverter = ItemMetaDataKeyConverter<DyedColor>(
     },
     {
         if (this is LeatherArmorMeta) {
-            setColor(Color.fromBGR(it.rgb))
+            if (it != null) {
+                setColor(Color.fromBGR(it.rgb))
+            } else {
+                setColor(null)
+            }
         }
     }
 )

@@ -11,7 +11,7 @@ class ItemStackSnapshotDataComponentMap(private val holder: ItemStackSnapshot) :
     override fun <T : Any> get(key: DataKey<T, in ItemStackSnapshot>): T? {
         return ScafallProvider.get().registries.itemStackDataComponentConverterRegistry[key.key()]?.let {
             it as ItemStackDataComponentConverter<T> // We kinda make sure the type is correct by assigning the correct DataKeys
-            it.reader.converter.invoke(holder)
+            it.reader.converter.invoke(holder).getOrThrow()
         }
     }
 
@@ -20,7 +20,7 @@ class ItemStackSnapshotDataComponentMap(private val holder: ItemStackSnapshot) :
             it as ItemStackDataComponentConverter<T> // We kinda make sure the type is correct by assigning the correct DataKeys
 
             val copy = holder.createStack()
-            it.writer.converter.invoke(copy, data)
+            it.modifier.converter.invoke(copy, data)
             copy.snapshot()
         } ?: holder
     }

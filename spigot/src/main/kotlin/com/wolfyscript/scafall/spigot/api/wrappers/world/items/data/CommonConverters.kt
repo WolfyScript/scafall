@@ -9,16 +9,13 @@ import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toBukkit
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toWrapper
 import com.wolfyscript.scafall.spigot.api.wrappers.wrap
 import com.wolfyscript.scafall.toAPI
-import com.wolfyscript.scafall.wrappers.world.items.data.BundleContents
-import com.wolfyscript.scafall.wrappers.world.items.data.Glider
-import com.wolfyscript.scafall.wrappers.world.items.data.Lock
-import com.wolfyscript.scafall.wrappers.world.items.data.Unbreakable
+import com.wolfyscript.scafall.wrappers.world.items.data.*
 import org.bukkit.Bukkit
 import org.bukkit.Registry
-import org.bukkit.block.Banner
 import org.bukkit.block.DecoratedPot
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.meta.*
+import org.bukkit.inventory.meta.Repairable
 
 internal val unbreakableItemMetaConverter = ItemMetaDataKeyConverter<Unbreakable>({
     if (isUnbreakable) {
@@ -26,8 +23,8 @@ internal val unbreakableItemMetaConverter = ItemMetaDataKeyConverter<Unbreakable
     }
     null
 }, { data ->
-    isUnbreakable = true
-    if (data.showInTooltip) {
+    isUnbreakable = data != null
+    if (data?.showInTooltip == true) {
         addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
     } else {
         removeItemFlags(ItemFlag.HIDE_UNBREAKABLE)
@@ -43,7 +40,7 @@ internal val damageItemMetaConverter = ItemMetaDataKeyConverter(
         }
     }, {
         if (this is Damageable) {
-            damage = it
+            damage = it ?: 0
         }
     }
 )
@@ -61,7 +58,11 @@ internal val maxStackSizeItemMetaConverter = ItemMetaDataKeyConverter<Int>({
     }
     null
 }, {
-    setMaxStackSize(it)
+    if (it != null) {
+        setMaxStackSize(it)
+    } else {
+        setMaxStackSize(null)
+    }
 })
 
 internal val repairCostItemMetaConverter = ItemMetaDataKeyConverter({
@@ -69,7 +70,7 @@ internal val repairCostItemMetaConverter = ItemMetaDataKeyConverter({
     this.repairCost
 }, {
     if (this !is Repairable) return@ItemMetaDataKeyConverter
-    repairCost = it
+    repairCost = it ?: 0
 })
 
 internal val mapIdItemMetaConverter = ItemMetaDataKeyConverter({
@@ -77,9 +78,13 @@ internal val mapIdItemMetaConverter = ItemMetaDataKeyConverter({
     mapId
 }, {
     if (this is MapMeta) {
-        val map = Bukkit.getMap(it)
-        if (map != null) {
-            mapView = map
+        if (it != null) {
+            val map = Bukkit.getMap(it)
+            if (map != null) {
+                mapView = map
+            }
+        } else {
+            mapView = null
         }
     }
 })
@@ -91,7 +96,7 @@ internal val instrumentItemMetaConverter = ItemMetaDataKeyConverter({
     null
 }, {
     if (this is MusicInstrumentMeta) {
-        instrument = Registry.INSTRUMENT.get(it.bukkit())
+        instrument = it?.let { key -> Registry.INSTRUMENT.get(key.bukkit()) }
     }
 })
 
@@ -102,7 +107,7 @@ internal val recipesItemMetaConverter = ItemMetaDataKeyConverter({
     null
 }, { keys ->
     if (this is KnowledgeBookMeta) {
-        recipes = keys.map { it.bukkit() }
+        recipes = keys?.map { it.bukkit() } ?: emptyList()
     }
 })
 
@@ -118,26 +123,19 @@ internal val noteBlockSoundItemMetaConverter = ItemMetaDataKeyConverter({
     if (this is BlockStateMeta) {
         val state = blockState
         if (state is SkullMeta) {
-            state.noteBlockSound = it.bukkit()
+            state.noteBlockSound = it?.bukkit()
         }
     }
 })
 
 internal val baseColorItemMetaConverter = ItemMetaDataKeyConverter({
-    if (this is BlockStateMeta) {
-        val state = this.blockState
-        if (state is Banner) {
-            return@ItemMetaDataKeyConverter state.baseColor.toWrapper()
-        }
+    if (this is ShieldMeta) {
+        return@ItemMetaDataKeyConverter baseColor?.toWrapper()
     }
     null
 }, {
-    if (this is BlockStateMeta) {
-        val state = blockState
-        if (state is Banner) {
-            state.baseColor = it.toBukkit()
-        }
-        blockState = state
+    if (this is ShieldMeta) {
+        baseColor = it?.toBukkit()
     }
 })
 
@@ -175,7 +173,7 @@ internal val bundleContentsItemMetaConverter = ItemMetaDataKeyConverter({
     return@ItemMetaDataKeyConverter BundleContents(emptyList())
 }, {
     if (this !is BundleMeta) return@ItemMetaDataKeyConverter
-    setItems(it.contents.map { stack -> stack.unwrap() })
+    setItems(it?.contents?.map { stack -> stack.unwrap() })
 })
 
 internal val enchantmentGlintOverrideItemMetaConverter =
@@ -194,6 +192,28 @@ internal val gliderItemMetaConverter = ItemMetaDataKeyConverter<Glider>({
         Glider()
     } else null
 }, {
-    isGlider = true
+    isGlider = it != null
+})
+
+internal val hideTooltipItemMetaConverter = ItemMetaDataKeyConverter<HideTooltip>({
+    if (isHideTooltip) {
+        return@ItemMetaDataKeyConverter HideTooltip()
+    }
+    null
+}, {
+    isHideTooltip = it != null
+})
+
+internal val hideAdditionalTooltipItemMetaConverter = ItemMetaDataKeyConverter<HideAdditionalTooltip>({
+    if (hasItemFlag(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)) {
+        return@ItemMetaDataKeyConverter HideAdditionalTooltip()
+    }
+    null
+}, {
+    if (it != null) {
+        addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+    } else {
+        removeItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP)
+    }
 })
 

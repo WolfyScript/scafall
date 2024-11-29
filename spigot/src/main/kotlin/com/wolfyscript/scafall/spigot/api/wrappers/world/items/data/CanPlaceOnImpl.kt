@@ -18,7 +18,7 @@ internal val canPlaceOnItemMetaConverter =
             val show = !hasItemFlag(ItemFlag.HIDE_PLACED_ON)
             CanPlaceOn(show, placeableKeys.map { Key.key(it.namespace, it.key) })
         }, { placeOn ->
-            setPlaceableKeys(placeOn.blocks.map { it.bukkit() })
+            setPlaceableKeys(placeOn?.blocks?.map { it.bukkit() } ?: emptyList())
         })
     } else {
         ItemMetaDataKeyConverter<CanPlaceOn>({
@@ -30,7 +30,7 @@ internal val canPlaceOnItemMetaConverter =
                 *
                 * Keys that are not valid materials are lost!
                 * */
-                canPlaceOn = placeOn.blocks.map { Material.getMaterial(it.toString()) }.toSet()
+                canPlaceOn = placeOn?.blocks?.map { Material.getMaterial(it.toString()) }?.toSet() ?: emptySet()
         })
     }
 

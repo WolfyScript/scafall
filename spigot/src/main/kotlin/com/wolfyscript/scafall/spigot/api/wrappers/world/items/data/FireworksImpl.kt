@@ -40,17 +40,19 @@ internal val fireworksItemMetaConverter =
     }, {
         if (this is FireworkMeta) {
             clearEffects() // Replace the explosions
-            addEffects(
-                it.explosions.map { effect ->
-                    FireworkEffect.builder()
-                        .trail(effect.trail)
-                        .flicker(effect.twinkle)
-                        .withColor(effect.colors.map { it.unwrap() })
-                        .withFade(effect.fadeColors.map { it.unwrap() })
-                        .build()
-                }
-            )
-            power = it.flightDuration
+            if (it != null) {
+                addEffects(
+                    it.explosions.map { effect ->
+                        FireworkEffect.builder()
+                            .trail(effect.trail)
+                            .flicker(effect.twinkle)
+                            .withColor(effect.colors.map { it.unwrap() })
+                            .withFade(effect.fadeColors.map { it.unwrap() })
+                            .build()
+                    }
+                )
+                power = it.flightDuration
+            }
         }
     })
 
@@ -78,12 +80,14 @@ internal val fireworkExplosionItemMetaConverter =
         null
     }, {
         if (this is FireworkEffectMeta) {
-            effect = FireworkEffect.builder()
-                .trail(it.trail)
-                .flicker(it.twinkle)
-                .withColor(it.colors.map { it.unwrap() })
-                .withFade(it.fadeColors.map { it.unwrap() })
-                .build()
+            if (it != null) {
+                effect = FireworkEffect.builder()
+                    .trail(it.trail)
+                    .flicker(it.twinkle)
+                    .withColor(it.colors.map { it.unwrap() })
+                    .withFade(it.fadeColors.map { it.unwrap() })
+                    .build()
+            }
         }
     })
 

@@ -18,7 +18,7 @@ internal val canBreakItemMetaConverter =
             val show = !hasItemFlag(ItemFlag.HIDE_PLACED_ON)
             CanBreak(show, destroyableKeys.map { Key.key(it.namespace, it.key) })
         }, { canBreak ->
-            setDestroyableKeys(canBreak.blocks.map { it.bukkit() })
+            setDestroyableKeys(canBreak?.blocks?.map { it.bukkit() } ?: emptyList())
         })
     } else {
         ItemMetaDataKeyConverter<CanBreak>({
@@ -30,6 +30,6 @@ internal val canBreakItemMetaConverter =
             *
             * Keys that are not valid materials are lost!
             * */
-            canDestroy = canBreak.blocks.map { Material.getMaterial(it.toString()) }.toSet()
+            canDestroy = canBreak?.blocks?.map { Material.getMaterial(it.toString()) }?.toSet() ?: emptySet()
         })
     }

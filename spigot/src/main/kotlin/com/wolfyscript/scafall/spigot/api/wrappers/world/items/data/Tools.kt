@@ -25,6 +25,10 @@ internal val toolItemMetaConverter = ItemMetaDataKeyConverter<Tool>(
         null
     },
     {
+        if (it == null) {
+            setTool(null)
+            return@ItemMetaDataKeyConverter
+        }
         val newTool = this.tool
 
         newTool.defaultMiningSpeed = it.defaultMiningSpeed
@@ -54,6 +58,6 @@ internal val tooltipStyleItemMetaConverter = ItemMetaDataKeyConverter<Key>(
         null
     },
     {
-        tooltipStyle = it.bukkit()
+        tooltipStyle = it?.bukkit()
     }
 )

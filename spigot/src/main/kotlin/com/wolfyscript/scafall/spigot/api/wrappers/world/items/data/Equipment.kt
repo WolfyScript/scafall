@@ -26,6 +26,10 @@ internal val equippableItemMetaConverter = ItemMetaDataKeyConverter<Equippable>(
         null
     },
     {
+        if (it == null) {
+            setEquippable(null)
+            return@ItemMetaDataKeyConverter
+        }
         val newEquippable = equippable
 
         newEquippable.slot = EquipmentSlot.valueOf(it.slot) // TODO

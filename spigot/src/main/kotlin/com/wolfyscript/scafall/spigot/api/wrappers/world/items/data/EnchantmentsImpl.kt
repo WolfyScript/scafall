@@ -19,10 +19,12 @@ internal val enchantmentsItemMetaConverter = ItemMetaDataKeyConverter<Enchantmen
     },
     {
         removeEnchantments()
-        for (entry in (it as EnchantmentsImpl).enchants) {
-            addEnchant((entry.key as EnchantmentImpl).bukkit, entry.value, true)
+        if (it != null) {
+            for (entry in (it as EnchantmentsImpl).enchants) {
+                addEnchant((entry.key as EnchantmentImpl).bukkit, entry.value, true)
+            }
         }
-        if (it.showInTooltip) {
+        if (it?.showInTooltip == true) {
             removeItemFlags(ItemFlag.HIDE_ENCHANTS)
         } else {
             addItemFlags(ItemFlag.HIDE_ENCHANTS)
@@ -35,6 +37,6 @@ internal val enchantableItemMetaConverter = ItemMetaDataKeyConverter<Enchantable
         Enchantable(enchantable)
     },
     {
-        setEnchantable(it.value)
+        setEnchantable(it?.value)
     }
 )

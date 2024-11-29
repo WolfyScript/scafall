@@ -12,18 +12,22 @@ class ItemStackDataComponentMap(private val holder: ItemStack) : DataComponentMa
         return ScafallProvider.get().registries.itemStackDataComponentConverterRegistry[key.key()]?.let {
             it as ItemStackDataComponentConverter<T> // We kinda make sure the type is correct by assigning the correct DataKeys
             it.reader.converter.invoke(holder)
+                .getOrThrow() // Throw exception here for now. Could/should we propagate it further?
         }
     }
 
     override fun <T : Any> set(key: DataKey<T, in ItemStack>, data: T) {
         ScafallProvider.get().registries.itemStackDataComponentConverterRegistry[key.key()]?.let {
             it as ItemStackDataComponentConverter<T> // We kinda make sure the type is correct by assigning the correct DataKeys
-            it.writer.converter.invoke(holder, data)
+            it.modifier.converter.invoke(holder, data)
+                .getOrThrow() // Throw exception here for now. Could/should we propagate it further?
         }
     }
 
     override fun remove(key: DataKey<*, in ItemStack>): Boolean {
-        TODO("Not yet implemented")
+        return ScafallProvider.get().registries.itemStackDataComponentConverterRegistry[key.key()]?.modifier?.remover?.invoke(
+            holder
+        )?.getOrThrow()?.second == true
     }
 
     override fun has(key: DataKey<*, in ItemStack>): Boolean {

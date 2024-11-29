@@ -7,7 +7,3 @@ internal val containerLootItemMetaConverter = ItemMetaDataKeyConverter<Container
     { TODO("Not yet implemented") },
     { TODO("Not yet implemented") }
 )
-
-class ContainerLootImpl : ContainerLoot {
-
-}

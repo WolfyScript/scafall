@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 
+import com.google.common.collect.HashMultimap
 import com.wolfyscript.scafall.spigot.api.data.ItemMetaDataKeyConverter
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
 import com.wolfyscript.scafall.toAPI
@@ -28,17 +29,21 @@ internal val attributeModifiersItemMetaConverter = ItemMetaDataKeyConverter(
         AttributeModifiers(modifiers, hasItemFlag(ItemFlag.HIDE_ATTRIBUTES))
     },
     { attributeModifiers ->
-        for (modifier in attributeModifiers.modifiers) {
-            Registry.ATTRIBUTE[modifier.type.bukkit()]?.let {
-                addAttributeModifier(
-                    it,
-                    AttributeModifier(
-                        modifier.id.bukkit(),
-                        modifier.amount,
-                        AttributeModifier.Operation.valueOf(modifier.operation.toString().uppercase(Locale.getDefault())),
-                        EquipmentSlotGroup.getByName(modifier.slot.id) ?: EquipmentSlotGroup.ANY,
+        // clear existing modifiers
+        this.attributeModifiers = HashMultimap.create()
+        if (attributeModifiers != null) {
+            for (modifier in attributeModifiers.modifiers) {
+                Registry.ATTRIBUTE[modifier.type.bukkit()]?.let {
+                    addAttributeModifier(
+                        it,
+                        AttributeModifier(
+                            modifier.id.bukkit(),
+                            modifier.amount,
+                            AttributeModifier.Operation.valueOf(modifier.operation.toString().uppercase(Locale.getDefault())),
+                            EquipmentSlotGroup.getByName(modifier.slot.id) ?: EquipmentSlotGroup.ANY,
+                        )
                     )
-                )
+                }
             }
         }
     }

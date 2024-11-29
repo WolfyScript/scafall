@@ -122,32 +122,51 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
 
 }
 
-data class ItemMetaDataKeyConverter<T: Any>(val fetcher: ItemMeta.() -> T?, val applier: ItemMeta.(T) -> Unit)
+data class ItemMetaDataKeyConverter<T: Any>(val fetcher: ItemMeta.() -> T?, val applier: ItemMeta.(T?) -> Unit)
 
-class ItemStackDataComponentConverterImpl<T : Any, H : DataHolder<H, *>>(
+class ItemStackDataComponentConverterImpl<T : Any>(
     override val key: Key,
     override val type: KClass<T>,
     reader: ItemMeta.() -> T?,
-    writer: ItemMeta.(T) -> Unit
+    writer: ItemMeta.(T?) -> Unit
 ) : ItemStackDataComponentConverter<T> {
 
-    override val reader: DataComponentConverter.Reader<T, ItemStackLike<*, *>> =
-        object : DataComponentConverter.Reader<T, ItemStackLike<*, *>> {
-            override val converter: ItemStackLike<*, *>.() -> T? = {
-                unwrap().itemMeta?.reader()
-            }
+    override val reader: DataComponentConverter.Reader<T, ItemStackLike<*, *>> = Reader(reader)
+
+    override val modifier: DataComponentConverter.Modifier<T, ItemStack> = Modifier(writer)
+
+    class Reader<T: Any>(
+        reader: ItemMeta.() -> T?,
+    ) : DataComponentConverter.Reader<T, ItemStackLike<*,*>> {
+
+        override val converter: ItemStackLike<*, *>.() -> Result<T?> = {
+            val stack = unwrap().itemMeta?.reader()
+            Result.success(stack)
         }
 
-    override val writer: DataComponentConverter.Writer<T, ItemStack> =
-        object : DataComponentConverter.Writer<T, ItemStack> {
-            override val converter: ItemStack.(T) -> ItemStack = {
-                val ref = unwrap()
-                ref.itemMeta?.let { meta ->
-                    meta.writer(it)
-                    ref.itemMeta = meta
-                }
-                this
+    }
+
+    class Modifier<T : Any>(
+        writer: ItemMeta.(T?) -> Unit
+    ) : DataComponentConverter.Modifier<T, ItemStack> {
+
+        override val converter: ItemStack.(T) -> Result<ItemStack> = {
+            val ref = unwrap()
+            ref.itemMeta?.let { meta ->
+                meta.writer(it)
+                ref.itemMeta = meta
             }
+            Result.success(this)
         }
 
+        override val remover: ItemStack.() -> Result<Pair<ItemStack, Boolean>> = {
+            val ref = unwrap()
+            ref.itemMeta?.let { meta ->
+                meta.writer(null)
+                ref.itemMeta = meta
+            }
+            Result.success(this to true)
+        }
+
+    }
 }

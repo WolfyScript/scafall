@@ -23,8 +23,8 @@ internal val bannerPatternsItemMetaConverter = ItemMetaDataKeyConverter<BannerPa
     },
     { bannerPatterns ->
         if (this is BannerMeta) {
-            patterns = bannerPatterns.layers.map {
+            patterns = bannerPatterns?.layers?.map {
                 Pattern(it.color.toBukkit(), Registry.BANNER_PATTERN.get(it.shape.bukkit()) ?: PatternType.BASE)
-            }
+            } ?: emptyList()
         }
     })

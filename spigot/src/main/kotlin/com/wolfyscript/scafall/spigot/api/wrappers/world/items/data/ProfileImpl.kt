@@ -19,6 +19,10 @@ internal val profileItemMetaConverter = if (ScafallProvider.get().platformType =
         if (this !is SkullMeta) {
             return@ItemMetaDataKeyConverter
         }
+        if (profile == null) {
+            playerProfile = null
+            return@ItemMetaDataKeyConverter
+        }
         playerProfile = playerProfile ?: Bukkit.createProfile(profile.id, profile.name)
         playerProfile?.let {
             it.textures.skin = profile.textures.skin
@@ -35,6 +39,10 @@ internal val profileItemMetaConverter = if (ScafallProvider.get().platformType =
         }
     }, { profile ->
         if (this !is SkullMeta) {
+            return@ItemMetaDataKeyConverter
+        }
+        if (profile == null) {
+            ownerProfile = null
             return@ItemMetaDataKeyConverter
         }
         ownerProfile = ownerProfile ?: Bukkit.createPlayerProfile(profile.id, profile.name)

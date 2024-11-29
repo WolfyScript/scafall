@@ -20,7 +20,7 @@ internal val itemLoreItemMetaConverter =
                 null
             },
             {
-                lore(it.lines)
+                lore(it?.lines)
             })
     } else {
         ItemMetaDataKeyConverter<ItemLore>(
@@ -32,7 +32,7 @@ internal val itemLoreItemMetaConverter =
                 null
             },
             {
-                lore = it.lines.map { component -> BukkitComponentSerializer.legacy().serialize(component) }
+                lore = it?.lines?.map { component -> BukkitComponentSerializer.legacy().serialize(component) }
             })
     }
 
@@ -59,7 +59,7 @@ internal val itemNameItemMetaConverter = if (ScafallProvider.get().platformType 
     ItemMetaDataKeyConverter<Component>({
         BukkitComponentSerializer.legacy().deserialize(itemName)
     }, {
-        setItemName(BukkitComponentSerializer.legacy().serialize(it))
+        setItemName(it?.let { component -> BukkitComponentSerializer.legacy().serialize(component) })
     })
 }
 
@@ -69,5 +69,5 @@ internal val itemModelItemMetaConverter = ItemMetaDataKeyConverter<Key>({
     }
     null
 }, {
-    itemModel = it.bukkit()
+    itemModel = it?.bukkit()
 })

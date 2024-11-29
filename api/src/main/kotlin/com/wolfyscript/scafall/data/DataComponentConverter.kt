@@ -19,20 +19,21 @@ interface DataComponentConverter<T : Any, B: DataHolder<*,*>, M: DataHolder<M, *
     val type: KClass<T>
 
     val reader: Reader<T, B>
-    val writer: Writer<T, M>
+    val modifier: Modifier<T, M>
 
     /**
      * The Reader used to read the data from the base DataHolder
      */
     interface Reader<T: Any, H: DataHolder<*,*>> {
-        val converter: H.() -> T?
+        val converter: H.() -> Result<T?>
     }
 
     /**
      * The writer used to write data to the mutable DataHolder
      */
-    interface Writer<T: Any, H: DataHolder<H,*>> {
-        val converter: H.(T) -> H
+    interface Modifier<T: Any, H: DataHolder<H,*>> {
+        val converter: H.(T) -> Result<H>
+        val remover: H.() -> Result<Pair<H, Boolean>>
     }
 
 }

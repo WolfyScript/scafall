@@ -31,7 +31,7 @@ class PotionMeta : Meta(KEY) {
             if (meta1 is PotionMeta) {
                 val metaThat = itemOther.itemMeta as PotionMeta
                 val metaThis = item.itemMeta as PotionMeta
-                if (metaThis.basePotionData.type == metaThat.basePotionData.type) {
+                if (metaThis.basePotionType == metaThat.basePotionType) {
                     if (metaThis.hasCustomEffects()) {
                         if (!metaThat.hasCustomEffects() || metaThis.customEffects != metaThat.customEffects) {
                             return false

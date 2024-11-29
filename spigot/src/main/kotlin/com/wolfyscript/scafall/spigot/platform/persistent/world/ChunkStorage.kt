@@ -232,7 +232,7 @@ class ChunkStorage private constructor(
     private fun createKeyForBlock(blockPos: Vector): NamespacedKey {
         return NamespacedKey(
             BLOCK_POS_NAMESPACE,
-            BLOCK_POS_KEY.formatted(blockPos.blockX, blockPos.blockY, blockPos.blockZ)
+            BLOCK_POS_KEY.format(blockPos.blockX, blockPos.blockY, blockPos.blockZ)
         )
     }
 

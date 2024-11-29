@@ -57,7 +57,7 @@ class PersistentStorageListener(private val core: Scafall) : Listener {
         val worldStorage = persistentStorage.getOrCreateWorldStorage(event.world)
         val chunkStorage = worldStorage.getOrCreateChunkStorage(chunk.x, chunk.z)
         chunkStorage.storedBlocks.forEach { (vector: Vector?, store: BlockStorage?) ->
-            store.onUnload()
+            store?.onUnload()
         }
         worldStorage.unloadChunk(chunkStorage)
     }
@@ -84,7 +84,7 @@ class PersistentStorageListener(private val core: Scafall) : Listener {
         val chunkStorage =
             persistentStorage.getOrCreateWorldStorage(chunk.world).getOrCreateChunkStorage(chunk.x, chunk.z)
         chunkStorage.loadBlocksIntoCache()
-        chunkStorage.storedBlocks.forEach { (vector: Vector?, blockStorage: BlockStorage?) -> blockStorage.onLoad() }
+        chunkStorage.storedBlocks.forEach { (vector: Vector?, blockStorage: BlockStorage?) -> blockStorage?.onLoad() }
     }
 
     /* ******************** *

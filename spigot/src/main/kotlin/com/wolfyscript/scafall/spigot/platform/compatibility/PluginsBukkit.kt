@@ -85,7 +85,7 @@ internal class PluginsBukkit(private val core: Scafall) : Plugins,
         if (!pluginIntegrationClasses.isEmpty()) {
             core.logger.info("Create & Init Plugin integrations: ")
             //Initialize the plugin integrations for that the plugin is already enabled.
-            pluginIntegrationClasses.forEach { (pluginName: String?, integrationClass: Class<out PluginIntegrationAbstract?>?) ->
+            pluginIntegrationClasses.forEach { (pluginName: String, integrationClass: Class<out PluginIntegrationAbstract>) ->
                 this.createOrInitPluginIntegration(
                     pluginName,
                     integrationClass

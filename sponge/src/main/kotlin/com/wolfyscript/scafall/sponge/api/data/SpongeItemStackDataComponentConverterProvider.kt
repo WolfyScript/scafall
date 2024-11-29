@@ -162,22 +162,39 @@ class ItemStackDataComponentConverterImpl<T : Any, H : DataHolder<H, *>>(
     override val key: Key,
     override val type: KClass<T>,
     reader: org.spongepowered.api.item.inventory.ItemStackLike.() -> T?,
-    writer: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit
+    writer: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit,
+    remover: org.spongepowered.api.item.inventory.ItemStack.() -> Unit = {}
 ) : ItemStackDataComponentConverter<T> {
 
-    override val reader: DataComponentConverter.Reader<T, ItemStackLike<*, *>> =
-        object : DataComponentConverter.Reader<T, ItemStackLike<*, *>> {
-            override val converter: ItemStackLike<*, *>.() -> T? = {
-                unwrap().reader()
-            }
+    override val reader: DataComponentConverter.Reader<T, ItemStackLike<*, *>> = Reader(reader)
+
+    override val modifier: DataComponentConverter.Modifier<T, ItemStack> = Modifier(writer, remover)
+
+    class Reader<T: Any>(
+        reader: org.spongepowered.api.item.inventory.ItemStackLike.() -> T?,
+    ) : DataComponentConverter.Reader<T, ItemStackLike<*,*>> {
+
+        override val converter: ItemStackLike<*, *>.() -> Result<T?> = {
+            val stack = unwrap().reader()
+            Result.success(stack)
         }
 
-    override val writer: DataComponentConverter.Writer<T, ItemStack> =
-        object : DataComponentConverter.Writer<T, ItemStack> {
-            override val converter: ItemStack.(T) -> ItemStack = {
-                unwrap().writer(it)
-                this
-            }
+    }
+
+    class Modifier<T : Any>(
+        writer: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit,
+        remover: org.spongepowered.api.item.inventory.ItemStack.() -> Unit = {}
+    ) : DataComponentConverter.Modifier<T, ItemStack> {
+
+        override val converter: ItemStack.(T) -> Result<ItemStack> = {
+            unwrap().writer(it)
+            Result.success(this)
         }
 
+        override val remover: ItemStack.() -> Result<Pair<ItemStack, Boolean>> = {
+            unwrap().remover()
+            Result.success(this to true)
+        }
+
+    }
 }

@@ -18,6 +18,9 @@ interface Key : Namespaced {
         fun defaultKey(key: String): Key = key(SCAFFOLDING_NAMESPACE, key)
 
         @JvmStatic
+        fun minecraft(key: String): Key = key(MINECRAFT_NAMESPACE, key)
+
+        @JvmStatic
         fun key(namespace: String, key: String): Key = ScafallProvider.get().factories.identifierFactory.key(namespace, key)
 
         @JvmStatic

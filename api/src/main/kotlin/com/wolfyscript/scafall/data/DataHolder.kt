@@ -30,6 +30,8 @@ interface DataHolder<H : DataHolder<H, M>, M: DataComponentMap<H>> {
          */
         fun <T : Any> set(key: DataKey<T, in H>, data: T) = this.data.set(key, data)
 
+        fun <T: Any> remove(key: DataKey<T, in H>) = this.data.remove(key)
+
     }
 
     interface Immutable<H : Immutable<H>> : DataHolder<H, DataComponentMap.Immutable<H>> {

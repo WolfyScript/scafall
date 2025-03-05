@@ -22,8 +22,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
         get() = TODO("Not yet implemented")
     override val debugStickState: ItemStackDataComponentConverter<DebugStickState>
         get() = TODO("Not yet implemented")
-    override val deathProtection: ItemStackDataComponentConverter<DeathProtection>
-        get() = TODO("Not yet implemented")
+    override val deathProtection = register(ItemStackDataKeys.DEATH_PROTECTION, deathProtectionItemMetaDataKeyConverter)
     override val repairCost = register<Int>(ItemStackDataKeys.REPAIR_COST, repairCostItemMetaConverter)
     override val unbreakable = register<Unbreakable>(ItemStackDataKeys.UNBREAKABLE, unbreakableItemMetaConverter)
     override val useCooldown: ItemStackDataComponentConverter<UseCooldown>
@@ -53,8 +52,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
     override val enchantable: ItemStackDataComponentConverter<Enchantable> = register<Enchantable>(ItemStackDataKeys.ENCHANTABLE, enchantableItemMetaConverter)
     override val attributeModifiers = register<AttributeModifiers>(ItemStackDataKeys.ATTRIBUTE_MODIFIERS, attributeModifiersItemMetaConverter)
     override val chargedProjectiles = register<ChargedProjectiles>(ItemStackDataKeys.CHARGED_PROJECTILES, chargedProjectilesItemMetaConverter)
-    override val consumables: ItemStackDataComponentConverter<Consumable>
-        get() = TODO("Not yet implemented")
+    override val consumables: ItemStackDataComponentConverter<Consumable> = register<Consumable>(ItemStackDataKeys.CONSUMABLE, consumableItemMetaConverter)
     override val intangibleProjectiles = register<IntangibleProjectiles>(ItemStackDataKeys.INTANGIBLE_PROJECTILES, intangibleProjectilesItemMetaConverter)
     override val itemModel: ItemStackDataComponentConverter<Key> = register(ItemStackDataKeys.ITEM_MODEL, itemModelItemMetaConverter)
     override val itemName: ItemStackDataComponentConverter<Component> = register(ItemStackDataKeys.ITEM_NAME, itemNameItemMetaConverter)
@@ -110,7 +108,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
         dataKey: DataKey<T, ItemStackLike<*, *>>,
         converter: ItemMetaDataKeyConverter<T>
     ) : ItemStackDataComponentConverter<T> {
-        val converterImpl = ItemStackDataComponentConverterImpl(
+        val converterImpl = SpigotItemStackDataComponentConverterImpl(
             dataKey.key(),
             T::class,
             converter.fetcher,
@@ -124,7 +122,7 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
 
 data class ItemMetaDataKeyConverter<T: Any>(val fetcher: ItemMeta.() -> T?, val applier: ItemMeta.(T?) -> Unit)
 
-class ItemStackDataComponentConverterImpl<T : Any>(
+class SpigotItemStackDataComponentConverterImpl<T : Any>(
     override val key: Key,
     override val type: KClass<T>,
     reader: ItemMeta.() -> T?,

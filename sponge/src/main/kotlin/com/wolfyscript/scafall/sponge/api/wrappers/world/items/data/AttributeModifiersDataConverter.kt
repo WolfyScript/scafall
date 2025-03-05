@@ -1,7 +1,11 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items.data
 
+import com.wolfyscript.scafall.common.api.wrappers.world.attribute.CommonAttribute
+import com.wolfyscript.scafall.common.api.wrappers.world.attribute.CommonAttributeModifier
 import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverter
 import com.wolfyscript.scafall.toAPI
+import com.wolfyscript.scafall.wrappers.world.attribute.ModifierOperation
+import com.wolfyscript.scafall.wrappers.world.attribute.ModifierSlot
 import com.wolfyscript.scafall.wrappers.world.items.data.AttributeModifiers
 import org.spongepowered.api.ResourceKey
 import org.spongepowered.api.data.Keys
@@ -20,13 +24,15 @@ val attributeModifiersDataConverter = SpongeItemStackDataComponentConverter<Attr
                 val modifiers = attributeModifiers(attributeType.value(), equipmentType)
                 for (modifier in modifiers) {
                     add(
-                        AttributeModifiers.Modifier(
-                            type = attributeType.key().toAPI(),
-                            slot = AttributeModifiers.Modifier.Slot.valueOf(equipmentType.group().toString()),
-                            amount = modifier.amount(),
-                            id = modifier.key().toAPI(),
-                            operation = AttributeModifiers.Modifier.Operation.valueOf(
-                                modifier.operation().toString().uppercase()
+                        AttributeModifiers.Entry(
+                            CommonAttribute(attributeType.key().toAPI()),
+                            CommonAttributeModifier(
+                                slot = ModifierSlot.valueOf(equipmentType.group().toString()),
+                                amount = modifier.amount(),
+                                id = modifier.key().toAPI(),
+                                operation = ModifierOperation.valueOf(
+                                    modifier.operation().toString().uppercase()
+                                )
                             )
                         )
                     )
@@ -37,22 +43,22 @@ val attributeModifiersDataConverter = SpongeItemStackDataComponentConverter<Attr
 
     AttributeModifiers(modifiers, get(Keys.HIDE_ATTRIBUTES).orElse(false))
 }, { attributeModifiers ->
-    for (modifier in attributeModifiers.modifiers) {
+    for (entry in attributeModifiers.modifiers) {
         AttributeTypes.registry()
-            .findValue<AttributeType>(ResourceKey.resolve(modifier.type.toString()))
+            .findValue<AttributeType>(ResourceKey.resolve(entry.attribute.key().toString()))
             .ifPresent { attributeType ->
                 AttributeOperations.registry()
-                    .findValue<AttributeOperation>(ResourceKey.minecraft(modifier.operation.id))
+                    .findValue<AttributeOperation>(ResourceKey.minecraft(entry.modifier.operation.id))
                     .ifPresent { attributeOperation ->
                         addAttributeModifier(
                             attributeType,
                             AttributeModifier.builder()
                                 .operation(attributeOperation)
-                                .amount(modifier.amount)
-                                .key(ResourceKey.resolve(modifier.id.toString()))
+                                .amount(entry.modifier.amount)
+                                .key(ResourceKey.resolve(entry.modifier.id.toString()))
                                 .build(),
                             EquipmentTypes.registry()
-                                .findValue<EquipmentType>(ResourceKey.minecraft(modifier.id.toString()))
+                                .findValue<EquipmentType>(ResourceKey.minecraft(entry.modifier.id.toString()))
                                 .orElse(EquipmentTypes.BODY.get()) // Cannot find the ANY type, fallback to the BODY type instead
                         )
                     }

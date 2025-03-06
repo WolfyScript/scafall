@@ -17,7 +17,6 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.wrappers.world.attribute.Attribute
 import com.wolfyscript.scafall.wrappers.world.attribute.AttributeModifier
 
@@ -30,38 +29,5 @@ data class AttributeModifiers(
         val attribute: Attribute,
         val modifier: AttributeModifier
     )
-
-    data class Modifier(
-        val type: Key,
-        val slot: Slot,
-        val id: Key,
-        val amount: Double,
-        val operation: Operation
-    ) {
-
-        enum class Slot(val id: String) {
-
-            ANY("any"),
-            HAND("hand"),
-            ARMOR("armor"),
-            MAIN_HAND("mainhand"),
-            OFF_HAND("offhand"),
-            HEAD("head"),
-            CHEST("chest"),
-            LEGS("legs"),
-            FEET("feet"),
-            BODY("body")
-
-        }
-
-        enum class Operation(val id: String) {
-
-            ADD_VALUE("add_value"),
-            ADD_MULTIPLIED_BASE("add_multiplied_base"),
-            ADD_MULTIPLIED_TOTAL("add_multiplied_total"), ;
-
-        }
-    }
-
 
 }

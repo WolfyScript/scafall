@@ -15,7 +15,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.inventory.meta.*
 import kotlin.reflect.KClass
 
-class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall) : DataComponentConverterProvider {
+open class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall) : DataComponentConverterProvider {
 
     override val damage = register(ItemStackDataKeys.DAMAGE, damageItemMetaConverter)
     override val damageResistant: ItemStackDataComponentConverter<DamageResistant>

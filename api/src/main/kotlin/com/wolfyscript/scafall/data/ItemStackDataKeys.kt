@@ -20,6 +20,7 @@ package com.wolfyscript.scafall.data
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.nbt.NBTTagConfigCompound
+import com.wolfyscript.scafall.wrappers.world.Color
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
@@ -51,10 +52,10 @@ interface ItemStackDataKeys {
         val CONTAINER = register<Container>("container")
         val CONTAINER_LOOT = register<ContainerLoot>("container_loot")
         val CUSTOM_DATA = register<NBTTagConfigCompound>("custom_data")
-        val CUSTOM_MODEL_DATA = register<Int>("custom_model_data")
+        val CUSTOM_MODEL_DATA = register<CustomModelData>("custom_model_data")
         val CUSTOM_NAME = register<Component>("custom_name")
         val DAMAGE = register<Int>("damage")
-        val DAMAGE_RESISTANT = register<List<Key>>("damage_resistant")
+        val DAMAGE_RESISTANT = register<DamageResistant>("damage_resistant")
         val DEBUG_STICK_STATE = register<DebugStickState>("debug_stick_state")
         val DEATH_PROTECTION = register<DeathProtection>("death_protection")
         val DYED_COLOR = register<DyedColor>("dyed_color")
@@ -70,14 +71,14 @@ interface ItemStackDataKeys {
         val HIDE_ADDITIONAL_TOOLTIP = register<HideAdditionalTooltip>("hide_additional_tooltip")
         val HIDE_TOOLTIP = register<HideTooltip>("hide_tooltip")
         val INSTRUMENT = register<Key>("instrument")
-        val INTANGIBLE_PROJECTILES = register<IntangibleProjectiles>("intangible_projectiles")
+        val INTANGIBLE_PROJECTILE = register<IntangibleProjectile>("intangible_projectile")
         val ITEM_MODEL = register<Key>("item_model")
         val ITEM_NAME = register<Component>("item_name")
         val JUKEBOX_PLAYABLE = register<JukeboxPlayable>("jukebox_playable")
         val ITEM_LORE = register<ItemLore>("item_lore")
         val LOCK = register<Lock>("lock")
         val LODESTONE_TRACKER = register<LodestoneTracker>("lodestone_tracker")
-        val MAP_COLOR = register<MapColor>("map_color")
+        val MAP_COLOR = register<Color>("map_color")
         val MAP_DECORATIONS = register<MapDecorations>("map_decorations")
         val MAP_ID = register<Int>("map_id")
         val MAX_DAMAGE = register<Int>("max_damage")

@@ -20,7 +20,7 @@ package com.wolfyscript.scafall.wrappers.world.items.data
 import com.wolfyscript.scafall.identifier.Key
 
 interface Trim : TooltipApplicable {
-    fun pattern(): Key
+    val pattern: Key
 
-    fun material(): Key
+    val material: Key
 }

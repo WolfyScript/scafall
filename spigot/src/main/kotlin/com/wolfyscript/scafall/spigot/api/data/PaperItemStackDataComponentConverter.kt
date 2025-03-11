@@ -14,6 +14,15 @@ import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper.maxSta
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper.unbreakableConverter
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
+import com.wolfyscript.scafall.wrappers.world.items.MapColor
+import com.wolfyscript.scafall.wrappers.world.items.data.Bees
+import com.wolfyscript.scafall.wrappers.world.items.data.Consumable
+import com.wolfyscript.scafall.wrappers.world.items.data.Enchantable
+import com.wolfyscript.scafall.wrappers.world.items.data.Enchantments
+import com.wolfyscript.scafall.wrappers.world.items.data.Food
+import com.wolfyscript.scafall.wrappers.world.items.data.Repairable
+import com.wolfyscript.scafall.wrappers.world.items.data.Tool
+import com.wolfyscript.scafall.wrappers.world.items.data.Trim
 import kotlin.reflect.KClass
 
 class PaperItemStackDataComponentConverter(scafall: Scafall) : SpigotItemStackDataComponentConverterProvider(scafall) {
@@ -35,8 +44,30 @@ class PaperItemStackDataComponentConverter(scafall: Scafall) : SpigotItemStackDa
     override val itemModel = register(ItemStackDataKeys.ITEM_MODEL, itemModelConverter)
     override val itemName = register(ItemStackDataKeys.ITEM_NAME, itemNameConverter)
     override val customName = register(ItemStackDataKeys.CUSTOM_NAME, customNameConverter)
+    override val customModelData = register(ItemStackDataKeys.CUSTOM_MODEL_DATA, customModelDataConverter)
     override val lore = register(ItemStackDataKeys.ITEM_LORE, itemLoreConverter)
-
+    override val containerLoot = register(ItemStackDataKeys.CONTAINER_LOOT, containerLootConverter)
+    override val container = register(ItemStackDataKeys.CONTAINER, containerConverter)
+    override val bundleContents = register(ItemStackDataKeys.BUNDLE_CONTENTS, bundleContentsConverter)
+    override val chargedProjectiles = register(ItemStackDataKeys.CHARGED_PROJECTILES, chargedProjectilesConverter)
+    override val damageResistant = register(ItemStackDataKeys.DAMAGE_RESISTANT, damageResistantConverter)
+    override val hideAdditionalTooltip = register(ItemStackDataKeys.HIDE_ADDITIONAL_TOOLTIP, hideAdditionalTooltipConverter)
+    override val hideTooltip = register(ItemStackDataKeys.HIDE_TOOLTIP, hideTooltipConverter)
+    override val rarity = register(ItemStackDataKeys.RARITY, rarityConverter)
+    override val deathProtection = register(ItemStackDataKeys.DEATH_PROTECTION, deathProtectionConverter)
+    override val ominousBottleAmplifier = register(ItemStackDataKeys.OMINOUS_BOTTLE_AMPLIFIER, ominousBottleAmplifierConverter)
+    override val suspiciousStewEffects = register(ItemStackDataKeys.SUSPICIOUS_STEW_EFFECTS, suspiciousStewEffectsConverter)
+    override val tooltipStyle: ItemStackDataComponentConverter<Key> = register(ItemStackDataKeys.TOOLTIP_STYLE, tooltipStyleConverter)
+    override val intangibleProjectile = register(ItemStackDataKeys.INTANGIBLE_PROJECTILE, intangibleProjectileConverter)
+    override val consumables = register(ItemStackDataKeys.CONSUMABLE, consumableConverter)
+    override val enchantable = register(ItemStackDataKeys.ENCHANTABLE, enchantableConverter)
+    override val enchantments = register(ItemStackDataKeys.ENCHANTMENTS, enchantmentsConverter)
+    override val storedEnchantments = register(ItemStackDataKeys.STORED_ENCHANTMENTS, storedEnchantmentsConverter)
+    override val repairable = register<Repairable>(ItemStackDataKeys.REPAIRABLE, repairableConverter)
+    override val mapColor = register(ItemStackDataKeys.MAP_COLOR, mapColorConverter)
+    override val food = register(ItemStackDataKeys.FOOD, foodConverter)
+    override val tool = register(ItemStackDataKeys.TOOL, toolConverter)
+    override val trim = register(ItemStackDataKeys.TRIM, trimConverter)
 
     private inline fun <reified T: Any> register(
         dataKey: DataKey<T, ItemStackLike<*, *>>,

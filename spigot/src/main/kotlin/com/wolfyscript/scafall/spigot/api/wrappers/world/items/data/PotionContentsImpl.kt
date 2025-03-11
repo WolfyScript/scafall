@@ -8,4 +8,4 @@ internal val potionContentsItemMetaConverter = ItemMetaDataKeyConverter<PotionCo
     { TODO("Not yet implemented") }
 )
 
-class PotionContentsImpl : PotionContents
+class PotionContentsImpl() : PotionContents

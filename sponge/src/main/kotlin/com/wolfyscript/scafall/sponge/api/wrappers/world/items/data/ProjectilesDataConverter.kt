@@ -4,7 +4,7 @@ import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConve
 import com.wolfyscript.scafall.sponge.api.wrappers.unwrap
 import com.wolfyscript.scafall.sponge.api.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.items.data.ChargedProjectiles
-import com.wolfyscript.scafall.wrappers.world.items.data.IntangibleProjectiles
+import com.wolfyscript.scafall.wrappers.world.items.data.IntangibleProjectile
 import org.spongepowered.api.data.Keys
 import kotlin.jvm.optionals.getOrNull
 
@@ -16,9 +16,9 @@ val chargedProjectilesDataConverter = SpongeItemStackDataComponentConverter({
     offer(Keys.CHARGED_PROJECTILES, it.projectiles.map { stack -> stack.unwrap().asImmutable() })
 })
 
-val intangibleProjectilesDataConverter = SpongeItemStackDataComponentConverter({
+val intangibleProjectileDataConverter = SpongeItemStackDataComponentConverter({
     if (get(Keys.INTANGIBLE_PROJECTILE).orElse(false)){
-        IntangibleProjectiles()
+        IntangibleProjectile()
     } else null
 }, {
     offer(Keys.INTANGIBLE_PROJECTILE, true)

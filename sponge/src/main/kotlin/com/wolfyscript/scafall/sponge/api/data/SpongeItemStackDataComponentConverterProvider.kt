@@ -81,7 +81,7 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
     override val chargedProjectiles = register(ItemStackDataKeys.CHARGED_PROJECTILES, chargedProjectilesDataConverter)
     override val consumables: ItemStackDataComponentConverter<Consumable>
         get() = TODO("Not yet implemented")
-    override val intangibleProjectiles = register(ItemStackDataKeys.INTANGIBLE_PROJECTILES, intangibleProjectilesDataConverter)
+    override val intangibleProjectile = register(ItemStackDataKeys.INTANGIBLE_PROJECTILE, intangibleProjectileDataConverter)
     override val itemModel: ItemStackDataComponentConverter<Key>
         get() = TODO("Not yet implemented")
     override val itemName: ItemStackDataComponentConverter<Component>

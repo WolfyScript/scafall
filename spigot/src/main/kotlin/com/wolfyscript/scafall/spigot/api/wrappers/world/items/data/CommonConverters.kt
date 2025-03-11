@@ -45,11 +45,17 @@ internal val damageItemMetaConverter = ItemMetaDataKeyConverter(
     }
 )
 
-internal val maxDamageItemMetaConverter = ItemMetaDataKeyConverter({
-
+internal val maxDamageItemMetaConverter = ItemMetaDataKeyConverter<Int>({
+    if (this is Damageable) {
+        if (hasMaxDamage()) {
+            return@ItemMetaDataKeyConverter maxDamage
+        }
+    }
     null
 }, {
-
+    if (this is Damageable) {
+        this.setMaxDamage(it)
+    }
 })
 
 internal val maxStackSizeItemMetaConverter = ItemMetaDataKeyConverter<Int>({
@@ -157,7 +163,22 @@ internal val potDecorationsItemMetaConverter = ItemMetaDataKeyConverter({
     }
     null
 }, {
-    // TODO
+    if (this is BlockStateMeta) {
+        val state = blockState
+        if (state is DecoratedPot) {
+            if (it == null) {
+                state.setSherd(DecoratedPot.Side.FRONT, null)
+                state.setSherd(DecoratedPot.Side.RIGHT, null)
+                state.setSherd(DecoratedPot.Side.LEFT, null)
+                state.setSherd(DecoratedPot.Side.BACK, null)
+                return@ItemMetaDataKeyConverter
+            }
+            state.setSherd(DecoratedPot.Side.FRONT, Registry.MATERIAL.get(it[0].bukkit()))
+            state.setSherd(DecoratedPot.Side.RIGHT, Registry.MATERIAL.get(it[1].bukkit()))
+            state.setSherd(DecoratedPot.Side.LEFT, Registry.MATERIAL.get(it[2].bukkit()))
+            state.setSherd(DecoratedPot.Side.BACK, Registry.MATERIAL.get(it[3].bukkit()))
+        }
+    }
 })
 
 internal val lockItemMetaConverter = ItemMetaDataKeyConverter<Lock>({

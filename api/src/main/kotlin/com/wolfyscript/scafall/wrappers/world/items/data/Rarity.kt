@@ -1,4 +1,10 @@
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-interface Rarity {
+enum class Rarity {
+
+    COMMON,
+    UNCOMMON,
+    RARE,
+    EPIC
+
 }

@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper
 
+import com.wolfyscript.scafall.common.api.wrappers.world.items.data.TrimImpl
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.data.PaperDataAPIConverter
 import com.wolfyscript.scafall.spigot.api.identifiers.api
@@ -9,13 +10,18 @@ import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toBukkit
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toWrapper
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
-import com.wolfyscript.scafall.wrappers.world.items.data.Glider
-import com.wolfyscript.scafall.wrappers.world.items.data.Unbreakable
+import com.wolfyscript.scafall.wrappers.world.items.data.*
 import io.papermc.paper.datacomponent.DataComponentTypes
-import io.papermc.paper.datacomponent.item.MapId
+import io.papermc.paper.datacomponent.item.ItemArmorTrim
 import io.papermc.paper.datacomponent.item.PotDecorations
+import io.papermc.paper.registry.RegistryAccess
+import io.papermc.paper.registry.RegistryKey
+import io.papermc.paper.registry.TypedKey
+import io.papermc.paper.registry.set.RegistrySet
+import io.papermc.paper.registry.tag.TagKey
 import org.bukkit.Registry
-import org.bukkit.block.DecoratedPot
+import org.bukkit.inventory.ItemRarity
+import org.bukkit.inventory.meta.trim.ArmorTrim
 
 internal val baseColorConverter = PaperDataAPIConverter<DyeColor>(
     {
@@ -60,6 +66,28 @@ internal val damageConverter = PaperDataAPIConverter<Int>(
     }
 )
 
+internal val damageResistantConverter = PaperDataAPIConverter(
+    {
+        Result.success(
+            unwrap().getData(DataComponentTypes.DAMAGE_RESISTANT)
+                ?.let { DamageResistant(listOf(it.types().key().toAPI())) })
+    }, {
+        unwrap().setData(
+            DataComponentTypes.DAMAGE_RESISTANT,
+            io.papermc.paper.datacomponent.item.DamageResistant.damageResistant(
+                TagKey.create(
+                    RegistryKey.DAMAGE_TYPE,
+                    it.types[0].into()
+                )
+            )
+        )
+        Result.success(this)
+    }, {
+        unwrap().unsetData(DataComponentTypes.DAMAGE_RESISTANT)
+        return@PaperDataAPIConverter Result.success(this to true)
+    }
+)
+
 internal val maxDamageConverter = PaperDataAPIConverter<Int>(
     {
         Result.success(unwrap().getData(DataComponentTypes.MAX_DAMAGE))
@@ -96,14 +124,22 @@ internal val repairCostConverter = PaperDataAPIConverter<Int>(
     }
 )
 
-internal val mapIdConverter = PaperDataAPIConverter<Int>(
+internal val repairableConverter = PaperDataAPIConverter<Repairable>(
     {
-        Result.success(unwrap().getData(DataComponentTypes.MAP_ID)?.id())
+        val repairable = unwrap().getData(DataComponentTypes.REPAIRABLE)
+        if (repairable == null) {
+            return@PaperDataAPIConverter Result.success(null)
+        }
+        Result.success(Repairable(repairable.types().map { it.toAPI() }))
     }, {
-        unwrap().setData(DataComponentTypes.MAP_ID, MapId.mapId(it))
+        unwrap().setData(
+            DataComponentTypes.REPAIRABLE, io.papermc.paper.datacomponent.item.Repairable.repairable(
+                RegistrySet.keySet(RegistryKey.ITEM, it.types.map { TypedKey.create(RegistryKey.ITEM, it.into()) })
+            )
+        )
         Result.success(this)
     }, {
-        unwrap().unsetData(DataComponentTypes.MAP_ID)
+        unwrap().unsetData(DataComponentTypes.REPAIRABLE)
         Result.success(this to true)
     }
 )
@@ -150,7 +186,8 @@ internal val noteBlockSoundConverter = PaperDataAPIConverter(
 
 internal val potDecorationsConverter = PaperDataAPIConverter(
     {
-        val decorations = unwrap().getData(DataComponentTypes.POT_DECORATIONS) ?: return@PaperDataAPIConverter Result.success(null)
+        val decorations =
+            unwrap().getData(DataComponentTypes.POT_DECORATIONS) ?: return@PaperDataAPIConverter Result.success(null)
         // north, west, east, south // when placed facing north
         // The data component internally just uses a list of sherds
         return@PaperDataAPIConverter Result.success(buildList<Key> {
@@ -161,27 +198,33 @@ internal val potDecorationsConverter = PaperDataAPIConverter(
             add(decorations.back()?.key?.toAPI() ?: Key.minecraft("brick"))
         })
     }, {
-        unwrap().setData(DataComponentTypes.POT_DECORATIONS, PotDecorations.potDecorations(
-            if (it[0].value == "brick") { null } else { Registry.ITEM.get(it[0].bukkit()) },
-            if (it[1].value == "brick") { null } else { Registry.ITEM.get(it[1].bukkit()) },
-            if (it[2].value == "brick") { null } else { Registry.ITEM.get(it[2].bukkit()) },
-            if (it[3].value == "brick") { null } else { Registry.ITEM.get(it[3].bukkit()) }
-        ))
+        unwrap().setData(
+            DataComponentTypes.POT_DECORATIONS, PotDecorations.potDecorations(
+                if (it[0].value == "brick") {
+                    null
+                } else {
+                    Registry.ITEM.get(it[0].bukkit())
+                },
+                if (it[1].value == "brick") {
+                    null
+                } else {
+                    Registry.ITEM.get(it[1].bukkit())
+                },
+                if (it[2].value == "brick") {
+                    null
+                } else {
+                    Registry.ITEM.get(it[2].bukkit())
+                },
+                if (it[3].value == "brick") {
+                    null
+                } else {
+                    Registry.ITEM.get(it[3].bukkit())
+                }
+            )
+        )
         Result.success(this)
     }, {
         unwrap().unsetData(DataComponentTypes.POT_DECORATIONS)
-        Result.success(this to true)
-    }
-)
-
-internal val enchantmentGlintOverrideConverter = PaperDataAPIConverter(
-    {
-        Result.success(unwrap().getData(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE))
-    }, {
-        unwrap().setData(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, it)
-        Result.success(this)
-    }, {
-        unwrap().unsetData(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE)
         Result.success(this to true)
     }
 )
@@ -201,3 +244,86 @@ internal val gliderConverter = PaperDataAPIConverter<Glider>(
     }
 )
 
+internal val rarityConverter = PaperDataAPIConverter(
+    {
+        val rarity = unwrap().getData(DataComponentTypes.RARITY)
+        if (rarity == null) {
+            return@PaperDataAPIConverter Result.success(null)
+        }
+        Result.success(Rarity.valueOf(rarity.toString()))
+    }, {
+        unwrap().setData(DataComponentTypes.RARITY, ItemRarity.valueOf(it.toString()))
+        Result.success(this)
+    }, {
+        unwrap().unsetData(DataComponentTypes.RARITY)
+        Result.success(this to true)
+    }
+)
+
+internal val hideTooltipConverter = PaperDataAPIConverter(
+    {
+        Result.success(
+            if (unwrap().hasData(DataComponentTypes.HIDE_TOOLTIP)) {
+                HideTooltip()
+            } else {
+                null
+            }
+        )
+    }, {
+        unwrap().setData(DataComponentTypes.HIDE_TOOLTIP)
+        Result.success(this)
+    }, {
+        unwrap().unsetData(DataComponentTypes.HIDE_TOOLTIP)
+        Result.success(this to true)
+    }
+)
+
+internal val hideAdditionalTooltipConverter = PaperDataAPIConverter(
+    {
+        Result.success(
+            if (unwrap().hasData(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP)) {
+                HideAdditionalTooltip()
+            } else {
+                null
+            }
+        )
+    }, {
+        unwrap().setData(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP)
+        Result.success(this)
+    }, {
+        unwrap().unsetData(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP)
+        Result.success(this to true)
+    }
+)
+
+internal val trimConverter = PaperDataAPIConverter<Trim>(
+    {
+        val trim = unwrap().getData(DataComponentTypes.TRIM)
+        if (trim == null) {
+            return@PaperDataAPIConverter Result.success(null)
+        }
+        Result.success(
+            TrimImpl(
+                trim.showInTooltip(),
+                trim.armorTrim().pattern.key.toAPI(),
+                trim.armorTrim().material.key.api()
+            )
+        )
+    }, {
+
+        val pattern = RegistryAccess.registryAccess().getRegistry(RegistryKey.TRIM_PATTERN).get(it.pattern.into());
+        val material = RegistryAccess.registryAccess().getRegistry(RegistryKey.TRIM_MATERIAL).get(it.material.into())
+        if (pattern == null || material == null) {
+            return@PaperDataAPIConverter Result.failure(IllegalArgumentException("Cannot apply trim: Invalid pattern or material!"))
+        }
+        unwrap().setData(
+            DataComponentTypes.TRIM, ItemArmorTrim.itemArmorTrim(
+                ArmorTrim(material, pattern)
+            )
+        )
+        Result.success(this)
+    }, {
+        unwrap().unsetData(DataComponentTypes.TRIM)
+        Result.success(this to true)
+    }
+)

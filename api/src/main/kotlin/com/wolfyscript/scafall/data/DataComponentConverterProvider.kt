@@ -19,8 +19,9 @@
 package com.wolfyscript.scafall.data
 
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.wrappers.world.Color
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
-import com.wolfyscript.scafall.wrappers.world.items.MapColor
+import com.wolfyscript.scafall.wrappers.world.items.data.Repairable
 import com.wolfyscript.scafall.wrappers.world.items.data.*
 import net.kyori.adventure.text.Component
 
@@ -41,7 +42,7 @@ interface DataComponentConverterProvider {
     val container: ItemStackDataComponentConverter<Container>
     val containerLoot: ItemStackDataComponentConverter<ContainerLoot>
     val customData: ItemStackDataComponentConverter<CustomData>
-    val customModelData: ItemStackDataComponentConverter<Int>
+    val customModelData: ItemStackDataComponentConverter<CustomModelData>
     val customName: ItemStackDataComponentConverter<Component>
     val damage: ItemStackDataComponentConverter<Int>
     val damageResistant: ItemStackDataComponentConverter<DamageResistant>
@@ -60,14 +61,14 @@ interface DataComponentConverterProvider {
     val hideAdditionalTooltip: ItemStackDataComponentConverter<HideAdditionalTooltip>
     val hideTooltip: ItemStackDataComponentConverter<HideTooltip>
     val instrument: ItemStackDataComponentConverter<Key>
-    val intangibleProjectiles: ItemStackDataComponentConverter<IntangibleProjectiles>
+    val intangibleProjectile: ItemStackDataComponentConverter<IntangibleProjectile>
     val itemModel: ItemStackDataComponentConverter<Key>
     val itemName: ItemStackDataComponentConverter<Component>
     val jukeboxPlayable: ItemStackDataComponentConverter<JukeboxPlayable>
     val lodestoneTracker: ItemStackDataComponentConverter<LodestoneTracker>
     val lore: ItemStackDataComponentConverter<ItemLore>
     val lock: ItemStackDataComponentConverter<Lock>
-    val mapColor: ItemStackDataComponentConverter<MapColor>
+    val mapColor: ItemStackDataComponentConverter<Color>
     val mapDecorations: ItemStackDataComponentConverter<MapDecorations>
     val mapId: ItemStackDataComponentConverter<Int>
     val maxDamage: ItemStackDataComponentConverter<Int>

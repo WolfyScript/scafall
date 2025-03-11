@@ -6,10 +6,10 @@ import com.wolfyscript.scafall.data.*
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.*
+import com.wolfyscript.scafall.wrappers.world.Color
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
-import com.wolfyscript.scafall.wrappers.world.items.MapColor
 import com.wolfyscript.scafall.wrappers.world.items.data.*
 import net.kyori.adventure.text.Component
 import org.bukkit.inventory.meta.*
@@ -22,7 +22,8 @@ open class SpigotItemStackDataComponentConverterProvider(private val scafall: Sc
         get() = TODO("Not yet implemented")
     override val debugStickState: ItemStackDataComponentConverter<DebugStickState>
         get() = TODO("Not yet implemented")
-    override val deathProtection = register(ItemStackDataKeys.DEATH_PROTECTION, deathProtectionItemMetaDataKeyConverter)
+    override val deathProtection: ItemStackDataComponentConverter<DeathProtection>
+        get() = TODO("Not yet implemented")
     override val repairCost = register<Int>(ItemStackDataKeys.REPAIR_COST, repairCostItemMetaConverter)
     override val unbreakable = register<Unbreakable>(ItemStackDataKeys.UNBREAKABLE, unbreakableItemMetaConverter)
     override val useCooldown: ItemStackDataComponentConverter<UseCooldown>
@@ -53,7 +54,7 @@ open class SpigotItemStackDataComponentConverterProvider(private val scafall: Sc
     override val attributeModifiers = register<AttributeModifiers>(ItemStackDataKeys.ATTRIBUTE_MODIFIERS, attributeModifiersItemMetaConverter)
     override val chargedProjectiles = register<ChargedProjectiles>(ItemStackDataKeys.CHARGED_PROJECTILES, chargedProjectilesItemMetaConverter)
     override val consumables: ItemStackDataComponentConverter<Consumable> = register<Consumable>(ItemStackDataKeys.CONSUMABLE, consumableItemMetaConverter)
-    override val intangibleProjectiles = register<IntangibleProjectiles>(ItemStackDataKeys.INTANGIBLE_PROJECTILES, intangibleProjectilesItemMetaConverter)
+    override val intangibleProjectile = register<IntangibleProjectile>(ItemStackDataKeys.INTANGIBLE_PROJECTILE, intangibleProjectileItemMetaConverter)
     override val itemModel: ItemStackDataComponentConverter<Key> = register(ItemStackDataKeys.ITEM_MODEL, itemModelItemMetaConverter)
     override val itemName: ItemStackDataComponentConverter<Component> = register(ItemStackDataKeys.ITEM_NAME, itemNameItemMetaConverter)
     override val jukeboxPlayable: ItemStackDataComponentConverter<JukeboxPlayable>
@@ -61,8 +62,7 @@ open class SpigotItemStackDataComponentConverterProvider(private val scafall: Sc
     override val lodestoneTracker: ItemStackDataComponentConverter<LodestoneTracker>
         get() = TODO("Not yet implemented")
     override val mapId = register<Int>(ItemStackDataKeys.MAP_ID, mapIdItemMetaConverter)
-    override val maxDamage: ItemStackDataComponentConverter<Int>
-        get() = TODO("Not yet implemented")
+    override val maxDamage: ItemStackDataComponentConverter<Int> = register(ItemStackDataKeys.MAX_DAMAGE, maxDamageItemMetaConverter)
     override val maxStackSize: ItemStackDataComponentConverter<Int> = register(ItemStackDataKeys.MAX_STACK_SIZE, maxStackSizeItemMetaConverter)
     override val customModelData = register(ItemStackDataKeys.CUSTOM_MODEL_DATA, customModelDataItemMetaConverter)
     override val potionContents = register<PotionContents>(ItemStackDataKeys.POTION_CONTENTS, potionContentsItemMetaConverter)
@@ -72,12 +72,10 @@ open class SpigotItemStackDataComponentConverterProvider(private val scafall: Sc
         get() = TODO("Not yet implemented")
     override val fireworkExplosion = register(ItemStackDataKeys.FIREWORK_EXPLOSION, fireworkExplosionItemMetaConverter)
     override val fireworks = register(ItemStackDataKeys.FIREWORKS, fireworksItemMetaConverter)
-    override val food: ItemStackDataComponentConverter<Food> = register<Food>(ItemStackDataKeys.FOOD, foodItemMetaConverter)
-    override val glider: ItemStackDataComponentConverter<Glider> = register(ItemStackDataKeys.GLIDER, gliderItemMetaConverter)
-    override val hideAdditionalTooltip: ItemStackDataComponentConverter<HideAdditionalTooltip>
-        get() = TODO("Not yet implemented")
-    override val hideTooltip: ItemStackDataComponentConverter<HideTooltip>
-        get() = TODO("Not yet implemented")
+    override val food = register<Food>(ItemStackDataKeys.FOOD, foodItemMetaConverter)
+    override val glider = register(ItemStackDataKeys.GLIDER, gliderItemMetaConverter)
+    override val hideAdditionalTooltip = register(ItemStackDataKeys.HIDE_ADDITIONAL_TOOLTIP, hideAdditionalTooltipItemMetaConverter)
+    override val hideTooltip = register(ItemStackDataKeys.HIDE_TOOLTIP, hideTooltipItemMetaConverter)
     override val profile = register<Profile>(ItemStackDataKeys.PROFILE, profileItemMetaConverter)
     override val rarity: ItemStackDataComponentConverter<Rarity>
         get() = TODO("Not yet implemented")
@@ -90,7 +88,7 @@ open class SpigotItemStackDataComponentConverterProvider(private val scafall: Sc
     override val container = register<Container>(ItemStackDataKeys.CONTAINER, containerItemMetaConverter)
     override val bees = register<Bees>(ItemStackDataKeys.BEES, beesItemMetaConverter)
     override val lock = register<Lock>(ItemStackDataKeys.LOCK, lockItemMetaConverter)
-    override val mapColor: ItemStackDataComponentConverter<MapColor>
+    override val mapColor: ItemStackDataComponentConverter<Color>
         get() = TODO("Not yet implemented")
     override val mapDecorations: ItemStackDataComponentConverter<MapDecorations>
         get() = TODO("Not yet implemented")

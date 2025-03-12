@@ -33,4 +33,6 @@ val bannerPatternDataConverter = SpongeItemStackDataComponentConverter<BannerPat
             BannerPatternLayer.of(shape, color)
         } else null
     })
+}, {
+    remove(Keys.BANNER_PATTERN_LAYERS)
 })

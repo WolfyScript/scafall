@@ -64,4 +64,7 @@ val attributeModifiersDataConverter = SpongeItemStackDataComponentConverter<Attr
                     }
             }
     }
+}, {
+    remove(Keys.HIDE_ATTRIBUTES)
+    // TODO: Cannot find a way to remove/clear modifiers in the API
 })

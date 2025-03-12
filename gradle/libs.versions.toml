@@ -35,7 +35,7 @@ mcmmo = "2.1.139-SNAPSHOT"
 
 ## Sponge Impl dependencies ##
 sponge-gradle = "2.2.0"
-sponge-api = "13.0.0-SNAPSHOT"
+sponge-api = "14.0.0-SNAPSHOT"
 
 [libraries]
 # Kotlin & Jetbrains dependencies

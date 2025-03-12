@@ -5,6 +5,7 @@ import com.wolfyscript.scafall.data.*
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.sponge.api.wrappers.unwrap
 import com.wolfyscript.scafall.sponge.api.wrappers.world.items.data.*
+import com.wolfyscript.scafall.wrappers.world.Color
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.MapColor
@@ -123,7 +124,7 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
     override val container = register(ItemStackDataKeys.CONTAINER, containerDataConverter)
     override val bees = register(ItemStackDataKeys.BEES, beesDataConverter)
     override val lock = register(ItemStackDataKeys.LOCK, lockDataConverter)
-    override val mapColor: ItemStackDataComponentConverter<MapColor>
+    override val mapColor: ItemStackDataComponentConverter<Color>
         get() = TODO("Not yet implemented")
     override val mapDecorations: ItemStackDataComponentConverter<MapDecorations>
         get() = TODO("Not yet implemented")
@@ -145,7 +146,8 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
             dataKey.key(),
             T::class,
             converter.fetcher,
-            converter.applier
+            converter.applier,
+            converter.remover
         )
         ScafallProvider.get().registries.itemStackDataComponentConverterRegistry.register(dataKey.key(), converterImpl)
         return converterImpl
@@ -155,7 +157,8 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
 
 data class SpongeItemStackDataComponentConverter<T : Any>(
     val fetcher: org.spongepowered.api.item.inventory.ItemStackLike.() -> T?,
-    val applier: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit
+    val applier: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit,
+    val remover: org.spongepowered.api.item.inventory.ItemStack.() -> Unit = {}
 )
 
 class ItemStackDataComponentConverterImpl<T : Any, H : DataHolder<H, *>>(
@@ -163,7 +166,7 @@ class ItemStackDataComponentConverterImpl<T : Any, H : DataHolder<H, *>>(
     override val type: KClass<T>,
     reader: org.spongepowered.api.item.inventory.ItemStackLike.() -> T?,
     writer: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit,
-    remover: org.spongepowered.api.item.inventory.ItemStack.() -> Unit = {}
+    remover: org.spongepowered.api.item.inventory.ItemStack.() -> Unit
 ) : ItemStackDataComponentConverter<T> {
 
     override val reader: DataComponentConverter.Reader<T, ItemStackLike<*, *>> = Reader(reader)
@@ -183,7 +186,7 @@ class ItemStackDataComponentConverterImpl<T : Any, H : DataHolder<H, *>>(
 
     class Modifier<T : Any>(
         writer: org.spongepowered.api.item.inventory.ItemStack.(T) -> Unit,
-        remover: org.spongepowered.api.item.inventory.ItemStack.() -> Unit = {}
+        remover: org.spongepowered.api.item.inventory.ItemStack.() -> Unit
     ) : DataComponentConverter.Modifier<T, ItemStack> {
 
         override val converter: ItemStack.(T) -> Result<ItemStack> = {

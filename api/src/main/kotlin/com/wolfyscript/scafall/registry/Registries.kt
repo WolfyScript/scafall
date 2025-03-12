@@ -51,11 +51,11 @@ abstract class Registries(val core: Scafall) {
     val operators: TypeRegistry<Operator> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "operators"), this)
     val nbtTagConfigs: TypeRegistry<NBTTagConfig> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "nbt_configs"), this)
 
-    val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "data_components/item"), this)
+    val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "data_component/item/key"), this)
     abstract val itemStackDataComponentConverterRegistry: ItemStackDataComponentConverterRegistry
 
     fun indexTypedRegistry(registry: Registry<*>) {
-        Preconditions.checkArgument(!REGISTRIES_BY_KEY.containsKey(registry.key), "A registry with the key \"" + registry.key + "\" already exists!")
+        Preconditions.checkArgument(!REGISTRIES_BY_KEY.containsKey(registry.key), "A registry with the key \"${registry.key}\" already exists!")
         REGISTRIES_BY_KEY[registry.key] = registry
 
         //Index them by type if available

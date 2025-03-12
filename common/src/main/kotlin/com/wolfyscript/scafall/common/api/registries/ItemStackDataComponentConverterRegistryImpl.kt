@@ -8,6 +8,6 @@ import com.wolfyscript.scafall.registry.RegistrySimple
 
 class ItemStackDataComponentConverterRegistryImpl(registries: Registries) : ItemStackDataComponentConverterRegistry,
     RegistrySimple<ItemStackDataComponentConverter<*>>(
-        Key.defaultKey("itemstack/data_component_converters"),
+        Key.defaultKey("data_component/item/converter"),
         registries
     )

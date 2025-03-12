@@ -23,7 +23,6 @@ import com.wolfyscript.scafall.ScafallProvider.Companion.get
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.spigot.api.compatibilityManager
-import com.wolfyscript.scafall.spigot.platform.compatibility.plugins.PlaceholderAPIIntegration
 import org.bukkit.Bukkit
 import java.util.function.Consumer
 
@@ -31,8 +30,6 @@ class ActionCommand : Action<DataPlayer>(
     KEY,
     DataPlayer::class.java
 ) {
-    @JsonIgnore
-    private val papi: PlaceholderAPIIntegration? = get().compatibilityManager.plugins.getIntegration(PlaceholderAPIIntegration.KEY, PlaceholderAPIIntegration::class.java)
     private var playerCommands: List<String> = ArrayList()
     private var consoleCommands: List<String> = ArrayList()
 
@@ -40,10 +37,6 @@ class ActionCommand : Action<DataPlayer>(
         val player = data.player
         var resultPlayerCmds = playerCommands
         var resultConsoleCmds = consoleCommands
-        if (papi != null) {
-            resultPlayerCmds = papi.setPlaceholders(player, papi.setBracketPlaceholders(player, playerCommands))
-            resultConsoleCmds = papi.setPlaceholders(player, papi.setBracketPlaceholders(player, consoleCommands))
-        }
         resultPlayerCmds.forEach(Consumer { command: String? ->
             player.performCommand(
                 command!!

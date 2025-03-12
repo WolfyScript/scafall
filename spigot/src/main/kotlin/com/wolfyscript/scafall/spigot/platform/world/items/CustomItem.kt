@@ -31,8 +31,6 @@ import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.identifier.Keyed
 import com.wolfyscript.scafall.spigot.api.compatibilityManager
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
-import com.wolfyscript.scafall.spigot.platform.compatibility.plugins.itemsadder.ItemsAdderIntegration
-import com.wolfyscript.scafall.spigot.platform.compatibility.plugins.itemsadder.ItemsAdderStackIdentifier
 import com.wolfyscript.scafall.spigot.platform.customItemData
 import com.wolfyscript.scafall.spigot.platform.customItems
 import com.wolfyscript.scafall.spigot.platform.particleAnimations
@@ -1100,13 +1098,7 @@ class CustomItem : AbstractItemBuilder<CustomItem>, Keyed {
     val isBlock: Boolean
         get() {
             if (type.isBlock) return true
-            val identifier = reference.identifier().get()
-            return identifier is ItemsAdderStackIdentifier && ScafallProvider.get().compatibilityManager.plugins
-                .evaluateIfAvailable("ItemsAdder", ItemsAdderIntegration::class.java) { ia ->
-                    ia.getStackInstance(
-                        identifier.itemId()
-                    ).map { it.isBlock }.orElse(false)
-                }
+            return false
         }
 
     /**

@@ -52,7 +52,7 @@ class CustomItemPlayerListener(core: Scafall) : Listener {
 
     @EventHandler
     private fun onInteractEntity(event: PlayerInteractEntityEvent) {
-        val item = customItems.getByItemStack(event.player.equipment.getItem(event.hand))
+        val item = customItems.getByItemStack(event.player.equipment?.getItem(event.hand))
         item?.let { customItem ->
             callEvent(customItem, EventPlayerInteractEntity.KEY, event)
         }
@@ -60,7 +60,7 @@ class CustomItemPlayerListener(core: Scafall) : Listener {
 
     @EventHandler
     private fun onInteractAtEntity(event: PlayerInteractAtEntityEvent) {
-        val item = customItems.getByItemStack(event.player.equipment.getItem(event.hand))
+        val item = customItems.getByItemStack(event.player.equipment?.getItem(event.hand))
         item?.let { customItem ->
             callEvent(customItem, EventPlayerInteractAtEntity.KEY, event)
         }

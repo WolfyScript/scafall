@@ -13,6 +13,7 @@ import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap
+import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverterProvider
 import com.wolfyscript.scafall.sponge.api.factories.SpongeFactories
 import com.wolfyscript.scafall.sponge.api.scheduling.SchedulerImpl
 import org.spongepowered.api.Sponge
@@ -38,6 +39,8 @@ class ScafallSponge(private val bootstrap: ScafallSpongeBootstrap) : AbstractSca
         // maven
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, Path("")) // TODO
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()
+
+        val dataComponentConverterProvider = SpongeItemStackDataComponentConverterProvider()
     }
 
     override fun enable() {

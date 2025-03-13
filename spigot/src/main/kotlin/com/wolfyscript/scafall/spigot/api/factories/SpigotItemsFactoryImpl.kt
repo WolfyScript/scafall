@@ -23,6 +23,4 @@ class SpigotItemsFactoryImpl(scafall: Scafall) : ItemsFactory {
         return stack?.wrap() ?: throw IllegalArgumentException("Couldn't create stack from SNBT: $snbt")
     }
 
-    override val dataComponentConverterProvider: DataComponentConverterProvider = SpigotItemStackDataComponentConverterProvider(scafall)
-
 }

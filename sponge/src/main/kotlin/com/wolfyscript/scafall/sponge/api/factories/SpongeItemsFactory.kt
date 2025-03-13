@@ -26,5 +26,4 @@ class SpongeItemsFactory : ItemsFactory {
         return stack.map { it.wrap() }.orElseThrow { RuntimeException("Could not deserialize snbt: $snbt") }
     }
 
-    override val dataComponentConverterProvider: DataComponentConverterProvider = SpongeItemStackDataComponentConverterProvider()
 }

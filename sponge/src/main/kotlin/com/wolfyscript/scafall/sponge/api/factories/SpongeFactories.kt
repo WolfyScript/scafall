@@ -9,10 +9,7 @@ import com.wolfyscript.scafall.factories.ItemsFactory
 
 class SpongeFactories : Factories {
 
-    override val identifierFactory: IdentifierFactory
-        get() = IdentifierFactoryImpl()
-    override val itemsFactory: ItemsFactory
-        get() = SpongeItemsFactory()
-    override val dataKeyFactory: DataKeyFactory
-        get() = DataKeyFactoryImpl()
+    override val identifierFactory: IdentifierFactory = IdentifierFactoryImpl()
+    override val itemsFactory: ItemsFactory = SpongeItemsFactory()
+    override val dataKeyFactory: DataKeyFactory = DataKeyFactoryImpl()
 }

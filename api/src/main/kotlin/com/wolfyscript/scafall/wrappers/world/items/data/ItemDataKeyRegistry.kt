@@ -23,6 +23,7 @@ import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.registry.RegistrySimple
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
-class ItemDataKeyRegistry(key: Key, registries: Registries) : RegistrySimple<DataKey<*, ItemStack>>(key, registries)
+class ItemDataKeyRegistry(key: Key, registries: Registries) : RegistrySimple<DataKey<*, ItemStackLike<*,*>>>(key, registries)
 

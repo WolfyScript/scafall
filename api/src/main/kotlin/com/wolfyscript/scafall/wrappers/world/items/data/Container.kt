@@ -17,4 +17,10 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items.data
 
-interface Container 
+import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+
+interface Container {
+
+    val contents: List<ItemStack>
+
+}

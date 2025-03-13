@@ -24,8 +24,6 @@ public class SpongeLoaderPlugin {
     @Inject
     public SpongeLoaderPlugin(Injector injector) {
         this.injector = injector;
-
-        ScafallLoader.initAPIClassLoader(InnerJarClassloader.create(getClass().getClassLoader(), "scafall-api.innerjar"));
         ScafallBootstrap bootstrap = ScafallLoader.loadScafallBootstrap("scafall-sponge.innerjar");
         plugin = bootstrap.initScaffoldingPlatform("com.wolfyscript.scafall.sponge.ScaffoldingSpongeBootstrap", getClass(), this);
     }

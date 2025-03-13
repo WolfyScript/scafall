@@ -19,7 +19,4 @@ package com.wolfyscript.scafall.wrappers.world.items.data
 
 import com.wolfyscript.scafall.identifier.Key
 
-interface CanBreak : TooltipApplicable {
-    // TODO: Other predicates
-    fun blocks(): List<Key>
-}
+data class CanBreak(override val showInTooltip: Boolean, val blocks: List<Key>) : TooltipApplicable

@@ -1,13 +1,13 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 
-import com.wolfyscript.scafall.wrappers.world.items.data.IntangibleProjectiles
+import com.wolfyscript.scafall.spigot.api.data.ItemMetaDataKeyConverter
+import com.wolfyscript.scafall.wrappers.world.items.data.IntangibleProjectile
 
-class IntangibleProjectilesImpl : IntangibleProjectiles {
-
-    companion object {
-        internal val ITEM_META_CONVERTER = ItemMetaDataKeyConverter<IntangibleProjectiles>(
-            { TODO("Not yet implemented") },
-            { TODO("Not yet implemented") }
-        )
+internal val intangibleProjectileItemMetaConverter = ItemMetaDataKeyConverter<IntangibleProjectile>(
+    {
+        TODO("Not yet implemented")
+    },
+    {
+        TODO("Not yet implemented")
     }
-}
+)

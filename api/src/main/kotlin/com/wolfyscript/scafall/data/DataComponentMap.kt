@@ -21,30 +21,51 @@ package com.wolfyscript.scafall.data
  * A DataComponentMap contains the data applied to a [DataHolder].
  * Each data component is associated with a unique key, and can be fetched using Keys (e.g. [ItemStack Data Keys][ItemStackDataKeys]).
  *
- * By default, this will try to convert the calls to the platform specific ItemStack APIs.
- * In 1.20.5+ this makes use of the data components as much as the platform allows (e.g. ItemMeta on Spigot).
+ * By default, this will try to convert the calls to the platform specific APIs as best as it can.
+ * e.g. for ItemStacks: on Spigot ItemMeta, on Sponge the Key based system
  */
-interface DataComponentMap<H : DataHolder<H>> {
+interface DataComponentMap<H : DataHolder<*, *>> {
 
     /**
      * Gets the data from the map associated with the specified key.
      *
      * @return The data associated with the key; null otherwise.
      */
-    fun <T : Any> get(key: DataKey<T,H>): T?
+    fun <T : Any> get(key: DataKey<T, in H>): T?
 
-    fun <T : Any> getOrDefault(key: DataKey<T,H>, def: T): T {
+    fun <T : Any> getOrDefault(key: DataKey<T, in H>, def: T): T {
         val value: T? = this.get(key)
         return value ?: def
     }
 
-    fun <T : Any> set(key: DataKey<T, H>, data: T)
+    /**
+     * Checks if the DataKey has an associated value
+     */
+    fun has(key: DataKey<*, in H>): Boolean
 
-    fun remove(key: DataKey<*, H>) : Boolean
+    fun keys(): Set<DataKey<*, in H>>
 
-    fun has(key: DataKey<*, H>): Boolean
+    interface Mutable<H: DataHolder.Mutable<*>> : DataComponentMap<H> {
 
-    fun keySet(): Set<DataKey<*, H>>
+        /**
+         * Sets the value of the specified Key
+         */
+        fun <T : Any> set(key: DataKey<T, in H>, data: T)
 
-    fun size(): Int
+        /**
+         * Removes the value association of the specified Key
+         */
+        fun remove(key: DataKey<*, in H>) : Boolean
+
+    }
+
+    interface Immutable<H: DataHolder.Immutable<*>> : DataComponentMap<H> {
+
+        /**
+         * Sets the value of the specified Key
+         */
+        fun <T : Any> set(key: DataKey<T, in H>, data: T) : H
+
+    }
+
 }

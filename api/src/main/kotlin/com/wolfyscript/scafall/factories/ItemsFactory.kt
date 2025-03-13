@@ -1,11 +1,12 @@
 package com.wolfyscript.scafall.factories
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
+import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 
 interface ItemsFactory {
 
-    fun createStackConfig(itemKey: Key) : ItemStackConfig
+    fun createStack(item: Key) : ItemStack
 
+    fun createFromSNBT(snbt: String) : ItemStack
 
 }

@@ -11,7 +11,7 @@ dependencies {
 
 tasks {
     shadowJar {
-        archiveFileName = "scafall-api.innerjar"
+        archiveFileName = "scafall-api"
 
         dependencies {
             include(dependency("com.wolfyscript.scafall:.*"))

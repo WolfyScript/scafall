@@ -17,28 +17,14 @@
  */
 package com.wolfyscript.scafall.data
 
-import com.wolfyscript.scafall.function.ReceiverBiFunction
-import com.wolfyscript.scafall.function.ReceiverFunction
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Keyed
 import kotlin.reflect.KClass
 
-class DataKey<T : Any, V : DataHolder<V>>(
+class DataKey<T : Any, V : DataHolder<*, *>>(
     val type: KClass<T>,
-    private val key: Key,
-    private val fetcher: ReceiverFunction<V, T?> = ReceiverFunction { null },
-    private val applier: ReceiverBiFunction<V, T, V> = ReceiverBiFunction { this }
+    private val key: Key
 ) : Keyed {
-
-    fun readFrom(source: V): T? {
-        return with(fetcher) { source.apply() }
-    }
-
-    fun writeTo(value: T, target: V) {
-        with(applier) {
-            target.apply(value)
-        }
-    }
 
     override fun key(): Key = key
 

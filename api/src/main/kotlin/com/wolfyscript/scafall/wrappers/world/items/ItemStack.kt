@@ -17,31 +17,36 @@
  */
 package com.wolfyscript.scafall.wrappers.world.items
 
+import com.wolfyscript.scafall.ScafallProvider
+import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.data.DataHolder
 import com.wolfyscript.scafall.identifier.Key
 
-interface ItemStack : DataHolder<ItemStack> {
-    /**
-     * The id representing the item of this ItemStack.<br></br>
-     * Usually e.g. <pre>minecraft:&lt;item_id&gt;</pre>
-     *
-     * @return The id of the item.
-     */
-    val item: Key
+/**
+ * A mutable version of the ItemStack.
+ * i.e. The [DataComponentMap] and possibly other properties can be modified directly and the same instance will reflect those changes.
+ *
+ * @see ItemStackSnapshot An immutable snapshot of the ItemStack
+ */
+interface ItemStack : DataHolder.Mutable<ItemStack>, ItemStackLike<ItemStack, DataComponentMap.Mutable<ItemStack>> {
+
+    companion object {
+
+        fun of(itemType: Key): ItemStack {
+            return ScafallProvider.get().factories.itemsFactory.createStack(itemType)
+        }
+
+        fun of(mcItemType: String) : ItemStack {
+            return of(Key.key(Key.MINECRAFT_NAMESPACE, mcItemType))
+        }
+
+    }
 
     /**
-     * The stack amount of this ItemStack.
+     * Creates a snapshot of the whole ItemStack
      *
-     * @return The stack amount.
+     * @return The snapshot ItemStack of this ItemStack.
      */
-    val amount: Int
+    fun snapshot(): ItemStackSnapshot
 
-    /**
-     * Creates a snapshot of the whole ItemStack including the full NBT.<br></br>
-     * **This can be quite resource heavy!**<br></br>
-     * The snapshot can be simply written to json using the Json mapper of WolfyUtils.
-     *
-     * @return The snapshot ItemStack config of this ItemStack.
-     */
-    fun snapshot(): ItemStackConfig
 }

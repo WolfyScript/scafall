@@ -12,7 +12,6 @@ fun Scafall.Companion.init(plugin: JavaPlugin, apiClassLoader: ClassLoader = thi
     if (ScafallProvider.registered()) {
         return ScafallProvider.get()
     }
-    ScafallLoader.initAPIClassLoader(apiClassLoader)
     val bootstrap = ScafallLoader.loadBootstrap(apiClassLoader)
     val pluginBootstrap = bootstrap.initScaffoldingPlatform(ScafallSpigotBootstrap::class.qualifiedName, JavaPlugin::class.java, plugin)
     pluginBootstrap.onLoad()

@@ -1,20 +1,25 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 
+import com.wolfyscript.scafall.spigot.api.data.ItemMetaDataKeyConverter
 import com.wolfyscript.scafall.wrappers.world.items.data.DyedColor
+import org.bukkit.Color
+import org.bukkit.inventory.meta.LeatherArmorMeta
 
-class DyedColorImpl : DyedColor{
+internal val dyedColorItemMetaConverter = ItemMetaDataKeyConverter<DyedColor>(
+    {
+        if (this is LeatherArmorMeta) {
+            DyedColor(false, this.color.asRGB())
+        }
 
-    companion object {
-        internal val ITEM_META_CONVERTER = ItemMetaDataKeyConverter<DyedColor>(
-            { TODO("Not yet implemented") },
-            { TODO("Not yet implemented") }
-        )
+        null
+    },
+    {
+        if (this is LeatherArmorMeta) {
+            if (it != null) {
+                setColor(Color.fromBGR(it.rgb))
+            } else {
+                setColor(null)
+            }
+        }
     }
-
-    override fun rgb(): Int {
-        TODO("Not yet implemented")
-    }
-
-    override val showInTooltip: Boolean
-        get() = TODO("Not yet implemented")
-}
+)

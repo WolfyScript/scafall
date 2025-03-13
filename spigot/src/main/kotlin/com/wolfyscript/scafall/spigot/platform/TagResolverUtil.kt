@@ -1,31 +1,14 @@
 package com.wolfyscript.scafall.spigot.platform
 
-import com.wolfyscript.scafall.ScafallProvider.Companion.get
-import com.wolfyscript.scafall.spigot.api.compatibilityManager
-import com.wolfyscript.scafall.spigot.platform.compatibility.plugins.PlaceholderAPIIntegration
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.Context
 import net.kyori.adventure.text.minimessage.tag.Tag
 import net.kyori.adventure.text.minimessage.tag.resolver.ArgumentQueue
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
-import org.bukkit.entity.Player
 import java.util.function.Function
 import java.util.function.Supplier
 
 object TagResolverUtil {
-    fun papi(player: Player?): TagResolver {
-        return TagResolver.resolver(
-            "papi"
-        ) { args: ArgumentQueue, context: Context? ->
-            var text =
-                args.popOr("The <papi> tag requires exactly one argument, text with papi placeholders!").value()
-            val integration: PlaceholderAPIIntegration? = get().compatibilityManager.plugins.getIntegration("PlaceholderAPI", PlaceholderAPIIntegration::class.java)
-            if (integration != null) {
-                text = integration.setPlaceholders(player, text)
-            }
-            Tag.inserting(Component.text(text))
-        }
-    }
 
     fun entries(descriptionComponents: List<Component?>, shift: Int): TagResolver {
         return entries(descriptionComponents, Component.empty(), shift)

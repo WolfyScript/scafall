@@ -1,23 +1,22 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 
-import com.wolfyscript.scafall.spigot.api.wrappers.world.items.ItemStackImpl
-import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.spigot.api.data.ItemMetaDataKeyConverter
+import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
+import com.wolfyscript.scafall.spigot.api.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.items.data.ChargedProjectiles
 import org.bukkit.inventory.meta.CrossbowMeta
 
-class ChargedProjectilesImpl(val projectiles: List<ItemStack>) : ChargedProjectiles {
-
-    companion object {
-        internal val ITEM_META_CONVERTER = ItemMetaDataKeyConverter<ChargedProjectiles>(
-            {
-                if (this is CrossbowMeta) {
-                    val projectiles = chargedProjectiles.map { ItemStackImpl(it) }
-                    return@ItemMetaDataKeyConverter ChargedProjectilesImpl(projectiles)
-                }
-                null
-            },
-            { TODO("Not yet implemented") }
-        )
-
+internal val chargedProjectilesItemMetaConverter = ItemMetaDataKeyConverter<ChargedProjectiles>(
+    {
+        if (this is CrossbowMeta) {
+            val projectiles = chargedProjectiles.map { it.wrap() }
+            return@ItemMetaDataKeyConverter ChargedProjectiles(projectiles)
+        }
+        null
+    },
+    { projectiles ->
+        if (this is CrossbowMeta) {
+            setChargedProjectiles(projectiles?.projectiles?.map { it.unwrap() } ?: emptyList())
+        }
     }
-}
+)

@@ -3,164 +3,31 @@ package com.wolfyscript.scafall.spigot.api.wrappers.world.items
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.eval.context.EvalContext
-import com.wolfyscript.scafall.eval.operator.BoolOperatorConst
 import com.wolfyscript.scafall.eval.value_provider.*
 import com.wolfyscript.scafall.nbt.*
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import de.tr7zw.nbtapi.NBTCompound
-import de.tr7zw.nbtapi.NBTItem
 import de.tr7zw.nbtapi.NBTList
 import de.tr7zw.nbtapi.NBTType
 import de.tr7zw.nbtapi.iface.ReadableNBT
 import de.tr7zw.nbtapi.iface.ReadableNBTList
-import net.kyori.adventure.platform.bukkit.BukkitComponentSerializer
-import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
-import org.bukkit.Material
-import org.bukkit.NamespacedKey
-import org.bukkit.enchantments.Enchantment
 import java.util.function.BiFunction
-import java.util.stream.Collectors
 
-class BukkitItemStackConfig : ItemStackConfig {
-    private val usePaperDisplayOptions: Boolean = false // TODO
-    private val HANDLED_NBT_TAGS = setOf("display.Name", "display.Lore", "CustomModelData", "Damage", "Enchantments")
-
-    @JsonCreator
-    constructor(@JsonProperty("itemId") itemId: String) : super(
-        itemId
-    )
-
-    constructor(wrappedStack: ItemStack) : super(
-        (wrappedStack as ItemStackImpl).bukkitRef!!.type.key.toString()
-    ) {
-        val stack = wrappedStack.bukkitRef
-
-        // Read from ItemStack
-        this.amount = ValueProviderIntegerConst(stack!!.amount)
-        val meta = stack.itemMeta
-        if (meta != null) {
-            val miniMsg : MiniMessage = MiniMessage.miniMessage() // TODO
-            if (usePaperDisplayOptions) {
-                if (meta.hasDisplayName()) {
-                    this.name(miniMsg.serialize(meta.displayName()!!))
-                }
-                if (meta.hasLore()) {
-                    this.lore = meta.lore()!!
-                        .map<Component, ValueProvider<String>> { ValueProviderStringConst(miniMsg.serialize(it)) }
-                        .toList()
-                }
-            } else {
-                // First need to convert the Strings to Component and then back to mini message!
-                if (meta.hasDisplayName()) {
-                    this.name(miniMsg.serialize(BukkitComponentSerializer.legacy().deserialize(meta.displayName)))
-                }
-                if (meta.hasLore()) {
-                    this.lore = meta.lore!!
-                        .stream().map { s: String? ->
-                            ValueProviderStringConst(miniMsg.serialize(BukkitComponentSerializer.legacy().deserialize(s!!)))
-                        }.toList()
-                }
-            }
-            this.unbreakable = BoolOperatorConst(meta.isUnbreakable)
-            this.customModelData =
-                if (meta.hasCustomModelData()) ValueProviderIntegerConst(meta.customModelData) else null
-        }
-        this.enchants = stack.enchantments.entries.stream().collect(
-            Collectors.toMap<Map.Entry<Enchantment, Int?>, String, ValueProviderIntegerConst>(
-                { entry: Map.Entry<Enchantment, Int?> -> entry.key.key.toString() },
-                { entry: Map.Entry<Enchantment, Int?> ->
-                    ValueProviderIntegerConst(
-                        entry.value!!
-                    )
-                })
-        )
-
-        this.nbt = if (stack.type != Material.AIR && stack.amount > 0) {
-            readFromItemStack(NBTItem(stack), "", null)
-        } else {
-            NBTTagConfigCompound(null)
-        }
-    }
+class BukkitItemStackConfig @JsonCreator constructor(@JsonProperty("stack") stack: ItemStackSnapshot) :
+    ItemStackConfig(stack) {
 
     override fun constructItemStack(
         context: EvalContext,
         miniMessage: MiniMessage?,
         tagResolvers: TagResolver
-    ): ItemStackImpl? {
-        val type = Material.matchMaterial(itemId)
-        if (type != null) {
-            var itemStack = org.bukkit.inventory.ItemStack(type)
-            itemStack.amount = amount.getValue(context)
-
-            // Apply the NBT of the stack
-            if (type != Material.AIR && itemStack.amount > 0) {
-                val nbtItem = NBTItem(itemStack)
-                applyCompound(nbtItem, nbt, context)
-                itemStack = nbtItem.item
-            }
-
-            // Apply ItemMeta afterwards to override possible NBT Tags
-            val meta = itemStack.itemMeta
-            if (meta != null) {
-                // Apply Display options
-                this.name?.apply {
-                    val nameVal = getValue(context)
-                    if (usePaperDisplayOptions) {
-                        if (nameVal != null) {
-                            meta.displayName(miniMessage!!.deserialize(nameVal, tagResolvers))
-                        }
-                    } else {
-                        if (nameVal != null) {
-                            meta.setDisplayName(
-                                BukkitComponentSerializer.legacy().serialize(miniMessage!!.deserialize(nameVal,
-                                    tagResolvers
-                                ))
-                            )
-                        }
-                    }
-                }
-
-                this.lore.apply {
-                    if (isEmpty()) return@apply
-                    if (usePaperDisplayOptions) {
-                        if (isNotEmpty()) {
-                            meta.lore(
-                                lore.map { provider ->
-                                    miniMessage!!.deserialize(provider.getValue(context), tagResolvers)
-                                }
-                            )
-                        }
-                    } else {
-                        meta.lore = lore.map { provider ->
-                            BukkitComponentSerializer.legacy().serialize(miniMessage!!.deserialize(provider.getValue(context),
-                                tagResolvers
-                            ))
-                        }
-                    }
-                }
-
-                // Apply enchants
-                for ((key, value) in enchants) {
-                    val enchant = Enchantment.getByKey(NamespacedKey.fromString(key))
-                    if (enchant != null) {
-                        meta.addEnchant(enchant, value.getValue(context), true)
-                    }
-                }
-
-                if (customModelData != null) {
-                    meta.setCustomModelData(customModelData!!.getValue(context))
-                }
-
-                meta.isUnbreakable = unbreakable.evaluate(context)
-
-                itemStack.setItemMeta(meta)
-            }
-            return ItemStackImpl(itemStack)
-        }
-        return null
+    ): ItemStack {
+        // Apply ItemMeta afterwards to override possible NBT Tags
+        val wrappedStack = stack.createStack()
+        return wrappedStack
     }
 
     private fun readFromItemStack(
@@ -172,13 +39,10 @@ class BukkitItemStackConfig : ItemStackConfig {
         val children: MutableMap<String, NBTTagConfig> = HashMap()
         for (key in currentCompound.keys) {
             val childPath = if (path.isEmpty()) key else ("$path.$key")
-            if (HANDLED_NBT_TAGS.contains(childPath)) {
-                // Skip already handled NBT Tags, so they are not both in common and NBT settings!
-                continue
-            }
             val childConfig = when (currentCompound.getType(key)) {
                 NBTType.NBTTagCompound -> {
-                    val readConfigCompound = currentCompound.getCompound(key)?.let { readFromItemStack(it, childPath, configCompound) }
+                    val readConfigCompound =
+                        currentCompound.getCompound(key)?.let { readFromItemStack(it, childPath, configCompound) }
                     readConfigCompound
                 }
 
@@ -404,17 +268,6 @@ class BukkitItemStackConfig : ItemStackConfig {
     }
 
     override fun toString(): String {
-        return "BukkitItemStackConfig{" +
-                "itemId='" + itemId + '\'' +
-                ", name=" + name +
-                ", lore=" + lore +
-                ", amount=" + amount +
-                ", repairCost=" + repairCost +
-                ", damage=" + damage +
-                ", unbreakable=" + unbreakable +
-                ", customModelData=" + customModelData +
-                ", enchants=" + enchants +
-                ", nbt=" + nbt +
-                "} "
+        return "BukkitItemStackConfig{} "
     }
 }

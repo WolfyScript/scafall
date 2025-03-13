@@ -7,7 +7,7 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
-    maven(url = "https://artifacts.wolfyscript.com/artifactory/gradle-dev")
+    maven("https://artifacts.wolfyscript.com/artifactory/gradle-dev")
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
@@ -21,7 +21,7 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 tasks {

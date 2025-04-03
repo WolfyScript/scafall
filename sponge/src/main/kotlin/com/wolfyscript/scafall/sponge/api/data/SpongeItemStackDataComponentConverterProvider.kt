@@ -83,10 +83,8 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
     override val consumables: ItemStackDataComponentConverter<Consumable>
         get() = TODO("Not yet implemented")
     override val intangibleProjectile = register(ItemStackDataKeys.INTANGIBLE_PROJECTILE, intangibleProjectileDataConverter)
-    override val itemModel: ItemStackDataComponentConverter<Key>
-        get() = TODO("Not yet implemented")
-    override val itemName: ItemStackDataComponentConverter<Component>
-        get() = TODO("Not yet implemented")
+    override val itemModel: ItemStackDataComponentConverter<Key> = register(ItemStackDataKeys.ITEM_MODEL, itemModelConverter)
+    override val itemName: ItemStackDataComponentConverter<Component> = register(ItemStackDataKeys.ITEM_NAME, itemNameConverter)
     override val jukeboxPlayable: ItemStackDataComponentConverter<JukeboxPlayable>
         get() = TODO("Not yet implemented")
     override val lodestoneTracker: ItemStackDataComponentConverter<LodestoneTracker>
@@ -110,8 +108,7 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
         get() = TODO("Not yet implemented")
     override val hideAdditionalTooltip: ItemStackDataComponentConverter<HideAdditionalTooltip>
         get() = TODO("Not yet implemented")
-    override val hideTooltip: ItemStackDataComponentConverter<HideTooltip>
-        get() = TODO("Not yet implemented")
+    override val hideTooltip: ItemStackDataComponentConverter<HideTooltip> = register(ItemStackDataKeys.HIDE_TOOLTIP, hideTooltipConverter)
     override val profile = register(ItemStackDataKeys.PROFILE, profileDataConverter)
     override val rarity: ItemStackDataComponentConverter<Rarity>
         get() = TODO("Not yet implemented")

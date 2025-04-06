@@ -54,8 +54,7 @@ internal val attributeModifiersItemMetaConverter = ItemMetaDataKeyConverter(
                 add(AttributeModifiers.Entry(CommonAttribute(type.key.api()), modifier.wrap()))
             }
         }
-
-        AttributeModifiers(modifiers, hasItemFlag(ItemFlag.HIDE_ATTRIBUTES))
+        AttributeModifiers(modifiers)
     },
     { attributeModifiers ->
         // clear existing modifiers

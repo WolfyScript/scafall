@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemFlag
 internal val enchantmentsItemMetaConverter = ItemMetaDataKeyConverter<Enchantments>(
     {
         EnchantmentsImpl(
-            !hasItemFlag(ItemFlag.HIDE_ENCHANTS),
             enchants.mapKeys<org.bukkit.enchantments.Enchantment, Int, Enchantment> {
                 EnchantmentImpl(it.key)
             }.toMutableMap()
@@ -23,11 +22,6 @@ internal val enchantmentsItemMetaConverter = ItemMetaDataKeyConverter<Enchantmen
             for (entry in (it as EnchantmentsImpl).enchants) {
                 addEnchant((entry.key as EnchantmentImpl).bukkit, entry.value, true)
             }
-        }
-        if (it?.showInTooltip == true) {
-            removeItemFlags(ItemFlag.HIDE_ENCHANTS)
-        } else {
-            addItemFlags(ItemFlag.HIDE_ENCHANTS)
         }
     }
 )

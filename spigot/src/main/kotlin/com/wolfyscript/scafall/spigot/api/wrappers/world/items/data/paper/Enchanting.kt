@@ -34,10 +34,10 @@ internal val enchantmentsConverter = PaperDataAPIConverter<Enchantments>(
             return@PaperDataAPIConverter Result.success(null)
         }
         Result.success(
-            EnchantmentsImpl(enchantments.showInTooltip(), enchantments.enchantments().mapKeys<org.bukkit.enchantments.Enchantment, Int, Enchantment> { EnchantmentImpl(it.key) }.toMutableMap())
+            EnchantmentsImpl(enchantments.enchantments().mapKeys<org.bukkit.enchantments.Enchantment, Int, Enchantment> { EnchantmentImpl(it.key) }.toMutableMap())
         )
     }, {
-        unwrap().setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments((it as EnchantmentsImpl).enchants.mapKeys { (it.key as EnchantmentImpl).bukkit }, it.showInTooltip))
+        unwrap().setData(DataComponentTypes.ENCHANTMENTS, ItemEnchantments.itemEnchantments((it as EnchantmentsImpl).enchants.mapKeys { (it.key as EnchantmentImpl).bukkit }))
         Result.success(this)
     }, {
         unwrap().unsetData(DataComponentTypes.ENCHANTMENTS)
@@ -52,10 +52,10 @@ internal val storedEnchantmentsConverter = PaperDataAPIConverter<Enchantments>(
             return@PaperDataAPIConverter Result.success(null)
         }
         Result.success(
-            EnchantmentsImpl(enchantments.showInTooltip(), enchantments.enchantments().mapKeys<org.bukkit.enchantments.Enchantment, Int, Enchantment> { EnchantmentImpl(it.key) }.toMutableMap())
+            EnchantmentsImpl(enchantments.enchantments().mapKeys<org.bukkit.enchantments.Enchantment, Int, Enchantment> { EnchantmentImpl(it.key) }.toMutableMap())
         )
     }, {
-        unwrap().setData(DataComponentTypes.STORED_ENCHANTMENTS, ItemEnchantments.itemEnchantments((it as EnchantmentsImpl).enchants.mapKeys { (it.key as EnchantmentImpl).bukkit }, it.showInTooltip))
+        unwrap().setData(DataComponentTypes.STORED_ENCHANTMENTS, ItemEnchantments.itemEnchantments((it as EnchantmentsImpl).enchants.mapKeys { (it.key as EnchantmentImpl).bukkit }))
         Result.success(this)
     }, {
         unwrap().unsetData(DataComponentTypes.STORED_ENCHANTMENTS)

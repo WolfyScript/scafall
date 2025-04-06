@@ -37,16 +37,12 @@ internal val baseColorConverter = PaperDataAPIConverter<DyeColor>(
 
 internal val unbreakableConverter = PaperDataAPIConverter<Unbreakable>(
     {
-        val unbreakable = unwrap().getData(DataComponentTypes.UNBREAKABLE)
-        if (unbreakable != null) {
-            Result.success(Unbreakable(unbreakable.showInTooltip()))
+        if (unwrap().hasData(DataComponentTypes.UNBREAKABLE)) {
+            Result.success(Unbreakable(false))
         }
         Result.success(null)
     }, {
-        unwrap().setData(
-            DataComponentTypes.UNBREAKABLE,
-            io.papermc.paper.datacomponent.item.Unbreakable.unbreakable(it.showInTooltip)
-        )
+        unwrap().setData(DataComponentTypes.UNBREAKABLE)
         Result.success(this)
     }, {
         unwrap().unsetData(DataComponentTypes.UNBREAKABLE)
@@ -304,7 +300,6 @@ internal val trimConverter = PaperDataAPIConverter<Trim>(
         }
         Result.success(
             TrimImpl(
-                trim.showInTooltip(),
                 trim.armorTrim().pattern.key.toAPI(),
                 trim.armorTrim().material.key.api()
             )

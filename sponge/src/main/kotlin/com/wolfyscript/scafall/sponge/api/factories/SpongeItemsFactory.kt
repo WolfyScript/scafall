@@ -1,9 +1,7 @@
 package com.wolfyscript.scafall.sponge.api.factories
 
-import com.wolfyscript.scafall.data.DataComponentConverterProvider
 import com.wolfyscript.scafall.factories.ItemsFactory
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverterProvider
 import com.wolfyscript.scafall.sponge.api.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import org.spongepowered.api.ResourceKey

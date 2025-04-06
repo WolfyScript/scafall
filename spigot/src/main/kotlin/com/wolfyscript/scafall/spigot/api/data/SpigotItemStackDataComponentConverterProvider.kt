@@ -11,6 +11,7 @@ import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.data.*
+import com.wolfyscript.scafall.wrappers.world.sound.SoundEvent
 import net.kyori.adventure.text.Component
 import org.bukkit.inventory.meta.*
 import kotlin.reflect.KClass
@@ -30,6 +31,8 @@ open class SpigotItemStackDataComponentConverterProvider(private val scafall: Sc
         get() = TODO("Not yet implemented")
     override val useRemainder: ItemStackDataComponentConverter<UseRemainder>
         get() = TODO("Not yet implemented")
+    override val weapon: ItemStackDataComponentConverter<Weapon>
+        get() = TODO("Not yet implemented")
     override val writableBookContent: ItemStackDataComponentConverter<WriteableBookContent>
         get() = TODO("Not yet implemented")
     override val writtenBookContent: ItemStackDataComponentConverter<WrittenBookContent>
@@ -43,6 +46,8 @@ open class SpigotItemStackDataComponentConverterProvider(private val scafall: Sc
         get() = TODO("Not yet implemented")
     override val tool: ItemStackDataComponentConverter<Tool> = register(ItemStackDataKeys.TOOL, toolItemMetaConverter)
     override val tooltipStyle: ItemStackDataComponentConverter<Key> = register(ItemStackDataKeys.TOOLTIP_STYLE, tooltipStyleItemMetaConverter)
+    override val tooltipDisplay: ItemStackDataComponentConverter<TooltipDisplay>
+        get() = TODO("Not yet implemented")
     override val trim: ItemStackDataComponentConverter<Trim>
         get() = TODO("Not yet implemented")
     override val customName = register<Component>(ItemStackDataKeys.CUSTOM_NAME, customNameItemMetaConverter)
@@ -74,9 +79,11 @@ open class SpigotItemStackDataComponentConverterProvider(private val scafall: Sc
     override val fireworks = register(ItemStackDataKeys.FIREWORKS, fireworksItemMetaConverter)
     override val food = register<Food>(ItemStackDataKeys.FOOD, foodItemMetaConverter)
     override val glider = register(ItemStackDataKeys.GLIDER, gliderItemMetaConverter)
-    override val hideAdditionalTooltip = register(ItemStackDataKeys.HIDE_ADDITIONAL_TOOLTIP, hideAdditionalTooltipItemMetaConverter)
-    override val hideTooltip = register(ItemStackDataKeys.HIDE_TOOLTIP, hideTooltipItemMetaConverter)
     override val profile = register<Profile>(ItemStackDataKeys.PROFILE, profileItemMetaConverter)
+    override val providesBannerPatterns: ItemStackDataComponentConverter<Key>
+        get() = TODO("Not yet implemented")
+    override val providesTrimMaterial: ItemStackDataComponentConverter<Key>
+        get() = TODO("Not yet implemented")
     override val rarity: ItemStackDataComponentConverter<Rarity>
         get() = TODO("Not yet implemented")
     override val noteBlockSound = register<Key>(ItemStackDataKeys.NOTE_BLOCK_SOUND, noteBlockSoundItemMetaConverter)
@@ -97,10 +104,14 @@ open class SpigotItemStackDataComponentConverterProvider(private val scafall: Sc
         get() = TODO("Not yet implemented")
     override val blockEntityData = register<BlockEntityData>(ItemStackDataKeys.BLOCK_ENTITY_DATA, blockEntityItemMetaConverter)
     override val blockState = register<BlockState>(ItemStackDataKeys.BLOCK_STATE, blockStateItemMetaConverter)
+    override val blocksAttacks: ItemStackDataComponentConverter<BlocksAttacks>
+        get() = TODO("Not yet implemented")
     override val bucketEntityData: ItemStackDataComponentConverter<BucketEntityData>
         get() = TODO("Not yet implemented")
     override val enchantmentGlintOverride = register<Boolean>(ItemStackDataKeys.ENCHANTMENT_GLINT_OVERRIDE, enchantmentGlintOverrideItemMetaConverter)
     override val bundleContents = register<BundleContents>(ItemStackDataKeys.BUNDLE_CONTENTS, bundleContentsItemMetaConverter)
+    override val breakSound: ItemStackDataComponentConverter<SoundEvent>
+        get() = TODO("Not yet implemented")
 
     private inline fun <reified T : Any> register(
         dataKey: DataKey<T, ItemStackLike<*, *>>,

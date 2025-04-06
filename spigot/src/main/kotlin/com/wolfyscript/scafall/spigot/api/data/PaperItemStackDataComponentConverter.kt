@@ -4,8 +4,6 @@ import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.data.*
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.attributeModifiersPaperConverter
-import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.bannerPatternsPaperConverter
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper.*
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper.baseColorConverter
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper.damageConverter
@@ -14,20 +12,19 @@ import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper.maxSta
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper.unbreakableConverter
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
-import com.wolfyscript.scafall.wrappers.world.items.MapColor
-import com.wolfyscript.scafall.wrappers.world.items.data.Bees
-import com.wolfyscript.scafall.wrappers.world.items.data.Consumable
-import com.wolfyscript.scafall.wrappers.world.items.data.Enchantable
-import com.wolfyscript.scafall.wrappers.world.items.data.Enchantments
-import com.wolfyscript.scafall.wrappers.world.items.data.Food
+import com.wolfyscript.scafall.wrappers.world.items.data.BlocksAttacks
 import com.wolfyscript.scafall.wrappers.world.items.data.Repairable
-import com.wolfyscript.scafall.wrappers.world.items.data.Tool
-import com.wolfyscript.scafall.wrappers.world.items.data.Trim
+import com.wolfyscript.scafall.wrappers.world.items.data.TooltipDisplay
+import com.wolfyscript.scafall.wrappers.world.items.data.UseCooldown
+import com.wolfyscript.scafall.wrappers.world.items.data.UseRemainder
+import com.wolfyscript.scafall.wrappers.world.items.data.Weapon
+import com.wolfyscript.scafall.wrappers.world.sound.SoundEvent
 import kotlin.reflect.KClass
 
 class PaperItemStackDataComponentConverter(scafall: Scafall) : SpigotItemStackDataComponentConverterProvider(scafall) {
     override val attributeModifiers = register(ItemStackDataKeys.ATTRIBUTE_MODIFIERS, attributeModifiersPaperConverter)
     override val bannerPatterns = register(ItemStackDataKeys.BANNER_PATTERNS, bannerPatternsPaperConverter)
+    override val breakSound = register(ItemStackDataKeys.BREAK_SOUND, breakSoundConverter)
     override val baseColor = register(ItemStackDataKeys.BASE_COLOR, baseColorConverter)
     override val unbreakable = register(ItemStackDataKeys.UNBREAKABLE, unbreakableConverter)
     override val damage = register(ItemStackDataKeys.DAMAGE, damageConverter)
@@ -51,8 +48,6 @@ class PaperItemStackDataComponentConverter(scafall: Scafall) : SpigotItemStackDa
     override val bundleContents = register(ItemStackDataKeys.BUNDLE_CONTENTS, bundleContentsConverter)
     override val chargedProjectiles = register(ItemStackDataKeys.CHARGED_PROJECTILES, chargedProjectilesConverter)
     override val damageResistant = register(ItemStackDataKeys.DAMAGE_RESISTANT, damageResistantConverter)
-    override val hideAdditionalTooltip = register(ItemStackDataKeys.HIDE_ADDITIONAL_TOOLTIP, hideAdditionalTooltipConverter)
-    override val hideTooltip = register(ItemStackDataKeys.HIDE_TOOLTIP, hideTooltipConverter)
     override val rarity = register(ItemStackDataKeys.RARITY, rarityConverter)
     override val deathProtection = register(ItemStackDataKeys.DEATH_PROTECTION, deathProtectionConverter)
     override val ominousBottleAmplifier = register(ItemStackDataKeys.OMINOUS_BOTTLE_AMPLIFIER, ominousBottleAmplifierConverter)
@@ -68,6 +63,12 @@ class PaperItemStackDataComponentConverter(scafall: Scafall) : SpigotItemStackDa
     override val food = register(ItemStackDataKeys.FOOD, foodConverter)
     override val tool = register(ItemStackDataKeys.TOOL, toolConverter)
     override val trim = register(ItemStackDataKeys.TRIM, trimConverter)
+    override val providesBannerPatterns = register(ItemStackDataKeys.PROVIDES_BANNER_PATTERNS, providesBannerPatternsConverter)
+    override val tooltipDisplay = register(ItemStackDataKeys.TOOLTIP_DISPLAY, tooltipDisplayConverter)
+    override val blocksAttacks = register(ItemStackDataKeys.BLOCKS_ATTACKS, blocksAttacksConverter)
+    override val useCooldown = register(ItemStackDataKeys.USE_COOLDOWN, useCooldownConverter)
+    override val useRemainder = register(ItemStackDataKeys.USE_REMAINDER, useRemainderConverter)
+    override val weapon = register(ItemStackDataKeys.WEAPON, weaponConverter)
 
     private inline fun <reified T: Any> register(
         dataKey: DataKey<T, ItemStackLike<*, *>>,

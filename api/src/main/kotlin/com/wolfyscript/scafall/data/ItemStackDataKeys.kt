@@ -26,6 +26,7 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.MapColor
 import com.wolfyscript.scafall.wrappers.world.items.data.*
+import com.wolfyscript.scafall.wrappers.world.sound.SoundEvent
 import net.kyori.adventure.text.Component
 import kotlin.reflect.KClass
 
@@ -43,8 +44,10 @@ interface ItemStackDataKeys {
         val BEES = register<Bees>("bees")
         val BLOCK_ENTITY_DATA = register<BlockEntityData>("block_entity_data")
         val BLOCK_STATE = register<BlockState>("block_state")
+        val BLOCKS_ATTACKS = register<BlocksAttacks>("blocks_attacks")
         val BUCKET_ENTITY_DATA = register<BucketEntityData>("bucket_entity_data")
         val BUNDLE_CONTENTS = register<BundleContents>("bundle_contents")
+        val BREAK_SOUND = register<SoundEvent>("break_sound")
         val CAN_BREAK = register<CanBreak>("can_break")
         val CAN_PLACE_ON = register<CanPlaceOn>("can_place_on")
         val CHARGED_PROJECTILES = register<ChargedProjectiles>("charged_projectiles")
@@ -86,6 +89,8 @@ interface ItemStackDataKeys {
         val POTION_CONTENTS = register<PotionContents>("potion_contents")
         val POT_DECORATIONS = register<List<Key>>("pot_decorations")
         val PROFILE = register<Profile>("profile")
+        val PROVIDES_BANNER_PATTERNS = register<Key>("provides_banner_patterns")
+        val PROVIDES_TRIM_MATERIAL = register<Key>("provides_trim_material")
         val RARITY = register<Rarity>("rarity")
         val RECIPES = register<List<Key>>("recipes")
         val REPAIRABLE = register<Repairable>("repairable")
@@ -99,6 +104,7 @@ interface ItemStackDataKeys {
         val UNBREAKABLE = register<Unbreakable>("unbreakable")
         val USE_COOLDOWN = register<UseCooldown>("use_cooldown")
         val USE_REMAINDER = register<UseRemainder>("use_remainder")
+        val WEAPON = register<Weapon>("weapon")
         val WRITABLE_BOOK_CONTENTS = register<WriteableBookContent>("writable_book_contents")
         val WRITTEN_BOOK_CONTENTS = register<WrittenBookContent>("written_book_contents")
 

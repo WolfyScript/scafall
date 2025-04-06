@@ -23,6 +23,7 @@ import com.wolfyscript.scafall.wrappers.world.Color
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.data.Repairable
 import com.wolfyscript.scafall.wrappers.world.items.data.*
+import com.wolfyscript.scafall.wrappers.world.sound.SoundEvent
 import net.kyori.adventure.text.Component
 
 interface DataComponentConverterProvider {
@@ -33,8 +34,10 @@ interface DataComponentConverterProvider {
     val bees: ItemStackDataComponentConverter<Bees>
     val blockEntityData: ItemStackDataComponentConverter<BlockEntityData>
     val blockState: ItemStackDataComponentConverter<BlockState>
+    val blocksAttacks: ItemStackDataComponentConverter<BlocksAttacks>
     val bucketEntityData: ItemStackDataComponentConverter<BucketEntityData>
     val bundleContents: ItemStackDataComponentConverter<BundleContents>
+    val breakSound: ItemStackDataComponentConverter<SoundEvent>
     val canBreak: ItemStackDataComponentConverter<CanBreak>
     val canPlaceOn: ItemStackDataComponentConverter<CanPlaceOn>
     val chargedProjectiles: ItemStackDataComponentConverter<ChargedProjectiles>
@@ -76,6 +79,8 @@ interface DataComponentConverterProvider {
     val potDecorations: ItemStackDataComponentConverter<List<Key>>
     val potionContents: ItemStackDataComponentConverter<PotionContents>
     val profile: ItemStackDataComponentConverter<Profile>
+    val providesBannerPatterns: ItemStackDataComponentConverter<Key>
+    val providesTrimMaterial: ItemStackDataComponentConverter<Key>
     val rarity: ItemStackDataComponentConverter<Rarity>
     val recipes: ItemStackDataComponentConverter<List<Key>>
     val repairable: ItemStackDataComponentConverter<Repairable>
@@ -84,10 +89,12 @@ interface DataComponentConverterProvider {
     val suspiciousStewEffects: ItemStackDataComponentConverter<SuspiciousStewEffects>
     val tool: ItemStackDataComponentConverter<Tool>
     val tooltipStyle: ItemStackDataComponentConverter<Key>
+    val tooltipDisplay: ItemStackDataComponentConverter<TooltipDisplay>
     val trim: ItemStackDataComponentConverter<Trim>
     val unbreakable: ItemStackDataComponentConverter<Unbreakable>
     val useCooldown: ItemStackDataComponentConverter<UseCooldown>
     val useRemainder: ItemStackDataComponentConverter<UseRemainder>
+    val weapon: ItemStackDataComponentConverter<Weapon>
     val writableBookContent: ItemStackDataComponentConverter<WriteableBookContent>
     val writtenBookContent: ItemStackDataComponentConverter<WrittenBookContent>
 

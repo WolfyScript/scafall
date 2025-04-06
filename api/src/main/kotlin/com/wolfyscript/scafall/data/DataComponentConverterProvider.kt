@@ -58,8 +58,6 @@ interface DataComponentConverterProvider {
     val fireworks: ItemStackDataComponentConverter<Fireworks>
     val food: ItemStackDataComponentConverter<Food>
     val glider: ItemStackDataComponentConverter<Glider>
-    val hideAdditionalTooltip: ItemStackDataComponentConverter<HideAdditionalTooltip>
-    val hideTooltip: ItemStackDataComponentConverter<HideTooltip>
     val instrument: ItemStackDataComponentConverter<Key>
     val intangibleProjectile: ItemStackDataComponentConverter<IntangibleProjectile>
     val itemModel: ItemStackDataComponentConverter<Key>

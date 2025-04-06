@@ -1,6 +1,6 @@
-package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
+package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper
 
-import com.wolfyscript.scafall.spigot.api.data.ItemMetaDataKeyConverter
+import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.data.PaperDataAPIConverter
 import com.wolfyscript.scafall.spigot.api.identifiers.api
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
@@ -11,10 +11,11 @@ import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.data.BannerPatterns
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.BannerPatternLayers
+import io.papermc.paper.registry.RegistryKey
+import io.papermc.paper.registry.tag.TagKey
 import org.bukkit.Registry
 import org.bukkit.block.banner.Pattern
 import org.bukkit.block.banner.PatternType
-import org.bukkit.inventory.meta.BannerMeta
 
 internal val bannerPatternsPaperConverter = PaperDataAPIConverter<BannerPatterns>(
     {
@@ -45,20 +46,18 @@ internal val bannerPatternsPaperConverter = PaperDataAPIConverter<BannerPatterns
     }
 )
 
-internal val bannerPatternsItemMetaConverter = ItemMetaDataKeyConverter<BannerPatterns>(
+internal val providesBannerPatternsConverter = PaperDataAPIConverter<Key>(
     {
-        if (this is BannerMeta) {
-            BannerPatterns(
-                patterns.map {
-                    BannerPatterns.Layer(it.pattern.key.toAPI(), it.color.toWrapper())
-                }
-            )
-        } else BannerPatterns(emptyList())
-    },
-    { bannerPatterns ->
-        if (this is BannerMeta) {
-            patterns = bannerPatterns?.layers?.map {
-                Pattern(it.color.toBukkit(), Registry.BANNER_PATTERN.get(it.shape.bukkit()) ?: PatternType.BASE)
-            } ?: emptyList()
+        val provider = unwrap().getData(DataComponentTypes.PROVIDES_BANNER_PATTERNS)
+        if (provider == null) {
+            return@PaperDataAPIConverter Result.success(null)
         }
-    })
+        return@PaperDataAPIConverter Result.success(provider.key().toAPI())
+    }, {
+        unwrap().setData(DataComponentTypes.PROVIDES_BANNER_PATTERNS, TagKey.create(RegistryKey.BANNER_PATTERN, it.into()))
+        return@PaperDataAPIConverter Result.success(this)
+    }, {
+        unwrap().unsetData(DataComponentTypes.PROVIDES_BANNER_PATTERNS)
+        return@PaperDataAPIConverter Result.success(this to true)
+    }
+)

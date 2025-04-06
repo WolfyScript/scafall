@@ -256,42 +256,6 @@ internal val rarityConverter = PaperDataAPIConverter(
     }
 )
 
-internal val hideTooltipConverter = PaperDataAPIConverter(
-    {
-        Result.success(
-            if (unwrap().hasData(DataComponentTypes.HIDE_TOOLTIP)) {
-                HideTooltip()
-            } else {
-                null
-            }
-        )
-    }, {
-        unwrap().setData(DataComponentTypes.HIDE_TOOLTIP)
-        Result.success(this)
-    }, {
-        unwrap().unsetData(DataComponentTypes.HIDE_TOOLTIP)
-        Result.success(this to true)
-    }
-)
-
-internal val hideAdditionalTooltipConverter = PaperDataAPIConverter(
-    {
-        Result.success(
-            if (unwrap().hasData(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP)) {
-                HideAdditionalTooltip()
-            } else {
-                null
-            }
-        )
-    }, {
-        unwrap().setData(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP)
-        Result.success(this)
-    }, {
-        unwrap().unsetData(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP)
-        Result.success(this to true)
-    }
-)
-
 internal val trimConverter = PaperDataAPIConverter<Trim>(
     {
         val trim = unwrap().getData(DataComponentTypes.TRIM)

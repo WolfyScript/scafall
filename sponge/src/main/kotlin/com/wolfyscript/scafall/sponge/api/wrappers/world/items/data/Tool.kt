@@ -11,15 +11,13 @@ import kotlin.jvm.optionals.getOrNull
 
 internal val unbreakableDataConverter = SpongeItemStackDataComponentConverter({
     if (get(Keys.IS_UNBREAKABLE).getOrNull() == true) {
-        return@SpongeItemStackDataComponentConverter Unbreakable(get(Keys.HIDE_UNBREAKABLE).getOrNull() ?: false)
+        return@SpongeItemStackDataComponentConverter Unbreakable()
     }
     null
 }, {
     offer(Keys.IS_UNBREAKABLE, true)
-    offer(Keys.HIDE_UNBREAKABLE, it.showInTooltip)
 }, {
     remove(Keys.IS_UNBREAKABLE)
-    remove(Keys.HIDE_UNBREAKABLE)
 })
 
 internal val damageConverter = SpongeItemStackDataComponentConverter({

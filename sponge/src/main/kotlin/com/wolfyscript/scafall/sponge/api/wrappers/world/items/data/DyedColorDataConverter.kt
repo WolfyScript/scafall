@@ -10,7 +10,7 @@ import kotlin.jvm.optionals.getOrNull
 val dyedColorDataConverter = SpongeItemStackDataComponentConverter({
     if (type() == ItemTypes.LEATHER_HELMET || type() == ItemTypes.LEATHER_CHESTPLATE || type() == ItemTypes.LEATHER_BOOTS || type() == ItemTypes.LEATHER_LEGGINGS) {
         return@SpongeItemStackDataComponentConverter get(Keys.COLOR).map {
-            DyedColor(true, it.rgb())
+            DyedColor(it.rgb())
         }.getOrNull()
     }
     null

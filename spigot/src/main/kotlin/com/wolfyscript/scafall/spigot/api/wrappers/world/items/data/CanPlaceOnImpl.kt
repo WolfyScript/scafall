@@ -16,14 +16,14 @@ internal val canPlaceOnItemMetaConverter =
         // e.g. can_place/can_destroy can match data components using predicates
         ItemMetaDataKeyConverter<CanPlaceOn>({
             val show = !hasItemFlag(ItemFlag.HIDE_PLACED_ON)
-            CanPlaceOn(show, placeableKeys.map { Key.key(it.namespace, it.key) })
+            CanPlaceOn(placeableKeys.map { Key.key(it.namespace, it.key) })
         }, { placeOn ->
             setPlaceableKeys(placeOn?.blocks?.map { it.bukkit() } ?: emptyList())
         })
     } else {
         ItemMetaDataKeyConverter<CanPlaceOn>({
             val show = !hasItemFlag(ItemFlag.HIDE_PLACED_ON)
-            CanPlaceOn(show, canPlaceOn.map { it.key.api() })
+            CanPlaceOn(canPlaceOn.map { it.key.api() })
         }, { placeOn ->
                 /*
                 * WARNING: Possible LOSS of Information!

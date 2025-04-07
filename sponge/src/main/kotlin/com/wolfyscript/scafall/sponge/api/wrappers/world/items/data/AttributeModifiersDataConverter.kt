@@ -41,7 +41,7 @@ val attributeModifiersDataConverter = SpongeItemStackDataComponentConverter<Attr
         }
     }
 
-    AttributeModifiers(modifiers, get(Keys.HIDE_ATTRIBUTES).orElse(false))
+    AttributeModifiers(modifiers)
 }, { attributeModifiers ->
     for (entry in attributeModifiers.modifiers) {
         AttributeTypes.registry()

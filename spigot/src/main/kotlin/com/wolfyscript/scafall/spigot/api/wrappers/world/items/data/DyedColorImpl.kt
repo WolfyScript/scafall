@@ -8,7 +8,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta
 internal val dyedColorItemMetaConverter = ItemMetaDataKeyConverter<DyedColor>(
     {
         if (this is LeatherArmorMeta) {
-            DyedColor(false, this.color.asRGB())
+            DyedColor(this.color.asRGB())
         }
 
         null

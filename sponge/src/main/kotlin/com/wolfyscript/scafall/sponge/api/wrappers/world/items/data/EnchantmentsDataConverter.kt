@@ -13,7 +13,6 @@ import kotlin.jvm.optionals.getOrNull
 
 internal val enchantmentsDataConverter = SpongeItemStackDataComponentConverter<Enchantments>({
     EnchantmentsImpl(
-        get(Keys.HIDE_ENCHANTMENTS).orElse(false),
         get(Keys.APPLIED_ENCHANTMENTS).map {
             it.associateTo(mutableMapOf<Enchantment, Int>()) { enchantment ->
                 Pair(EnchantmentImpl(enchantment), enchantment.level())
@@ -22,7 +21,6 @@ internal val enchantmentsDataConverter = SpongeItemStackDataComponentConverter<E
     )
 }, { enchantments ->
     enchantments as EnchantmentsImpl
-    offer(Keys.HIDE_ENCHANTMENTS, enchantments.showInTooltip)
     offer(Keys.APPLIED_ENCHANTMENTS, enchantments.enchants.map {
         val type = EnchantmentTypes.registry().findValue<EnchantmentType>(ResourceKey.resolve(it.key.key().toString()))
             .getOrNull()

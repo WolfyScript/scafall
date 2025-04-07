@@ -16,9 +16,8 @@ val canBreakDataConverter = SpongeItemStackDataComponentConverter({
         }
     }.orElse(emptyList())
 
-    CanBreak(get(Keys.HIDE_CAN_DESTROY).orElse(false), keyList)
+    CanBreak(keyList)
 }, {
-    offer(Keys.HIDE_CAN_DESTROY, !it.showInTooltip)
     val blockTypes = it.blocks.mapNotNull { key -> BlockTypes.registry().findValue<BlockType>(ResourceKey.resolve(key.toString())).getOrNull() }.toSet()
     offer(Keys.BREAKABLE_BLOCK_TYPES, blockTypes)
 })

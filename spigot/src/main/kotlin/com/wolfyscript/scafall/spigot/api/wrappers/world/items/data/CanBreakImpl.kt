@@ -16,14 +16,14 @@ internal val canBreakItemMetaConverter =
         // e.g. can_place/can_destroy can match data components using predicates
         ItemMetaDataKeyConverter<CanBreak>({
             val show = !hasItemFlag(ItemFlag.HIDE_PLACED_ON)
-            CanBreak(show, destroyableKeys.map { Key.key(it.namespace, it.key) })
+            CanBreak(destroyableKeys.map { Key.key(it.namespace, it.key) })
         }, { canBreak ->
             setDestroyableKeys(canBreak?.blocks?.map { it.bukkit() } ?: emptyList())
         })
     } else {
         ItemMetaDataKeyConverter<CanBreak>({
             val show = !hasItemFlag(ItemFlag.HIDE_PLACED_ON)
-            CanBreak(show, canDestroy.map { it.key.api() })
+            CanBreak(canDestroy.map { it.key.api() })
         }, { canBreak ->
             /*
             * WARNING: Possible LOSS of Information!

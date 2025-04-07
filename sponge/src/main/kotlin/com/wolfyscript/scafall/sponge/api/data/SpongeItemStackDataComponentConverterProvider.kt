@@ -9,6 +9,7 @@ import com.wolfyscript.scafall.wrappers.world.Color
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.MapColor
+import com.wolfyscript.scafall.wrappers.world.items.data.BlocksAttacks
 import com.wolfyscript.scafall.wrappers.world.items.data.BucketEntityData
 import com.wolfyscript.scafall.wrappers.world.items.data.Consumable
 import com.wolfyscript.scafall.wrappers.world.items.data.CustomData
@@ -30,11 +31,14 @@ import com.wolfyscript.scafall.wrappers.world.items.data.Rarity
 import com.wolfyscript.scafall.wrappers.world.items.data.Repairable
 import com.wolfyscript.scafall.wrappers.world.items.data.SuspiciousStewEffects
 import com.wolfyscript.scafall.wrappers.world.items.data.Tool
+import com.wolfyscript.scafall.wrappers.world.items.data.TooltipDisplay
 import com.wolfyscript.scafall.wrappers.world.items.data.Trim
 import com.wolfyscript.scafall.wrappers.world.items.data.UseCooldown
 import com.wolfyscript.scafall.wrappers.world.items.data.UseRemainder
+import com.wolfyscript.scafall.wrappers.world.items.data.Weapon
 import com.wolfyscript.scafall.wrappers.world.items.data.WriteableBookContent
 import com.wolfyscript.scafall.wrappers.world.items.data.WrittenBookContent
+import com.wolfyscript.scafall.wrappers.world.sound.SoundEvent
 import net.kyori.adventure.text.Component
 import kotlin.reflect.KClass
 
@@ -53,6 +57,8 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
         get() = TODO("Not yet implemented")
     override val useRemainder: ItemStackDataComponentConverter<UseRemainder>
         get() = TODO("Not yet implemented")
+    override val weapon: ItemStackDataComponentConverter<Weapon>
+        get() = TODO("Not yet implemented")
     override val writableBookContent: ItemStackDataComponentConverter<WriteableBookContent>
         get() = TODO("Not yet implemented")
     override val writtenBookContent: ItemStackDataComponentConverter<WrittenBookContent>
@@ -68,6 +74,8 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
     override val tool: ItemStackDataComponentConverter<Tool>
         get() = TODO("Not yet implemented")
     override val tooltipStyle: ItemStackDataComponentConverter<Key>
+        get() = TODO("Not yet implemented")
+    override val tooltipDisplay: ItemStackDataComponentConverter<TooltipDisplay>
         get() = TODO("Not yet implemented")
     override val trim: ItemStackDataComponentConverter<Trim>
         get() = TODO("Not yet implemented")
@@ -106,10 +114,11 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
         get() = TODO("Not yet implemented")
     override val glider: ItemStackDataComponentConverter<Glider>
         get() = TODO("Not yet implemented")
-    override val hideAdditionalTooltip: ItemStackDataComponentConverter<HideAdditionalTooltip>
-        get() = TODO("Not yet implemented")
-    override val hideTooltip: ItemStackDataComponentConverter<HideTooltip> = register(ItemStackDataKeys.HIDE_TOOLTIP, hideTooltipConverter)
     override val profile = register(ItemStackDataKeys.PROFILE, profileDataConverter)
+    override val providesBannerPatterns: ItemStackDataComponentConverter<Key>
+        get() = TODO("Not yet implemented")
+    override val providesTrimMaterial: ItemStackDataComponentConverter<Key>
+        get() = TODO("Not yet implemented")
     override val rarity: ItemStackDataComponentConverter<Rarity>
         get() = TODO("Not yet implemented")
     override val noteBlockSound = register(ItemStackDataKeys.NOTE_BLOCK_SOUND, noteBlockSoundConverter)
@@ -130,10 +139,14 @@ class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProv
         get() = TODO("Not yet implemented")
     override val blockEntityData = register(ItemStackDataKeys.BLOCK_ENTITY_DATA, blockEntityDataConverter)
     override val blockState = register(ItemStackDataKeys.BLOCK_STATE, blockStateDataConverter)
+    override val blocksAttacks: ItemStackDataComponentConverter<BlocksAttacks>
+        get() = TODO("Not yet implemented")
     override val bucketEntityData: ItemStackDataComponentConverter<BucketEntityData>
         get() = TODO("Not yet implemented")
     override val enchantmentGlintOverride = register(ItemStackDataKeys.ENCHANTMENT_GLINT_OVERRIDE, enchantmentOverrideDataConverter)
     override val bundleContents = register(ItemStackDataKeys.BUNDLE_CONTENTS, bundleContentsDataConverter)
+    override val breakSound: ItemStackDataComponentConverter<SoundEvent>
+        get() = TODO("Not yet implemented")
 
     private inline fun <reified T : Any> register(
         dataKey: DataKey<T, ItemStackLike<*, *>>,

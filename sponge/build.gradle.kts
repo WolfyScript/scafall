@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     compileOnly(project(":loader-api"))
-    implementation(project(":common"))
+    api(project(":common"))
     implementation(libs.slf4j.api)
     compileOnly(libs.reflections)
     compileOnly(libs.fastutil)

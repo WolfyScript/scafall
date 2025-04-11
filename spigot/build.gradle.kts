@@ -26,7 +26,7 @@ dependencies {
 //    compileOnly("net.Indyuce:MMOItems-API:6.9.2-SNAPSHOT")
 //    compileOnly("io.lumine:Mythic-Dist:5.6.1")
 
-    implementation(project(":common"))
+    api(project(":common"))
 }
 
 tasks {

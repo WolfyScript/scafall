@@ -83,12 +83,16 @@ minecraftServers {
     val debugPortMapping = "${debugPort}:${debugPort}"
 
     servers {
-        register("spongevanilla_11") {
-            val spongeVersion = "1.20.6-11.0.0"
+        register("spongevanilla_14") {
+            val spongeVersion = "1.21.4-14.0.0-RC2113"
+            destFileName.set("scafall-loader.jar")
             imageVersion.set("java21")
             type.set("CUSTOM")
             extraEnv.put("SPONGEVERSION", spongeVersion)
-            extraEnv.put("CUSTOM_SERVER", "https://repo.spongepowered.org/repository/maven-public/org/spongepowered/spongevanilla/${spongeVersion}/spongevanilla-${spongeVersion}-universal.jar")
+            extraEnv.put(
+                "CUSTOM_SERVER",
+                "https://repo.spongepowered.org/repository/maven-public/org/spongepowered/spongevanilla/${spongeVersion}/spongevanilla-${spongeVersion}-universal.jar"
+            )
             ports.set(setOf(debugPortMapping, "25595:25565"))
         }
     }

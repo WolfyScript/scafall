@@ -15,6 +15,7 @@ interface ScafallProvider {
             return instance != null
         }
 
+        @JvmSynthetic
         @Internal
         internal fun register(scafall: Scafall) {
             if (registered()) {
@@ -23,6 +24,7 @@ interface ScafallProvider {
             instance = scafall
         }
 
+        @JvmSynthetic
         @Internal
         internal fun unregister(scafall: Scafall) {
             instance = null

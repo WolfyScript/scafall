@@ -31,12 +31,6 @@ sequenceOf(
     project(":$it:loader").projectDir = file("$it/loader")
 }
 
-include(":spigot:platform")
-project(":spigot:platform").projectDir = file("spigot/platform")
-
-include(":sponge:platform")
-project(":sponge:platform").projectDir = file("sponge/platform")
-
 // Sample Plugin Modules
 val samplesDir: String = "samples"
 

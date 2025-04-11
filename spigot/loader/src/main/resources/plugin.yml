@@ -1,4 +1,4 @@
-name: Scaffolding
+name: Scafall
 version: '${version}'
 main: com.wolfyscript.scafall.spigot.loader.SpigotLoaderPlugin
 api-version: 1.21

@@ -201,6 +201,7 @@ class ParticleContent {
                 EquipmentSlot.HAND -> mainHand!!
                 EquipmentSlot.OFF_HAND -> offHand!!
                 EquipmentSlot.BODY -> TODO()
+                EquipmentSlot.SADDLE -> TODO()
             }
         }
 

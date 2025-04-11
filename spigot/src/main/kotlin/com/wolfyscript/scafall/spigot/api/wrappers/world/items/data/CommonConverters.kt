@@ -19,16 +19,11 @@ import org.bukkit.inventory.meta.Repairable
 
 internal val unbreakableItemMetaConverter = ItemMetaDataKeyConverter<Unbreakable>({
     if (isUnbreakable) {
-        return@ItemMetaDataKeyConverter Unbreakable(hasItemFlag(ItemFlag.HIDE_UNBREAKABLE))
+        return@ItemMetaDataKeyConverter Unbreakable()
     }
     null
 }, { data ->
     isUnbreakable = data != null
-    if (data?.showInTooltip == true) {
-        addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
-    } else {
-        removeItemFlags(ItemFlag.HIDE_UNBREAKABLE)
-    }
 })
 
 internal val damageItemMetaConverter = ItemMetaDataKeyConverter(

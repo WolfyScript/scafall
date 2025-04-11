@@ -38,7 +38,7 @@ internal val baseColorConverter = PaperDataAPIConverter<DyeColor>(
 internal val unbreakableConverter = PaperDataAPIConverter<Unbreakable>(
     {
         if (unwrap().hasData(DataComponentTypes.UNBREAKABLE)) {
-            Result.success(Unbreakable(false))
+            Result.success(Unbreakable())
         }
         Result.success(null)
     }, {

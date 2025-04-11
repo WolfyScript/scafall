@@ -16,8 +16,6 @@ dependencies {
     api(libs.adventure.api)
     api(libs.adventure.text.minimessage)
     api(libs.adventure.platform.bukkit)
-
-    api(project(":spigot:platform"))
 }
 
 kotlin {

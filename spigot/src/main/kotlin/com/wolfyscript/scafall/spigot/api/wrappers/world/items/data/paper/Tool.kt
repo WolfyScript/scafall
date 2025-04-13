@@ -32,7 +32,7 @@ internal val toolConverter = PaperDataAPIConverter<com.wolfyscript.scafall.wrapp
                 tool.damagePerBlock(),
                 tool.rules().map {
                     ToolRuleImpl(
-                        it.blocks().map { it.key().key().toAPI() },
+                        it.blocks().map { it.key().toAPI() },
                         it.speed(),
                         it.correctForDrops().toBoolean()
                     )

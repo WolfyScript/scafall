@@ -9,7 +9,7 @@ import com.wolfyscript.scafall.common.api.registries.CommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.factories.Factories
-import com.wolfyscript.scafall.platform.PlatformType
+import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap
@@ -26,10 +26,11 @@ class ScafallSponge(private val bootstrap: ScafallSpongeBootstrap) : AbstractSca
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
     override lateinit var registries: Registries
     override lateinit var scheduler: Scheduler
+    override val platformManager: PlatformManager
+        get() = TODO("Not yet implemented")
     override lateinit var factories: Factories
     override val adventure: AdventureUtil = SpongeAdventureUtil(this)
     override val corePlugin: PluginWrapper = bootstrap.corePlugin
-    override val platformType: PlatformType = PlatformType.SPONGE
 
     override fun load() {
         factories = SpongeFactories()

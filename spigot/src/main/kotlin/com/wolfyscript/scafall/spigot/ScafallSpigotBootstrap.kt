@@ -12,7 +12,7 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.function.Consumer
 
-class ScafallSpigotBootstrap @Inject constructor(applyScafall: Consumer<Scafall>, plugin: JavaPlugin) : PluginBootstrap {
+class ScafallSpigotBootstrap @Inject constructor(applyScafall: Consumer<Scafall>, val classLoader: ClassLoader, plugin: JavaPlugin) : PluginBootstrap {
 
     internal val corePlugin: SpigotPluginWrapper = SpigotPluginWrapper(plugin)
     private val api: ScafallSpigot = ScafallSpigot(this)

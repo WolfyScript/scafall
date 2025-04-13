@@ -10,7 +10,7 @@ public class SpigotLoaderPlugin extends JavaPlugin {
 
     public SpigotLoaderPlugin() {
         var bootstrap = ScafallLoader.loadScafallBootstrap("scafall-spigot.innerjar");
-        plugin = bootstrap.initScaffoldingPlatform("com.wolfyscript.scafall.spigot.ScaffoldingSpigotBootstrap", this.getClass(), this);
+        plugin = bootstrap.initScaffoldingPlatform("com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap", JavaPlugin.class, this);
     }
 
     @Override

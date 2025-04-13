@@ -3,6 +3,7 @@ package com.wolfyscript.scafall
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.factories.Factories
+import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
@@ -20,7 +21,7 @@ interface Scafall {
 
     val scheduler: Scheduler
 
-    val platformType: PlatformType
+    val platformManager: PlatformManager
 
     val reflections: Reflections
 

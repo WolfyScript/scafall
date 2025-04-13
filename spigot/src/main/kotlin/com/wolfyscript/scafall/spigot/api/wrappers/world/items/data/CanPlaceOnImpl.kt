@@ -11,7 +11,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemFlag
 
 internal val canPlaceOnItemMetaConverter =
-    if (ScafallProvider.get().platformType == PlatformType.PAPER) {
+    if (ScafallProvider.get().platformManager.platformType == PlatformType.PAPER) {
         // POSSIBLE DATA LOSS: This does set/return the complete data as mentioned here https://github.com/PaperMC/Paper/issues/10818
         // e.g. can_place/can_destroy can match data components using predicates
         ItemMetaDataKeyConverter<CanPlaceOn>({

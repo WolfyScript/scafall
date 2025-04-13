@@ -1,14 +1,13 @@
-package com.wolfyscript.scafall.loader;
+package com.wolfyscript.scafall.loader
 
 /**
  * Implemented by the Scaffolding Platform Bootstraps
  */
-public interface PluginBootstrap {
+interface PluginBootstrap {
 
-    void onLoad();
+    fun onLoad()
 
-    void onEnable();
+    fun onEnable()
 
-    void onUnload();
-
+    fun onUnload()
 }

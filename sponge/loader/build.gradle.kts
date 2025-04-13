@@ -15,8 +15,37 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":api"))
     implementation(project(":loader-api"))
     implementation(libs.slf4j.api)
+    implementation(libs.reflections)
+}
+
+fun convertToEpochVer(version: String, prefixFactor: Int = 1000): String {
+    val prefixMapping = mapOf("a" to 1, "alpha" to 1, "b" to 2, "beta" to 2, "rc" to 6, "lts" to 9)
+    val split = version.split('-')
+    val verSections = split[0].split('.')
+    val epochVer = verSections.mapIndexed { index, section ->
+        var prefix = section.substring(0, section.indexOfFirst { it >= '0' && it <= '9' })
+        var encoded = prefixMapping[prefix]
+        if (encoded != null) {
+            val verNum = section.substring(prefix.length).toInt()
+            return@mapIndexed "${(encoded * prefixFactor) + verNum}"
+        }
+        if (index == 0) {
+            // Use default release encoding for first number
+            val verNum = section.substring(prefix.length).toInt()
+            return@mapIndexed "${(8 * prefixFactor) + verNum}"
+        }
+        return@mapIndexed section
+    }.joinToString(".")
+
+    if (split.size > 1) {
+        print("version: $version -> $epochVer-${split[1]}")
+        return "${epochVer}-${split[1]}"
+    }
+    print("version: $version -> $epochVer")
+    return epochVer
 }
 
 sponge {
@@ -27,6 +56,7 @@ sponge {
         version("1.0")
     }
     plugin("scafall") {
+        version(convertToEpochVer(project.version.toString()))
         displayName("scafall")
         description("")
         entrypoint("com.wolfyscript.scafall.sponge.loader.SpongeLoaderPlugin")
@@ -51,7 +81,11 @@ tasks {
         archiveClassifier = ""
         archiveAppendix = ""
 
+        include("**")
+
         dependencies {
+            include(dependency("${libs.reflections.get().group}:.*"))
+            include(dependency("org.javassist:.*"))
             include(dependency("com.wolfyscript.scafall:.*"))
             include(dependency("org.jetbrains:.*"))
             include(dependency("org.jetbrains.kotlin:.*"))
@@ -59,7 +93,7 @@ tasks {
 
         mergeServiceFiles()
 
-        // Include the inner jar files for api and internal implementation
+        // Include the inner jar files for internal implementation
         from(project(":sponge").tasks.shadowJar.get().archiveFile)
     }
 

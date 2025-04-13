@@ -15,7 +15,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.inventory.meta.components.CustomModelDataComponent
 
 internal val itemLoreItemMetaConverter =
-    if (ScafallProvider.get().platformType == PlatformType.PAPER) {
+    if (ScafallProvider.get().platformManager.platformType == PlatformType.PAPER) {
         ItemMetaDataKeyConverter<ItemLore>(
             {
                 if (hasLore()) {
@@ -61,7 +61,7 @@ internal val customModelDataItemMetaConverter = ItemMetaDataKeyConverter({
     setCustomModelDataComponent(data)
 })
 
-internal val itemNameItemMetaConverter = if (ScafallProvider.get().platformType == PlatformType.PAPER) {
+internal val itemNameItemMetaConverter = if (ScafallProvider.get().platformManager.platformType == PlatformType.PAPER) {
     ItemMetaDataKeyConverter<Component>({
         if (hasItemName()) {
             return@ItemMetaDataKeyConverter itemName()

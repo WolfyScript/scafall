@@ -1,8 +1,8 @@
-package com.wolfyscript.scafall.loader;
+package com.wolfyscript.scafall.loader
 
-import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.ApiStatus
 
-public interface ScafallBootstrap {
+interface ScafallBootstrap {
 
     /**
      * Used by Scaffolding itself to initialise Platform implementations.
@@ -12,6 +12,5 @@ public interface ScafallBootstrap {
      * @return The Bootstrap for the platform implementation
      */
     @ApiStatus.Internal
-    PluginBootstrap initScaffoldingPlatform(String pathToBootstrap, Class<?> loaderType, Object loader);
-
+    fun initScaffoldingPlatform(pathToBootstrap: String, loaderType: Class<*>, loader: Any): PluginBootstrap
 }

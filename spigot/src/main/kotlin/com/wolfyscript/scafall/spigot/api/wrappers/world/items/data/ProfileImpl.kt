@@ -7,7 +7,7 @@ import com.wolfyscript.scafall.wrappers.world.items.data.Profile
 import org.bukkit.Bukkit
 import org.bukkit.inventory.meta.SkullMeta
 
-internal val profileItemMetaConverter = if (ScafallProvider.get().platformType == PlatformType.PAPER) {
+internal val profileItemMetaConverter = if (ScafallProvider.get().platformManager.platformType == PlatformType.PAPER) {
     ItemMetaDataKeyConverter<Profile>({
         if (this !is SkullMeta) {
             return@ItemMetaDataKeyConverter null

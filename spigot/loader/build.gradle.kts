@@ -14,7 +14,6 @@ repositories {
 dependencies {
     api(project(":api"))
     implementation(project(":loader-api"))
-    implementation(project(":spigot"))
 
     compileOnly(libs.papermc.paper)
 }

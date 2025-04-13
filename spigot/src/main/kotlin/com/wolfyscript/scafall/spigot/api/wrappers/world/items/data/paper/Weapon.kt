@@ -41,8 +41,8 @@ internal val blocksAttacksConverter = PaperDataAPIConverter<BlocksAttacks>(
             paperObj.disableCooldownScale(),
             damageReductions = mutableListOf(),
             itemDamage = null,
-            SoundEvent(paperObj.blockSound().key().toAPI()),
-            SoundEvent(paperObj.disableSound().key().toAPI()),
+            SoundEvent(paperObj.blockSound().toAPI()),
+            SoundEvent(paperObj.disableSound().toAPI()),
             paperObj.bypassedBy().key().toAPI()
         )
         return@PaperDataAPIConverter Result.success(blocksAttacks)

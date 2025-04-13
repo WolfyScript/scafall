@@ -1,11 +1,30 @@
-package com.wolfyscript.scafall.loader.module;
+package com.wolfyscript.scafall.loader.module
 
-public interface Module<T> {
+/**
+ * The module is implemented in the platform specific implementation
+ * and handles the instantiation of the Bridge, that links the implementation to the API.
+ *
+ * [T] The type of the Bridge interface that is implemented in the platform specific implementation module.
+ */
+interface Module<T> {
 
-    void onLoad();
+    /**
+     * Called when the module was created and is now being initiated by the platform.
+     */
+    fun onLoad()
 
-    void onUnload();
+    /**
+     * Called when all initiations are completed and the Module is ready to be used.
+     */
+    fun onEnable()
 
-    T getBridge();
+    /**
+     * Called when the platform is unloading. This is unloaded before scafall.
+     */
+    fun onUnload()
 
+    /**
+     * The instance that links the bridge interface to this platform module
+     */
+    val bridge: T
 }

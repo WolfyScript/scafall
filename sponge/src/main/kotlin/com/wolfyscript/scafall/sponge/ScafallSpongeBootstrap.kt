@@ -8,7 +8,7 @@ import com.wolfyscript.scafall.sponge.api.SpongePluginWrapper
 import org.spongepowered.plugin.PluginContainer
 import java.util.function.Consumer
 
-class ScafallSpongeBootstrap(applyScafall: Consumer<Scafall>, plugin: PluginContainer) : PluginBootstrap {
+class ScafallSpongeBootstrap(applyScafall: Consumer<Scafall>, classLoader: ClassLoader, plugin: PluginContainer) : PluginBootstrap {
 
     internal val corePlugin: PluginWrapper = SpongePluginWrapper(plugin)
     private val api: ScafallSponge = ScafallSponge(this)

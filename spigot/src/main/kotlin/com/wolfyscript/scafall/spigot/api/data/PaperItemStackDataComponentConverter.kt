@@ -12,13 +12,7 @@ import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper.maxSta
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper.unbreakableConverter
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
-import com.wolfyscript.scafall.wrappers.world.items.data.BlocksAttacks
 import com.wolfyscript.scafall.wrappers.world.items.data.Repairable
-import com.wolfyscript.scafall.wrappers.world.items.data.TooltipDisplay
-import com.wolfyscript.scafall.wrappers.world.items.data.UseCooldown
-import com.wolfyscript.scafall.wrappers.world.items.data.UseRemainder
-import com.wolfyscript.scafall.wrappers.world.items.data.Weapon
-import com.wolfyscript.scafall.wrappers.world.sound.SoundEvent
 import kotlin.reflect.KClass
 
 class PaperItemStackDataComponentConverter(scafall: Scafall) : SpigotItemStackDataComponentConverterProvider(scafall) {

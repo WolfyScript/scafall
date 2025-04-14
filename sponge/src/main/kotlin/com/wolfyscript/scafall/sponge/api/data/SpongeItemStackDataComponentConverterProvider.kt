@@ -42,111 +42,45 @@ import com.wolfyscript.scafall.wrappers.world.sound.SoundEvent
 import net.kyori.adventure.text.Component
 import kotlin.reflect.KClass
 
-class SpongeItemStackDataComponentConverterProvider : DataComponentConverterProvider {
+class SpongeItemStackDataComponentConverterProvider {
 
-    override val damage = register(ItemStackDataKeys.DAMAGE, damageConverter)
-    override val damageResistant: ItemStackDataComponentConverter<DamageResistant>
-        get() = TODO("Not yet implemented")
-    override val debugStickState: ItemStackDataComponentConverter<DebugStickState>
-        get() = TODO("Not yet implemented")
-    override val deathProtection: ItemStackDataComponentConverter<DeathProtection>
-        get() = TODO("Not yet implemented")
-    override val repairCost = register(ItemStackDataKeys.REPAIR_COST, repairCostConverter)
-    override val unbreakable = register(ItemStackDataKeys.UNBREAKABLE, unbreakableDataConverter)
-    override val useCooldown: ItemStackDataComponentConverter<UseCooldown>
-        get() = TODO("Not yet implemented")
-    override val useRemainder: ItemStackDataComponentConverter<UseRemainder>
-        get() = TODO("Not yet implemented")
-    override val weapon: ItemStackDataComponentConverter<Weapon>
-        get() = TODO("Not yet implemented")
-    override val writableBookContent: ItemStackDataComponentConverter<WriteableBookContent>
-        get() = TODO("Not yet implemented")
-    override val writtenBookContent: ItemStackDataComponentConverter<WrittenBookContent>
-        get() = TODO("Not yet implemented")
-    override val enchantments = register(ItemStackDataKeys.ENCHANTMENTS, enchantmentsDataConverter)
-    override val entityData: ItemStackDataComponentConverter<EntityData>
-        get() = TODO("Not yet implemented")
-    override val equippable: ItemStackDataComponentConverter<Equippable>
-        get() = TODO("Not yet implemented")
-    override val storedEnchantments = register(ItemStackDataKeys.STORED_ENCHANTMENTS, enchantmentsDataConverter)
-    override val suspiciousStewEffects: ItemStackDataComponentConverter<SuspiciousStewEffects>
-        get() = TODO("Not yet implemented")
-    override val tool: ItemStackDataComponentConverter<Tool>
-        get() = TODO("Not yet implemented")
-    override val tooltipStyle: ItemStackDataComponentConverter<Key>
-        get() = TODO("Not yet implemented")
-    override val tooltipDisplay: ItemStackDataComponentConverter<TooltipDisplay>
-        get() = TODO("Not yet implemented")
-    override val trim: ItemStackDataComponentConverter<Trim>
-        get() = TODO("Not yet implemented")
-    override val customName = register(ItemStackDataKeys.CUSTOM_NAME, displayNameConverter)
-    override val lore = register(ItemStackDataKeys.ITEM_LORE, displayLoreConverter)
-    override val canBreak = register(ItemStackDataKeys.CAN_BREAK, canBreakDataConverter)
-    override val canPlaceOn = register(ItemStackDataKeys.CAN_PLACE_ON, canPlaceOnDataConverter)
-    override val dyedColor = register(ItemStackDataKeys.DYED_COLOR, dyedColorDataConverter)
-    override val enchantable: ItemStackDataComponentConverter<Enchantable>
-        get() = TODO("Not yet implemented")
-    override val attributeModifiers = register(ItemStackDataKeys.ATTRIBUTE_MODIFIERS, attributeModifiersDataConverter)
-    override val chargedProjectiles = register(ItemStackDataKeys.CHARGED_PROJECTILES, chargedProjectilesDataConverter)
-    override val consumables: ItemStackDataComponentConverter<Consumable>
-        get() = TODO("Not yet implemented")
-    override val intangibleProjectile = register(ItemStackDataKeys.INTANGIBLE_PROJECTILE, intangibleProjectileDataConverter)
-    override val itemModel: ItemStackDataComponentConverter<Key> = register(ItemStackDataKeys.ITEM_MODEL, itemModelConverter)
-    override val itemName: ItemStackDataComponentConverter<Component> = register(ItemStackDataKeys.ITEM_NAME, itemNameConverter)
-    override val jukeboxPlayable: ItemStackDataComponentConverter<JukeboxPlayable>
-        get() = TODO("Not yet implemented")
-    override val lodestoneTracker: ItemStackDataComponentConverter<LodestoneTracker>
-        get() = TODO("Not yet implemented")
-    override val mapId = register(ItemStackDataKeys.MAP_ID, mapIdDataConverter)
-    override val maxDamage: ItemStackDataComponentConverter<Int>
-        get() = TODO("Not yet implemented")
-    override val maxStackSize: ItemStackDataComponentConverter<Int>
-        get() = TODO("Not yet implemented")
-    override val customModelData = register(ItemStackDataKeys.CUSTOM_MODEL_DATA, customModelDataConverter)
-    override val potionContents = register(ItemStackDataKeys.POTION_CONTENTS, potionContentsDataConverter)
-    override val instrument = register(ItemStackDataKeys.INSTRUMENT, instrumentConverter)
-    override val recipes = register(ItemStackDataKeys.RECIPES, recipesDataConverter)
-    override val repairable: ItemStackDataComponentConverter<Repairable>
-        get() = TODO("Not yet implemented")
-    override val fireworkExplosion = register(ItemStackDataKeys.FIREWORK_EXPLOSION, fireworkExplosionDataConverter)
-    override val fireworks = register(ItemStackDataKeys.FIREWORKS, fireworksDataConverter)
-    override val food: ItemStackDataComponentConverter<Food>
-        get() = TODO("Not yet implemented")
-    override val glider: ItemStackDataComponentConverter<Glider>
-        get() = TODO("Not yet implemented")
-    override val profile = register(ItemStackDataKeys.PROFILE, profileDataConverter)
-    override val providesBannerPatterns: ItemStackDataComponentConverter<Key>
-        get() = TODO("Not yet implemented")
-    override val providesTrimMaterial: ItemStackDataComponentConverter<Key>
-        get() = TODO("Not yet implemented")
-    override val rarity: ItemStackDataComponentConverter<Rarity>
-        get() = TODO("Not yet implemented")
-    override val noteBlockSound = register(ItemStackDataKeys.NOTE_BLOCK_SOUND, noteBlockSoundConverter)
-    override val ominousBottleAmplifier: ItemStackDataComponentConverter<OminousBottleAmplifier>
-        get() = TODO("Not yet implemented")
-    override val baseColor = register(ItemStackDataKeys.BASE_COLOR, baseColorDataConverter)
-    override val bannerPatterns = register(ItemStackDataKeys.BANNER_PATTERNS, bannerPatternDataConverter)
-    override val potDecorations = register(ItemStackDataKeys.POT_DECORATIONS, potDecorationsDataConverter)
-    override val container = register(ItemStackDataKeys.CONTAINER, containerDataConverter)
-    override val bees = register(ItemStackDataKeys.BEES, beesDataConverter)
-    override val lock = register(ItemStackDataKeys.LOCK, lockDataConverter)
-    override val mapColor: ItemStackDataComponentConverter<Color>
-        get() = TODO("Not yet implemented")
-    override val mapDecorations: ItemStackDataComponentConverter<MapDecorations>
-        get() = TODO("Not yet implemented")
-    override val containerLoot = register(ItemStackDataKeys.CONTAINER_LOOT, containerLootDataConverter)
-    override val customData: ItemStackDataComponentConverter<CustomData>
-        get() = TODO("Not yet implemented")
-    override val blockEntityData = register(ItemStackDataKeys.BLOCK_ENTITY_DATA, blockEntityDataConverter)
-    override val blockState = register(ItemStackDataKeys.BLOCK_STATE, blockStateDataConverter)
-    override val blocksAttacks: ItemStackDataComponentConverter<BlocksAttacks>
-        get() = TODO("Not yet implemented")
-    override val bucketEntityData: ItemStackDataComponentConverter<BucketEntityData>
-        get() = TODO("Not yet implemented")
-    override val enchantmentGlintOverride = register(ItemStackDataKeys.ENCHANTMENT_GLINT_OVERRIDE, enchantmentOverrideDataConverter)
-    override val bundleContents = register(ItemStackDataKeys.BUNDLE_CONTENTS, bundleContentsDataConverter)
-    override val breakSound: ItemStackDataComponentConverter<SoundEvent>
-        get() = TODO("Not yet implemented")
+    fun register() {
+        register(ItemStackDataKeys.DAMAGE, damageConverter)
+        register(ItemStackDataKeys.REPAIR_COST, repairCostConverter)
+        register(ItemStackDataKeys.UNBREAKABLE, unbreakableDataConverter)
+        register(ItemStackDataKeys.ENCHANTMENTS, enchantmentsDataConverter)
+        register(ItemStackDataKeys.STORED_ENCHANTMENTS, enchantmentsDataConverter)
+        register(ItemStackDataKeys.CUSTOM_NAME, displayNameConverter)
+        register(ItemStackDataKeys.ITEM_LORE, displayLoreConverter)
+        register(ItemStackDataKeys.CAN_BREAK, canBreakDataConverter)
+        register(ItemStackDataKeys.CAN_PLACE_ON, canPlaceOnDataConverter)
+        register(ItemStackDataKeys.DYED_COLOR, dyedColorDataConverter)
+        register(ItemStackDataKeys.ATTRIBUTE_MODIFIERS, attributeModifiersDataConverter)
+        register(ItemStackDataKeys.CHARGED_PROJECTILES, chargedProjectilesDataConverter)
+        register(ItemStackDataKeys.INTANGIBLE_PROJECTILE, intangibleProjectileDataConverter)
+        register(ItemStackDataKeys.ITEM_MODEL, itemModelConverter)
+        register(ItemStackDataKeys.ITEM_NAME, itemNameConverter)
+        register(ItemStackDataKeys.MAP_ID, mapIdDataConverter)
+        register(ItemStackDataKeys.CUSTOM_MODEL_DATA, customModelDataConverter)
+        register(ItemStackDataKeys.POTION_CONTENTS, potionContentsDataConverter)
+        register(ItemStackDataKeys.INSTRUMENT, instrumentConverter)
+        register(ItemStackDataKeys.RECIPES, recipesDataConverter)
+        register(ItemStackDataKeys.FIREWORK_EXPLOSION, fireworkExplosionDataConverter)
+        register(ItemStackDataKeys.FIREWORKS, fireworksDataConverter)
+        register(ItemStackDataKeys.PROFILE, profileDataConverter)
+        register(ItemStackDataKeys.NOTE_BLOCK_SOUND, noteBlockSoundConverter)
+        register(ItemStackDataKeys.BASE_COLOR, baseColorDataConverter)
+        register(ItemStackDataKeys.BANNER_PATTERNS, bannerPatternDataConverter)
+        register(ItemStackDataKeys.POT_DECORATIONS, potDecorationsDataConverter)
+        register(ItemStackDataKeys.CONTAINER, containerDataConverter)
+        register(ItemStackDataKeys.BEES, beesDataConverter)
+        register(ItemStackDataKeys.LOCK, lockDataConverter)
+        register(ItemStackDataKeys.CONTAINER_LOOT, containerLootDataConverter)
+        register(ItemStackDataKeys.BLOCK_ENTITY_DATA, blockEntityDataConverter)
+        register(ItemStackDataKeys.BLOCK_STATE, blockStateDataConverter)
+        register(ItemStackDataKeys.ENCHANTMENT_GLINT_OVERRIDE, enchantmentOverrideDataConverter)
+        register(ItemStackDataKeys.BUNDLE_CONTENTS, bundleContentsDataConverter)
+    }
 
     private inline fun <reified T : Any> register(
         dataKey: DataKey<T, ItemStackLike<*, *>>,

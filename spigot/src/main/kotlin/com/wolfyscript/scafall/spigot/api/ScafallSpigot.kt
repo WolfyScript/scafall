@@ -7,12 +7,13 @@ import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImp
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
 import com.wolfyscript.scafall.common.api.factories.CommonFactories
 import com.wolfyscript.scafall.common.api.registries.CommonRegistries
-import com.wolfyscript.scafall.data.DataComponentConverterProvider
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
+import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
+import com.wolfyscript.scafall.spigot.api.data.PaperItemStackDataComponentConverter
 import com.wolfyscript.scafall.spigot.api.data.SpigotItemStackDataComponentConverterProvider
 import com.wolfyscript.scafall.spigot.api.factories.SpigotFactoriesImpl
 import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
@@ -36,7 +37,6 @@ internal class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : A
     // Spigot only features
     internal lateinit var persistentStorageInternal : PersistentStorage
     internal lateinit var compatibilityManagerInternal : CompatibilityManager
-    internal lateinit var itemStackDataComponentConverterProvider : DataComponentConverterProvider
 
     override fun createOrGetPluginWrapper(pluginName: String): PluginWrapper? {
         return Bukkit.getPluginManager().getPlugin(pluginName)?.let { SpigotPluginWrapper(it) }
@@ -57,12 +57,11 @@ internal class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : A
 
         adventure = SpigotAdventureUtil(this)
 
-        itemStackDataComponentConverterProvider = SpigotItemStackDataComponentConverterProvider(this)
-//        itemStackDataComponentConverterProvider = if (platformManager.platformType == PlatformType.SPIGOT) {
-//            SpigotItemStackDataComponentConverterProvider(this)
-//        } else {
-//            PaperItemStackDataComponentConverter(this)
-//        }
+        if (platformManager.platformType == PlatformType.SPIGOT) {
+            SpigotItemStackDataComponentConverterProvider(this).register()
+        } else {
+            PaperItemStackDataComponentConverter(this).register()
+        }
 
         platformManager.implementationModules.forEach {
             it.value.onLoad()

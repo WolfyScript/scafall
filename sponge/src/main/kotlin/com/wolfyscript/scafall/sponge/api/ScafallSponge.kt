@@ -41,7 +41,7 @@ class ScafallSponge(private val bootstrap: ScafallSpongeBootstrap) : AbstractSca
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, Path("")) // TODO
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()
 
-        val dataComponentConverterProvider = SpongeItemStackDataComponentConverterProvider()
+        SpongeItemStackDataComponentConverterProvider().register()
     }
 
     override fun enable() {

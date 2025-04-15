@@ -19,14 +19,13 @@ package com.wolfyscript.scafall.registry
 
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.Scafall
-import com.wolfyscript.scafall.data.ItemStackDataComponentConverterRegistry
+import com.wolfyscript.scafall.data.ItemDataComponentConverterRegistry
 import com.wolfyscript.scafall.eval.operator.Operator
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Keyed
 import com.wolfyscript.scafall.nbt.NBTTagConfig
 import com.wolfyscript.scafall.wrappers.world.items.data.ItemDataKeyRegistry
-import java.lang.IllegalStateException
 
 /**
  * Includes all the Registries inside WolfyUtilities.<br></br>
@@ -52,7 +51,7 @@ abstract class Registries(val core: Scafall) {
     val nbtTagConfigs: TypeRegistry<NBTTagConfig> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "nbt_configs"), this)
 
     val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "data_component/item/key"), this)
-    abstract val itemStackDataComponentConverterRegistry: ItemStackDataComponentConverterRegistry
+    abstract val itemDataComponentConverterRegistry: ItemDataComponentConverterRegistry
 
     fun indexTypedRegistry(registry: Registry<*>) {
         Preconditions.checkArgument(!REGISTRIES_BY_KEY.containsKey(registry.key), "A registry with the key \"${registry.key}\" already exists!")

@@ -15,19 +15,19 @@ import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap
 import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverterProvider
 import com.wolfyscript.scafall.sponge.api.factories.SpongeFactories
+import com.wolfyscript.scafall.sponge.api.platform.PlatformManagerImpl
 import com.wolfyscript.scafall.sponge.api.scheduling.SchedulerImpl
 import org.spongepowered.api.Sponge
 import kotlin.io.path.Path
 import kotlin.jvm.optionals.getOrNull
 
-class ScafallSponge(private val bootstrap: ScafallSpongeBootstrap) : AbstractScafallImpl() {
+class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : AbstractScafallImpl() {
 
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
     override lateinit var registries: Registries
     override lateinit var scheduler: Scheduler
-    override val platformManager: PlatformManager
-        get() = TODO("Not yet implemented")
+    override val platformManager: PlatformManager = PlatformManagerImpl(this)
     override lateinit var factories: Factories
     override val adventure: AdventureUtil = SpongeAdventureUtil(this)
     override val corePlugin: PluginWrapper = bootstrap.corePlugin

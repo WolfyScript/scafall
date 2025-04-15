@@ -19,7 +19,7 @@ package com.wolfyscript.scafall.data
 
 /**
  * A DataComponentMap contains the data applied to a [DataHolder].
- * Each data component is associated with a unique key, and can be fetched using Keys (e.g. [ItemStack Data Keys][ItemStackDataKeys]).
+ * Each data component is associated with a unique key, and can be fetched using Keys (e.g. [ItemStack Data Keys][ItemDataComponentTypes]).
  *
  * By default, this will try to convert the calls to the platform specific APIs as best as it can.
  * e.g. for ItemStacks: on Spigot ItemMeta, on Sponge the Key based system

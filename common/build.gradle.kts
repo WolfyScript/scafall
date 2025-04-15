@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     api(project(":api"))
+    implementation(project(":loader-api"))
 }
 
 publishing {

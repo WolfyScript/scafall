@@ -24,7 +24,6 @@ import com.wolfyscript.scafall.wrappers.world.Color
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
-import com.wolfyscript.scafall.wrappers.world.items.MapColor
 import com.wolfyscript.scafall.wrappers.world.items.data.*
 import com.wolfyscript.scafall.wrappers.world.sound.SoundEvent
 import net.kyori.adventure.text.Component
@@ -35,7 +34,7 @@ import kotlin.reflect.KClass
  *
  * The data can be fetched, applied, and removed to/from ItemStacks via [ItemStack.data]
  */
-interface ItemStackDataKeys {
+interface ItemDataComponentTypes {
 
     companion object {
         val ATTRIBUTE_MODIFIERS = register<AttributeModifiers>("attribute_modifiers")

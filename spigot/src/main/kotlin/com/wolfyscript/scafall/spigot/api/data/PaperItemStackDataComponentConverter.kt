@@ -14,87 +14,90 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import kotlin.reflect.KClass
 
-class PaperItemStackDataComponentConverter(scafall: Scafall) {
+class PaperItemStackDataComponentConverter(val scafall: Scafall) {
 
     fun register() {
-        register(ItemStackDataKeys.ATTRIBUTE_MODIFIERS, attributeModifiersPaperConverter)
-        register(ItemStackDataKeys.BANNER_PATTERNS, bannerPatternsPaperConverter)
-        register(ItemStackDataKeys.BREAK_SOUND, breakSoundConverter)
-        register(ItemStackDataKeys.BASE_COLOR, baseColorConverter)
-        register(ItemStackDataKeys.UNBREAKABLE, unbreakableConverter)
-        register(ItemStackDataKeys.DAMAGE, damageConverter)
-        register(ItemStackDataKeys.MAP_ID, mapIdConverter)
-        register(ItemStackDataKeys.MAX_STACK_SIZE, maxStackSizeConverter)
-        register(ItemStackDataKeys.MAX_DAMAGE, maxDamageConverter)
-        register(ItemStackDataKeys.REPAIR_COST, repairCostConverter)
-        register(ItemStackDataKeys.INSTRUMENT, instrumentConverter)
-        register(ItemStackDataKeys.RECIPES, recipesConverter)
-        register(ItemStackDataKeys.NOTE_BLOCK_SOUND, noteBlockSoundConverter)
-        register(ItemStackDataKeys.POT_DECORATIONS, potDecorationsConverter)
-        register(ItemStackDataKeys.ENCHANTMENT_GLINT_OVERRIDE, enchantmentGlintOverrideConverter)
-        register(ItemStackDataKeys.GLIDER, gliderConverter)
-        register(ItemStackDataKeys.ITEM_MODEL, itemModelConverter)
-        register(ItemStackDataKeys.ITEM_NAME, itemNameConverter)
-        register(ItemStackDataKeys.CUSTOM_NAME, customNameConverter)
-        register(ItemStackDataKeys.CUSTOM_MODEL_DATA, customModelDataConverter)
-        register(ItemStackDataKeys.ITEM_LORE, itemLoreConverter)
-        register(ItemStackDataKeys.CONTAINER_LOOT, containerLootConverter)
-        register(ItemStackDataKeys.CONTAINER, containerConverter)
-        register(ItemStackDataKeys.BUNDLE_CONTENTS, bundleContentsConverter)
-        register(ItemStackDataKeys.CHARGED_PROJECTILES, chargedProjectilesConverter)
-        register(ItemStackDataKeys.DAMAGE_RESISTANT, damageResistantConverter)
-        register(ItemStackDataKeys.RARITY, rarityConverter)
-        register(ItemStackDataKeys.DEATH_PROTECTION, deathProtectionConverter)
-        register(ItemStackDataKeys.OMINOUS_BOTTLE_AMPLIFIER, ominousBottleAmplifierConverter)
-        register(ItemStackDataKeys.SUSPICIOUS_STEW_EFFECTS, suspiciousStewEffectsConverter)
-        register(ItemStackDataKeys.TOOLTIP_STYLE, tooltipStyleConverter)
-        register(ItemStackDataKeys.INTANGIBLE_PROJECTILE, intangibleProjectileConverter)
-        register(ItemStackDataKeys.CONSUMABLE, consumableConverter)
-        register(ItemStackDataKeys.ENCHANTABLE, enchantableConverter)
-        register(ItemStackDataKeys.ENCHANTMENTS, enchantmentsConverter)
-        register(ItemStackDataKeys.STORED_ENCHANTMENTS, storedEnchantmentsConverter)
-        register(ItemStackDataKeys.REPAIRABLE, repairableConverter)
-        register(ItemStackDataKeys.MAP_COLOR, mapColorConverter)
-        register(ItemStackDataKeys.FOOD, foodConverter)
-        register(ItemStackDataKeys.TOOL, toolConverter)
-        register(ItemStackDataKeys.TRIM, trimConverter)
-        register(ItemStackDataKeys.PROVIDES_BANNER_PATTERNS, providesBannerPatternsConverter)
-        register(ItemStackDataKeys.TOOLTIP_DISPLAY, tooltipDisplayConverter)
-        register(ItemStackDataKeys.BLOCKS_ATTACKS, blocksAttacksConverter)
-        register(ItemStackDataKeys.USE_COOLDOWN, useCooldownConverter)
-        register(ItemStackDataKeys.USE_REMAINDER, useRemainderConverter)
-        register(ItemStackDataKeys.WEAPON, weaponConverter)
+        register(ItemDataComponentTypes.ATTRIBUTE_MODIFIERS, attributeModifiersPaperConverter)
+        register(ItemDataComponentTypes.BANNER_PATTERNS, bannerPatternsPaperConverter)
+        register(ItemDataComponentTypes.BREAK_SOUND, breakSoundConverter)
+        register(ItemDataComponentTypes.BASE_COLOR, baseColorConverter)
+        register(ItemDataComponentTypes.UNBREAKABLE, unbreakableConverter)
+        register(ItemDataComponentTypes.DAMAGE, damageConverter)
+        register(ItemDataComponentTypes.MAP_ID, mapIdConverter)
+        register(ItemDataComponentTypes.MAX_STACK_SIZE, maxStackSizeConverter)
+        register(ItemDataComponentTypes.MAX_DAMAGE, maxDamageConverter)
+        register(ItemDataComponentTypes.REPAIR_COST, repairCostConverter)
+        register(ItemDataComponentTypes.INSTRUMENT, instrumentConverter)
+        register(ItemDataComponentTypes.RECIPES, recipesConverter)
+        register(ItemDataComponentTypes.NOTE_BLOCK_SOUND, noteBlockSoundConverter)
+        register(ItemDataComponentTypes.POT_DECORATIONS, potDecorationsConverter)
+        register(ItemDataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, enchantmentGlintOverrideConverter)
+        register(ItemDataComponentTypes.GLIDER, gliderConverter)
+        register(ItemDataComponentTypes.ITEM_MODEL, itemModelConverter)
+        register(ItemDataComponentTypes.ITEM_NAME, itemNameConverter)
+        register(ItemDataComponentTypes.CUSTOM_NAME, customNameConverter)
+        register(ItemDataComponentTypes.CUSTOM_MODEL_DATA, customModelDataConverter)
+        register(ItemDataComponentTypes.ITEM_LORE, itemLoreConverter)
+        register(ItemDataComponentTypes.CONTAINER_LOOT, containerLootConverter)
+        register(ItemDataComponentTypes.CONTAINER, containerConverter)
+        register(ItemDataComponentTypes.BUNDLE_CONTENTS, bundleContentsConverter)
+        register(ItemDataComponentTypes.CHARGED_PROJECTILES, chargedProjectilesConverter)
+        register(ItemDataComponentTypes.DAMAGE_RESISTANT, damageResistantConverter)
+        register(ItemDataComponentTypes.RARITY, rarityConverter)
+        register(ItemDataComponentTypes.DEATH_PROTECTION, deathProtectionConverter)
+        register(ItemDataComponentTypes.OMINOUS_BOTTLE_AMPLIFIER, ominousBottleAmplifierConverter)
+        register(ItemDataComponentTypes.SUSPICIOUS_STEW_EFFECTS, suspiciousStewEffectsConverter)
+        register(ItemDataComponentTypes.TOOLTIP_STYLE, tooltipStyleConverter)
+        register(ItemDataComponentTypes.INTANGIBLE_PROJECTILE, intangibleProjectileConverter)
+        register(ItemDataComponentTypes.CONSUMABLE, consumableConverter)
+        register(ItemDataComponentTypes.ENCHANTABLE, enchantableConverter)
+        register(ItemDataComponentTypes.ENCHANTMENTS, enchantmentsConverter)
+        register(ItemDataComponentTypes.STORED_ENCHANTMENTS, storedEnchantmentsConverter)
+        register(ItemDataComponentTypes.REPAIRABLE, repairableConverter)
+        register(ItemDataComponentTypes.MAP_COLOR, mapColorConverter)
+        register(ItemDataComponentTypes.FOOD, foodConverter)
+        register(ItemDataComponentTypes.TOOL, toolConverter)
+        register(ItemDataComponentTypes.TRIM, trimConverter)
+        register(ItemDataComponentTypes.PROVIDES_BANNER_PATTERNS, providesBannerPatternsConverter)
+        register(ItemDataComponentTypes.TOOLTIP_DISPLAY, tooltipDisplayConverter)
+        register(ItemDataComponentTypes.BLOCKS_ATTACKS, blocksAttacksConverter)
+        register(ItemDataComponentTypes.USE_COOLDOWN, useCooldownConverter)
+        register(ItemDataComponentTypes.USE_REMAINDER, useRemainderConverter)
+        register(ItemDataComponentTypes.WEAPON, weaponConverter)
+
+        // Register missing converters with spigot implementations
+        SpigotItemStackDataComponentConverterProvider(scafall).register()
     }
 
     private inline fun <reified T: Any> register(
         dataKey: DataKey<T, ItemStackLike<*, *>>,
         converter: PaperDataAPIConverter<T>
-    ) : ItemStackDataComponentConverter<T> {
-        val converterImpl = PaperItemStackDataComponentConverterImpl(dataKey.key(), T::class, converter);
-        ScafallProvider.get().registries.itemStackDataComponentConverterRegistry.register(dataKey.key(), converterImpl)
+    ) : ItemDataComponentConverter<T> {
+        val converterImpl = PaperItemDataComponentConverterImpl(dataKey.key(), T::class, converter);
+        ScafallProvider.get().registries.itemDataComponentConverterRegistry.register(dataKey.key(), converterImpl)
         return converterImpl
     }
 
     private inline fun <reified T : Any> registerSpigot(
         dataKey: DataKey<T, ItemStackLike<*, *>>,
         converter: ItemMetaDataKeyConverter<T>
-    ) : ItemStackDataComponentConverter<T> {
-        val converterImpl = SpigotItemStackDataComponentConverterImpl(
+    ) : ItemDataComponentConverter<T> {
+        val converterImpl = SpigotItemDataComponentConverterImpl(
             dataKey.key(),
             T::class,
             converter.fetcher,
             converter.applier
         )
-        ScafallProvider.get().registries.itemStackDataComponentConverterRegistry.register(dataKey.key(), converterImpl)
+        ScafallProvider.get().registries.itemDataComponentConverterRegistry.register(dataKey.key(), converterImpl)
         return converterImpl
     }
 }
 
-class PaperItemStackDataComponentConverterImpl<T : Any>(
+class PaperItemDataComponentConverterImpl<T : Any>(
     override val key: Key,
     override val type: KClass<T>,
     converter: PaperDataAPIConverter<T>,
-) : ItemStackDataComponentConverter<T> {
+) : ItemDataComponentConverter<T> {
 
     override val reader: DataComponentConverter.Reader<T, ItemStackLike<*, *>> = object : DataComponentConverter.Reader<T, ItemStackLike<*,*>> {
         override val converter: ItemStackLike<*, *>.() -> Result<T?> = converter.reader

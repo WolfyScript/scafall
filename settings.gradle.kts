@@ -6,6 +6,7 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
         maven("https://artifacts.wolfyscript.com/artifactory/gradle-dev")
+        maven("https://repo.spongepowered.org/repository/maven-public/")
     }
 }
 

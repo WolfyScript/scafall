@@ -35,7 +35,8 @@ mcmmo = "2.1.139-SNAPSHOT"
 
 ## Sponge Impl dependencies ##
 sponge-gradle = "2.2.0"
-sponge-api = "14.0.0-SNAPSHOT"
+sponge-api = "15.0.0-SNAPSHOT"
+sponge-impl = "1.21.5-15.0.0-SNAPSHOT"
 
 [libraries]
 # Kotlin & Jetbrains dependencies
@@ -79,6 +80,7 @@ nossr50-mcmmo = { module = "com.gmail.nossr50.mcMMO:mcMMO", version.ref="mcmmo" 
 
 ## Sponge Impl dependencies ##
 spongepowered-api = { module = "org.spongepowered:spongeapi", version.ref = "sponge-api" }
+spongepowered-impl = { module = "org.spongepowered:sponge", version.ref = "sponge-impl" }
 
 [bundles]
 jackson = [ "jackson-core", "jackson-annotations", "jackson-databind", "jackson-dataformat-hocon" ]

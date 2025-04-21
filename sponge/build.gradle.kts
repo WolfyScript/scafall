@@ -3,6 +3,7 @@ plugins {
     `maven-publish`
     id("scafall.common")
     alias(libs.plugins.shadow)
+    id("org.spongepowered.gradle.vanilla") version "0.2.1-SNAPSHOT"
 }
 
 repositories {
@@ -18,7 +19,7 @@ dependencies {
     compileOnly(libs.reflections)
     compileOnly(libs.fastutil)
     compileOnly(libs.jetbrains.annotations)
-    compileOnly(libs.spongepowered.api)
+    compileOnly(libs.spongepowered.impl)
 }
 
 tasks {
@@ -34,6 +35,10 @@ tasks {
 
 artifacts {
     archives(tasks.shadowJar)
+}
+
+minecraft {
+    version("1.21.5") // or: latestRelease() or latestSnapshot()
 }
 
 publishing {

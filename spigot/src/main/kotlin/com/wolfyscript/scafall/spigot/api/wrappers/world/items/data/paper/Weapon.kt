@@ -1,6 +1,5 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper
 
-import com.wolfyscript.scafall.common.api.wrappers.world.items.data.BlocksAttacksCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.data.WeaponCommon
 import com.wolfyscript.scafall.spigot.api.data.PaperDataAPIConverter
 import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
@@ -36,7 +35,7 @@ internal val blocksAttacksConverter = PaperDataAPIConverter<BlocksAttacks>(
         if (paperObj == null) {
             return@PaperDataAPIConverter Result.success(null)
         }
-        val blocksAttacks = BlocksAttacksCommon(
+        val blocksAttacks = BlocksAttacks(
             paperObj.blockDelaySeconds(),
             paperObj.disableCooldownScale(),
             damageReductions = mutableListOf(),

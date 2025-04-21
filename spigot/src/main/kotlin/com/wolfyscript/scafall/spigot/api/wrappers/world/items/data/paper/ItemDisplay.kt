@@ -1,6 +1,5 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper
 
-import com.wolfyscript.scafall.common.api.wrappers.world.items.data.TooltipDisplayCommon
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.data.PaperDataAPIConverter
 import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
@@ -96,7 +95,7 @@ internal val tooltipDisplayConverter = PaperDataAPIConverter<TooltipDisplay>(
         val tooltipDisplay = unwrap().getData(DataComponentTypes.TOOLTIP_DISPLAY)
         Result.success(
             if (tooltipDisplay != null) {
-                TooltipDisplayCommon(
+                TooltipDisplay(
                     tooltipDisplay.hideTooltip(),
                     tooltipDisplay.hiddenComponents().map { it.key().toAPI() }.toMutableSet()
                 )

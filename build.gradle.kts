@@ -3,6 +3,7 @@ import org.jfrog.gradle.plugin.artifactory.task.ArtifactoryTask
 plugins {
     id("com.jfrog.artifactory") version "5.+"
     kotlin("jvm")
+    alias(libs.plugins.fabric.loom) apply false
 }
 
 repositories {

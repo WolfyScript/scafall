@@ -5,12 +5,20 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
+    maven {
+        url = uri("https://maven.parchmentmc.org/")
+        content { includeGroup("org.parchmentmc.data") }
+    }
+    maven {
+        url = uri("https://maven.neoforged.net/releases")
+        content { includeGroup("org.parchmentmc.data") }
+    }
     maven(url = "https://artifacts.wolfyscript.com/artifactory/gradle-dev")
     maven(url = "https://libraries.minecraft.net/")
     maven(url = "https://jitpack.io")
     maven(url = "https://repo.maven.apache.org/maven2/")
+    mavenLocal()
 }
 
 kotlin {

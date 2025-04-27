@@ -2,7 +2,7 @@
 
 [versions]
 kotlin-stdlib = "2.0.21"
-jackson = "2.15.4"
+jackson = "2.13.4"
 guava = "31.0.1-jre"
 guice = "7.0.0"
 authlib = "1.5.21"
@@ -21,6 +21,7 @@ shadow = "8.3.0"
 devtools-docker = "a2.0.1.0"
 slf4j-api = "2.0.16"
 #log4j-slf4j = ""
+fabric-loom = "1.10-SNAPSHOT"
 
 ## Spigot Impl dependencies ##
 papermc = "1.21.5-R0.1-SNAPSHOT"
@@ -57,7 +58,7 @@ adventure-api = { module = "net.kyori:adventure-api", version.ref = "adventure-a
 adventure-platform-api = { module = "net.kyori:adventure-platform-api", version.ref = "adventure-platform-api" }
 adventure-text-minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure-minimessage" }
 # Configs (Jackson + HOCON)
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version = "2.13.4.2" }
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
 jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
 jackson-dataformat-hocon = { module = "com.wolfyscript:jackson-dataformat-hocon", version.ref = "dataformat-hocon" }
@@ -93,3 +94,4 @@ devtools-docker-run = { id = "com.wolfyscript.devtools.docker.run", version.ref 
 devtools-docker-minecraft = { id = "com.wolfyscript.devtools.docker.minecraft_servers", version.ref = "devtools-docker"}
 spongepowered-gradle = { id = "org.spongepowered.gradle.plugin", version.ref = "sponge-gradle" }
 spongepowered-repository = { id = "org.spongepowered.gradle.repository", version.ref = "sponge-gradle" }
+fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }

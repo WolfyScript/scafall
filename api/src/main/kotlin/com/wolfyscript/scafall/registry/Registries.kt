@@ -25,6 +25,7 @@ import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Keyed
 import com.wolfyscript.scafall.nbt.NBTTagConfig
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import com.wolfyscript.scafall.wrappers.world.items.data.ItemDataKeyRegistry
 
 /**
@@ -50,8 +51,9 @@ abstract class Registries(val core: Scafall) {
     val operators: TypeRegistry<Operator> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "operators"), this)
     val nbtTagConfigs: TypeRegistry<NBTTagConfig> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "nbt_configs"), this)
 
-    val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "data_component/item/key"), this)
+    val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/data_component_keys"), this)
     abstract val itemDataComponentConverterRegistry: ItemDataComponentConverterRegistry
+    val itemStackConfigOverrides: TypeRegistry<ItemStackConfig.Override> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/config/overrides"), this)
 
     fun indexTypedRegistry(registry: Registry<*>) {
         Preconditions.checkArgument(!REGISTRIES_BY_KEY.containsKey(registry.key), "A registry with the key \"${registry.key}\" already exists!")

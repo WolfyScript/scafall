@@ -25,15 +25,17 @@ import com.wolfyscript.scafall.config.jackson.KeyedTypeResolver
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.identifier.Keyed
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 
 /**
  * A cross-platform ItemStack configuration using the jackson library.
  *
+ * The [stack] is stored as vanilla SNBT in the config and used as the base on which changes are applied.
+ * [Overrides][Override] can be used to manipulate the [stack] upon creating it.
  *
- * @param <I> The native ItemStackType
-</I> */
+ */
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 interface ItemStackConfig {
 
@@ -43,8 +45,14 @@ interface ItemStackConfig {
     @get:JsonProperty("stack")
     val stack: ItemStackSnapshot
 
+    /**
+     * The amount of the created stack. The value may be computed from other sources.
+     */
     var amount: ValueProvider<Int>
 
+    /**
+     * The overrides that are loaded and will be applied to the stack.
+     */
     @get:JsonIgnore
     val overrides: Map<Key, Override>
 
@@ -61,13 +69,25 @@ interface ItemStackConfig {
         tagResolvers: TagResolver = TagResolver.empty(),
     ): ItemStack?
 
+    /**
+     * An override specifies settings that are applied to the [ItemStack] created from an [ItemStackConfig].
+     * Therefore, an override is designed to be serializable and configurable.
+     *
+     * The values applied by an override can also adapt to the given [EvalContext].
+     *
+     * They should not be confused with the vanilla Data Components. Overrides use Data Components internally to apply data to the
+     * ItemStack, but they are not necessarily 1:1 wrappers, as they can be used for more complex custom behavior.
+     */
     @JsonTypeResolver(KeyedTypeResolver::class)
     @JsonTypeIdResolver(KeyedTypeIdResolver::class)
     @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     @JsonPropertyOrder(value = ["type"])
-    interface Override {
+    interface Override : Keyed {
 
+        /**
+         * The type of the override
+         */
         val type: Key
 
         /**

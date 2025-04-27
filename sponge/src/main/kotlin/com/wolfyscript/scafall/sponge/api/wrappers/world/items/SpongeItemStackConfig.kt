@@ -1,21 +1,24 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items
 
+import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackConfigCommon
 import com.wolfyscript.scafall.eval.context.EvalContext
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 
 class SpongeItemStackConfig(
     stack: com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot,
-) : ItemStackConfig(stack) {
+) : ItemStackConfigCommon(stack) {
 
     override fun constructItemStack(
         context: EvalContext,
         miniMessage: MiniMessage?,
         tagResolvers: TagResolver
     ): com.wolfyscript.scafall.wrappers.world.items.ItemStack {
-        val wrappedStack = stack.createStack()
-        return wrappedStack
+        return stack.createStack().apply {
+            overrides.forEach { (key, value) ->
+                value.applyTo(this, context, miniMessage, tagResolvers)
+            }
+        }
     }
 
 }

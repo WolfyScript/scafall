@@ -4,6 +4,7 @@ plugins {
     id("scafall.common")
     id("scafall.spigot")
     alias(libs.plugins.shadow)
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.16"
 }
 
 dependencies {
@@ -11,6 +12,8 @@ dependencies {
     compileOnly(libs.papermc.paper)
     api(libs.tr7zw.item.nbt.api)
     api(libs.adventure.platform.bukkit)
+
+    paperweight.paperDevBundle(libs.versions.papermc.get())
 //    compileOnly(libs.bundles.spigot.external.plugins)
 
 //    compileOnly("com.ssomar.score:SCore:4.24.4.15")
@@ -29,6 +32,8 @@ dependencies {
     api(project(":common"))
 }
 
+paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.REOBF_PRODUCTION
+
 tasks {
     shadowJar {
         archiveFileName = "scafall-spigot.innerjar"
@@ -37,6 +42,10 @@ tasks {
             include(dependency("com.wolfyscript.scafall:.*"))
         }
     }
+    assemble {
+        dependsOn(reobfJar)
+    }
+    reobfJar {}
 }
 
 publishing {

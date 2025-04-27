@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper
 
+import com.wolfyscript.scafall.common.api.wrappers.world.items.data.TooltipDisplayImpl
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.data.PaperDataAPIConverter
 import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
@@ -95,7 +96,7 @@ internal val tooltipDisplayConverter = PaperDataAPIConverter<TooltipDisplay>(
         val tooltipDisplay = unwrap().getData(DataComponentTypes.TOOLTIP_DISPLAY)
         Result.success(
             if (tooltipDisplay != null) {
-                TooltipDisplay(
+                TooltipDisplayImpl(
                     tooltipDisplay.hideTooltip(),
                     tooltipDisplay.hiddenComponents().map { it.key().toAPI() }.toMutableSet()
                 )
@@ -107,7 +108,7 @@ internal val tooltipDisplayConverter = PaperDataAPIConverter<TooltipDisplay>(
         val registry = RegistryAccess.registryAccess().getRegistry(RegistryKey.DATA_COMPONENT_TYPE)
         unwrap().setData(
             DataComponentTypes.TOOLTIP_DISPLAY,
-            io.papermc.paper.datacomponent.item.TooltipDisplay.tooltipDisplay().hideTooltip(it.displayed)
+            io.papermc.paper.datacomponent.item.TooltipDisplay.tooltipDisplay().hideTooltip(it.hideTooltips)
                 .hiddenComponents(it.hiddenComponents.mapNotNull { registry.get(it.into()) }.toSet())
         )
         Result.success(this)

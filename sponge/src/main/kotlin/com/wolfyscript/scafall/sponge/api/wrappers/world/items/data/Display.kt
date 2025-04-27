@@ -4,11 +4,9 @@ import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConve
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.Color
 import com.wolfyscript.scafall.wrappers.world.items.data.CustomModelData
-import com.wolfyscript.scafall.wrappers.world.items.data.HideTooltip
 import com.wolfyscript.scafall.wrappers.world.items.data.ItemLore
 import org.spongepowered.api.ResourceKey
 import org.spongepowered.api.data.Keys
-import kotlin.jvm.optionals.getOrDefault
 import kotlin.jvm.optionals.getOrElse
 import kotlin.jvm.optionals.getOrNull
 
@@ -59,30 +57,3 @@ val itemModelConverter = SpongeItemStackDataComponentConverter({ get(Keys.MODEL)
 }, {
     remove(Keys.MODEL)
 })
-
-val hideTooltipConverter = SpongeItemStackDataComponentConverter(
-    {
-        if (get(Keys.HIDE_TOOLTIP).getOrDefault(false)) {
-            return@SpongeItemStackDataComponentConverter HideTooltip()
-        }
-        return@SpongeItemStackDataComponentConverter null
-    }, {
-        offer(Keys.HIDE_TOOLTIP, true)
-    }, {
-        remove(Keys.HIDE_TOOLTIP)
-    }
-)
-
-// TODO
-val hideAdditionalTooltip = SpongeItemStackDataComponentConverter(
-    {
-        if (get(Keys.HIDE_TOOLTIP).getOrDefault(false)) {
-            return@SpongeItemStackDataComponentConverter HideTooltip()
-        }
-        return@SpongeItemStackDataComponentConverter null
-    }, {
-        offer(Keys.HIDE_TOOLTIP, true)
-    }, {
-        remove(Keys.HIDE_TOOLTIP)
-    }
-)

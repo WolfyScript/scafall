@@ -9,7 +9,6 @@ plugins {
 
 dependencies {
     compileOnly(project(":loader-api"))
-    compileOnly(libs.papermc.paper)
     api(libs.tr7zw.item.nbt.api)
     api(libs.adventure.platform.bukkit)
 

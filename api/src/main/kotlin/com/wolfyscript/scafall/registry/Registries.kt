@@ -44,7 +44,7 @@ import com.wolfyscript.scafall.wrappers.world.items.data.ItemDataKeyRegistry
  */
 abstract class Registries(val core: Scafall) {
 
-    private val REGISTRIES_BY_TYPE: MutableMap<Class<out Keyed>, Registry<*>> = HashMap()
+    private val REGISTRIES_BY_TYPE: MutableMap<Class<*>, Registry<*>> = HashMap()
     private val REGISTRIES_BY_KEY: MutableMap<Key, Registry<*>> = HashMap()
 
     val valueProviders: TypeRegistry<ValueProvider<*>> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "value_providers"), this)

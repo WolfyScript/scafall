@@ -23,6 +23,10 @@ slf4j-api = "2.0.16"
 #log4j-slf4j = ""
 fabric-loom = "1.10-SNAPSHOT"
 
+## Gradle plugins
+artifactory = "5+"
+foojay-resolver = "0.8.0"
+
 ## Spigot Impl dependencies ##
 papermc = "1.21.5-R0.1-SNAPSHOT"
 item-nbt-api = "2.13.1"
@@ -94,4 +98,6 @@ devtools-docker-run = { id = "com.wolfyscript.devtools.docker.run", version.ref 
 devtools-docker-minecraft = { id = "com.wolfyscript.devtools.docker.minecraft_servers", version.ref = "devtools-docker"}
 spongepowered-gradle = { id = "org.spongepowered.gradle.plugin", version.ref = "sponge-gradle" }
 spongepowered-repository = { id = "org.spongepowered.gradle.repository", version.ref = "sponge-gradle" }
+artifactory = { id = "com.jfrog.artifactory", version.ref = "artifactory"}
 fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }
+foojay-resolver = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "foojay-resolver" }

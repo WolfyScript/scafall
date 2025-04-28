@@ -18,6 +18,5 @@
 package com.wolfyscript.scafall.registry
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 
-open class TypeRegistrySimple<V : Keyed>(key: Key, registries: Registries) : AbstractTypeRegistry<MutableMap<Key, Class<out V>>, V>(key, HashMap(), registries)
+open class TypeRegistrySimple<V>(key: Key, registries: Registries) : AbstractTypeRegistry<MutableMap<Key, Class<out V>>, V>(key, HashMap(), registries)

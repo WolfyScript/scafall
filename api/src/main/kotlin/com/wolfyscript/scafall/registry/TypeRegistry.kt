@@ -18,7 +18,6 @@
 package com.wolfyscript.scafall.registry
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 
 /**
  * This registry allows you to register classes under NamespacedKeys. <br></br>
@@ -31,7 +30,7 @@ import com.wolfyscript.scafall.identifier.Keyed
  *
  * @param <V> The type of the values.
 </V> */
-interface TypeRegistry<V : Keyed> : Registry<Class<out V>> {
+interface TypeRegistry<V> : Registry<Class<out V>> {
 
     /**
      * This method creates a new instance of the specific class, if it is available. <br></br>

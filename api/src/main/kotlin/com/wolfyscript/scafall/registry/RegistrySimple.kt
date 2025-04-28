@@ -18,14 +18,13 @@
 package com.wolfyscript.scafall.registry
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 
 /**
  * A simple registry, used for basic use cases.
  *
  * @param <V> The type of the value.
 </V> */
-open class RegistrySimple<V : Keyed> : AbstractRegistry<MutableMap<Key, V>, V> {
+open class RegistrySimple<V> : AbstractRegistry<MutableMap<Key, V>, V> {
 
     constructor(namespacedKey: Key, registries: Registries) : super(
         namespacedKey,

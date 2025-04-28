@@ -23,7 +23,7 @@ import com.wolfyscript.scafall.identifier.Keyed
 import java.util.*
 import java.util.function.Supplier
 
-abstract class AbstractRegistry<M : MutableMap<Key, V>, V : Keyed>(
+abstract class AbstractRegistry<M : MutableMap<Key, V>, V>(
     override val key: Key,
     protected val map: M,
     protected val registries: Registries,
@@ -69,7 +69,9 @@ abstract class AbstractRegistry<M : MutableMap<Key, V>, V : Keyed>(
     }
 
     override fun register(value: V) {
-        register(value.key(), value)
+        if (value is Keyed) {
+            register(value.key(), value)
+        }
     }
 
     override fun iterator(): Iterator<V> {

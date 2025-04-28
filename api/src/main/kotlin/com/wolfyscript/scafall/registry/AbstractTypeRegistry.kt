@@ -19,13 +19,12 @@ package com.wolfyscript.scafall.registry
 
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 import com.wolfyscript.scafall.identifier.StaticNamespacedKey
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 import java.util.function.Supplier
 
-abstract class AbstractTypeRegistry<M : MutableMap<Key, Class<out V>>, V : Keyed>(
+abstract class AbstractTypeRegistry<M : MutableMap<Key, Class<out V>>, V>(
     override val key: Key,
     protected val map: M,
     protected val registries: Registries

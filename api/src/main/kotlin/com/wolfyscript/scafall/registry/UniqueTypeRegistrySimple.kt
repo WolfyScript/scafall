@@ -20,6 +20,5 @@ package com.wolfyscript.scafall.registry
 import com.google.common.collect.BiMap
 import com.google.common.collect.HashBiMap
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 
-open class UniqueTypeRegistrySimple<V : Keyed>(key: Key, registries: Registries) : AbstractTypeRegistry<BiMap<Key, Class<out V>>, V>(key, HashBiMap.create(), registries)
+open class UniqueTypeRegistrySimple<V>(key: Key, registries: Registries) : AbstractTypeRegistry<BiMap<Key, Class<out V>>, V>(key, HashBiMap.create(), registries)

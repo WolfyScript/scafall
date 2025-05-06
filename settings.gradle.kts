@@ -46,16 +46,24 @@ sequenceOf(
 }
 
 // Platforms
+
+// Spigot
 sequenceOf(
     "spigot",
-    "sponge"
+    "spigot:loader",
+    "spigot:spigot-api",
 ).forEach {
-    // platform implementation project
     include(":$it")
-    project(":$it").projectDir = file(it)
-    // platform loader project
-    include(":$it:loader")
-    project(":$it:loader").projectDir = file("$it/loader")
+    project(":$it").projectDir = file(it.replace(":", "/"))
+}
+
+// Sponge
+sequenceOf(
+    "sponge",
+    "sponge:loader"
+).forEach {
+    include(":$it")
+    project(":$it").projectDir = file(it.replace(":", "/"))
 }
 
 // Sample Plugin Modules

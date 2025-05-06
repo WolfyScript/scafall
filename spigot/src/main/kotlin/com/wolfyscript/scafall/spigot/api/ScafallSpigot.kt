@@ -21,6 +21,8 @@ import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManager
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManagerBukkit
 import com.wolfyscript.scafall.spigot.platform.persistent.PersistentStorage
+import com.wolfyscript.scafall.spigot.api.wrappers.utils.SpigotWrapperUtilsImpl
+import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.bukkit.Bukkit
 
 internal class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : AbstractScafallImpl() {
@@ -33,6 +35,7 @@ internal class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : A
     override val factories: CommonFactories = SpigotFactoriesImpl(this)
     override var corePlugin: PluginWrapper = bootstrap.corePlugin
     override lateinit var adventure: SpigotAdventureUtil
+    override val minecraftWrapper: MinecraftWrapper = SpigotWrapperUtilsImpl()
 
     // Spigot only features
     internal lateinit var persistentStorageInternal : PersistentStorage

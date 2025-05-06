@@ -17,6 +17,7 @@ import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConve
 import com.wolfyscript.scafall.sponge.api.factories.SpongeFactories
 import com.wolfyscript.scafall.sponge.api.platform.PlatformManagerImpl
 import com.wolfyscript.scafall.sponge.api.scheduling.SchedulerImpl
+import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.spongepowered.api.Sponge
 import kotlin.io.path.Path
 import kotlin.jvm.optionals.getOrNull
@@ -30,6 +31,8 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : AbstractScafallImpl
     override val platformManager: PlatformManager = PlatformManagerImpl(this)
     override lateinit var factories: Factories
     override val adventure: AdventureUtil = SpongeAdventureUtil(this)
+    override val minecraftWrapper: MinecraftWrapper
+        get() = TODO("Not yet implemented")
     override val corePlugin: PluginWrapper = bootstrap.corePlugin
 
     override fun load() {

@@ -8,6 +8,7 @@ plugins {
 }
 
 dependencies {
+    compileOnly(project(":spigot:spigot-api"))
     compileOnly(project(":loader-api"))
     api(libs.tr7zw.item.nbt.api)
     api(libs.adventure.platform.bukkit)

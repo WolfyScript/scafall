@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     api(project(":api"))
+    api(project(":spigot:spigot-api"))
     implementation(project(":loader-api"))
 
     compileOnly(libs.papermc.paper)
@@ -35,6 +36,7 @@ tasks {
         dependencies {
             include(dependency("com.wolfyscript.scafall:.*"))
             include(project(":api"))
+            include(project(":spigot:spigot-api"))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
 

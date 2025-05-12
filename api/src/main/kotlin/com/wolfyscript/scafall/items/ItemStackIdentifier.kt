@@ -6,6 +6,10 @@ interface ItemStackIdentifier {
 
     val parser: Parser<*>
 
+    fun matches(stack: ItemStack, matchTags: Boolean): Boolean
+
+    fun create(): ItemStack
+
     interface Parser<T : ItemStackIdentifier> {
 
         val priority: Int

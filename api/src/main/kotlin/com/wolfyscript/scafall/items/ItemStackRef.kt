@@ -29,4 +29,8 @@ interface ItemStackRef {
      */
     fun swapParser(parser: ItemStackIdentifier.Parser<*>): ItemStackRef
 
+    fun matches(stack: ItemStack, matchTags: Boolean): Boolean
+
+    fun create(): ItemStack
+
 }

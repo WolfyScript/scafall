@@ -26,34 +26,26 @@ import java.util.function.Supplier
 abstract class AbstractRegistry<M : MutableMap<Key, V>, V>(
     override val key: Key,
     protected val map: M,
-    protected val registries: Registries,
     val type: Class<V>?
 ) : Registry<V> {
 
-    constructor(namespacedKey: Key, map: M, registries: Registries) : this(
+    constructor(namespacedKey: Key, map: M) : this(
         namespacedKey,
         map,
-        registries,
         null
     )
 
-    constructor(namespacedKey: Key, mapSupplier: Supplier<M>, registries: Registries) : this(
+    constructor(namespacedKey: Key, mapSupplier: Supplier<M>) : this(
         namespacedKey,
         mapSupplier.get(),
-        registries,
         null
     )
 
     constructor(
         namespacedKey: Key,
         mapSupplier: Supplier<M>,
-        registries: Registries,
         type: Class<V>
-    ) : this(namespacedKey, mapSupplier.get(), registries, type)
-
-    init {
-        registries.indexTypedRegistry(this)
-    }
+    ) : this(namespacedKey, mapSupplier.get(), type)
 
     private fun isTypeOf(type: Class<*>): Boolean {
         return this.type != null && this.type == type

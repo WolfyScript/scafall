@@ -26,16 +26,14 @@ import com.wolfyscript.scafall.identifier.Key
 </V> */
 open class RegistrySimple<V> : AbstractRegistry<MutableMap<Key, V>, V> {
 
-    constructor(namespacedKey: Key, registries: Registries) : super(
+    constructor(namespacedKey: Key) : super(
         namespacedKey,
-        HashMap<Key, V>(),
-        registries
+        HashMap<Key, V>()
     )
 
-    constructor(namespacedKey: Key, registries: Registries, type: Class<V>) : super(
+    constructor(namespacedKey: Key, type: Class<V>) : super(
         namespacedKey,
         HashMap<Key, V>(),
-        registries,
         type
     )
 }

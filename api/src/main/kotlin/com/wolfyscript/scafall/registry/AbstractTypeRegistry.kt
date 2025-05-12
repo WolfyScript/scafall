@@ -26,18 +26,12 @@ import java.util.function.Supplier
 
 abstract class AbstractTypeRegistry<M : MutableMap<Key, Class<out V>>, V>(
     override val key: Key,
-    protected val map: M,
-    protected val registries: Registries
+    protected val map: M
 ) : TypeRegistry<V> {
 
-    init {
-        registries.indexTypedRegistry(this)
-    }
-
-    constructor(key: Key, mapSupplier: Supplier<M>, registries: Registries) : this(
+    constructor(key: Key, mapSupplier: Supplier<M>) : this(
         key,
         mapSupplier.get(),
-        registries
     )
 
     override fun get(key: Key): Class<out V>? {

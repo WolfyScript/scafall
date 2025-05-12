@@ -47,13 +47,20 @@ abstract class Registries(val core: Scafall) {
     private val REGISTRIES_BY_TYPE: MutableMap<Class<*>, Registry<*>> = HashMap()
     private val REGISTRIES_BY_KEY: MutableMap<Key, Registry<*>> = HashMap()
 
-    val valueProviders: TypeRegistry<ValueProvider<*>> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "value_providers"), this)
-    val operators: TypeRegistry<Operator> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "operators"), this)
-    val nbtTagConfigs: TypeRegistry<NBTTagConfig> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "nbt_configs"), this)
+    val valueProviders: TypeRegistry<ValueProvider<*>> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "value_providers"))
+    val operators: TypeRegistry<Operator> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "operators"))
+    val nbtTagConfigs: TypeRegistry<NBTTagConfig> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "nbt_configs"))
+    val itemStackConfigOverrides: TypeRegistry<ItemStackConfig.Override> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/config/overrides"))
 
-    val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/data_component_keys"), this)
+    val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/data_component_keys"))
     abstract val itemDataComponentConverterRegistry: ItemDataComponentConverterRegistry
-    val itemStackConfigOverrides: TypeRegistry<ItemStackConfig.Override> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/config/overrides"), this)
+
+    init {
+        indexTypedRegistry(valueProviders)
+        indexTypedRegistry(operators)
+        indexTypedRegistry(nbtTagConfigs)
+        indexTypedRegistry(itemStackConfigOverrides)
+    }
 
     fun indexTypedRegistry(registry: Registry<*>) {
         Preconditions.checkArgument(!REGISTRIES_BY_KEY.containsKey(registry.key), "A registry with the key \"${registry.key}\" already exists!")

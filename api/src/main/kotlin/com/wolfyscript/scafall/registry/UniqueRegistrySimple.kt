@@ -27,16 +27,14 @@ import com.wolfyscript.scafall.identifier.Key
  * @param <V> The type of the value.
 </V> */
 open class UniqueRegistrySimple<V> : AbstractRegistry<BiMap<Key, V>, V> {
-    constructor(namespacedKey: Key, registries: Registries) : super(
+    constructor(namespacedKey: Key) : super(
         namespacedKey,
-        HashBiMap.create<Key, V>(),
-        registries
+        HashBiMap.create<Key, V>()
     )
 
-    constructor(namespacedKey: Key, registries: Registries, type: Class<V>) : super(
+    constructor(namespacedKey: Key, type: Class<V>) : super(
         namespacedKey,
         HashBiMap.create<Key, V>(),
-        registries,
         type
     )
 

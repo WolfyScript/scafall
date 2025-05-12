@@ -1,10 +1,12 @@
 package com.wolfyscript.scafall.spigot.platform.registry
 
 import com.google.common.base.Preconditions
+import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
-import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.registry.RegistrySimple
+import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
+import com.wolfyscript.scafall.spigot.api.ScafallSpigot
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.BukkitStackIdentifier
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackIdentifier
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackIdentifierParser
@@ -12,10 +14,9 @@ import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackRefere
 import org.bukkit.inventory.ItemStack
 import java.util.*
 
-class RegistryStackIdentifierParsers(registries: Registries) :
+class RegistryStackIdentifierParsers() :
     RegistrySimple<StackIdentifierParser<*>>(
         defaultKey("stack_identifiers/parsers"),
-        registries,
         StackIdentifierParser::class.java
     ) {
     private var priorityIndexedParsers = listOf<StackIdentifierParser<*>>()
@@ -50,7 +51,7 @@ class RegistryStackIdentifierParsers(registries: Registries) :
      */
     fun parseFrom(stack: ItemStack?): Optional<StackReference> {
         if (stack == null) return Optional.empty()
-        return Optional.of(StackReference(registries.core, stack.amount, 1.0, parseIdentifier(stack), stack))
+        return Optional.of(StackReference(ScafallProvider.get(), stack.amount, 1.0, parseIdentifier(stack), stack))
     }
 
     private fun reIndexParsers() {

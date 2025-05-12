@@ -85,26 +85,26 @@ val Registries.nbtQueries
 
 
 internal fun Registries.registerSpigotPlatform() {
-    stackIdentifierParsersRegistry = RegistryStackIdentifierParsers(this)
-    stackIdentifiersRegistry = UniqueTypeRegistrySimple(Key.defaultKey("stack_identifiers/types"), this)
+    stackIdentifierParsersRegistry = RegistryStackIdentifierParsers()
+    stackIdentifiersRegistry = UniqueTypeRegistrySimple(Key.defaultKey("stack_identifiers/types"))
     customItemsRegistry = RegistryCustomItem(this)
 
-    customBlockDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("persistent/block"), this)
-    customPlayerDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("persistent/player"), this)
+    customBlockDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("persistent/block"))
+    customPlayerDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("persistent/player"))
 
-    particleTimersRegistry = UniqueTypeRegistrySimple(Key.defaultKey("particles/timers"), this)
-    particleShapesRegistry = UniqueTypeRegistrySimple(Key.defaultKey("particles/shapes"), this)
-    particleAnimatorsRegistry = UniqueTypeRegistrySimple(Key.defaultKey("particles/animators"), this)
-
-    //
-    particleAnimationsRegistry = RegistrySimple(Key.defaultKey("particles/animations"), this)
+    particleTimersRegistry = UniqueTypeRegistrySimple(Key.defaultKey("particles/timers"))
+    particleShapesRegistry = UniqueTypeRegistrySimple(Key.defaultKey("particles/shapes"))
+    particleAnimatorsRegistry = UniqueTypeRegistrySimple(Key.defaultKey("particles/animators"))
 
     //
-    customItemDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/data"), this)
-    customItemActionsRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/actions"), this)
-    customItemEventsRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/events"), this)
-    customItemDataChecksRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/data_checks"), this)
+    particleAnimationsRegistry = RegistrySimple(Key.defaultKey("particles/animations"))
+
+    //
+    customItemDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/data"))
+    customItemActionsRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/actions"))
+    customItemEventsRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/events"))
+    customItemDataChecksRegistry = UniqueTypeRegistrySimple(Key.defaultKey("custom_items/data_checks"))
 
     // nbt
-    nbtQueriesRegistry = UniqueTypeRegistrySimple(Key.defaultKey("nbt/query/nodes"), this)
+    nbtQueriesRegistry = UniqueTypeRegistrySimple(Key.defaultKey("nbt/query/nodes"))
 }

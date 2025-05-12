@@ -31,7 +31,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 class RegistryCustomItem internal constructor(registries: Registries) :
-    RegistrySimple<CustomItem>(defaultKey("custom_items"), registries) {
+    RegistrySimple<CustomItem>(defaultKey("custom_items")) {
 
     val namespaces: List<String>
         get() = map.keys.stream().map(Key::namespace).distinct().collect(Collectors.toList())

@@ -4,7 +4,7 @@ plugins {
     id("scafall.common")
     id("scafall.spigot")
     alias(libs.plugins.shadow)
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.16"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.17"
 }
 
 dependencies {

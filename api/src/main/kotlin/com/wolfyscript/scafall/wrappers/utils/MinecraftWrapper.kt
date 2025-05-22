@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.wrappers.utils
 
+import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
@@ -26,3 +27,13 @@ interface MinecraftWrapper {
     fun unwrapToMcStack(wrappedStack: ItemStackLike<*,*>): net.minecraft.world.item.ItemStack
 
 }
+
+/**
+ * Wraps this Minecraft ItemStack into a Scafall ItemStack.
+ */
+fun net.minecraft.world.item.ItemStack.wrap(): ItemStack = ScafallProvider.get().minecraftWrapper.wrapMcStack(this)
+
+/**
+ * Unwraps a Scafall ItemStack into a Minecraft ItemStack.
+ */
+fun ItemStackLike<*, *>.unwrap(): net.minecraft.world.item.ItemStack = ScafallProvider.get().minecraftWrapper.unwrapToMcStack(this)

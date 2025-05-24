@@ -17,59 +17,54 @@
  */
 package com.wolfyscript.scafall.registry
 
-import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.data.ItemDataComponentConverterRegistry
 import com.wolfyscript.scafall.eval.operator.Operator
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 import com.wolfyscript.scafall.nbt.NBTTagConfig
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import com.wolfyscript.scafall.wrappers.world.items.data.ItemDataKeyRegistry
 
 /**
- * Includes all the Registries inside WolfyUtilities.<br></br>
- * <br></br>
- * To use the registries you need to get an instance of this class.<br></br>
- * You should always try to not use the static method, as it can make the code less maintainable.<br></br>
- * If it is possible to access the instance of your WU API, then that should be used instead!<br></br>
- * <br></br>
- *
- * **Get an instance:**
- *
- *  * (**Recommended**) via your API instance [WolfyUtils.getRegistries]
- *  * via the core [WolfyCore.getRegistries]
- *
+ * Includes all the Registries builtin Registries for scafall.
  */
 abstract class Registries(val core: Scafall) {
 
-    private val REGISTRIES_BY_TYPE: MutableMap<Class<*>, Registry<*>> = HashMap()
-    private val REGISTRIES_BY_KEY: MutableMap<Key, Registry<*>> = HashMap()
+    /**
+     * A meta-registry that indexes all available Registries
+     */
+    val registryOfRegistries: Registry<Registry<*>> = UniqueRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "registries/all"))
+    /**
+     * A meta-registry that indexes all the [TypeRegistry]s associated with their contained types.
+     */
+    val registryOfTypes: Registry<Class<*>> = UniqueRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "registries/types"))
 
+    //
+    // Type Registries
+    //
     val valueProviders: TypeRegistry<ValueProvider<*>> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "value_providers"))
     val operators: TypeRegistry<Operator> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "operators"))
     val nbtTagConfigs: TypeRegistry<NBTTagConfig> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "nbt_configs"))
     val itemStackConfigOverrides: TypeRegistry<ItemStackConfig.Override> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/config/overrides"))
 
+    //
+    // Value Registries
+    //
     val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/data_component_keys"))
     abstract val itemDataComponentConverterRegistry: ItemDataComponentConverterRegistry
 
     init {
-        indexTypedRegistry(valueProviders)
-        indexTypedRegistry(operators)
-        indexTypedRegistry(nbtTagConfigs)
-        indexTypedRegistry(itemStackConfigOverrides)
+        indexRegistry(valueProviders)
+        indexRegistry(operators)
+        indexRegistry(nbtTagConfigs)
+        indexRegistry(itemStackConfigOverrides)
     }
 
-    fun indexTypedRegistry(registry: Registry<*>) {
-        Preconditions.checkArgument(!REGISTRIES_BY_KEY.containsKey(registry.key), "A registry with the key \"${registry.key}\" already exists!")
-        REGISTRIES_BY_KEY[registry.key] = registry
-
-        //Index them by type if available
-        if (registry is RegistrySimple<*> && registry.type != null) {
-            Preconditions.checkArgument(!REGISTRIES_BY_TYPE.containsKey(registry.type), "A registry with that type already exists!")
-            REGISTRIES_BY_TYPE[registry.type] = registry
+    inline fun <reified T> indexRegistry(registry: Registry<T>) {
+        registryOfRegistries.register(registry.key, registry)
+        if (registry is TypeRegistry<*>) {
+            registryOfTypes.register(registry.key, T::class.java)
         }
     }
 
@@ -81,12 +76,19 @@ abstract class Registries(val core: Scafall) {
      * @param <V> The type the registry contains.
      * @return The registry of the specific type; or null if not available.
     </V> */
-    fun <V : Keyed> getByType(type: Class<V>): Registry<V>? {
-        return REGISTRIES_BY_TYPE[type] as Registry<V>?
+    fun <V> getByType(type: Class<V>): TypeRegistry<V>? {
+        val registryKey = registryOfTypes.getKey(type) ?: return null
+        return registryOfRegistries[registryKey]?.let {
+            if (it !is TypeRegistry<*>) {
+                null
+            } else {
+                it as TypeRegistry<V>
+            }
+        }
     }
 
     fun getByKey(key: Key): Registry<*>? {
-        return REGISTRIES_BY_KEY[key]
+        return registryOfRegistries[key]
     }
 
     fun <V : Registry<*>> getByKeyOfType(key: Key, registryType: Class<V>): V {

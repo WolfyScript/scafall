@@ -3,6 +3,7 @@ package com.wolfyscript.scafall.wrappers.utils
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 
 /**
  * Wrapping utils that can wrap or unwrap to Minecraft's internal types.
@@ -19,6 +20,8 @@ interface MinecraftWrapper {
      */
     fun wrapMcStack(mcStack: net.minecraft.world.item.ItemStack): ItemStack
 
+    fun wrapMcStackSnapshot(mcStack: net.minecraft.world.item.ItemStack): ItemStackSnapshot
+
     /**
      * Unwraps a Scafall ItemStack into a Minecraft ItemStack.
      *
@@ -33,7 +36,6 @@ interface MinecraftWrapper {
  */
 fun net.minecraft.world.item.ItemStack.wrap(): ItemStack = ScafallProvider.get().minecraftWrapper.wrapMcStack(this)
 
-/**
- * Unwraps a Scafall ItemStack into a Minecraft ItemStack.
- */
+fun net.minecraft.world.item.ItemStack.snapshot(): ItemStackSnapshot = ScafallProvider.get().minecraftWrapper.wrapMcStackSnapshot(this)
+
 fun ItemStackLike<*, *>.unwrap(): net.minecraft.world.item.ItemStack = ScafallProvider.get().minecraftWrapper.unwrapToMcStack(this)

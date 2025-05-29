@@ -12,11 +12,13 @@ import com.wolfyscript.scafall.factories.Factories
 import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
+import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap
 import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverterProvider
 import com.wolfyscript.scafall.sponge.api.factories.SpongeFactories
 import com.wolfyscript.scafall.sponge.api.platform.PlatformManagerImpl
 import com.wolfyscript.scafall.sponge.api.scheduling.SchedulerImpl
+import com.wolfyscript.scafall.sponge.server.ScafallSpongeServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.spongepowered.api.Sponge
 import kotlin.io.path.Path
@@ -34,6 +36,7 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : AbstractScafallImpl
     override val minecraftWrapper: MinecraftWrapper
         get() = TODO("Not yet implemented")
     override val corePlugin: PluginWrapper = bootstrap.corePlugin
+    override val server: ScafallServer = ScafallSpongeServer()
 
     override fun load() {
         factories = SpongeFactories()

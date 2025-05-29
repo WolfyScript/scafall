@@ -12,6 +12,7 @@ import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
+import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
 import com.wolfyscript.scafall.spigot.api.data.PaperItemStackDataComponentConverter
 import com.wolfyscript.scafall.spigot.api.data.SpigotItemStackDataComponentConverterProvider
@@ -22,6 +23,7 @@ import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManage
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManagerBukkit
 import com.wolfyscript.scafall.spigot.platform.persistent.PersistentStorage
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.SpigotWrapperUtilsImpl
+import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.bukkit.Bukkit
 
@@ -34,6 +36,7 @@ internal class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : A
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
     override val factories: CommonFactories = SpigotFactoriesImpl(this)
     override var corePlugin: PluginWrapper = bootstrap.corePlugin
+    override val server: ScafallServer = ScafallSpigotServer()
     override lateinit var adventure: SpigotAdventureUtil
     override val minecraftWrapper: MinecraftWrapper = SpigotWrapperUtilsImpl()
 

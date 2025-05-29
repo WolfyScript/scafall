@@ -2,6 +2,7 @@ package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper
 
 import com.wolfyscript.scafall.spigot.api.data.PaperDataAPIConverter
 import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
+import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrap
 import com.wolfyscript.scafall.spigot.api.wrappers.wrap
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.MapId

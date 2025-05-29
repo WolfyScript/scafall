@@ -1,8 +1,8 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data
 
 import com.wolfyscript.scafall.spigot.api.data.ItemMetaDataKeyConverter
-import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
-import com.wolfyscript.scafall.spigot.api.wrappers.wrap
+import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrap
+import com.wolfyscript.scafall.spigot.api.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.data.ChargedProjectiles
 import org.bukkit.inventory.meta.CrossbowMeta
 

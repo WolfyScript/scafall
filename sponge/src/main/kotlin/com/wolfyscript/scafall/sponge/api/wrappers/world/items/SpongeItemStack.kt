@@ -20,19 +20,19 @@ class SpongeItemStack(ref: org.spongepowered.api.item.inventory.ItemStack) : Spo
     override val amount: Int = ref.quantity()
 
     override fun toNBTString(): String {
-        return DataFormats.SNBT.get().write(ref.toContainer())
+        return DataFormats.SNBT.get().write(ref.get()!!.toContainer())
     }
 
     override fun toNBTBytes(): ByteArray {
         val stream = ByteArrayOutputStream()
         stream.use {
-            DataFormats.NBT.get().writeTo(it, ref.toContainer())
+            DataFormats.NBT.get().writeTo(it, ref.get()!!.toContainer())
         }
         return stream.toByteArray()
     }
 
     override fun snapshot(): ItemStackSnapshot {
-        return ref.asImmutable().wrap()
+        return ref.get()!!.asImmutable().wrap()
     }
 
     override val data: DataComponentMap.Mutable<ItemStack> = componentMap

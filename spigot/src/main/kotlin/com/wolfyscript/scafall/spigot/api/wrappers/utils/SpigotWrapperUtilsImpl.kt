@@ -1,57 +1,79 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
-import com.wolfyscript.scafall.spigot.api.wrappers.world.items.BukkitItemStack
-import com.wolfyscript.scafall.spigot.api.wrappers.world.items.BukkitItemStackSnapshot
+import com.wolfyscript.scafall.common.api.wrappers.utils.CommonWrapperUtilsImpl
+import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackCommon
+import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackLikeCommon
+import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackSnapshotCommon
+import com.wolfyscript.scafall.toAPI
+import com.wolfyscript.scafall.wrappers.utils.snapshot
+import com.wolfyscript.scafall.wrappers.utils.wrap
+import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
+import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
+import com.wolfyscript.scafall.wrappers.world.entity.Player
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
+import org.bukkit.Bukkit
+import org.bukkit.Location
+import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.craftbukkit.inventory.CraftItemStack
+import org.bukkit.craftbukkit.util.CraftLocation
 import org.bukkit.inventory.ItemStack
 
-class SpigotWrapperUtilsImpl : SpigotWrapperUtils {
+class SpigotWrapperUtilsImpl : CommonWrapperUtilsImpl(), SpigotWrapperUtils {
+
+    //
+    // ItemStacks
+    //
 
     override fun wrapItemStack(spigotStack: ItemStack): com.wolfyscript.scafall.wrappers.world.items.ItemStack {
-        return BukkitItemStack(spigotStack)
+        return CraftItemStack.unwrap(spigotStack).wrap()
     }
 
     override fun wrapItemStackSnapshot(spigotStack: ItemStack): ItemStackSnapshot {
-        return BukkitItemStackSnapshot(spigotStack.clone())
+        return CraftItemStack.unwrap(spigotStack).snapshot()
     }
 
     override fun unwrapItemStack(wrappedStack: ItemStackLike<*, *>): ItemStack {
+        if (wrappedStack !is ItemStackLikeCommon<*, *>) {
+            throw IllegalArgumentException("Wrapped stack is not an instance of ${ItemStackLikeCommon::class.simpleName}")
+        }
+
         return when (wrappedStack) {
-            is BukkitItemStack -> {
-                wrappedStack.bukkitRef
+            is ItemStackCommon -> {
+                CraftItemStack.asCraftMirror(wrappedStack.mcStack)
             }
 
-            is BukkitItemStackSnapshot -> {
-                // snapshots are immutable, so clone it to make sure we don't modify the original
-                wrappedStack.bukkitRef.clone()
+            is ItemStackSnapshotCommon -> {
+                CraftItemStack.asBukkitCopy(wrappedStack.mcStack)
             }
-
-            else -> throw Exception("Cannot unwrap ItemStackLike of type ${wrappedStack.javaClass}")
         }
     }
 
-    override fun wrapMcStack(mcStack: net.minecraft.world.item.ItemStack): com.wolfyscript.scafall.wrappers.world.items.ItemStack {
-        return BukkitItemStack(CraftItemStack.asCraftMirror(mcStack))
-    }
+    //
+    // Position
+    //
 
-    override fun wrapMcStackSnapshot(mcStack: net.minecraft.world.item.ItemStack): ItemStackSnapshot {
-        return BukkitItemStackSnapshot(CraftItemStack.asBukkitCopy(mcStack))
-    }
-
-    override fun unwrapToMcStack(wrappedStack: ItemStackLike<*, *>): net.minecraft.world.item.ItemStack {
-        return when (wrappedStack) {
-            is BukkitItemStack -> {
-                CraftItemStack.unwrap(wrappedStack.bukkitRef)
-            }
-
-            is BukkitItemStackSnapshot -> {
-                CraftItemStack.asNMSCopy(wrappedStack.bukkitRef)
-            }
-
-            else -> throw Exception("Cannot unwrap ItemStackLike of type ${wrappedStack.javaClass}")
+    override fun toPreciseGlobal(location: Location): ScafallGlobalPrecisePos? {
+        if (location.world == null) {
+            return null
         }
+        return CraftLocation.toVec3(location).wrap(location.world.key.toAPI())
+    }
+
+    override fun toPrecise(location: Location): ScafallPrecisePos? {
+        return CraftLocation.toVec3(location).wrap()
+    }
+
+    //
+    // Player
+    //
+
+    override fun wrapPlayer(player: org.bukkit.entity.Player): Player {
+        return (player as CraftPlayer).handle.wrap()
+    }
+
+    override fun unwrapToSpigot(player: Player): org.bukkit.entity.Player? {
+        return Bukkit.getPlayer(player.uuid)
     }
 
 }

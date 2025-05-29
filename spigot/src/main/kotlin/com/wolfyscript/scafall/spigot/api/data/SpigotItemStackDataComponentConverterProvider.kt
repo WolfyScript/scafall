@@ -4,7 +4,7 @@ import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.data.*
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
+import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrap
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.*
 import com.wolfyscript.scafall.wrappers.world.items.DyeColor
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack

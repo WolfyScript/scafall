@@ -9,6 +9,7 @@ dependencies {
     api(project(":api"))
     implementation(project(":loader-api"))
     minecraft("com.mojang:minecraft:${project.properties["minecraft_version"]}")
+    modCompileOnly(libs.adventure.platform.shared)
     mappings(loom.officialMojangMappings())
 }
 

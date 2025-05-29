@@ -5,8 +5,6 @@ import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.defaultKey
 import com.wolfyscript.scafall.registry.RegistrySimple
-import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
-import com.wolfyscript.scafall.spigot.api.ScafallSpigot
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.BukkitStackIdentifier
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackIdentifier
 import com.wolfyscript.scafall.spigot.platform.world.items.reference.StackIdentifierParser

@@ -21,17 +21,13 @@ fun ItemStackSnapshot.wrap() : com.wolfyscript.scafall.wrappers.world.items.Item
 }
 
 fun <T: ItemStackLike<*,*>> T.unwrap(): org.spongepowered.api.item.inventory.ItemStackLike {
-    return when (this) {
-        is SpongeItemStack -> { ref }
-        is SpongeItemStackSnapshot -> { ref }
-        else -> throw Exception("Cannot unwrap ItemStackLike of type ${this.javaClass}")
-    }
+    TODO("Not yet implemented")
 }
 
 fun com.wolfyscript.scafall.wrappers.world.items.ItemStack.unwrap(): ItemStack {
-    return (this as SpongeItemStack).ref
+    return (this as SpongeItemStack).ref.get() ?: throw Exception("ItemStack is null")
 }
 
 fun com.wolfyscript.scafall.wrappers.world.entity.Player.unwrap(): Player {
-    return (this as SpongePlayer).ref
+    return (this as SpongePlayer).ref.get() ?: throw Exception("Player is null")
 }

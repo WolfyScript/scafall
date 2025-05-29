@@ -5,8 +5,7 @@ import org.spongepowered.api.entity.living.player.Player
 
 class SpongePlayer(ref: Player) : SpongeEntity<Player>(ref), com.wolfyscript.scafall.wrappers.world.entity.Player {
 
-    override var displayName: Component?
-        get() = ref.displayName().get()
-        set(value) {}
+    override val displayName: Component?
+        get() = ref.get()?.displayName()?.get()
 
 }

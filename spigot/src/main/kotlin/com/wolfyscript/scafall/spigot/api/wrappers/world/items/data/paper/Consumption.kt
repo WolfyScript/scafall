@@ -3,7 +3,7 @@ package com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.paper
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.data.PaperDataAPIConverter
 import com.wolfyscript.scafall.spigot.api.identifiers.api
-import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
+import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrap
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.PotionContentsImpl
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.ItemEffect

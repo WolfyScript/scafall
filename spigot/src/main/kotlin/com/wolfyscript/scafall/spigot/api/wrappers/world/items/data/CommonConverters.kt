@@ -4,10 +4,10 @@ import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.data.ItemMetaDataKeyConverter
 import com.wolfyscript.scafall.spigot.api.identifiers.api
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
-import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
+import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrap
+import com.wolfyscript.scafall.spigot.api.wrappers.utils.wrap
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toBukkit
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.toWrapper
-import com.wolfyscript.scafall.spigot.api.wrappers.wrap
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.data.*
 import org.bukkit.Bukkit

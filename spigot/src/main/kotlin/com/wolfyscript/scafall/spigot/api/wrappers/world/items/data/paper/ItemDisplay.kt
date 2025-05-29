@@ -4,6 +4,7 @@ import com.wolfyscript.scafall.common.api.wrappers.world.items.data.TooltipDispl
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.data.PaperDataAPIConverter
 import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
+import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrap
 import com.wolfyscript.scafall.spigot.api.wrappers.wrap
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.data.CustomModelData

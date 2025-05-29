@@ -11,6 +11,7 @@ netty = "4.1.74.Final"
 fastutil = "8.5.15"
 adventure-api = "4.10.1"
 adventure-platform-api = "4.1.0"
+adventure-platform-mod-shared = "6.4.0"
 adventure-minimessage = "4.10.0"
 commons-lang3 = "3.12.0"
 jetbrains-annotations = "23.0.0"
@@ -61,6 +62,7 @@ slf4j-api = { module = "org.slf4j:slf4j-api", version.ref="slf4j-api" }
 adventure-api = { module = "net.kyori:adventure-api", version.ref = "adventure-api" }
 adventure-platform-api = { module = "net.kyori:adventure-platform-api", version.ref = "adventure-platform-api" }
 adventure-text-minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure-minimessage" }
+adventure-platform-shared = { module = "net.kyori:adventure-platform-mod-shared-fabric-repack", version.ref = "adventure-platform-mod-shared" }
 # Configs (Jackson + HOCON)
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version = "2.13.4.2" }
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }

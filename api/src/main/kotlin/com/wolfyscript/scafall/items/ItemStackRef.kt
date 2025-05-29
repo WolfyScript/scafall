@@ -5,6 +5,8 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 
 interface ItemStackRef {
 
+    val amount: Int
+
     /**
      * The stack this [ItemStackRef] was created from and the [ItemStackIdentifier] parsed. Otherwise, referenced stack; If neither is available, AIR.
      */

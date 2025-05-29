@@ -4,7 +4,7 @@ import com.wolfyscript.scafall.common.api.wrappers.world.attribute.CommonAttribu
 import com.wolfyscript.scafall.spigot.api.data.PaperDataAPIConverter
 import com.wolfyscript.scafall.spigot.api.identifiers.api
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
-import com.wolfyscript.scafall.spigot.api.wrappers.unwrap
+import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrap
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.unwrap
 import com.wolfyscript.scafall.spigot.api.wrappers.world.items.data.wrap
 import com.wolfyscript.scafall.wrappers.world.items.data.AttributeModifiers

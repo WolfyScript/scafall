@@ -7,6 +7,7 @@ import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
+import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.reflections.Reflections
 import org.slf4j.Logger
@@ -33,6 +34,8 @@ interface Scafall {
     val factories: Factories
 
     val corePlugin: PluginWrapper
+
+    val server: ScafallServer
 
     val adventure: AdventureUtil
 

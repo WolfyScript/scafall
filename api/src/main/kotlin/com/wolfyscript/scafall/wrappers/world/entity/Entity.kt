@@ -17,72 +17,17 @@
  */
 package com.wolfyscript.scafall.wrappers.world.entity
 
-import com.wolfyscript.scafall.wrappers.world.Location
+import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
+import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
 import com.wolfyscript.scafall.wrappers.world.Vector3D
 import com.wolfyscript.scafall.wrappers.world.World
 import org.jetbrains.annotations.Contract
 import java.util.*
 
 interface Entity {
-    fun uuid(): UUID
 
-    val location: Location
+    val uuid: UUID
 
-    @Contract("null -> null; !null -> !null")
-    fun getLocation(loc: Location): Location?
+    val pos: ScafallPrecisePos
 
-    /**
-     * This entity's current velocity in meters per tick
-     */
-    var velocity: Vector3D
-
-    /**
-     * Gets the entity's height
-     *
-     * @return height of entity
-     */
-    val height: Double
-
-    /**
-     * Gets the entity's width
-     *
-     * @return width of entity
-     */
-    val width: Double
-
-    /**
-     * Returns true if the entity is supported by a block. This value is a
-     * state updated by the server and is not recalculated unless the entity
-     * moves.
-     *
-     * @return True if entity is on ground.
-     * @see Player.isOnGround
-     */
-    val isOnGround: Boolean
-
-    /**
-     * Returns true if the entity is in water.
-     *
-     * @return `true` if the entity is in water.
-     */
-    val isInWater: Boolean
-
-    /**
-     * Gets the current world this entity resides in
-     *
-     * @return World
-     */
-    val world: World
-
-    /**
-     * Sets the entity's rotation.
-     *
-     *
-     * Note that if the entity is affected by AI, it may override this rotation.
-     *
-     * @param yaw the yaw
-     * @param pitch the pitch
-     * @throws UnsupportedOperationException if used for players
-     */
-    fun setRotation(yaw: Float, pitch: Float)
 }

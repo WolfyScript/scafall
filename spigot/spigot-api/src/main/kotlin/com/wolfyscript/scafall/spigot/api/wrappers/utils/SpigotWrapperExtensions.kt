@@ -19,6 +19,10 @@ val Scafall.spigotWrapper: SpigotWrapperUtils
 
 private val wrapper = ScafallProvider.get().spigotWrapper
 
+fun Key.toSpigot() : org.bukkit.NamespacedKey {
+    return org.bukkit.NamespacedKey(namespace, value)
+}
+
 fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStack = wrapper.wrapItemStack(this)
 
 fun ItemStack.snapshot() : ItemStackSnapshot = wrapper.wrapItemStackSnapshot(this)

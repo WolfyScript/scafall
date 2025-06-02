@@ -1,6 +1,8 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
+import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
+import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
@@ -25,7 +27,11 @@ interface SpigotWrapperUtils : MinecraftWrapper {
 
     fun toPreciseGlobal(location: Location): ScafallGlobalPrecisePos?
 
-    fun toPrecise(location: Location): com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos?
+    fun toPrecise(location: Location): com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
+
+    fun toBlockPos(location: Location): ScafallBlockPos
+
+    fun toBlockPosGlobal(location: Location): ScafallGlobalBlockPos?
 
     //
     // Player

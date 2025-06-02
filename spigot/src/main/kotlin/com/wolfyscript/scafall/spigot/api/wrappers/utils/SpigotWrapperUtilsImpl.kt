@@ -7,6 +7,8 @@ import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackSnapshot
 import com.wolfyscript.scafall.toAPI
 import com.wolfyscript.scafall.wrappers.utils.snapshot
 import com.wolfyscript.scafall.wrappers.utils.wrap
+import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
+import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
 import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
 import com.wolfyscript.scafall.wrappers.world.entity.Player
@@ -60,8 +62,19 @@ class SpigotWrapperUtilsImpl : CommonWrapperUtilsImpl(), SpigotWrapperUtils {
         return CraftLocation.toVec3(location).wrap(location.world.key.toAPI())
     }
 
-    override fun toPrecise(location: Location): ScafallPrecisePos? {
+    override fun toPrecise(location: Location): ScafallPrecisePos {
         return CraftLocation.toVec3(location).wrap()
+    }
+
+    override fun toBlockPos(location: Location): ScafallBlockPos {
+        return CraftLocation.toBlockPosition(location).wrap()
+    }
+
+    override fun toBlockPosGlobal(location: Location): ScafallGlobalBlockPos? {
+        if (location.world == null) {
+            return null
+        }
+        return CraftLocation.toBlockPosition(location).wrap(location.world.key.toAPI())
     }
 
     //

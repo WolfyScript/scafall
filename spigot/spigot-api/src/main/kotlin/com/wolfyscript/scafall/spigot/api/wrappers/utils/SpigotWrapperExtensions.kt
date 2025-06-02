@@ -2,8 +2,9 @@ package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.toAPI
-import com.wolfyscript.scafall.wrappers.utils.wrap
+import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
+import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
@@ -28,8 +29,22 @@ fun Player.wrap(): com.wolfyscript.scafall.wrappers.world.entity.Player = wrappe
 
 fun com.wolfyscript.scafall.wrappers.world.entity.Player.unwrap(): Player? = wrapper.unwrapToSpigot(this)
 
+/**
+ * Unwraps the Bukkit [Location] to a [ScafallGlobalPrecisePos] (Vec3 linked to a Level)
+ *
+ * @return The global precise position; or null when [Location.world] is not available
+ */
 fun Location.toPreciseGlobal(): ScafallGlobalPrecisePos? = wrapper.toPreciseGlobal(this)
 
-fun Location.toPrecise(): com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos? = wrapper.toPrecise(this)
+fun Location.toPrecise(): com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos = wrapper.toPrecise(this)
+
+fun Location.toBlockPos(): ScafallBlockPos = wrapper.toBlockPos(this)
+
+/**
+ * Unwraps the Bukkit [Location] to a [ScafallGlobalBlockPos] (BlockPos linked to a Level)
+ *
+ * @return The global block position; or null when [Location.world] is not available
+ */
+fun Location.toBlockPosGlobal(): ScafallGlobalBlockPos? = wrapper.toBlockPosGlobal(this)
 
 

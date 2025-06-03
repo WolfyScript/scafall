@@ -1,15 +1,17 @@
 package com.wolfyscript.scafall.sponge.api.wrappers
 
 import com.wolfyscript.scafall.sponge.api.wrappers.world.entity.SpongePlayer
-import com.wolfyscript.scafall.sponge.api.wrappers.world.items.SpongeItemStack
-import com.wolfyscript.scafall.sponge.api.wrappers.world.items.SpongeItemStackSnapshot
+import com.wolfyscript.scafall.wrappers.utils.snapshot
+import com.wolfyscript.scafall.wrappers.utils.unwrap
+import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import org.spongepowered.api.entity.living.player.Player
 import org.spongepowered.api.item.inventory.ItemStack
 import org.spongepowered.api.item.inventory.ItemStackSnapshot
+import org.spongepowered.common.item.util.ItemStackUtil
 
 fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStack {
-    return SpongeItemStack(this)
+    return ItemStackUtil.toNative(this).wrap() // Sponge uses mixins, so the MC ItemStack implements ItemStack interface
 }
 
 fun Player.wrap(): SpongePlayer {
@@ -17,7 +19,7 @@ fun Player.wrap(): SpongePlayer {
 }
 
 fun ItemStackSnapshot.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot {
-    return SpongeItemStackSnapshot(this)
+    return ItemStackUtil.fromSnapshotToNative(this).snapshot()
 }
 
 fun <T: ItemStackLike<*,*>> T.unwrap(): org.spongepowered.api.item.inventory.ItemStackLike {
@@ -25,7 +27,7 @@ fun <T: ItemStackLike<*,*>> T.unwrap(): org.spongepowered.api.item.inventory.Ite
 }
 
 fun com.wolfyscript.scafall.wrappers.world.items.ItemStack.unwrap(): ItemStack {
-    return (this as SpongeItemStack).ref.get() ?: throw Exception("ItemStack is null")
+    return ItemStackUtil.fromNative(this.unwrap())
 }
 
 fun com.wolfyscript.scafall.wrappers.world.entity.Player.unwrap(): Player {

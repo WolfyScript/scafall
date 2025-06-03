@@ -24,6 +24,8 @@ interface ItemStackLike<H: ItemStackLike<H, M>, M: DataComponentMap<H>> : DataHo
      */
     val amount: Int
 
+    val isEmpty: Boolean
+
     /**
      * Returns the vanilla NBT mojangJson representation of this ItemStackLike.
      * This is multiplatform compatible and can easily be parsed/updated using Minecraft DataFixer.

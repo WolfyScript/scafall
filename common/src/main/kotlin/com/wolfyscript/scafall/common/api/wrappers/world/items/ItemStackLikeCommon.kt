@@ -20,6 +20,9 @@ sealed class ItemStackLikeCommon<H: ItemStackLike<H, M>, M: DataComponentMap<H>>
     override val amount: Int
         get() = mcStack.count
 
+    override val isEmpty: Boolean
+        get() = mcStack.isEmpty
+
     override fun toNBTString(): String {
         val registryAccess = ScafallProvider.get().server.minecraftServer.registryAccess()
         return mcStack.save(registryAccess).toString()

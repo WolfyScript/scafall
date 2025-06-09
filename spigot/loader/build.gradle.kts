@@ -26,7 +26,7 @@ tasks {
     }
 
     shadowJar {
-        dependsOn(project(":spigot").tasks.shadowJar.get())
+        dependsOn(project(":spigot").tasks.getByName<Copy>("createInnerJar"))
         mustRunAfter("jar")
 
         archiveBaseName = "scafall-spigot"
@@ -34,14 +34,14 @@ tasks {
         archiveAppendix = ""
 
         dependencies {
-            include(dependency("com.wolfyscript.scafall:.*"))
             include(project(":api"))
+            include(project(":loader-api"))
             include(project(":spigot:spigot-api"))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
 
         // Include the inner jar files of the internal implementation
-        from(project(":spigot").tasks.shadowJar.get().archiveFile)
+        from(project(":spigot").tasks.getByName("createInnerJar"))
     }
 
     withType<JavaCompile> {
@@ -65,7 +65,7 @@ minecraftServers {
     servers {
         // Scaffolding will only support 1.21+
         register("spigot_1_21") {
-            destFileName.set("scafall-loader.jar")
+            destFileName.set("scafall.jar")
             version.set("1.21.4")
             type.set("SPIGOT")
             imageVersion.set("java21")
@@ -73,7 +73,7 @@ minecraftServers {
         }
         // Paper test servers
         register("paper_1_21") {
-            destFileName.set("scafall-loader.jar")
+            destFileName.set("scafall.jar")
             version.set("1.21.4")
             type.set("PAPER")
             imageVersion.set("java21")

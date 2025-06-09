@@ -36,7 +36,7 @@ paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArt
 
 tasks {
     shadowJar {
-        archiveFileName = "scafall-spigot.innerjar"
+        archiveFileName = "scafall-spigot-dev.jar"
 
         dependencies {
             include(dependency("com.wolfyscript.scafall:.*"))
@@ -45,7 +45,16 @@ tasks {
     assemble {
         dependsOn(reobfJar)
     }
-    reobfJar {}
+    reobfJar {
+        outputJar.set(layout.buildDirectory.file("libs/scafall-spigot-reobf.jar"))
+    }
+    register<Copy>("createInnerJar") {
+        mustRunAfter(reobfJar)
+        dependsOn(reobfJar)
+        from(reobfJar)
+        into(layout.buildDirectory.file("inner"))
+        rename { "scafall-spigot.innerjar" }
+    }
 }
 
 publishing {

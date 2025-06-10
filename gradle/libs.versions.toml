@@ -1,8 +1,8 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
-kotlin-stdlib = "2.0.21"
-jackson = "2.13.4"
+kotlin = "2.1.21"
+jackson = "2.19.0"
 guava = "31.0.1-jre"
 guice = "7.0.0"
 authlib = "1.5.21"
@@ -46,7 +46,8 @@ sponge-impl = "1.21.5-15.0.0-SNAPSHOT"
 
 [libraries]
 # Kotlin & Jetbrains dependencies
-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin-stdlib" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
 # Misc (Utils, Datastructurs, etc.)
 guice = { module = "com.google.inject:guice", version.ref = "guice" }

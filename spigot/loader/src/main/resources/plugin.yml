@@ -7,7 +7,7 @@ load: STARTUP
 
 libraries:
   - "org.apache.commons:commons-lang3:3.12.0"
-  - "${libs.kotlin.stdlib.get()}"
+  - "${libs.kotlin.reflect.get()}"
   - "${libs.kotlin.stdlib.get()}" # There are other ways to include kotlin on the server (like a separate plugin), but here we just include it.
   - "${libs.jetbrains.annotations.get()}"
   - "${libs.commons.lang3.get()}"

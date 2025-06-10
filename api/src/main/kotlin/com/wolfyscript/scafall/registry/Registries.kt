@@ -18,6 +18,7 @@
 package com.wolfyscript.scafall.registry
 
 import com.wolfyscript.scafall.Scafall
+import com.wolfyscript.scafall.data.ItemDataComponentConverter
 import com.wolfyscript.scafall.data.ItemDataComponentConverterRegistry
 import com.wolfyscript.scafall.eval.operator.Operator
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
@@ -38,7 +39,7 @@ abstract class Registries(val core: Scafall) {
     /**
      * A meta-registry that indexes all the [TypeRegistry]s associated with their contained types.
      */
-    val registryOfTypes: Registry<Class<*>> = UniqueRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "registries/types"))
+    val registryOfTypes: Registry<Class<*>> = RegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "registries/types"))
 
     //
     // Type Registries
@@ -52,7 +53,7 @@ abstract class Registries(val core: Scafall) {
     // Value Registries
     //
     val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/data_component_keys"))
-    abstract val itemDataComponentConverterRegistry: ItemDataComponentConverterRegistry
+    val itemDataComponentConverterRegistry: Registry<ItemDataComponentConverter<*>> = RegistrySimple(Key.defaultKey("data_component/item/converter"))
 
     init {
         indexRegistry(valueProviders)

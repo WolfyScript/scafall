@@ -6,6 +6,4 @@ import com.wolfyscript.scafall.registry.Registries
 
 class CommonRegistries(scafall: Scafall) : Registries(scafall) {
 
-    override val itemDataComponentConverterRegistry: ItemDataComponentConverterRegistry = ItemDataComponentConverterRegistryImpl()
-
 }

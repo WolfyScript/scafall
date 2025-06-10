@@ -27,7 +27,7 @@ tasks {
 
     shadowJar {
         dependsOn(project(":spigot").tasks.getByName<Copy>("createInnerJar"))
-        mustRunAfter("jar")
+        mustRunAfter(jar)
 
         archiveBaseName = "scafall-spigot"
         archiveClassifier = ""

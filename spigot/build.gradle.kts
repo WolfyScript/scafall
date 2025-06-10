@@ -39,7 +39,7 @@ tasks {
         archiveFileName = "scafall-spigot-dev.jar"
 
         dependencies {
-            include(dependency("com.wolfyscript.scafall:.*"))
+            include(project(":common"))
         }
     }
     assemble {

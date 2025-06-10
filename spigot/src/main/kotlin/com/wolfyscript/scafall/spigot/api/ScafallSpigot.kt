@@ -9,12 +9,10 @@ import com.wolfyscript.scafall.common.api.factories.CommonFactories
 import com.wolfyscript.scafall.common.api.registries.CommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
-import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
-import com.wolfyscript.scafall.spigot.api.data.PaperItemStackDataComponentConverter
 import com.wolfyscript.scafall.spigot.api.data.SpigotItemStackDataComponentConverterProvider
 import com.wolfyscript.scafall.spigot.api.factories.SpigotFactoriesImpl
 import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
@@ -63,11 +61,7 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : AbstractSc
 
         adventure = SpigotAdventureUtil(this)
 
-        if (platformManager.platformType == PlatformType.SPIGOT) {
-            SpigotItemStackDataComponentConverterProvider(this).register()
-        } else {
-            PaperItemStackDataComponentConverter(this).register()
-        }
+        SpigotItemStackDataComponentConverterProvider(this).register()
 
         platformManager.implementationModules.forEach {
             it.value.onLoad()

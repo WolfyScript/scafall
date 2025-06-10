@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.loader
 
+import com.wolfyscript.scafall.loader.module.Module
 import java.io.IOException
 import java.net.MalformedURLException
 import java.net.URL
@@ -8,30 +9,42 @@ import java.nio.file.Path
 import java.nio.file.StandardCopyOption
 
 object ScafallLoader {
-    private var implementationLoader: InnerJarClassloader? = null
-    private var scafallBootstrap: ScafallBootstrap? = null
 
-    @JvmStatic
-    fun loadScafallBootstrap(pathToInnerJar: String): ScafallBootstrap {
-        implementationLoader = InnerJarClassloader.create(ScafallLoader::class.java.classLoader, pathToInnerJar)
-        scafallBootstrap = loadBootstrap(implementationLoader!!)
-        return scafallBootstrap!!
+    /**
+     * Can be used to load any arbitrary inner-jar module hosted by [innerJarHost] using the specified [loader].
+     * It is very likely that [innerJarHost] and [loader] are the same, for example when loading your plugin implementation,
+     * from an inner jar.
+     */
+    fun <T> loadModule(
+        moduleType: Class<Module<T>>,
+        loader: ClassLoader,
+        innerJarHost: ClassLoader,
+        pathToInnerJar: String,
+        pathToModule: String,
+    ): Module<T> {
+        return loadObject(moduleType, loader, innerJarHost, pathToInnerJar, pathToModule)
     }
 
-    fun loadBootstrap(loader: InnerJarClassloader): ScafallBootstrap {
-        val moduleBootstrapImpl: Class<out ScafallBootstrap>
-        try {
-            moduleBootstrapImpl = loader.loadClass("com.wolfyscript.scafall.InternalBootstrap")
-                .asSubclass<ScafallBootstrap>(ScafallBootstrap::class.java)
+    fun <T> loadObject(
+        moduleType: Class<T>,
+        loader: ClassLoader,
+        innerJarHost: ClassLoader,
+        pathToInnerJar: String,
+        pathToModule: String,
+    ): T {
+        val moduleClassLoader = InnerJarClassloader.create(loader, innerJarHost, pathToInnerJar)
+        val moduleClass = try {
+            moduleClassLoader.loadClass(pathToModule).asSubclass(moduleType)
         } catch (e: ReflectiveOperationException) {
-            throw RuntimeException("Could not load module bootstrap", e)
+            throw RuntimeException("Could not load module", e)
         }
 
-        try {
-            return moduleBootstrapImpl.getConstructor(InnerJarClassloader::class.java).newInstance(loader)
+        val module = try {
+            moduleClass.getConstructor(InnerJarClassloader::class.java).newInstance(moduleClassLoader)
         } catch (e: ReflectiveOperationException) {
-            throw RuntimeException(e)
+            throw RuntimeException("Could not load module", e)
         }
+        return module
     }
 
     /**

@@ -1,52 +1,56 @@
-package com.wolfyscript.scafall.sponge.loader;
+package com.wolfyscript.scafall.sponge.loader
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.wolfyscript.scafall.loader.PluginBootstrap;
-import com.wolfyscript.scafall.loader.ScafallBootstrap;
-import com.wolfyscript.scafall.loader.ScafallLoader;
-import org.spongepowered.api.Server;
-import org.spongepowered.api.command.Command;
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.lifecycle.ConstructPluginEvent;
-import org.spongepowered.api.event.lifecycle.RegisterCommandEvent;
-import org.spongepowered.api.event.lifecycle.StartingEngineEvent;
-import org.spongepowered.api.event.lifecycle.StoppingEngineEvent;
-import org.spongepowered.plugin.PluginContainer;
-import org.spongepowered.plugin.builtin.jvm.Plugin;
+import com.google.inject.Inject
+import com.google.inject.Injector
+import com.wolfyscript.scafall.Scafall
+import com.wolfyscript.scafall.ScafallBootstrap
+import com.wolfyscript.scafall.loader.ScafallLoader.loadObject
+import com.wolfyscript.scafall.loader.module.Module
+import org.spongepowered.api.Server
+import org.spongepowered.api.command.Command
+import org.spongepowered.api.event.Listener
+import org.spongepowered.api.event.lifecycle.ConstructPluginEvent
+import org.spongepowered.api.event.lifecycle.RegisterCommandEvent
+import org.spongepowered.api.event.lifecycle.StartingEngineEvent
+import org.spongepowered.api.event.lifecycle.StoppingEngineEvent
+import org.spongepowered.plugin.PluginContainer
+import org.spongepowered.plugin.builtin.jvm.Plugin
 
 @Plugin("scafall")
-public class SpongeLoaderPlugin {
+class SpongeLoaderPlugin @Inject constructor(private val injector: Injector?, container: PluginContainer) {
+    private val module: Module<Scafall>
 
-    private Injector injector;
-    private PluginBootstrap plugin;
-
-    @Inject
-    public SpongeLoaderPlugin(Injector injector, PluginContainer container) {
-        this.injector = injector;
-        ScafallBootstrap bootstrap = ScafallLoader.loadScafallBootstrap("scafall-sponge.innerjar");
-        plugin = bootstrap.initScaffoldingPlatform("com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap", PluginContainer.class, container);
+    init {
+        val bootstrap = loadObject(
+            ScafallBootstrap::class.java,
+            this::class.java.classLoader,
+            this::class.java.classLoader,
+            "scafall-sponge.innerjar",
+            "com.wolfyscript.scafall.InternalBootstrap"
+        )
+        module = bootstrap.loadModuleFromInnerJar(
+            "com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap",
+            PluginContainer::class.java,
+            container
+        )
     }
 
     @Listener
-    void onConstructPlugin(ConstructPluginEvent event) {
-        plugin.onLoad();
-        plugin.onEnable();
+    fun onConstructPlugin(event: ConstructPluginEvent?) {
+        module.onLoad()
+        module.onEnable()
     }
 
     @Listener
-    void onServerStarting(StartingEngineEvent<Server> event) {
-
+    fun onServerStarting(event: StartingEngineEvent<Server?>?) {
     }
 
     @Listener
-    void onServerStopping(StoppingEngineEvent<Server> event) {
-        this.plugin.onUnload();
+    fun onServerStopping(event: StoppingEngineEvent<Server?>?) {
+        this.module.onUnload()
     }
 
     @Listener
-    void onRegisterCommands(RegisterCommandEvent<Command.Parameterized> event) {
-
+    fun onRegisterCommands(event: RegisterCommandEvent<Command.Parameterized?>?) {
     }
-
 }

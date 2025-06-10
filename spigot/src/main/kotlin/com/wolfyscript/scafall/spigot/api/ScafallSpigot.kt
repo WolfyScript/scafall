@@ -27,7 +27,7 @@ import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.bukkit.Bukkit
 
-internal class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : AbstractScafallImpl() {
+class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : AbstractScafallImpl() {
 
     override lateinit var registries: Registries
     override lateinit var scheduler: Scheduler

@@ -1,30 +1,38 @@
-package com.wolfyscript.scafall.spigot.loader;
+package com.wolfyscript.scafall.spigot.loader
 
-import com.wolfyscript.scafall.loader.PluginBootstrap;
-import com.wolfyscript.scafall.loader.ScafallLoader;
-import org.bukkit.plugin.java.JavaPlugin;
+import com.wolfyscript.scafall.Scafall
+import com.wolfyscript.scafall.ScafallBootstrap
+import com.wolfyscript.scafall.loader.ScafallLoader.loadObject
+import com.wolfyscript.scafall.loader.module.Module
+import org.bukkit.plugin.java.JavaPlugin
 
-public class SpigotLoaderPlugin extends JavaPlugin {
+class SpigotLoaderPlugin : JavaPlugin() {
+    private val module: Module<Scafall>
 
-    private final PluginBootstrap plugin;
-
-    public SpigotLoaderPlugin() {
-        var bootstrap = ScafallLoader.loadScafallBootstrap("scafall-spigot.innerjar");
-        plugin = bootstrap.initScaffoldingPlatform("com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap", JavaPlugin.class, this);
+    init {
+        val bootstrap = loadObject(
+            ScafallBootstrap::class.java,
+            classLoader,
+            classLoader,
+            "scafall-spigot.innerjar",
+            "com.wolfyscript.scafall.InternalBootstrap"
+        )
+        module = bootstrap.loadModuleFromInnerJar(
+            "com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap",
+            JavaPlugin::class.java,
+            this
+        )
     }
 
-    @Override
-    public void onLoad() {
-        plugin.onLoad();
+    override fun onLoad() {
+        module.onLoad()
     }
 
-    @Override
-    public void onEnable() {
-        plugin.onEnable();
+    override fun onEnable() {
+        module.onEnable()
     }
 
-    @Override
-    public void onDisable() {
-        plugin.onUnload();
+    override fun onDisable() {
+        module.onUnload()
     }
 }

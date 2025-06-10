@@ -10,8 +10,6 @@ abstract class AbstractScafallImpl : Scafall {
 
     override val reflections: Reflections = Reflections(
         ConfigurationBuilder()
-            .forPackage("")
-            .addUrls(ClasspathHelper.forClassLoader())
             .forPackage("com.wolfyscript", javaClass.classLoader)
             .addClassLoaders(javaClass.classLoader)
             .addScanners(*Scanners.entries.toTypedArray())

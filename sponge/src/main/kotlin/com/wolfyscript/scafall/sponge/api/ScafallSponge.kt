@@ -39,7 +39,7 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : AbstractScafallImpl
     override val server: ScafallServer = ScafallSpongeServer()
 
     override fun load() {
-        factories = SpongeFactories()
+        factories = SpongeFactories(this)
         scheduler = SchedulerImpl()
         registries = CommonRegistries(this)
 

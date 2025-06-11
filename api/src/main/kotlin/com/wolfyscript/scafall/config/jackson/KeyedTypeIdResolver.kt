@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.JavaType
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase
 import com.fasterxml.jackson.databind.type.TypeFactory
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.key
 import com.wolfyscript.scafall.identifier.Keyed
 import com.wolfyscript.scafall.registry.Registry
 import com.wolfyscript.scafall.registry.TypeRegistry
@@ -51,7 +50,12 @@ class KeyedTypeIdResolver : TypeIdResolverBase() {
     }
 
     override fun typeFromId(context: DatabindContext, id: String): JavaType {
-        val clazz = getTypeClass(key(Key.SCAFFOLDING_NAMESPACE, id))
+        val namespacedKey = if (id.contains(':')) {
+            Key.parse(id)
+        } else {
+            Key.key(Key.SCAFFOLDING_NAMESPACE, id)
+        }
+        val clazz = getTypeClass(namespacedKey)
         return if (clazz != null) context.constructSpecializedType(superType, clazz) else TypeFactory.unknownType()
     }
 
@@ -66,7 +70,7 @@ class KeyedTypeIdResolver : TypeIdResolverBase() {
             //Get the registry of the required base type
             val registry = TYPE_REGISTRIES[rawClass]
             if (registry != null) {
-                val obj = registry.get(key)
+                val obj = registry[key]
                 if (obj is Class<*>) {
                     return obj
                 } else if (obj is Keyed) {
@@ -92,7 +96,7 @@ class KeyedTypeIdResolver : TypeIdResolverBase() {
          * @param registry The registry of the specified type.
          * @param <T> The type of the object.
         </T> */
-        fun <T : Keyed> registerTypeRegistry(type: Class<T>, registry: Registry<T>) {
+        fun <T> registerTypeRegistry(type: Class<T>, registry: Registry<T>) {
             TYPE_REGISTRIES.putIfAbsent(type, registry)
         }
 
@@ -104,7 +108,7 @@ class KeyedTypeIdResolver : TypeIdResolverBase() {
          * @param registry The registry of the specified type.
          * @param <T> The type of the object.
         </T> */
-        fun <T : Keyed> registerTypeRegistry(type: Class<T>, registry: TypeRegistry<T>) {
+        fun <T> registerTypeRegistry(type: Class<T>, registry: TypeRegistry<T>) {
             TYPE_REGISTRIES.putIfAbsent(type, registry)
         }
     }

@@ -23,6 +23,7 @@ import com.wolfyscript.scafall.data.ItemDataComponentConverterRegistry
 import com.wolfyscript.scafall.eval.operator.Operator
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.items.ItemStackIdentifier
 import com.wolfyscript.scafall.nbt.NBTTagConfig
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import com.wolfyscript.scafall.wrappers.world.items.data.ItemDataKeyRegistry
@@ -48,12 +49,14 @@ abstract class Registries(val core: Scafall) {
     val operators: TypeRegistry<Operator> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "operators"))
     val nbtTagConfigs: TypeRegistry<NBTTagConfig> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "nbt_configs"))
     val itemStackConfigOverrides: TypeRegistry<ItemStackConfig.Override> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/config/overrides"))
+    val itemStackIdentifiers: TypeRegistry<ItemStackIdentifier> = UniqueTypeRegistrySimple(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/identifiers/type"))
 
     //
     // Value Registries
     //
     val itemDataKeyRegistry: ItemDataKeyRegistry = ItemDataKeyRegistry(Key.key(Key.SCAFFOLDING_NAMESPACE, "items/data_component_keys"))
     val itemDataComponentConverterRegistry: Registry<ItemDataComponentConverter<*>> = RegistrySimple(Key.defaultKey("data_component/item/converter"))
+    val itemStackIdentifierParsers: Registry<ItemStackIdentifier.Parser<*>> = RegistrySimple(Key.defaultKey("items/identifiers/parser"))
 
     init {
         indexRegistry(valueProviders)

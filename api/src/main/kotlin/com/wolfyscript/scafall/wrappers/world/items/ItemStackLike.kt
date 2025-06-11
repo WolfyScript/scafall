@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.wrappers.world.items
 
+import com.fasterxml.jackson.annotation.JsonValue
 import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.data.DataHolder
 import com.wolfyscript.scafall.identifier.Key
@@ -30,6 +31,7 @@ interface ItemStackLike<H: ItemStackLike<H, M>, M: DataComponentMap<H>> : DataHo
      * Returns the vanilla NBT mojangJson representation of this ItemStackLike.
      * This is multiplatform compatible and can easily be parsed/updated using Minecraft DataFixer.
      */
+    @JsonValue
     fun toNBTString() : String
 
     /**

@@ -35,7 +35,7 @@ abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
     //
 
     override fun wrapMcStack(mcStack: net.minecraft.world.item.ItemStack): com.wolfyscript.scafall.wrappers.world.items.ItemStack {
-        return ItemStackCommon(mcStack)
+        return ItemStackCommon.fromVanilla(mcStack)
     }
 
     override fun wrapMcStackSnapshot(mcStack: net.minecraft.world.item.ItemStack): ItemStackSnapshot {

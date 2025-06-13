@@ -8,7 +8,15 @@ import com.wolfyscript.scafall.wrappers.utils.unwrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 
-class ItemStackCommon(mcStack: net.minecraft.world.item.ItemStack) : ItemStackLikeCommon<ItemStack, DataComponentMap.Mutable<ItemStack>>(mcStack), ItemStack {
+class ItemStackCommon private constructor(mcStack: net.minecraft.world.item.ItemStack) : ItemStackLikeCommon<ItemStack, DataComponentMap.Mutable<ItemStack>>(mcStack), ItemStack {
+
+    companion object {
+
+        fun fromVanilla(stack: net.minecraft.world.item.ItemStack): ItemStackCommon {
+            return ItemStackCommon(stack)
+        }
+
+    }
 
     @JsonCreator
     private constructor(snbt: String): this(ScafallProvider.get().factories.itemsFactory.createFromSNBT(snbt).unwrap())

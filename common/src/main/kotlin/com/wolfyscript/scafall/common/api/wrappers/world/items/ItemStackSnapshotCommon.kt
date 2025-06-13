@@ -14,7 +14,7 @@ class ItemStackSnapshotCommon(stack: net.minecraft.world.item.ItemStack) : ItemS
     private constructor(snbt: String): this(ScafallProvider.get().factories.itemsFactory.createFromSNBT(snbt).unwrap())
 
     override fun createStack(): ItemStack {
-        return ItemStackCommon(mcStack.copy())
+        return ItemStackCommon.fromVanilla(mcStack.copy())
     }
 
     override val data: DataComponentMap.Immutable<ItemStackSnapshot> = ItemStackSnapshotDataComponentMap(this)

@@ -25,6 +25,14 @@ object ScafallLoader {
         return loadObject(moduleType, loader, innerJarHost, pathToInnerJar, pathToModule)
     }
 
+    fun <T> loadModule(
+        moduleType: Class<Module<T>>,
+        innerJarLoader: InnerJarClassloader,
+        pathToModule: String,
+    ): Module<T> {
+        return loadObject(moduleType, innerJarLoader, pathToModule)
+    }
+
     fun <T> loadObject(
         moduleType: Class<T>,
         loader: ClassLoader,
@@ -32,15 +40,26 @@ object ScafallLoader {
         pathToInnerJar: String,
         pathToModule: String,
     ): T {
-        val moduleClassLoader = InnerJarClassloader.create(loader, innerJarHost, pathToInnerJar)
+        return loadObject(
+            moduleType,
+            InnerJarClassloader.create(loader, innerJarHost, pathToInnerJar),
+            pathToModule
+        )
+    }
+
+    fun <T> loadObject(
+        moduleType: Class<T>,
+        innerJarLoader: InnerJarClassloader,
+        pathToModule: String,
+    ): T {
         val moduleClass = try {
-            moduleClassLoader.loadClass(pathToModule).asSubclass(moduleType)
+            innerJarLoader.loadClass(pathToModule).asSubclass(moduleType)
         } catch (e: ReflectiveOperationException) {
             throw RuntimeException("Could not load module", e)
         }
 
         val module = try {
-            moduleClass.getConstructor(InnerJarClassloader::class.java).newInstance(moduleClassLoader)
+            moduleClass.getConstructor(InnerJarClassloader::class.java).newInstance(innerJarLoader)
         } catch (e: ReflectiveOperationException) {
             throw RuntimeException("Could not load module", e)
         }

@@ -41,12 +41,12 @@ minecraft {
     version("1.21.5") // or: latestRelease() or latestSnapshot()
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("lib") {
-            from(components.getByName("java"))
-            groupId = "com.wolfyscript.scafall.sponge"
-            artifactId = "sponge"
-        }
-    }
-}
+//publishing {
+//    publications {
+//        create<MavenPublication>("lib") {
+//            from(components.getByName("java"))
+//            groupId = "com.wolfyscript.scafall.sponge"
+//            artifactId = "sponge"
+//        }
+//    }
+//}

@@ -32,6 +32,10 @@ class VanillaItemStackIdentifier(val stack: ItemStack) : ItemStackIdentifier {
         return stack.unwrap().copy().wrap()
     }
 
+    override fun toString(): String {
+        return "VanillaItemStackIdentifier(stack=$stack)"
+    }
+
     class Parser : ItemStackIdentifier.Parser<VanillaItemStackIdentifier> {
 
         override val priority: Int = 0

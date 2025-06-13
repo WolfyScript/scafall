@@ -42,4 +42,8 @@ class ItemStackRefImpl(
         return stack.wrap()
     }
 
+    override fun toString(): String {
+        return "ItemStackRefImpl(amount=$amount, identifier=$identifier)"
+    }
+
 }

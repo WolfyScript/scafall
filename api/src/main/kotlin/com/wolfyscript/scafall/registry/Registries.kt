@@ -18,8 +18,8 @@
 package com.wolfyscript.scafall.registry
 
 import com.wolfyscript.scafall.Scafall
+import com.wolfyscript.scafall.config.jackson.KeyedTypeIdResolver
 import com.wolfyscript.scafall.data.ItemDataComponentConverter
-import com.wolfyscript.scafall.data.ItemDataComponentConverterRegistry
 import com.wolfyscript.scafall.eval.operator.Operator
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
@@ -63,6 +63,8 @@ abstract class Registries(val core: Scafall) {
         indexRegistry(operators)
         indexRegistry(nbtTagConfigs)
         indexRegistry(itemStackConfigOverrides)
+
+        KeyedTypeIdResolver.registerTypeRegistry(ItemStackIdentifier::class.java, itemStackIdentifiers)
     }
 
     inline fun <reified T> indexRegistry(registry: Registry<T>) {

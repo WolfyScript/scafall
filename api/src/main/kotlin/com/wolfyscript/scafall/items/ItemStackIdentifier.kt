@@ -1,7 +1,14 @@
 package com.wolfyscript.scafall.items
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder
+import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
+import com.wolfyscript.scafall.config.jackson.KeyedTypeIdResolver
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeIdResolver(KeyedTypeIdResolver::class)
+@JsonPropertyOrder("type")
 interface ItemStackIdentifier {
 
     val parser: Parser<*>

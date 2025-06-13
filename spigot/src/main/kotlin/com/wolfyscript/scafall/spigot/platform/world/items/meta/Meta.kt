@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
 import com.fasterxml.jackson.databind.annotation.JsonTypeResolver
-import com.wolfyscript.scafall.config.jackson.JacksonUtil.objectMapper
+import com.wolfyscript.scafall.config.jackson.JacksonUtil.Companion.objectMapper
 import com.wolfyscript.scafall.config.jackson.KeyedTypeIdResolver
 import com.wolfyscript.scafall.config.jackson.KeyedTypeResolver
 import com.wolfyscript.scafall.identifier.Key

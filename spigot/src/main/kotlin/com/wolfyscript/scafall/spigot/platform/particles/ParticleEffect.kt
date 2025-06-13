@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.*
 import com.fasterxml.jackson.databind.JsonNode
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.ScafallProvider.Companion.get
-import com.wolfyscript.scafall.config.jackson.JacksonUtil.objectMapper
+import com.wolfyscript.scafall.config.jackson.JacksonUtil
 import com.wolfyscript.scafall.config.jackson.OptionalKeyReference
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Keyed
@@ -155,7 +155,7 @@ class ParticleEffect : Keyed {
     @JsonSetter("data")
     private fun setDataFromJson(data: JsonNode) {
         if (dataType != Void.TYPE) {
-            this.data = objectMapper.convertValue(data, dataType)
+            this.data = JacksonUtil.objectMapper.convertValue(data, dataType)
             Preconditions.checkArgument(
                 this.data != null,
                 "ParticleEffect requires data! Expected instance of " + dataType.name + " but got null!"

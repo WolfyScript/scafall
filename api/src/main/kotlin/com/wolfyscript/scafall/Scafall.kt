@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall
 
+import com.wolfyscript.scafall.config.jackson.JacksonUtil
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.factories.Factories
@@ -43,6 +44,8 @@ interface Scafall {
 
     val logger: Logger
         get() = corePlugin.logger
+
+    val jacksonUtil: JacksonUtil
 
     fun createOrGetPluginWrapper(pluginName: String) : PluginWrapper?
 

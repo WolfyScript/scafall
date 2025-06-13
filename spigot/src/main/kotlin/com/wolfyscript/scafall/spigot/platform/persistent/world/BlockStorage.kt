@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.InjectableValues
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.config.jackson.JacksonUtil
-import com.wolfyscript.scafall.config.jackson.JacksonUtil.objectMapper
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.spigot.api.identifiers.api
 import com.wolfyscript.scafall.spigot.api.identifiers.bukkit
@@ -100,7 +99,7 @@ class BlockStorage(
 
     private fun loadFromPersistent(chunkStorage: ChunkStorage) {
         val dataTypeRegistry = core.registries.customBlockData
-        val objectMapper = objectMapper
+        val objectMapper = JacksonUtil.objectMapper
         val dataPersistent = persistentData
         for (key in dataPersistent!!.keys) {
             val wuKey: Key = key.api()

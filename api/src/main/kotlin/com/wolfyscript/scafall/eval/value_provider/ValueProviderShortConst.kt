@@ -15,7 +15,7 @@ class ValueProviderShortConst @JsonCreator constructor(
     @param:JsonProperty(
         "value"
     ) override val value: Short
-) : AbstractValueProvider<Short>(), ValueProviderShort {
+) : ValueProvider<Short>, ValueProviderShort {
     override fun getValue(context: EvalContext): Short {
         return value
     }

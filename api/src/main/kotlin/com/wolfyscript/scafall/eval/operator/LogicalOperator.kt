@@ -1,8 +1,6 @@
 package com.wolfyscript.scafall.eval.operator
 
-import com.fasterxml.jackson.annotation.JacksonInject
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.wolfyscript.scafall.PluginWrapper
 
 /**
  * An Operator that represents logical operators like and (&&), or (||), not (!).<br></br>
@@ -16,7 +14,7 @@ import com.wolfyscript.scafall.PluginWrapper
  *
  */
 abstract class LogicalOperator(
-    @JacksonInject wolfyUtils: PluginWrapper, @JvmField @field:JsonProperty(
+    @JvmField @field:JsonProperty(
         "this"
     ) protected val thisValue: BoolOperator
 ) :

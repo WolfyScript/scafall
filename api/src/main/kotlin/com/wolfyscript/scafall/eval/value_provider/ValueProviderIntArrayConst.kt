@@ -8,7 +8,7 @@ import com.wolfyscript.scafall.eval.context.EvalContext
 @StaticNamespacedKey(key = "int/array/const")
 class ValueProviderIntArrayConst @JsonCreator constructor(
     @param:JsonProperty("value") override val value: IntArray
-) : AbstractValueProvider<IntArray>() {
+) : ValueProvider<IntArray> {
 
     override fun getValue(context: EvalContext): IntArray {
         return value

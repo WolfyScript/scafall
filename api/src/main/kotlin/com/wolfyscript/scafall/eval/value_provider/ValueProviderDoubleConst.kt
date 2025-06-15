@@ -13,7 +13,7 @@ import java.io.IOException
 @StaticNamespacedKey(key = "double/const")
 class ValueProviderDoubleConst @JsonCreator constructor(
     @param:JsonProperty("value") override val value: Double
-) : AbstractValueProvider<Double>(), ValueProviderDouble {
+) : ValueProviderDouble {
     override fun getValue(context: EvalContext): Double {
         return value
     }

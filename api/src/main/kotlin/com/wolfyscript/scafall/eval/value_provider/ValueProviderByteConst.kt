@@ -13,7 +13,7 @@ import java.io.IOException
 @StaticNamespacedKey(key = "byte/const")
 class ValueProviderByteConst @JsonCreator constructor(
     @param:JsonProperty("value") override val value: Byte
-) : AbstractValueProvider<Byte>(), ValueProviderByte {
+) : ValueProvider<Byte>, ValueProviderByte {
     override fun getValue(context: EvalContext): Byte {
         return value
     }

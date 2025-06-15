@@ -7,7 +7,6 @@ import com.wolfyscript.scafall.config.jackson.KeyedBaseType
 import com.wolfyscript.scafall.config.jackson.OptionalValueDeserializer
 import com.wolfyscript.scafall.config.jackson.ValueDeserializer
 import com.wolfyscript.scafall.eval.context.EvalContext
-import com.wolfyscript.scafall.identifier.Key
 import java.io.IOException
 
 /**
@@ -16,7 +15,6 @@ import java.io.IOException
 @KeyedBaseType(baseType = Operator::class)
 @OptionalValueDeserializer(deserializer = BoolOperator.OptionalValueDeserializer::class)
 abstract class BoolOperator : Operator {
-    constructor(namespacedKey: Key) : super()
 
     constructor() : super()
 

@@ -10,4 +10,4 @@ import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
 @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "key")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonPropertyOrder(value = ["key"])
-abstract class Operator()
+interface Operator

@@ -17,7 +17,7 @@ class ValueProviderConditioned<V> @JsonCreator constructor(
     ) @param:JsonProperty(
         "else"
     ) private val elseValue: ValueProvider<V>
-) : AbstractValueProvider<V>() {
+) : ValueProvider<V> {
     override fun getValue(context: EvalContext): V {
         return if (condition.evaluate(context)) thenValue.value else elseValue.value
     }

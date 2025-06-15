@@ -13,7 +13,7 @@ import java.io.IOException
 @StaticNamespacedKey(key = "float/const")
 class ValueProviderFloatConst @JsonCreator constructor(
     @param:JsonProperty("value") override val value: Float
-) : AbstractValueProvider<Float>(), ValueProviderFloat {
+) : ValueProvider<Float>, ValueProviderFloat {
     override fun getValue(context: EvalContext): Float {
         return value
     }

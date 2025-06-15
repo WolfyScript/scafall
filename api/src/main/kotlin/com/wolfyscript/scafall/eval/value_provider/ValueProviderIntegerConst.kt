@@ -13,7 +13,7 @@ import java.io.IOException
 @StaticNamespacedKey(key = "int/const")
 class ValueProviderIntegerConst @JsonCreator constructor(
     @param:JsonProperty("value") override val value: Int
-) : AbstractValueProvider<Int>(), ValueProviderInteger {
+) : ValueProvider<Int>, ValueProviderInteger {
 
     override fun getValue(context: EvalContext): Int {
         return value

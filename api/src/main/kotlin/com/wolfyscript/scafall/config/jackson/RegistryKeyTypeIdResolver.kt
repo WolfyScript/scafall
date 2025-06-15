@@ -23,11 +23,23 @@ import com.fasterxml.jackson.databind.JavaType
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase
 import com.fasterxml.jackson.databind.type.TypeFactory
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
-import com.wolfyscript.scafall.registry.Registry
 import com.wolfyscript.scafall.registry.TypeRegistry
 
-class KeyedTypeIdResolver : TypeIdResolverBase() {
+/**
+ * Used as a [TypeIdResolver][com.fasterxml.jackson.databind.jsontype.TypeIdResolver] for [JsonTypeIdResolver][com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver] to
+ * serialize and deserialize custom types that are available in a [TypeRegistry].
+ *
+ * To determine the [Key] and Class of the object it needs to associate it with a registry.
+ * A registry for a type must be registered, see [RegistryKeyTypeIdResolver.registerTypeRegistry].
+ *
+ * Upon de-/serialization it uses the type of the annotated class, or if available the type specified by [KeyedBaseType], to get the associated registry:
+ *
+ * - On serialization, the [Key] of the object is determined from the registry and stored as the type id.
+ *
+ * - On deserialization, the type id is parsed into [Key] and looked up in the registry.
+ *
+ */
+class RegistryKeyTypeIdResolver : TypeIdResolverBase() {
     private var superType: JavaType? = null
 
     override fun init(baseType: JavaType) {
@@ -43,10 +55,21 @@ class KeyedTypeIdResolver : TypeIdResolverBase() {
     }
 
     private fun getKey(value: Any): String {
-        if (value is Keyed) {
-            return value.key().toString()
+        val baseType = getBaseClassType()
+        val key = getTypedKey(baseType, value)
+        if (key != null) {
+            return key.toString()
         }
-        throw IllegalArgumentException(String.format("Object %s is not of type Keyed!", value.javaClass.name))
+        throw IllegalStateException("Failed to resolve type id for object '$value' of base type '$baseType'! Is it registered?")
+    }
+
+    private fun <T> getTypedKey(baseType: Class<T>, value: Any): Key? {
+        val registry = getAssociatedRegistry(baseType)
+        if (registry == null) {
+            throw IllegalArgumentException("Failed to construct type id: ${getBaseClassType()} has no associated Registry!")
+        }
+
+        return registry.getKey(value::class.java as Class<out T>)
     }
 
     override fun typeFromId(context: DatabindContext, id: String): JavaType {
@@ -59,23 +82,27 @@ class KeyedTypeIdResolver : TypeIdResolverBase() {
         return if (clazz != null) context.constructSpecializedType(superType, clazz) else TypeFactory.unknownType()
     }
 
-    protected fun getTypeClass(key: Key?): Class<*>? {
+    private fun getBaseClassType(): Class<*> {
+        val rawClass = superType!!.rawClass
+        //If it is specified, use the custom base type instead.
+        val baseTypeAnnot = rawClass.getDeclaredAnnotation(KeyedBaseType::class.java)
+        if (baseTypeAnnot != null) {
+            return baseTypeAnnot.baseType.java
+        }
+        return rawClass
+    }
+
+    private fun <T> getAssociatedRegistry(type: Class<T>): TypeRegistry<T>? {
+        //Get the registry of the required base type
+        return TYPE_REGISTRIES[getBaseClassType()] as TypeRegistry<T>?
+    }
+
+    private fun getTypeClass(key: Key?): Class<*>? {
         if (key != null) {
-            var rawClass = superType!!.rawClass
-            //If it is specified, use the custom base type instead.
-            val baseTypeAnnot = rawClass.getDeclaredAnnotation(KeyedBaseType::class.java)
-            if (baseTypeAnnot != null) {
-                rawClass = baseTypeAnnot.baseType.java
-            }
             //Get the registry of the required base type
-            val registry = TYPE_REGISTRIES[rawClass]
+            val registry = getAssociatedRegistry(getBaseClassType())
             if (registry != null) {
-                val obj = registry[key]
-                if (obj is Class<*>) {
-                    return obj
-                } else if (obj is Keyed) {
-                    return obj.javaClass
-                }
+                return registry[key]
             }
         }
         return null
@@ -86,19 +113,7 @@ class KeyedTypeIdResolver : TypeIdResolverBase() {
     }
 
     companion object {
-        private val TYPE_REGISTRIES: MutableMap<Class<*>, Registry<*>> = HashMap()
-
-        /**
-         * Registers a registry to be used for Json serialization and deserialization. <br></br>
-         * To use that the class of the specified type must be annotated with [OptionalKeyReference].
-         *
-         * @param type The type to register.
-         * @param registry The registry of the specified type.
-         * @param <T> The type of the object.
-        </T> */
-        fun <T> registerTypeRegistry(type: Class<T>, registry: Registry<T>) {
-            TYPE_REGISTRIES.putIfAbsent(type, registry)
-        }
+        private val TYPE_REGISTRIES: MutableMap<Class<*>, TypeRegistry<*>> = HashMap()
 
         /**
          * Registers a registry to be used for Json serialization and deserialization. <br></br>

@@ -26,7 +26,6 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
-import com.fasterxml.jackson.databind.annotation.JsonTypeResolver
 import com.wolfyscript.scafall.config.jackson.*
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.identifier.Key
@@ -34,9 +33,8 @@ import com.wolfyscript.scafall.identifier.Keyed
 import java.io.IOException
 import java.util.regex.Pattern
 
-@JsonTypeResolver(KeyedTypeResolver::class)
 @JsonTypeIdResolver(
-    KeyedTypeIdResolver::class
+    RegistryKeyTypeIdResolver::class
 )
 @OptionalValueDeserializer(deserializer = ValueProvider.ValueDeserializer::class)
 @OptionalValueSerializer(serializer = ValueProvider.ValueSerializer::class)

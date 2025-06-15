@@ -32,11 +32,6 @@ object InventoryUtils {
         return list.stream().allMatch { ItemUtils.isAirOrNull(it) }
     }
 
-    fun isCustomItemsListEmpty(list: List<CustomItem?>?): Boolean {
-        if (list == null) return false
-        return list.stream().allMatch { ItemUtils.isAirOrNull(it) }
-    }
-
     fun getInventorySpace(p: Player, item: ItemStack): Int {
         return getInventorySpace(p.inventory, item)
     }

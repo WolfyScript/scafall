@@ -26,12 +26,10 @@ import com.fasterxml.jackson.core.JsonToken
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
-import com.fasterxml.jackson.databind.annotation.JsonTypeResolver
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallProvider.Companion.get
-import com.wolfyscript.scafall.config.jackson.KeyedTypeIdResolver
-import com.wolfyscript.scafall.config.jackson.KeyedTypeResolver
+import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
 import com.wolfyscript.scafall.config.jackson.OptionalValueDeserializer
 import com.wolfyscript.scafall.config.jackson.ValueDeserializer
 import com.wolfyscript.scafall.identifier.Key
@@ -41,9 +39,8 @@ import com.wolfyscript.scafall.identifier.StaticNamespacedKey.KeyBuilder.createK
 import java.io.IOException
 import java.util.regex.Pattern
 
-@JsonTypeResolver(KeyedTypeResolver::class)
 @JsonTypeIdResolver(
-    KeyedTypeIdResolver::class
+    RegistryKeyTypeIdResolver::class
 )
 @OptionalValueDeserializer(
     deserializer = NBTTagConfig.OptionalValueDeserializer::class,

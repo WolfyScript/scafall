@@ -17,43 +17,15 @@
  */
 package com.wolfyscript.scafall.spigot.platform.world.items
 
-import net.kyori.adventure.platform.bukkit.BukkitComponentSerializer
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.minimessage.MiniMessage
-import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import org.bukkit.Material
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import org.jetbrains.annotations.Contract
-import java.util.*
 
 object ItemUtils {
 
     @JvmField
     val AIR: ItemStack = ItemStack(Material.AIR)
-
-    @JvmStatic
-    fun isEquipable(material: Material): Boolean {
-        return when (material.name) {
-            "ELYTRA", "CARVED_PUMPKIN" -> true
-            else -> material.name.endsWith("_CHESTPLATE") || material.name.endsWith("_LEGGINGS") || material.name.endsWith(
-                "_HELMET"
-            ) || material.name.endsWith("_BOOTS") || material.name.endsWith("_HEAD") || material.name.endsWith("SKULL")
-        }
-    }
-
-    @JvmStatic
-    fun isEquipable(material: Material, type: ArmorType): Boolean {
-        return when (type) {
-            ArmorType.HELMET -> material.name.endsWith("_HELMET") || material.name.endsWith("_HEAD") || material.name.endsWith(
-                "SKULL"
-            ) || material == Material.CARVED_PUMPKIN
-
-            ArmorType.CHESTPLATE -> material == Material.ELYTRA || material.name.endsWith("_CHESTPLATE")
-            ArmorType.LEGGINGS -> material.name.endsWith("_LEGGINGS")
-            ArmorType.BOOTS -> material.name.endsWith("_BOOTS")
-        }
-    }
 
     @JvmStatic
     fun isTool(material: Material): Boolean {
@@ -88,61 +60,4 @@ object ItemUtils {
         return item == null || item.type == Material.AIR
     }
 
-    @JvmStatic
-    @Contract(pure = true, value = "null -> true")
-    fun isAirOrNull(item: CustomItem?): Boolean {
-        return item == null || isAirOrNull(item.itemStack)
-    }
-
-    @JvmStatic
-    fun applyNameAndLore(itemStack: ItemStack, displayName: Component, lore: List<Component?>): ItemStack {
-        val itemBuilder = ItemBuilder(itemStack)
-        val itemMeta = itemBuilder.itemMeta
-        if (itemMeta != null) {
-            itemBuilder.setDisplayName(BukkitComponentSerializer.legacy().serialize(displayName))
-            if (!lore.isEmpty()) {
-                itemBuilder.setLore(lore.stream().map { line: Component? ->
-                    BukkitComponentSerializer.legacy().serialize(
-                        line!!
-                    )
-                }.toList())
-            }
-        }
-        return itemBuilder.create()
-    }
-
-    @JvmStatic
-    @Deprecated("")
-    fun replaceNameAndLore(miniMessage: MiniMessage, itemStack: ItemStack, tagResolver: TagResolver): ItemStack {
-        val itemMeta = itemStack.itemMeta
-        if (itemMeta != null) {
-            val name = convertLegacyTextWithTagResolversToComponent(miniMessage, itemMeta.displayName, tagResolver)
-            val legacyLore = if (itemMeta.hasLore()) itemMeta.lore!!
-                .stream().map { s: String -> convertLegacyTextWithTagResolversToComponent(miniMessage, s, tagResolver) }
-                .toList() else LinkedList()
-            return applyNameAndLore(itemStack, name, legacyLore)
-        }
-        return itemStack
-    }
-
-    @JvmStatic
-    @Deprecated("")
-    fun replaceNameAndLore(
-        miniMessage: MiniMessage,
-        itemStack: ItemStack,
-        vararg tagResolvers: TagResolver
-    ): ItemStack {
-        return replaceNameAndLore(miniMessage, itemStack, TagResolver.resolver(*tagResolvers))
-    }
-
-    @JvmStatic
-    private fun convertLegacyTextWithTagResolversToComponent(
-        miniMessage: MiniMessage,
-        value: String,
-        tagResolver: TagResolver
-    ): Component {
-        val lore = miniMessage.deserialize(value.replace("§", "&"), tagResolver)
-        val converted = BukkitComponentSerializer.legacy().serialize(lore)
-        return BukkitComponentSerializer.legacy().deserialize(converted.replace("&", "§"))
-    }
 }

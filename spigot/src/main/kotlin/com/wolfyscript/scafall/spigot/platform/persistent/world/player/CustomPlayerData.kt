@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
-import com.fasterxml.jackson.databind.annotation.JsonTypeResolver
-import com.wolfyscript.scafall.config.jackson.KeyedTypeIdResolver
-import com.wolfyscript.scafall.config.jackson.KeyedTypeResolver
+import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Keyed
 import org.bukkit.Bukkit
@@ -21,9 +19,8 @@ import java.util.*
  * - Extend this class<br></br>
  *
  */
-@JsonTypeResolver(KeyedTypeResolver::class)
 @JsonTypeIdResolver(
-    KeyedTypeIdResolver::class
+    RegistryKeyTypeIdResolver::class
 )
 @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "id")
 @JsonPropertyOrder(value = ["id"])

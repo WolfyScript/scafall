@@ -24,7 +24,7 @@ annotation class StaticNamespacedKey(
     /**
      * @return The namespace of the key
      */
-    val namespace: String = "scaffolding",
+    val namespace: String = Key.SCAFFOLDING_NAMESPACE,
     /**
      *
      * @return The key to the object

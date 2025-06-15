@@ -20,8 +20,7 @@ package com.wolfyscript.scafall.wrappers.world.items
 import com.fasterxml.jackson.annotation.*
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
 import com.fasterxml.jackson.databind.annotation.JsonTypeResolver
-import com.wolfyscript.scafall.config.jackson.KeyedTypeIdResolver
-import com.wolfyscript.scafall.config.jackson.KeyedTypeResolver
+import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
@@ -78,8 +77,7 @@ interface ItemStackConfig {
      * They should not be confused with the vanilla Data Components. Overrides use Data Components internally to apply data to the
      * ItemStack, but they are not necessarily 1:1 wrappers, as they can be used for more complex custom behavior.
      */
-    @JsonTypeResolver(KeyedTypeResolver::class)
-    @JsonTypeIdResolver(KeyedTypeIdResolver::class)
+    @JsonTypeIdResolver(RegistryKeyTypeIdResolver::class)
     @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     @JsonPropertyOrder(value = ["type"])

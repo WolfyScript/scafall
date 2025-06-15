@@ -43,9 +43,8 @@ import de.tr7zw.nbtapi.NBTType
 import java.io.IOException
 import java.util.*
 
-@JsonTypeResolver(KeyedTypeResolver::class)
 @JsonTypeIdResolver(
-    KeyedTypeIdResolver::class
+    RegistryKeyTypeIdResolver::class
 )
 @OptionalValueDeserializer(deserializer = QueryNode.OptionalValueDeserializer::class, delegateObjectDeserializer = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, property = "type", defaultImpl = QueryNodeCompound::class)

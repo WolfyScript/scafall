@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.jsontype.TypeSerializer
 import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder
 import com.wolfyscript.scafall.identifier.Keyed
 
+@Deprecated("Should not be necessary to use anymore", level = DeprecationLevel.ERROR)
 class KeyedTypeResolver : StdTypeResolverBuilder() {
     override fun buildTypeSerializer(
         config: SerializationConfig,

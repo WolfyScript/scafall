@@ -9,14 +9,14 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 class ItemStackSnapshotDataComponentMap(private val holder: ItemStackSnapshot) : DataComponentMap.Immutable<ItemStackSnapshot> {
 
     override fun <T : Any> get(key: DataKey<T, in ItemStackSnapshot>): T? {
-        return ScafallProvider.get().registries.itemDataComponentConverterRegistry[key.key()]?.let {
+        return ScafallProvider.get().registries.itemDataComponentConverterRegistry[key.key]?.let {
             it as ItemDataComponentConverter<T> // We kinda make sure the type is correct by assigning the correct DataKeys
             it.reader.converter.invoke(holder).getOrThrow()
         }
     }
 
     override fun <T : Any> set(key: DataKey<T, in ItemStackSnapshot>, data: T) : ItemStackSnapshot {
-        return ScafallProvider.get().registries.itemDataComponentConverterRegistry[key.key()]?.let {
+        return ScafallProvider.get().registries.itemDataComponentConverterRegistry[key.key]?.let {
             it as ItemDataComponentConverter<T> // We kinda make sure the type is correct by assigning the correct DataKeys
 
             val copy = holder.createStack()

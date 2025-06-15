@@ -2,7 +2,6 @@ package com.wolfyscript.scafall.registry
 
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 import java.util.*
 import java.util.function.Supplier
 
@@ -41,12 +40,6 @@ abstract class AbstractRegistry<M : MutableMap<Key, V>, V>(
     override fun register(key: Key, value: V) {
         Preconditions.checkState(!map.containsKey(key), "namespaced key '%s' already has an associated value!", key)
         map.put(key, value)
-    }
-
-    override fun register(value: V) {
-        if (value is Keyed) {
-            register(value.key(), value)
-        }
     }
 
     override fun iterator(): Iterator<V> {

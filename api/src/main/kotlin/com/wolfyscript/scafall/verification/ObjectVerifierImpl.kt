@@ -62,7 +62,4 @@ internal class ObjectVerifierImpl<T_VALUE : Any>(
                 '}'
     }
 
-    override fun key(): Key {
-        return key
-    }
 }

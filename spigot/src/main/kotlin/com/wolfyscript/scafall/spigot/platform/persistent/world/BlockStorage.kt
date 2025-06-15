@@ -42,9 +42,9 @@ class BlockStorage(
 
     fun addOrSetData(blockData: CustomBlockData?) {
         if (blockData != null) {
-            val dataTypeRegistry = core.registries.customBlockData
-            if (dataTypeRegistry.keySet().contains(blockData.key())) {
-                data[blockData.key()] = blockData
+            val key = core.registries.customBlockData.getKey(blockData::class.java)
+            if (key != null) {
+                data[key] = blockData
             }
         }
     }

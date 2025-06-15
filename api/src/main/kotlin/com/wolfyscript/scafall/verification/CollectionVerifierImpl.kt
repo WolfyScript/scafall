@@ -61,7 +61,4 @@ internal class CollectionVerifierImpl<T : Any>(
         return !required
     }
 
-    override fun key(): Key {
-        return key
-    }
 }

@@ -1,8 +1,6 @@
 package com.wolfyscript.scafall.verification
 
-import com.wolfyscript.scafall.identifier.Keyed
-
-interface Verifier<T> : Keyed {
+interface Verifier<T> {
     fun validate(value: T): VerificationResult<T>
 
     fun optional(): Boolean

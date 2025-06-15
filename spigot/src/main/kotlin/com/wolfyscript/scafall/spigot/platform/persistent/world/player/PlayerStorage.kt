@@ -53,20 +53,24 @@ class PlayerStorage(private val core: Scafall, private val playerUUID: UUID) {
      * @return The previous cached value, if any; otherwise null
      */
     fun <T : CustomPlayerData?> setData(data: T): T? {
-        val prev = CACHED_DATA.put(data!!.key(), data) as T?
+        val key = core.registries.customPlayerData.getKey(data!!::class.java)
+        if (key == null) {
+            return null
+        }
+        val prev = CACHED_DATA.put(key, data) as T?
         prev?.onUnload()
         persistentDataContainer.ifPresent { container: PersistentDataContainer ->
             val dataContainer: PersistentDataContainer =
                 container.getOrDefault(
                     DATA_KEY,
                     PersistentDataType.TAG_CONTAINER,
-                    container.getAdapterContext().newPersistentDataContainer()
+                    container.adapterContext.newPersistentDataContainer()
                 )
             val objectMapper = JacksonUtil.objectMapper // TODO: Global mapper
             try {
                 data.onLoad()
                 dataContainer.set(
-                    data.key().bukkit(),
+                    key.bukkit(),
                     PersistentDataType.STRING,
                     objectMapper.writeValueAsString(data)
                 )

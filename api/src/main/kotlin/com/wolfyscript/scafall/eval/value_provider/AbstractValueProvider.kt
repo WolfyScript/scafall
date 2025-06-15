@@ -17,6 +17,4 @@ abstract class AbstractValueProvider<V> : ValueProvider<V> {
         this.key = parse(createKeyString(javaClass))
     }
 
-    @JsonIgnore
-    override fun key(): Key = key
 }

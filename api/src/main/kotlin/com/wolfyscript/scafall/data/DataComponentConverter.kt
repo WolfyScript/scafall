@@ -1,7 +1,6 @@
 package com.wolfyscript.scafall.data
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 import kotlin.reflect.KClass
 
 /**
@@ -11,10 +10,9 @@ import kotlin.reflect.KClass
  * * [B] The base DataHolder that data can be read from
  * * [M] The mutable DataHolder that data can be written to
  */
-interface DataComponentConverter<T : Any, B: DataHolder<*,*>, M: DataHolder<M, *>> : Keyed {
+interface DataComponentConverter<T : Any, B: DataHolder<*,*>, M: DataHolder<M, *>> {
 
     val key: Key
-    override fun key(): Key = key
 
     val type: KClass<T>
 

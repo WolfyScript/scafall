@@ -16,7 +16,7 @@ import java.io.IOException
 @KeyedBaseType(baseType = Operator::class)
 @OptionalValueDeserializer(deserializer = BoolOperator.OptionalValueDeserializer::class)
 abstract class BoolOperator : Operator {
-    constructor(namespacedKey: Key) : super(namespacedKey)
+    constructor(namespacedKey: Key) : super()
 
     constructor() : super()
 

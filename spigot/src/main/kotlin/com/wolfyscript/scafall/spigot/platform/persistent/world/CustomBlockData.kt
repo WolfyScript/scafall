@@ -1,13 +1,9 @@
 package com.wolfyscript.scafall.spigot.platform.persistent.world
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
 import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
-import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 
 /**
  * This data is used to store persistent data on Blocks.<br></br>
@@ -34,7 +30,7 @@ import com.wolfyscript.scafall.identifier.Keyed
 )
 @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "id")
 @JsonPropertyOrder(value = ["id"])
-abstract class CustomBlockData protected constructor(@field:JsonProperty("id") private val id: Key) : Keyed {
+abstract class CustomBlockData protected constructor() {
     /**
      * Called when the BlockStorage is initialising its data.
      * Usually right after the data was constructed.
@@ -56,8 +52,4 @@ abstract class CustomBlockData protected constructor(@field:JsonProperty("id") p
      */
     abstract fun copyTo(storage: BlockStorage): CustomBlockData
 
-    @JsonIgnore
-    override fun key(): Key {
-        return id
-    }
 }

@@ -15,10 +15,6 @@ import com.wolfyscript.scafall.ScafallProvider.Companion.get
 import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
 import com.wolfyscript.scafall.config.jackson.OptionalValueDeserializer
 import com.wolfyscript.scafall.config.jackson.ValueDeserializer
-import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Key.Companion.parse
-import com.wolfyscript.scafall.identifier.Keyed
-import com.wolfyscript.scafall.identifier.StaticNamespacedKey.KeyBuilder.createKeyString
 import java.io.IOException
 import java.util.regex.Pattern
 
@@ -32,12 +28,9 @@ import java.util.regex.Pattern
 @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, property = "type", defaultImpl = NBTTagConfigCompound::class)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonPropertyOrder(value = ["type"])
-abstract class NBTTagConfig : Keyed {
+abstract class NBTTagConfig {
     @JsonIgnore
     protected val wolfyUtils: Scafall
-
-    @JsonIgnore
-    val type: Key
 
     @get:JsonIgnore
     @set:JsonIgnore
@@ -46,17 +39,12 @@ abstract class NBTTagConfig : Keyed {
 
     protected constructor() {
         this.wolfyUtils = get()
-        this.type = parse(createKeyString(javaClass))
     }
 
     protected constructor(parent: NBTTagConfig?) {
         this.wolfyUtils = get()
-        this.type = parse(createKeyString(javaClass))
         this.parent = parent
     }
-
-    @JsonIgnore
-    override fun key(): Key = type
 
     abstract fun copy(): NBTTagConfig
 

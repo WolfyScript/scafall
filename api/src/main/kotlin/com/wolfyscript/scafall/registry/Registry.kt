@@ -44,12 +44,6 @@ interface Registry<V> : Iterable<V> {
      */
     fun register(key: Key, value: V)
 
-    /**
-     * Registers a value with its contained [NamespacedKey] it gets via the [V.getNamespacedKey] method.
-     * @param value The value to register.
-     */
-    fun register(value: V)
-
     fun keySet(): Set<Key>
 
     fun values(): Collection<V>

@@ -5,6 +5,6 @@ import com.wolfyscript.scafall.wrappers.world.attribute.Attribute
 
 class CommonAttribute(val key: Key) : Attribute {
 
-    override fun key(): Key = key
+    fun key(): Key = key
 
 }

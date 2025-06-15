@@ -2,12 +2,10 @@ package com.wolfyscript.scafall.wrappers.world.items
 
 import com.fasterxml.jackson.annotation.*
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
-import com.fasterxml.jackson.databind.annotation.JsonTypeResolver
 import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 
@@ -64,12 +62,7 @@ interface ItemStackConfig {
     @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     @JsonPropertyOrder(value = ["type"])
-    interface Override : Keyed {
-
-        /**
-         * The type of the override
-         */
-        val type: Key
+    interface Override {
 
         /**
          * Applies this override to the [ItemStack] that is being constructed.

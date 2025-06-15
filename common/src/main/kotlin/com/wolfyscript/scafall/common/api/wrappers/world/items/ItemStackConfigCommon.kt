@@ -18,7 +18,8 @@ abstract class ItemStackConfigCommon(
 
     @JsonGetter("overrides")
     private fun parseOverrides(override: Collection<ItemStackConfig.Override>) {
-        overrides = override.associateBy { it.type }
+//        overrides = override.associateBy { it }
+        // TODO
     }
 
     @JsonSetter("overrides")

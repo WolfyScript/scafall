@@ -2,7 +2,6 @@ package com.wolfyscript.scafall.registry
 
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.StaticNamespacedKey
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 import java.util.function.Supplier
@@ -42,11 +41,6 @@ abstract class AbstractTypeRegistry<M : MutableMap<Key, Class<out V>>, V>(
     override fun register(key: Key, value: Class<out V>) {
         Preconditions.checkState(!map.containsKey(key), "namespaced key '%s' already has an associated value!", key)
         map.put(key, value)
-    }
-
-    override fun register(value: Class<out V>) {
-        val id: Key = Key.parse(StaticNamespacedKey.KeyBuilder.createKeyString(value))
-        register(id, value)
     }
 
     override fun iterator(): Iterator<Class<out V>> {

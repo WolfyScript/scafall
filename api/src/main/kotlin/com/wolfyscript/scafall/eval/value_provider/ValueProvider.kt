@@ -1,6 +1,9 @@
 package com.wolfyscript.scafall.eval.value_provider
 
-import com.fasterxml.jackson.annotation.*
+import com.fasterxml.jackson.annotation.JsonAutoDetect
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonPropertyOrder
+import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.core.JsonProcessingException
@@ -9,22 +12,20 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
-import com.wolfyscript.scafall.config.jackson.*
+import com.wolfyscript.scafall.config.jackson.OptionalValueDeserializer
+import com.wolfyscript.scafall.config.jackson.OptionalValueSerializer
+import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
 import com.wolfyscript.scafall.eval.context.EvalContext
-import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
 import java.io.IOException
 import java.util.regex.Pattern
 
-@JsonTypeIdResolver(
-    RegistryKeyTypeIdResolver::class
-)
+@JsonTypeIdResolver(RegistryKeyTypeIdResolver::class)
 @OptionalValueDeserializer(deserializer = ValueProvider.ValueDeserializer::class)
 @OptionalValueSerializer(serializer = ValueProvider.ValueSerializer::class)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, property = "key")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonPropertyOrder(value = ["key"])
-interface ValueProvider<V> : Keyed {
+interface ValueProvider<V> {
 
     @JsonIgnore
     fun getValue(context: EvalContext): V
@@ -33,10 +34,8 @@ interface ValueProvider<V> : Keyed {
     val value: V
         get() = getValue(EvalContext())
 
-    @JsonGetter("key")
-    override fun key(): Key
-
-    class ValueDeserializer : com.wolfyscript.scafall.config.jackson.ValueDeserializer<ValueProvider<*>>(ValueProvider::class.java) {
+    class ValueDeserializer :
+        com.wolfyscript.scafall.config.jackson.ValueDeserializer<ValueProvider<*>>(ValueProvider::class.java) {
         @Throws(IOException::class, JsonProcessingException::class)
         override fun deserialize(p: JsonParser, ctxt: DeserializationContext): ValueProvider<*>? {
             if (p.currentToken() == JsonToken.VALUE_STRING) {
@@ -83,12 +82,13 @@ interface ValueProvider<V> : Keyed {
         }
     }
 
-    class ValueSerializer : com.wolfyscript.scafall.config.jackson.ValueSerializer<ValueProvider<*>>(ValueProvider::class.java) {
+    class ValueSerializer :
+        com.wolfyscript.scafall.config.jackson.ValueSerializer<ValueProvider<*>>(ValueProvider::class.java) {
         @Throws(IOException::class)
         override fun serialize(
             valueProvider: ValueProvider<*>,
             generator: JsonGenerator,
-            provider: SerializerProvider
+            provider: SerializerProvider,
         ): Boolean {
             println("Serialize ValueProvider!")
 

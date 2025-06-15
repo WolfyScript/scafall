@@ -31,7 +31,6 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
         register<CanPlaceOn>(ItemDataComponentTypes.CAN_PLACE_ON, canPlaceOnItemMetaConverter)
         register<DyedColor>(ItemDataComponentTypes.DYED_COLOR, dyedColorItemMetaConverter)
         register<Enchantable>(ItemDataComponentTypes.ENCHANTABLE, enchantableItemMetaConverter)
-        register<AttributeModifiers>(ItemDataComponentTypes.ATTRIBUTE_MODIFIERS, attributeModifiersItemMetaConverter)
         register<ChargedProjectiles>(ItemDataComponentTypes.CHARGED_PROJECTILES, chargedProjectilesItemMetaConverter)
         register<Consumable>(ItemDataComponentTypes.CONSUMABLE, consumableItemMetaConverter)
         register<IntangibleProjectile>(ItemDataComponentTypes.INTANGIBLE_PROJECTILE, intangibleProjectileItemMetaConverter)
@@ -67,16 +66,16 @@ class SpigotItemStackDataComponentConverterProvider(private val scafall: Scafall
         dataKey: DataKey<T, ItemStackLike<*, *>>,
         converter: ItemMetaDataKeyConverter<T>
     ) : ItemDataComponentConverter<T> {
-        if (scafall.registries.itemDataComponentConverterRegistry[dataKey.key()] != null) {
-            return scafall.registries.itemDataComponentConverterRegistry[dataKey.key()] as ItemDataComponentConverter<T>
+        if (scafall.registries.itemDataComponentConverterRegistry[dataKey.key] != null) {
+            return scafall.registries.itemDataComponentConverterRegistry[dataKey.key] as ItemDataComponentConverter<T>
         }
         val converterImpl = SpigotItemDataComponentConverterImpl(
-            dataKey.key(),
+            dataKey.key,
             T::class,
             converter.fetcher,
             converter.applier
         )
-        ScafallProvider.get().registries.itemDataComponentConverterRegistry.register(dataKey.key(), converterImpl)
+        ScafallProvider.get().registries.itemDataComponentConverterRegistry.register(dataKey.key, converterImpl)
         return converterImpl
     }
 

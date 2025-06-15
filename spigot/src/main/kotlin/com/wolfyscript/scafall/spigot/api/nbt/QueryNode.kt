@@ -1,24 +1,3 @@
-/*
- *       ____ _  _ ____ ___ ____ _  _ ____ ____ ____ ____ ___ _ _  _ ____
- *       |    |  | [__   |  |  | |\/| |    |__/ |__| |___  |  | |\ | | __
- *       |___ |__| ___]  |  |__| |  | |___ |  \ |  | |     |  | | \| |__]
- *
- *       CustomCrafting Recipe creation and management tool for Minecraft
- *                      Copyright (C) 2021  WolfyScript
- *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
 package com.wolfyscript.scafall.spigot.api.nbt
 
 import com.fasterxml.jackson.annotation.*
@@ -28,14 +7,11 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.InjectableValues
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
-import com.fasterxml.jackson.databind.annotation.JsonTypeResolver
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.config.jackson.*
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.Keyed
-import com.wolfyscript.scafall.identifier.StaticNamespacedKey
 import com.wolfyscript.scafall.spigot.platform.nbtQueries
 import de.tr7zw.nbtapi.NBTCompound
 import de.tr7zw.nbtapi.NBTList
@@ -53,10 +29,7 @@ import java.util.*
 abstract class QueryNode<VAL> protected constructor(
     @JsonIgnore @JacksonInject("key") protected val key: String,
     @JsonIgnore @JacksonInject("path") protected val parentPath: String?
-) : Keyed {
-
-    @get:JsonGetter
-    protected val type: Key = Key.parse(StaticNamespacedKey.KeyBuilder.createKeyString(javaClass))
+) {
 
     @JsonIgnore
     var nbtType: NBTType = NBTType.NBTTagEnd
@@ -131,11 +104,6 @@ abstract class QueryNode<VAL> protected constructor(
         }?.let {
             applyValue(path, index, context, it, resultList)
         }
-    }
-
-    @JsonIgnore
-    override fun key(): Key {
-        return type
     }
 
     abstract fun copy(): QueryNode<VAL>

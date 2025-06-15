@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.key
-import com.wolfyscript.scafall.identifier.Keyed
 import com.wolfyscript.scafall.registry.Registry
 import java.io.IOException
 import java.lang.reflect.Field
@@ -72,14 +71,12 @@ annotation class OptionalKeyReference(
             val handledType = serializer.handledType()
             val annotation = handledType.getAnnotation(OptionalKeyReference::class.java)
             if (annotation != null) {
-                if (Keyed::class.java.isAssignableFrom(handledType)) {
-                    return Serializer(annotation, serializer as JsonSerializer<out Keyed>)
-                }
+                return Serializer(annotation, serializer)
             }
             return serializer
         }
 
-        private class Serializer<T : Keyed>(
+        private class Serializer<T: Any>(
             private val reference: OptionalKeyReference,
             private val defaultSerializer: JsonSerializer<T>
         ) :
@@ -117,16 +114,14 @@ annotation class OptionalKeyReference(
             val handledType = deserializer.handledType()
             val annotation = handledType.getAnnotation(OptionalKeyReference::class.java)
             if (annotation != null) {
-                if (Keyed::class.java.isAssignableFrom(handledType)) {
                     return Deserializer(
-                        core, annotation, deserializer as JsonDeserializer<out Keyed>
+                        core, annotation, deserializer
                     )
-                }
             }
             return deserializer
         }
 
-        private class Deserializer<T : Keyed>(
+        private class Deserializer<T: Any>(
             private val core: Scafall,
             reference: OptionalKeyReference,
             private val defaultDeserializer: JsonDeserializer<T>

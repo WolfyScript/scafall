@@ -13,7 +13,6 @@ import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
-import com.wolfyscript.scafall.spigot.api.data.SpigotItemStackDataComponentConverterProvider
 import com.wolfyscript.scafall.spigot.api.factories.SpigotFactoriesImpl
 import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
@@ -60,8 +59,6 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : AbstractSc
         compatibilityManagerInternal = CompatibilityManagerBukkit(this)
 
         adventure = SpigotAdventureUtil(this)
-
-        SpigotItemStackDataComponentConverterProvider(this).register()
 
         platformManager.implementationModules.forEach {
             it.value.onLoad()

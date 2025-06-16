@@ -13,18 +13,6 @@ import com.wolfyscript.scafall.identifier.Key
  */
 interface ItemStack : DataHolder.Mutable<ItemStack>, ItemStackLike<ItemStack, DataComponentMap.Mutable<ItemStack>> {
 
-    companion object {
-
-        fun of(itemType: Key): ItemStack {
-            return ScafallProvider.get().factories.itemsFactory.createStack(itemType)
-        }
-
-        fun of(mcItemType: String) : ItemStack {
-            return of(Key.key(Key.MINECRAFT_NAMESPACE, mcItemType))
-        }
-
-    }
-
     /**
      * Creates a snapshot of the whole ItemStack
      *

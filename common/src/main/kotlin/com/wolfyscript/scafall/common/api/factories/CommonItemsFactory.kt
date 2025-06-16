@@ -19,10 +19,6 @@ import net.minecraft.world.item.Item
 
 class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
 
-    override fun createStack(item: Key): ItemStack {
-        TODO("Not yet implemented")
-    }
-
     override fun createFromSNBT(snbt: String): ItemStack {
         val version = SharedConstants.getCurrentVersion().dataVersion.version
         return parseFromSNBT(snbt, version, version)

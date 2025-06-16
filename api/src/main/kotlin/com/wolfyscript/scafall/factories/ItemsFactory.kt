@@ -1,14 +1,11 @@
 package com.wolfyscript.scafall.factories
 
-import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.items.ItemStackRef
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import net.minecraft.SharedConstants
 import net.minecraft.world.item.Item
 
 interface ItemsFactory {
-
-    fun createStack(item: Key) : ItemStack
 
     /**
      * Creates the [ItemStack] from the given SNBT without updating the NBT beforehand.

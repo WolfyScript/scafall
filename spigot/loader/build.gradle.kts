@@ -5,6 +5,8 @@ plugins {
     id("scafall.spigot")
     id("scafall.docker.run")
     alias(libs.plugins.shadow)
+
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.17"
 }
 
 repositories {
@@ -16,7 +18,7 @@ dependencies {
     api(project(":spigot:spigot-api"))
     implementation(project(":loader-api"))
 
-    compileOnly(libs.papermc.paper)
+    paperweight.paperDevBundle(libs.versions.papermc.get())
 }
 
 tasks {
@@ -28,6 +30,7 @@ tasks {
     shadowJar {
         dependsOn(project(":spigot").tasks.getByName<Copy>("createInnerJar"))
         mustRunAfter(jar)
+        finalizedBy(reobfJar)
 
         archiveBaseName = "scafall-spigot"
         archiveClassifier = ""
@@ -51,6 +54,10 @@ tasks {
     withType<Javadoc> {
         options.encoding = "UTF-8"
     }
+
+    reobfJar {
+        finalizedBy("spigot_1_21_copy")
+    }
 }
 
 artifacts {
@@ -58,7 +65,7 @@ artifacts {
 }
 
 minecraftServers {
-    libName.set("scafall-spigot-${version}.jar") // Makes sure to copy the correct file (when using shaded classifier "-all.jar" this needs to be changed!)
+    libName.set("loader-${version}-reobf.jar") // Makes sure to copy the correct file (when using shaded classifier "-all.jar" this needs to be changed!)
     serversDir.set(file("${System.getProperty("user.home")}${File.separator}minecraft${File.separator}test_servers_v5"))
     val debugPort = System.getProperty("debugPort") ?: "5006"
     val debugPortMapping = "${debugPort}:${debugPort}"

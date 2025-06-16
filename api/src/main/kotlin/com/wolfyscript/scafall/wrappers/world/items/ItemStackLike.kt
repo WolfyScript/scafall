@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall.wrappers.world.items
 
-import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.data.DataHolder
 import com.wolfyscript.scafall.identifier.Key
@@ -16,6 +17,7 @@ interface ItemStackLike<H: ItemStackLike<H, M>, M: DataComponentMap<H>> : DataHo
      *
      * @return The id of the item.
      */
+    @get:JsonIgnore
     val item: Key
 
     /**
@@ -23,15 +25,17 @@ interface ItemStackLike<H: ItemStackLike<H, M>, M: DataComponentMap<H>> : DataHo
      *
      * @return The stack amount.
      */
+    @get:JsonIgnore
     val amount: Int
 
+    @get:JsonIgnore
     val isEmpty: Boolean
 
     /**
      * Returns the vanilla NBT mojangJson representation of this ItemStackLike.
      * This is multiplatform compatible and can easily be parsed/updated using Minecraft DataFixer.
      */
-    @JsonValue
+    @JsonProperty("snbt")
     fun toNBTString() : String
 
     /**

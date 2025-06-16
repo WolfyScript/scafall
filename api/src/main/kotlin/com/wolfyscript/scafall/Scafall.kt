@@ -1,11 +1,11 @@
 package com.wolfyscript.scafall
 
+import com.wolfyscript.scafall.adventure.AdventureUtil
 import com.wolfyscript.scafall.config.jackson.JacksonUtil
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.factories.Factories
 import com.wolfyscript.scafall.platform.PlatformManager
-import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.registry.Registries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer

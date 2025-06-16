@@ -2,7 +2,7 @@ package com.wolfyscript.scafall.sponge.api.wrappers.world.items.data
 
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverter
-import com.wolfyscript.scafall.toAPI
+import com.wolfyscript.scafall.adventure.toAPI
 import org.spongepowered.api.ResourceKey
 import org.spongepowered.api.data.Keys
 import org.spongepowered.api.item.ItemType

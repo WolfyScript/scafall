@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.sponge.api
 
-import com.wolfyscript.scafall.AdventureUtil
+import com.wolfyscript.scafall.adventure.AdventureUtil
 import com.wolfyscript.scafall.PluginWrapper
 import com.wolfyscript.scafall.common.api.AbstractScafallImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl

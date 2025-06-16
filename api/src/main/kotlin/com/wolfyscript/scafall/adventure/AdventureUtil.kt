@@ -1,5 +1,6 @@
-package com.wolfyscript.scafall
+package com.wolfyscript.scafall.adventure
 
+import com.wolfyscript.scafall.ScafallProvider
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
@@ -12,6 +13,7 @@ import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
+import net.minecraft.network.chat.MutableComponent
 import java.util.*
 
 /**
@@ -31,19 +33,30 @@ interface AdventureUtil {
     val miniMsg: MiniMessage
         get() = MiniMessage.miniMessage()
 
+    fun toVanilla(component: Component): MutableComponent
+
 }
 
-fun Key.toAPI() : com.wolfyscript.scafall.identifier.Key = ScafallProvider.get().factories.identifierFactory.key(this.namespace(), this.value())
+fun Key.toAPI() : com.wolfyscript.scafall.identifier.Key = ScafallProvider.Companion.get().factories.identifierFactory.key(this.namespace(), this.value())
 
 /* ****************************************** *
  *  Util extension functions for MiniMessage  *
  * ****************************************** */
 
-fun String.deserialize(tagResolver: TagResolver = TagResolver.empty(), miniMsg: MiniMessage = MiniMessage.miniMessage()) = miniMsg.deserialize(this, tagResolver)
+fun String.deser(tagResolver: TagResolver = TagResolver.empty(), miniMsg: MiniMessage = MiniMessage.miniMessage()) = miniMsg.deserialize(this, tagResolver)
 
-fun String.deserialize(vararg tagResolver: TagResolver = emptyArray(), miniMsg: MiniMessage = MiniMessage.miniMessage()) = miniMsg.deserialize(this, *tagResolver)
+fun String.deser(vararg tagResolver: TagResolver = emptyArray(), miniMsg: MiniMessage = MiniMessage.miniMessage()) = miniMsg.deserialize(this, *tagResolver)
 
-fun String.deserialize(vararg tagResolver: TagResolver = emptyArray()) = MiniMessage.miniMessage().deserialize(this, *tagResolver)
+fun String.deser(vararg tagResolver: TagResolver = emptyArray()) = MiniMessage.miniMessage().deserialize(this, *tagResolver)
+
+/* ******************************************************************** *
+ *  Cross-platform util for conversion between Adventure and Minecraft  *
+ * ******************************************************************** */
+
+/**
+ * Converts this adventure Component to a Minecraft Chat Component using the best platform specific conversion.
+ */
+fun Component.vanilla(): MutableComponent = ScafallProvider.get().adventure.toVanilla(this)
 
 /* ************************************************************** *
  *  Util extension functions for creating simple text components  *

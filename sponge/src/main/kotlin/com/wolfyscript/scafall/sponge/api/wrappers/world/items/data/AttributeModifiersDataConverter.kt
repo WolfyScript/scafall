@@ -3,7 +3,7 @@ package com.wolfyscript.scafall.sponge.api.wrappers.world.items.data
 import com.wolfyscript.scafall.common.api.wrappers.world.attribute.CommonAttribute
 import com.wolfyscript.scafall.common.api.wrappers.world.attribute.CommonAttributeModifier
 import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverter
-import com.wolfyscript.scafall.toAPI
+import com.wolfyscript.scafall.adventure.toAPI
 import com.wolfyscript.scafall.wrappers.world.attribute.ModifierOperation
 import com.wolfyscript.scafall.wrappers.world.attribute.ModifierSlot
 import com.wolfyscript.scafall.wrappers.world.items.data.AttributeModifiers

@@ -4,7 +4,7 @@ import com.wolfyscript.scafall.common.api.wrappers.utils.CommonWrapperUtilsImpl
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackLikeCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackSnapshotCommon
-import com.wolfyscript.scafall.toAPI
+import com.wolfyscript.scafall.adventure.toAPI
 import com.wolfyscript.scafall.wrappers.utils.snapshot
 import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos

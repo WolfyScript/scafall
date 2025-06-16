@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items.enchanting
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.toAPI
+import com.wolfyscript.scafall.adventure.toAPI
 import com.wolfyscript.scafall.wrappers.world.items.enchanting.Enchantment
 import org.spongepowered.api.item.enchantment.EnchantmentTypes
 

@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall.identifier
 
 import com.wolfyscript.scafall.ScafallProvider
+import net.minecraft.resources.ResourceLocation
 import org.intellij.lang.annotations.RegExp
 
 interface Key : Namespaced {
@@ -37,6 +38,8 @@ interface Key : Namespaced {
     val value: String
 
     fun into() : net.kyori.adventure.key.Key
+
+    fun toMc() : ResourceLocation
 
     override fun toString(): String
 

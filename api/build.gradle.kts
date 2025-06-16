@@ -9,7 +9,13 @@ dependencies {
     compileOnly(project(":loader-api"))
     implementation(kotlin("reflect"))
     minecraft("com.mojang:minecraft:${project.properties["minecraft_version"]}")
-    mappings(loom.officialMojangMappings())
+
+    mappings(
+        loom.layered {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-${project.properties["minecraft_version"]}:${project.properties["parchment_version"]}@zip")
+        }
+    )
 }
 
 tasks {

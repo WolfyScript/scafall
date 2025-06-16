@@ -10,7 +10,12 @@ dependencies {
     implementation(project(":loader-api"))
     minecraft("com.mojang:minecraft:${project.properties["minecraft_version"]}")
     modCompileOnly(libs.adventure.platform.shared)
-    mappings(loom.officialMojangMappings())
+    mappings(
+        loom.layered {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-${project.properties["minecraft_version"]}:${project.properties["parchment_version"]}@zip")
+        }
+    )
 }
 
 publishing {

@@ -27,7 +27,7 @@ slf4j-api = "2.0.16"
 caffeine = "3.2.0"
 
 # adventure
-adventure-api = "4.10.1"
+adventure-api = "4.21.0"
 adventure-platform-api = "4.1.0"
 adventure-platform-mod-shared = "6.4.0"
 adventure-minimessage = "4.10.0"
@@ -76,6 +76,7 @@ slf4j-api = { module = "org.slf4j:slf4j-api", version.ref="slf4j-api" }
 
 # Adventure
 adventure-api = { module = "net.kyori:adventure-api", version.ref = "adventure-api" }
+adventure-serializer-gson = { module = "net.kyori:adventure-text-serializer-gson", version.ref = "adventure-api" }
 adventure-platform-api = { module = "net.kyori:adventure-platform-api", version.ref = "adventure-platform-api" }
 adventure-text-minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure-minimessage" }
 adventure-platform-shared = { module = "net.kyori:adventure-platform-mod-shared-fabric-repack", version.ref = "adventure-platform-mod-shared" }

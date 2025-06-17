@@ -7,7 +7,7 @@ import org.reflections.Reflections
 import org.reflections.scanners.Scanners
 import org.reflections.util.ConfigurationBuilder
 
-abstract class AbstractScafallImpl : Scafall {
+abstract class ScafallCommon() : Scafall {
 
     override val jacksonUtil: JacksonUtil = JacksonUtilImpl()
 
@@ -17,6 +17,11 @@ abstract class AbstractScafallImpl : Scafall {
             .addClassLoaders(javaClass.classLoader)
             .addScanners(*Scanners.entries.toTypedArray())
     )
+
+    /**
+     * The Module was just initiated and registered. The Plugin has not been loaded yet!
+     */
+    abstract fun init()
 
     abstract fun load()
 

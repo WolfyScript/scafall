@@ -15,6 +15,10 @@ class ScafallSpigotBootstrap @Inject constructor(val classLoader: ClassLoader, p
     internal val corePlugin: SpigotPluginWrapper = SpigotPluginWrapper(plugin)
     override val bridge: ScafallSpigot = ScafallSpigot(this)
 
+    override fun onInit() {
+        bridge.init()
+    }
+
     override fun onLoad() {
         bridge.load()
 

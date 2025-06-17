@@ -9,6 +9,13 @@ package com.wolfyscript.scafall.loader.module
 interface Module<T> {
 
     /**
+     * Called when the module was initiated and/or registered.
+     *
+     * Not called when the Module loaded manually using the loader-api, then this needs to be run manually too.
+     */
+    fun onInit() {}
+
+    /**
      * Called when the module was created and is now being initiated by the platform.
      */
     fun onLoad()

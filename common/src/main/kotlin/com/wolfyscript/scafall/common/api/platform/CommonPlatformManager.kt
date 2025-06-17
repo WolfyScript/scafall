@@ -21,6 +21,7 @@ abstract class CommonPlatformManager(val scafallClassLoader: ClassLoader) : Plat
         val moduleClass = moduleClassLoader.loadClass(pathToModule).asSubclass<Module<*>>(Module::class.java)
         val module = moduleClass.getConstructor().newInstance()
         implementationModules.put(key, module)
+        module.onInit()
         return
     }
 

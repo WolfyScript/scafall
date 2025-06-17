@@ -42,6 +42,7 @@ abstract class StandaloneInternalBootstrap<T>(val moduleBaseType: Class<out Modu
             throw IllegalStateException("Could not create plugin bootstrap instance", e)
         }
         register(module)
+        module.onInit()
         return module
     }
 

@@ -21,6 +21,15 @@ interface RegistryKey<R> {
 
     val registry: Key
 
-    fun reference(): RegistryReference<R>
+    fun reference(): RegistryReference<R> {
+        return reference { ScafallProvider.get().registries }
+    }
 
+    fun reference(defaultHolder: () -> RegistryHolder): RegistryReference<R>
+
+    fun <T : R> referenced(valueKey: Key, valueType: Class<T>): ValueKey<R, T>
+}
+
+inline fun <R, reified T : R> RegistryKey<R>.referenced(valueKey: Key): ValueKey<R, T> {
+    return referenced(valueKey, T::class.java)
 }

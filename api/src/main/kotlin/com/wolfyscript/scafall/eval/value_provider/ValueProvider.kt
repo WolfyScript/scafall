@@ -90,8 +90,6 @@ interface ValueProvider<V> {
             generator: JsonGenerator,
             provider: SerializerProvider,
         ): Boolean {
-            println("Serialize ValueProvider!")
-
             when (valueProvider) {
                 is ValueProviderStringConst -> {
                     generator.writeString(valueProvider.value)

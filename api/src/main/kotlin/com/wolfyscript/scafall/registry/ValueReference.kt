@@ -1,8 +1,8 @@
 package com.wolfyscript.scafall.registry
 
-interface ValueReference<T> {
+interface ValueReference<R, T: R> {
 
-    val key: ValueKey<T>
+    val key: ValueKey<R, T>
 
     fun resolve(): Result<T>
 

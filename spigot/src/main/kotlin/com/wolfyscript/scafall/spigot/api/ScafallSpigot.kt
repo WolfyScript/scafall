@@ -2,11 +2,11 @@ package com.wolfyscript.scafall.spigot.api
 
 import com.wolfyscript.scafall.PluginWrapper
 import com.wolfyscript.scafall.Scafall
-import com.wolfyscript.scafall.common.api.AbstractScafallImpl
+import com.wolfyscript.scafall.common.api.ScafallCommon
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
-import com.wolfyscript.scafall.common.api.factories.CommonFactories
 import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
+import com.wolfyscript.scafall.factories.Factories
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.registry.ScafallRegistries
@@ -24,49 +24,60 @@ import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.bukkit.Bukkit
 
-class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : AbstractScafallImpl() {
+class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCommon() {
 
-    override lateinit var registries: ScafallRegistries
-    override lateinit var scheduler: Scheduler
+    //
+    // Note: This is called before this bridge is registered! ScafallProvider.get() will fail!
+    //       Only init things that don't depend on it and use init() instead!
+    //
+
+    override val corePlugin: PluginWrapper = bootstrap.corePlugin
+
+    // Essentials
+    override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
+    override val registries: ScafallCommonRegistries = ScafallCommonRegistries(this)
+
+    override val server: ScafallServer = ScafallSpigotServer()
+    override val scheduler: Scheduler = SchedulerImpl()
     override val platformManager: SpigotPlatformManager = SpigotPlatformManager(this)
+    override val minecraftWrapper: MinecraftWrapper = SpigotWrapperUtilsImpl()
+    override val adventure: SpigotAdventureUtil = SpigotAdventureUtil(this)
+
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
-    override val factories: CommonFactories = SpigotFactoriesImpl(this)
-    override var corePlugin: PluginWrapper = bootstrap.corePlugin
-    override val server: ScafallServer = ScafallSpigotServer()
-    override lateinit var adventure: SpigotAdventureUtil
-    override val minecraftWrapper: MinecraftWrapper = SpigotWrapperUtilsImpl()
 
-    // Spigot only features
-    internal lateinit var persistentStorageInternal : PersistentStorage
-    internal lateinit var compatibilityManagerInternal : CompatibilityManager
+    //
+    // Spigot-only features
+    //
+    internal val persistentStorageInternal : PersistentStorage = PersistentStorage(this)
+    internal val compatibilityManagerInternal : CompatibilityManager = CompatibilityManagerBukkit(this)
 
-    override fun createOrGetPluginWrapper(pluginName: String): PluginWrapper? {
-        return Bukkit.getPluginManager().getPlugin(pluginName)?.let { SpigotPluginWrapper(it) }
-    }
-
-    override fun load() {
+    override fun init() {
+        // initiate essential components
         factories.init()
+        registries.initRegistries()
+        registries.registerForJackson()
 
-        scheduler = SchedulerImpl(this)
-        registries = ScafallCommonRegistries(this)
-
-        // maven
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, bootstrap.corePlugin.plugin.dataFolder.toPath().resolve("libs"))
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()
+    }
 
-        persistentStorageInternal = PersistentStorage(this)
-        compatibilityManagerInternal = CompatibilityManagerBukkit(this)
-
-        adventure = SpigotAdventureUtil(this)
-
+    /**
+     * Initiates everything that requires that the plugin instance was created and other plugins are available, but doesn't require the plugin to be enabled.
+     */
+    override fun load() {
         platformManager.implementationModules.forEach {
             it.value.onLoad()
         }
     }
 
+    /**
+     * initiates everything that requires the Spigot Plugin to be enabled.
+     * e.g. Adventure, Events, etc.
+     */
     override fun enable() {
         adventure.init()
+        compatibilityManagerInternal.init()
 
         platformManager.implementationModules.forEach {
             it.value.onEnable()
@@ -80,9 +91,13 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : AbstractSc
         adventure.unload()
     }
 
+    override fun createOrGetPluginWrapper(pluginName: String): PluginWrapper? {
+        return Bukkit.getPluginManager().getPlugin(pluginName)?.let { SpigotPluginWrapper(it) }
+    }
+
 }
 
-// Provide access to spigot only features without having to cast Scaffolding
+// Provide access to spigot-only features without having to cast Scaffolding
 val Scafall.persistentStorage : PersistentStorage
     get() = (this as ScafallSpigot).persistentStorageInternal
 val Scafall.compatibilityManager : CompatibilityManager

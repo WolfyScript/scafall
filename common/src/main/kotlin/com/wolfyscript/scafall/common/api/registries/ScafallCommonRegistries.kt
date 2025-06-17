@@ -1,8 +1,10 @@
 package com.wolfyscript.scafall.common.api.registries
 
 import com.wolfyscript.scafall.Scafall
-import com.wolfyscript.scafall.common.api.items.VanillaItemStackIdentifier
+import com.wolfyscript.scafall.ScafallProvider
+import com.wolfyscript.scafall.common.api.items.VanillaItemStackIdentifierImpl
 import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
+import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.items.ItemStackIdentifier
 import com.wolfyscript.scafall.items.ItemStackIdentifiers
@@ -10,18 +12,26 @@ import com.wolfyscript.scafall.registry.*
 
 class ScafallCommonRegistries(val scafall: Scafall) : ScafallRegistries {
 
-    private val rootRegistry = RegistrySimple<Registry<*>>(ScafallRegistryTypes.root)
+    private lateinit var rootRegistry: Registry<Registry<*>>
 
     fun initRegistries() {
+        rootRegistry = RegistrySimple(ScafallRegistryTypes.root)
 
         createRegistry(ScafallRegistryTypes.itemStackIdentifiers) {
             TypeRegistrySimple<ItemStackIdentifier>(it).apply {
-                register(ItemStackIdentifiers.vanilla.key.key, VanillaItemStackIdentifier::class.java)
+                register(ItemStackIdentifiers.vanilla.key.key, VanillaItemStackIdentifierImpl::class.java)
             }
         }
+
         createRegistry(ScafallRegistryTypes.itemStackConfigOverrides) { RegistrySimple(it) }
-        createRegistry(ScafallRegistryTypes.itemStackIdentifierParsers) { RegistrySimple(it) }
-        createRegistry(ScafallRegistryTypes.valueProviders) { RegistrySimple(it) }
+        createRegistry(ScafallRegistryTypes.itemStackIdentifierParsers) {
+            RegistrySimple<ItemStackIdentifier.Parser<*>>(it).apply {
+                register(ItemStackIdentifiers.Parsers.vanilla.key.key, VanillaItemStackIdentifierImpl.Parser())
+            }
+        }
+        createRegistry(ScafallRegistryTypes.valueProviders) {
+            RegistrySimple<Class<out ValueProvider<*>>>(it)
+        }
         createRegistry(ScafallRegistryTypes.nbtConfigs) { RegistrySimple(it) }
         createRegistry(ScafallRegistryTypes.operators) { RegistrySimple(it) }
     }
@@ -32,12 +42,10 @@ class ScafallCommonRegistries(val scafall: Scafall) : ScafallRegistries {
     }
 
     fun registerForJackson() {
-        // TODO
         RegistryKeyTypeIdResolver.registerTypeRegistry(
             ItemStackIdentifier::class.java,
             get(ScafallRegistryTypes.itemStackIdentifiers.key).getOrThrow()
         )
-
     }
 
     override fun <T> get(type: RegistryKey<T>): Result<Registry<T>> {

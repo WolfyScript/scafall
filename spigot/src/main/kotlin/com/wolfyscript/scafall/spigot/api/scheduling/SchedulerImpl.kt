@@ -3,11 +3,10 @@ package com.wolfyscript.scafall.spigot.api.scheduling
 import com.wolfyscript.scafall.PluginWrapper
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.scheduling.Task
-import com.wolfyscript.scafall.spigot.api.ScafallSpigot
 import com.wolfyscript.scafall.spigot.api.into
 import org.bukkit.Bukkit
 
-internal class SchedulerImpl(private val scaffolding: ScafallSpigot) : Scheduler {
+internal class SchedulerImpl() : Scheduler {
 
     override fun task(plugin: PluginWrapper): Task.Builder = TaskImpl.Builder(plugin.into())
 

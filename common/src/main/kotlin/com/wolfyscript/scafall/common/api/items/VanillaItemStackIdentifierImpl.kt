@@ -1,11 +1,12 @@
 package com.wolfyscript.scafall.common.api.items
 
 import com.wolfyscript.scafall.items.ItemStackIdentifier
+import com.wolfyscript.scafall.items.VanillaItemStackIdentifier
 import com.wolfyscript.scafall.wrappers.utils.unwrap
 import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 
-class VanillaItemStackIdentifier(val stack: ItemStack) : ItemStackIdentifier {
+class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaItemStackIdentifier {
 
     override val parser: ItemStackIdentifier.Parser<*>
         get() = TODO("Not yet implemented")
@@ -36,12 +37,12 @@ class VanillaItemStackIdentifier(val stack: ItemStack) : ItemStackIdentifier {
         return "VanillaItemStackIdentifier(stack=$stack)"
     }
 
-    class Parser : ItemStackIdentifier.Parser<VanillaItemStackIdentifier> {
+    class Parser : VanillaItemStackIdentifier.Parser {
 
         override val priority: Int = 0
 
-        override fun from(stack: ItemStack): VanillaItemStackIdentifier? {
-            return VanillaItemStackIdentifier(stack)
+        override fun from(stack: ItemStack): VanillaItemStackIdentifierImpl? {
+            return VanillaItemStackIdentifierImpl(stack)
         }
 
     }

@@ -3,7 +3,7 @@ package com.wolfyscript.scafall.common.api.factories
 import com.mojang.serialization.Dynamic
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.common.api.items.ItemStackRefImpl
-import com.wolfyscript.scafall.common.api.items.VanillaItemStackIdentifier
+import com.wolfyscript.scafall.common.api.items.VanillaItemStackIdentifierImpl
 import com.wolfyscript.scafall.factories.ItemsFactory
 import com.wolfyscript.scafall.items.ItemStackRef
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
@@ -44,7 +44,7 @@ class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
     }
 
     override fun createVanillaStackRef(stack: ItemStack, count: Int): ItemStackRef {
-        return ItemStackRefImpl(count, VanillaItemStackIdentifier(stack))
+        return ItemStackRefImpl(count, VanillaItemStackIdentifierImpl(stack))
     }
 
     override fun createVanillaStackRef(

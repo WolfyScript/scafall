@@ -9,6 +9,7 @@ import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import org.bukkit.Location
+import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
@@ -21,6 +22,10 @@ private val wrapper = ScafallProvider.get().spigotWrapper
 
 fun Key.toSpigot() : org.bukkit.NamespacedKey {
     return org.bukkit.NamespacedKey(namespace, value)
+}
+
+fun NamespacedKey.wrap() : Key {
+    return Key.key(namespace, key)
 }
 
 fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStack = wrapper.wrapItemStack(this)

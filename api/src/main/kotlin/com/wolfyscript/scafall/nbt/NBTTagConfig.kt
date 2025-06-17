@@ -15,6 +15,7 @@ import com.wolfyscript.scafall.ScafallProvider.Companion.get
 import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
 import com.wolfyscript.scafall.config.jackson.OptionalValueDeserializer
 import com.wolfyscript.scafall.config.jackson.ValueDeserializer
+import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import java.io.IOException
 import java.util.regex.Pattern
 
@@ -55,10 +56,9 @@ abstract class NBTTagConfig {
             if (jsonParser.isExpectedStartObjectToken) {
                 return null
             }
-            val scaffolding = get()
             val token = jsonParser.currentToken()
             var node: JsonNode? = null
-            val regNBTQueries = scaffolding.registries.nbtTagConfigs
+            val regNBTQueries = ScafallRegistryTypes.nbtConfigs.resolveOrThrow()
             val type = when (token) {
                 JsonToken.VALUE_STRING -> {
                     node = jsonParser.readValueAsTree()

@@ -13,6 +13,7 @@ import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.key
 import com.wolfyscript.scafall.registry.Registry
+import com.wolfyscript.scafall.registry.RegistryKey
 import java.io.IOException
 import java.lang.reflect.Field
 
@@ -128,7 +129,7 @@ annotation class OptionalKeyReference(
         ) :
             StdDeserializer<T>(defaultDeserializer.handledType()), ResolvableDeserializer {
             private val genericType: Class<T> = defaultDeserializer.handledType() as Class<T>
-            private val registryKey = key(Key.SCAFFOLDING_NAMESPACE, reference.registryKey)
+            private val registryKey = RegistryKey.of<T>(key(Key.SCAFFOLDING_NAMESPACE, reference.registryKey)).reference()
 
             @Throws(IOException::class)
             override fun deserialize(p: JsonParser, ctxt: DeserializationContext): T? {
@@ -159,10 +160,10 @@ annotation class OptionalKeyReference(
 
             @Throws(IOException::class)
             fun getKeyedObject(p: JsonParser): T? {
-                val registry = core.registries.getByKey(registryKey) as Registry<T>?
+                val registry = registryKey.resolve().getOrNull()
                 if (registry != null) {
                     val value = p.readValueAs(String::class.java)
-                    return registry.get(key(Key.SCAFFOLDING_NAMESPACE, value))
+                    return registry[key(Key.SCAFFOLDING_NAMESPACE, value)]
                 }
                 return null
             }

@@ -2,12 +2,11 @@ package com.wolfyscript.scafall.common.api.factories
 
 import com.mojang.serialization.Dynamic
 import com.wolfyscript.scafall.Scafall
-import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.common.api.items.ItemStackRefImpl
 import com.wolfyscript.scafall.common.api.items.VanillaItemStackIdentifier
 import com.wolfyscript.scafall.factories.ItemsFactory
-import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.items.ItemStackRef
+import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import net.minecraft.SharedConstants
@@ -56,7 +55,7 @@ class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
     }
 
     override fun parseStackRef(stack: ItemStack, count: Int): ItemStackRef? {
-        val parsers = ScafallProvider.get().registries.itemStackIdentifierParsers.values().sortedByDescending { it.priority }
+        val parsers = ScafallRegistryTypes.itemStackIdentifierParsers.resolveOrThrow().values().sortedByDescending { it.priority }
         val identifier = parsers.firstNotNullOfOrNull {
             it.from(stack)
         }

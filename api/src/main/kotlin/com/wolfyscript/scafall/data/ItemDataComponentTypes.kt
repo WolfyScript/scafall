@@ -92,7 +92,6 @@ interface ItemDataComponentTypes {
 
         fun <T : Any> register(type: KClass<T>, key: Key): DataKey<T, ItemStackLike<*, *>> {
             val dataKey = ScafallProvider.get().factories.dataKeyFactory.create<T, ItemStackLike<*,*>>(type, key)
-            ScafallProvider.get().registries.itemDataKeyRegistry.register(key, dataKey)
             return dataKey
         }
 

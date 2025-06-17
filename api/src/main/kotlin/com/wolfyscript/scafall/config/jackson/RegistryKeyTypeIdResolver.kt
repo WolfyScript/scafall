@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JavaType
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase
 import com.fasterxml.jackson.databind.type.TypeFactory
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.registry.Registry
 import com.wolfyscript.scafall.registry.TypeRegistry
 
 /**
@@ -75,9 +76,9 @@ class RegistryKeyTypeIdResolver : TypeIdResolverBase() {
         return rawClass
     }
 
-    private fun <T> getAssociatedRegistry(type: Class<T>): TypeRegistry<T>? {
+    private fun <T> getAssociatedRegistry(type: Class<T>): Registry<Class<out T>>? {
         //Get the registry of the required base type
-        return TYPE_REGISTRIES[getBaseClassType()] as TypeRegistry<T>?
+        return TYPE_REGISTRIES[getBaseClassType()] as Registry<Class<out T>>?
     }
 
     private fun getTypeClass(key: Key?): Class<*>? {
@@ -96,7 +97,7 @@ class RegistryKeyTypeIdResolver : TypeIdResolverBase() {
     }
 
     companion object {
-        private val TYPE_REGISTRIES: MutableMap<Class<*>, TypeRegistry<*>> = HashMap()
+        private val TYPE_REGISTRIES: MutableMap<Class<*>, Registry<Class<out Any>>> = HashMap()
 
         /**
          * Registers a registry to be used for Json serialization and deserialization. <br></br>
@@ -107,7 +108,20 @@ class RegistryKeyTypeIdResolver : TypeIdResolverBase() {
          * @param <T> The type of the object.
         </T> */
         fun <T> registerTypeRegistry(type: Class<T>, registry: TypeRegistry<T>) {
-            TYPE_REGISTRIES.putIfAbsent(type, registry)
+            TYPE_REGISTRIES.putIfAbsent(type, registry as Registry<Class<out Any>>)
         }
+
+        /**
+         * Registers a registry to be used for Json serialization and deserialization. <br></br>
+         * To use that the class of the specified type must be annotated with [OptionalKeyReference].
+         *
+         * @param type The type to register.
+         * @param registry The registry of the specified type.
+         * @param <T> The type of the object.
+        </T> */
+        fun <T> registerTypeRegistry(type: Class<T>, registry: Registry<Class<out T>>) {
+            TYPE_REGISTRIES.putIfAbsent(type, registry as Registry<Class<out Any>>)
+        }
+
     }
 }

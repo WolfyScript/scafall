@@ -6,10 +6,10 @@ import com.wolfyscript.scafall.common.api.AbstractScafallImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
 import com.wolfyscript.scafall.common.api.factories.CommonFactories
-import com.wolfyscript.scafall.common.api.registries.CommonRegistries
+import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
-import com.wolfyscript.scafall.registry.Registries
+import com.wolfyscript.scafall.registry.ScafallRegistries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
@@ -26,7 +26,7 @@ import org.bukkit.Bukkit
 
 class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : AbstractScafallImpl() {
 
-    override lateinit var registries: Registries
+    override lateinit var registries: ScafallRegistries
     override lateinit var scheduler: Scheduler
     override val platformManager: SpigotPlatformManager = SpigotPlatformManager(this)
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
@@ -49,7 +49,7 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : AbstractSc
         factories.init()
 
         scheduler = SchedulerImpl(this)
-        registries = CommonRegistries(this)
+        registries = ScafallCommonRegistries(this)
 
         // maven
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, bootstrap.corePlugin.plugin.dataFolder.toPath().resolve("libs"))

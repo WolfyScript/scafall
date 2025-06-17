@@ -15,17 +15,17 @@ private var customPlayerDataRegistry: TypeRegistry<CustomPlayerData>? = null
 // nbt
 private var nbtQueriesRegistry: TypeRegistry<QueryNode<*>>? = null
 
-val Registries.customBlockData
+val ScafallRegistries.customBlockData
     get() = customBlockDataRegistry ?: throw RuntimeException(errorNotRegistered)
-val Registries.customPlayerData
+val ScafallRegistries.customPlayerData
     get() = customPlayerDataRegistry ?: throw RuntimeException(errorNotRegistered)
 
 // nbt
-val Registries.nbtQueries
+val ScafallRegistries.nbtQueries
     get() = nbtQueriesRegistry ?: throw RuntimeException(errorNotRegistered)
 
 
-internal fun Registries.registerSpigotPlatform() {
+internal fun ScafallRegistries.registerSpigotPlatform() {
     customBlockDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("persistent/block"))
     customPlayerDataRegistry = UniqueTypeRegistrySimple(Key.defaultKey("persistent/player"))
 

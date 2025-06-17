@@ -60,7 +60,6 @@ class SpongeItemStackDataComponentConverterProvider {
             converter.applier,
             converter.remover
         )
-        ScafallProvider.get().registries.itemDataComponentConverterRegistry.register(dataKey.key(), converterImpl)
         return converterImpl
     }
 

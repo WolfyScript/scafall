@@ -6,7 +6,7 @@ import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.factories.Factories
 import com.wolfyscript.scafall.platform.PlatformManager
-import com.wolfyscript.scafall.registry.Registries
+import com.wolfyscript.scafall.registry.ScafallRegistries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
@@ -20,7 +20,7 @@ import org.slf4j.Logger
  */
 interface Scafall {
 
-    val registries: Registries
+    val registries: ScafallRegistries
 
     val scheduler: Scheduler
 

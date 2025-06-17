@@ -5,12 +5,12 @@ import com.wolfyscript.scafall.PluginWrapper
 import com.wolfyscript.scafall.common.api.AbstractScafallImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
-import com.wolfyscript.scafall.common.api.registries.CommonRegistries
+import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.factories.Factories
 import com.wolfyscript.scafall.platform.PlatformManager
-import com.wolfyscript.scafall.registry.Registries
+import com.wolfyscript.scafall.registry.ScafallRegistries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap
@@ -28,7 +28,7 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : AbstractScafallImpl
 
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
-    override lateinit var registries: Registries
+    override lateinit var registries: ScafallRegistries
     override lateinit var scheduler: Scheduler
     override val platformManager: PlatformManager = PlatformManagerImpl(this)
     override lateinit var factories: Factories
@@ -41,7 +41,7 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : AbstractScafallImpl
     override fun load() {
         factories = SpongeFactories(this)
         scheduler = SchedulerImpl()
-        registries = CommonRegistries(this)
+        registries = ScafallCommonRegistries(this)
 
         // maven
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, Path("")) // TODO
@@ -51,7 +51,6 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : AbstractScafallImpl
     }
 
     override fun enable() {
-
     }
 
     override fun unload() {

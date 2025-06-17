@@ -34,7 +34,7 @@ interface ItemsFactory {
 
     /**
      * Parses the [com.wolfyscript.scafall.items.ItemStackIdentifier] from the specified stack using the registered
-     * [com.wolfyscript.scafall.registry.Registries.itemStackIdentifierParsers].
+     * [com.wolfyscript.scafall.registry.ScafallRegistryTypes.itemStackIdentifierParsers].
      *
      * Parsers of higher priority take precedence.
      */

@@ -17,9 +17,6 @@ class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaIte
     ): Boolean {
         val other = stack.unwrap()
         val thisStack = this.stack.unwrap()
-        if (other.count != thisStack.count) {
-            return false
-        }
         if (thisStack == other) {
             return true // Same instance of stacks, so they must be equal!
         }

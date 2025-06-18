@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DatabindContext
 import com.fasterxml.jackson.databind.JavaType
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase
 import com.fasterxml.jackson.databind.type.TypeFactory
+import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.Registry
 import com.wolfyscript.scafall.registry.TypeRegistry
@@ -24,50 +25,72 @@ import com.wolfyscript.scafall.registry.TypeRegistry
  *
  */
 class RegistryKeyTypeIdResolver : TypeIdResolverBase() {
-    private var superType: JavaType? = null
+
+    private lateinit var superType: JavaType
 
     override fun init(baseType: JavaType) {
         superType = baseType
     }
 
-    override fun idFromValue(value: Any): String {
+    override fun idFromValue(value: Any): String? {
         return getKey(value)
     }
 
-    override fun idFromValueAndType(value: Any, aClass: Class<*>?): String {
+    override fun idFromValueAndType(value: Any, aClass: Class<*>?): String? {
         return getKey(value)
     }
 
-    private fun getKey(value: Any): String {
+    private fun getKey(value: Any): String? {
         val baseType = getBaseClassType()
         val key = getTypedKey(baseType, value)
         if (key != null) {
             return key.toString()
         }
-        throw IllegalStateException("Failed to resolve type id for object '$value' of base type '$baseType'! Is it registered?")
+        ScafallProvider.get().logger.error("Failed to resolve type id for '$value' of base type '$baseType'! Is it registered?")
+        return null
     }
 
     private fun <T> getTypedKey(baseType: Class<T>, value: Any): Key? {
         val registry = getAssociatedRegistry(baseType)
         if (registry == null) {
-            throw IllegalArgumentException("Failed to construct type id: ${getBaseClassType()} has no associated Registry!")
+            ScafallProvider.get().logger.error("Failed to construct type id! ${getBaseClassType()} has no associated Registry!")
+            return null
         }
 
         return registry.getKey(value::class.java as Class<out T>)
     }
 
     override fun typeFromId(context: DatabindContext, id: String): JavaType {
-        val namespacedKey = if (id.contains(':')) {
+        val baseType = getBaseClassType()
+        val registry = getAssociatedRegistry(baseType)
+        if (registry == null) {
+            ScafallProvider.get().logger.error("Failed to get type for $id! $baseType has no associated Registry!")
+            return TypeFactory.unknownType()
+        }
+
+        val key = if (id.contains(':')) {
             Key.parse(id)
         } else {
-            Key.key(Key.SCAFFOLDING_NAMESPACE, id)
+            // Complete the key with the default namespace if it isn't yet.
+            // It assumes that the default namespace is equal to the namespace of the registry (alternatively, it can be overwritten).
+            val namespace = superType.rawClass.getAnnotation(DefaultNamespace::class.java)?.namespace ?: registry.key.namespace
+            Key.key(namespace, id)
         }
-        val clazz = getTypeClass(namespacedKey)
-        return if (clazz != null) context.constructSpecializedType(superType, clazz) else TypeFactory.unknownType()
+
+        val clazz = getTypeClass(key, registry)
+        return if (clazz != null) {
+            context.constructSpecializedType(superType, clazz)
+        } else {
+            ScafallProvider.get().logger.error("Failed to get type of key $key for ${baseType}! Is it registered?")
+            TypeFactory.unknownType()
+        }
     }
 
+    /**
+     * Gets the base type of this resolver, which the underlying lookup registry uses.
+     */
     private fun getBaseClassType(): Class<*> {
-        val rawClass = superType!!.rawClass
+        val rawClass = superType.rawClass
         //If it is specified, use the custom base type instead.
         val baseTypeAnnot = rawClass.getDeclaredAnnotation(KeyedBaseType::class.java)
         if (baseTypeAnnot != null) {
@@ -78,16 +101,13 @@ class RegistryKeyTypeIdResolver : TypeIdResolverBase() {
 
     private fun <T> getAssociatedRegistry(type: Class<T>): Registry<Class<out T>>? {
         //Get the registry of the required base type
-        return TYPE_REGISTRIES[getBaseClassType()] as Registry<Class<out T>>?
+        return TYPE_REGISTRIES[type] as Registry<Class<out T>>?
     }
 
-    private fun getTypeClass(key: Key?): Class<*>? {
+    private fun getTypeClass(key: Key?, registry: Registry<out Class<*>>): Class<*>? {
         if (key != null) {
             //Get the registry of the required base type
-            val registry = getAssociatedRegistry(getBaseClassType())
-            if (registry != null) {
-                return registry[key]
-            }
+            return registry[key]
         }
         return null
     }

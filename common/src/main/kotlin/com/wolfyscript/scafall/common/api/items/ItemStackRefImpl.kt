@@ -43,7 +43,7 @@ class ItemStackRefImpl(
     }
 
     override fun toString(): String {
-        return "ItemStackRefImpl(amount=$amount, identifier=$identifier)"
+        return "ref(${amount} $identifier)"
     }
 
 }

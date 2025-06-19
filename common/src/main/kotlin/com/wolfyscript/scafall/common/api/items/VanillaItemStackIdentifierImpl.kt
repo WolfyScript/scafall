@@ -31,7 +31,7 @@ class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaIte
     }
 
     override fun toString(): String {
-        return "VanillaItemStackIdentifier(stack=$stack)"
+        return "vanilla($stack)"
     }
 
     class Parser : VanillaItemStackIdentifier.Parser {

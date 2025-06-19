@@ -43,7 +43,7 @@ sealed class ItemStackLikeCommon<H: ItemStackLike<H, M>, M: DataComponentMap<H>>
     }
 
     override fun toString(): String {
-        return "ItemStackLikeCommon(mcStack=$mcStack, amount=$amount)"
+        return mcStack.toString()
     }
 
 }

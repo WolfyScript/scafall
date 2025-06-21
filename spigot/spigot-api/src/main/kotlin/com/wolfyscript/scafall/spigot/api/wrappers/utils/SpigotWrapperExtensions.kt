@@ -34,9 +34,13 @@ fun ItemStack.snapshot() : ItemStackSnapshot = wrapper.wrapItemStackSnapshot(thi
 
 fun ItemStackLike<*, *>.unwrap(): ItemStack = wrapper.unwrapItemStack(this)
 
+fun ItemStackLike<*, *>.unwrapSpigot(): ItemStack = wrapper.unwrapItemStack(this)
+
 fun Player.wrap(): com.wolfyscript.scafall.wrappers.world.entity.Player = wrapper.wrapPlayer(this)
 
 fun com.wolfyscript.scafall.wrappers.world.entity.Player.unwrap(): Player? = wrapper.unwrapToSpigot(this)
+
+fun com.wolfyscript.scafall.wrappers.world.entity.Player.unwrapSpigot(): Player? = wrapper.unwrapToSpigot(this)
 
 /**
  * Unwraps the Bukkit [Location] to a [ScafallGlobalPrecisePos] (Vec3 linked to a Level)

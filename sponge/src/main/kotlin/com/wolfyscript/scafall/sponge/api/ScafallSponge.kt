@@ -2,7 +2,7 @@ package com.wolfyscript.scafall.sponge.api
 
 import com.wolfyscript.scafall.adventure.AdventureUtil
 import com.wolfyscript.scafall.PluginWrapper
-import com.wolfyscript.scafall.common.api.AbstractScafallImpl
+import com.wolfyscript.scafall.common.api.ScafallCommon
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
 import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
@@ -24,7 +24,7 @@ import org.spongepowered.api.Sponge
 import kotlin.io.path.Path
 import kotlin.jvm.optionals.getOrNull
 
-class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : AbstractScafallImpl() {
+class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : ScafallCommon() {
 
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler

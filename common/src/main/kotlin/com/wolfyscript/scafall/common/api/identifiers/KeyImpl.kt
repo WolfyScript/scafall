@@ -1,5 +1,7 @@
 package com.wolfyscript.scafall.common.api.identifiers
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonValue
 import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.KEY_REGEX
@@ -7,7 +9,11 @@ import com.wolfyscript.scafall.identifier.Key.Companion.NAMESPACE_REGEX
 import net.minecraft.resources.ResourceLocation
 import java.util.regex.Pattern
 
-class KeyImpl(override val namespace: String, override val value: String) : Key {
+class KeyImpl @JsonCreator(mode = JsonCreator.Mode.DISABLED) internal constructor(override val namespace: String, override val value: String) : Key {
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    internal constructor(key: String) : this(key.substringBefore(':', Key.SCAFFOLDING_NAMESPACE), key.substringAfter(':'))
+
 
     init {
         Preconditions.checkArgument(NAMESPACE_PATTERN.matcher(namespace).matches(), "Invalid namespace. Must be %s: %s", NAMESPACE_REGEX, namespace)
@@ -22,6 +28,7 @@ class KeyImpl(override val namespace: String, override val value: String) : Key 
         return ResourceLocation.fromNamespaceAndPath(namespace, value)
     }
 
+    @JsonValue
     override fun toString(): String = "$namespace:$value"
 
     override fun equals(other: Any?): Boolean {

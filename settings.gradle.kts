@@ -9,7 +9,7 @@ pluginManagement {
             name = "Fabric"
             url = uri("https://maven.fabricmc.net")
             content {
-                includeGroup("net.fabricmc")
+                includeGroupByRegex("net.fabricmc.*")
                 includeGroup("fabric-loom")
             }
         }

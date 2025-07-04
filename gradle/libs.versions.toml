@@ -14,7 +14,7 @@ typesafe-config = "1.3.1"
 
 # minecraft
 minecraft = "1.21.7"
-parchment="2025.06.15"
+parchment="2025.06.15" # see https://parchmentmc.org/docs/getting-started#choose-a-version for new versions
 authlib = "1.5.21"
 netty = "4.1.74.Final"
 fastutil = "8.5.15"
@@ -39,7 +39,7 @@ artifactory = "5+"
 foojay-resolver = "0.8.0"
 devtools-docker = "a2.0.1.0"
 shadow = "9.0.0-beta15"
-fabric-loom = "1.10-SNAPSHOT"
+fabric-loom = "1.11-SNAPSHOT"
 
 ## Spigot Impl dependencies ##
 papermc = "1.21.7-R0.1-SNAPSHOT"
@@ -56,6 +56,10 @@ mcmmo = "2.1.139-SNAPSHOT"
 sponge-gradle = "2.2.0"
 sponge-api = "15.0.0-SNAPSHOT"
 sponge-impl = "1.21.5-15.0.0-SNAPSHOT"
+
+## Fabric Impl
+fabric="0.128.2+1.21.7"
+fabric-loader="0.16.14"
 
 [libraries]
 # Kotlin & Jetbrains dependencies
@@ -110,6 +114,10 @@ nossr50-mcmmo = { module = "com.gmail.nossr50.mcMMO:mcMMO", version.ref="mcmmo" 
 ## Sponge Impl dependencies ##
 spongepowered-api = { module = "org.spongepowered:spongeapi", version.ref = "sponge-api" }
 spongepowered-impl = { module = "org.spongepowered:sponge", version.ref = "sponge-impl" }
+
+## Fabric Impl
+fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric" }
+fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
 
 [bundles]
 jackson = [ "jackson-core", "jackson-annotations", "jackson-databind", "jackson-dataformat-hocon" ]

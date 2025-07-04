@@ -73,7 +73,7 @@ minecraftServers {
         // Scaffolding will only support 1.21+
         register("spigot_1_21") {
             destFileName.set("scafall.jar")
-            version.set("1.21.5")
+            version.set("1.21.7")
             type.set("SPIGOT")
             imageVersion.set("java21")
             ports.set(setOf(debugPortMapping, "25565:25565"))
@@ -81,7 +81,7 @@ minecraftServers {
         // Paper test servers
         register("paper_1_21") {
             destFileName.set("scafall.jar")
-            version.set("1.21.5")
+            version.set("1.21.7")
             type.set("PAPER")
             imageVersion.set("java21")
             ports.set(setOf(debugPortMapping, "25566:25565"))

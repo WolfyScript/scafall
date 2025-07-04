@@ -14,7 +14,6 @@ import com.wolfyscript.scafall.registry.ScafallRegistries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap
-import com.wolfyscript.scafall.sponge.api.data.SpongeItemStackDataComponentConverterProvider
 import com.wolfyscript.scafall.sponge.api.factories.SpongeFactories
 import com.wolfyscript.scafall.sponge.api.platform.PlatformManagerImpl
 import com.wolfyscript.scafall.sponge.api.scheduling.SchedulerImpl
@@ -38,6 +37,10 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : ScafallCommon() {
     override val corePlugin: PluginWrapper = bootstrap.corePlugin
     override val server: ScafallServer = ScafallSpongeServer()
 
+    override fun init() {
+        TODO("Not yet implemented")
+    }
+
     override fun load() {
         factories = SpongeFactories(this)
         scheduler = SchedulerImpl()
@@ -46,8 +49,6 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : ScafallCommon() {
         // maven
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, Path("")) // TODO
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()
-
-        SpongeItemStackDataComponentConverterProvider().register()
     }
 
     override fun enable() {

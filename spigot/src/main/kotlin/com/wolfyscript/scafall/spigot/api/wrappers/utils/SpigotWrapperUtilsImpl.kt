@@ -1,7 +1,6 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
 import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.adventure.toAPI
 import com.wolfyscript.scafall.common.api.wrappers.utils.CommonWrapperUtilsImpl
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackLikeCommon
@@ -85,7 +84,7 @@ class SpigotWrapperUtilsImpl : CommonWrapperUtilsImpl(), SpigotWrapperUtils {
         if (location.world == null) {
             return null
         }
-        return Vec3(location.x, location.y, location.z).wrap(location.world.key.wrap())
+        return Vec3(location.x, location.y, location.z).wrap(location.world.key.toScafall())
     }
 
     override fun toPrecise(location: Location): ScafallPrecisePos {
@@ -100,7 +99,7 @@ class SpigotWrapperUtilsImpl : CommonWrapperUtilsImpl(), SpigotWrapperUtils {
         if (location.world == null) {
             return null
         }
-        return CraftLocation.toBlockPosition(location).wrap(location.world.key.wrap())
+        return CraftLocation.toBlockPosition(location).wrap(location.world.key.toScafall())
     }
 
     //

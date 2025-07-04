@@ -18,13 +18,12 @@ interface SpigotWrapperUtils : MinecraftWrapper {
     /**
      * Wraps the Minecraft Stack of the Bukkit ItemStack in a scafall [ItemStack][com.wolfyscript.scafall.wrappers.world.items.ItemStack].
      *
-     * ### **Warning!**
+     * #### **Warning!**
      *
-     * Bukkit ItemStacks **may not have a Minecraft ItemStack** associated with them! **Scafall only wraps Minecraft Stacks!**
+     * Bukkit ItemStacks **may not have Minecraft ItemStack** associated with them! (e.g. when created via the [ItemStack] constructor)
      *
-     * That means the wrapped Minecraft stack is **not linked to the original Bukkit stack**.
-     *
-     * **Changes to the wrapped stack won't be reflected on the Bukkit stack!**
+     * In those cases, the wrapped stack is **not linked to the original Bukkit stack**,
+     * and **changes to the wrapped stack won't be reflected on the Bukkit stack!**
      *
      */
     fun wrapItemStack(spigotStack: ItemStack): com.wolfyscript.scafall.wrappers.world.items.ItemStack
@@ -36,6 +35,9 @@ interface SpigotWrapperUtils : MinecraftWrapper {
      */
     fun wrapItemStackSnapshot(spigotStack: ItemStack): ItemStackSnapshot
 
+    /**
+     * Unwraps the specified [ItemStackLike] to a Bukkit stack.
+     */
     fun unwrapItemStack(wrappedStack: ItemStackLike<*, *>): ItemStack
 
     //

@@ -13,7 +13,6 @@ import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
-import net.minecraft.network.chat.MutableComponent
 import java.util.*
 
 /**
@@ -36,8 +35,6 @@ interface AdventureUtil {
     fun toVanilla(component: Component): net.minecraft.network.chat.Component
 
 }
-
-fun Key.toAPI() : com.wolfyscript.scafall.identifier.Key = ScafallProvider.Companion.get().factories.identifierFactory.key(this.namespace(), this.value())
 
 /* ****************************************** *
  *  Util extension functions for MiniMessage  *

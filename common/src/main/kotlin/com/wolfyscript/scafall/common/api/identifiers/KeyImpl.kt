@@ -20,7 +20,7 @@ class KeyImpl @JsonCreator(mode = JsonCreator.Mode.DISABLED) internal constructo
         Preconditions.checkArgument(KEY_PATTERN.matcher(value).matches(), "Invalid key. Must be %s: %s", KEY_REGEX, value)
     }
 
-    override fun into(): net.kyori.adventure.key.Key {
+    override fun toAdventure(): net.kyori.adventure.key.Key {
         return net.kyori.adventure.key.Key.key(namespace, value)
     }
 

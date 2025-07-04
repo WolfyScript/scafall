@@ -37,7 +37,7 @@ interface Key : Namespaced {
 
     val value: String
 
-    fun into() : net.kyori.adventure.key.Key
+    fun toAdventure() : net.kyori.adventure.key.Key
 
     fun toMc() : ResourceLocation
 

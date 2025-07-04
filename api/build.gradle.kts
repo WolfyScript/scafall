@@ -8,12 +8,12 @@ plugins {
 dependencies {
     compileOnly(project(":loader-api"))
     implementation(kotlin("reflect"))
-    minecraft("com.mojang:minecraft:${project.properties["minecraft_version"]}")
+    minecraft("com.mojang:minecraft:${libs.versions.minecraft.get()}")
 
     mappings(
         loom.layered {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${project.properties["minecraft_version"]}:${project.properties["parchment_version"]}@zip")
+//            parchment("org.parchmentmc.data:parchment-${libs.versions.minecraft.get()}:${libs.versions.parchment.get()}@zip")
         }
     )
 }

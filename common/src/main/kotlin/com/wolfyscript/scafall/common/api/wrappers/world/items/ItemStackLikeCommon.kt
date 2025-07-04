@@ -7,7 +7,10 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtIo
+import net.minecraft.nbt.NbtOps
+import net.minecraft.world.item.ItemStack
 import java.io.ByteArrayOutputStream
+import kotlin.jvm.optionals.getOrNull
 
 sealed class ItemStackLikeCommon<H: ItemStackLike<H, M>, M: DataComponentMap<H>>(val mcStack: net.minecraft.world.item.ItemStack) : ItemStackLike<H, M> {
 
@@ -25,20 +28,24 @@ sealed class ItemStackLikeCommon<H: ItemStackLike<H, M>, M: DataComponentMap<H>>
 
     override fun toNBTString(): String {
         val registryAccess = ScafallProvider.get().server.minecraftServer.registryAccess()
-        return mcStack.save(registryAccess).toString()
+        val result = ItemStack.SINGLE_ITEM_CODEC.encodeStart(registryAccess.createSerializationContext(NbtOps.INSTANCE), mcStack)
+        // TODO: handle errors
+        return result.result().map { it.toString() }.orElse("")
     }
 
     override fun toNBTBytes(): ByteArray {
-        val registryAccess = ScafallProvider.get().server.minecraftServer.registryAccess()
-
-        val tag = CompoundTag()
         val stream = ByteArrayOutputStream()
-        mcStack.save(registryAccess, tag)
 
-        stream.use {
-            NbtIo.writeCompressed(tag, it)
+        val registryAccess = ScafallProvider.get().server.minecraftServer.registryAccess()
+        val result = ItemStack.SINGLE_ITEM_CODEC.encodeStart(registryAccess.createSerializationContext(NbtOps.INSTANCE), mcStack).result().getOrNull()
+
+        if (result == null || result !is CompoundTag) {
+            return ByteArray(0)
         }
 
+        stream.use {
+            NbtIo.writeCompressed(result, it)
+        }
         return stream.toByteArray()
     }
 

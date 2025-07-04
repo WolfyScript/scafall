@@ -19,7 +19,7 @@ interface ItemsFactory {
      * It first parses the SNBT to NBT, which is then updated using [com.mojang.datafixers.DataFixerUpper] if necessary.
      * Then it parses the ItemStack from the updated NBT CompoundTag.
      */
-    fun parseFromSNBT(snbt: String, fromVersion: Int, toVersion: Int = SharedConstants.getCurrentVersion().dataVersion.version) : ItemStack
+    fun parseFromSNBT(snbt: String, fromVersion: Int, toVersion: Int = SharedConstants.getCurrentVersion().dataVersion().version) : ItemStack
 
     /**
      * Directly creates a [ItemStackRef] with a [com.wolfyscript.scafall.items.ItemStackIdentifier] that references the specified stack,

@@ -15,7 +15,7 @@ class ItemStackSnapshotCommon @JsonCreator(mode = JsonCreator.Mode.DISABLED) int
 
     @get:JsonProperty("version")
     val version: Int
-        get() = SharedConstants.getCurrentVersion().dataVersion.version
+        get() = SharedConstants.getCurrentVersion().dataVersion().version
 
     /**
      * Used to parse an ItemStack from a single String value.
@@ -27,7 +27,7 @@ class ItemStackSnapshotCommon @JsonCreator(mode = JsonCreator.Mode.DISABLED) int
     internal constructor(snbt: String) : this(
         ScafallProvider.get().factories.itemsFactory.parseFromSNBT(
             snbt,
-            SharedConstants.getCurrentVersion().dataVersion.version
+            SharedConstants.getCurrentVersion().dataVersion().version
         ).unwrap()
     )
 

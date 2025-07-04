@@ -17,7 +17,7 @@ class ItemStackCommon @JsonCreator(mode = JsonCreator.Mode.DISABLED) private con
 
     @get:JsonProperty("version")
     val version: Int
-        get() = SharedConstants.getCurrentVersion().dataVersion.version
+        get() = SharedConstants.getCurrentVersion().dataVersion().version
 
     companion object {
 
@@ -37,7 +37,7 @@ class ItemStackCommon @JsonCreator(mode = JsonCreator.Mode.DISABLED) private con
     internal constructor(snbt: String) : this(
         ScafallProvider.get().factories.itemsFactory.parseFromSNBT(
             snbt,
-            SharedConstants.getCurrentVersion().dataVersion.version
+            SharedConstants.getCurrentVersion().dataVersion().version
         ).unwrap()
     )
 

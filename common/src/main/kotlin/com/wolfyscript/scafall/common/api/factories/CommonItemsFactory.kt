@@ -19,7 +19,7 @@ import net.minecraft.world.item.Item
 class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
 
     override fun createFromSNBT(snbt: String): ItemStack {
-        val version = SharedConstants.getCurrentVersion().dataVersion.version
+        val version = SharedConstants.getCurrentVersion().dataVersion().version
         return parseFromSNBT(snbt, version, version)
     }
 
@@ -39,8 +39,10 @@ class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
             tag
         }
 
-        val stack = net.minecraft.world.item.ItemStack.parse(scafall.server.minecraftServer.registryAccess(), fixed)
-        return stack.map { stack -> stack.wrap() }.orElseGet { net.minecraft.world.item.ItemStack.EMPTY.wrap() }
+        return net.minecraft.world.item.ItemStack.SINGLE_ITEM_CODEC
+            .parse(Dynamic(NbtOps.INSTANCE, fixed))
+            .result()
+            .map { it.wrap() }.orElseGet { net.minecraft.world.item.ItemStack.EMPTY.wrap() }
     }
 
     override fun createVanillaStackRef(stack: ItemStack, count: Int): ItemStackRef {
@@ -55,7 +57,8 @@ class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
     }
 
     override fun parseStackRef(stack: ItemStack, count: Int): ItemStackRef? {
-        val parsers = ScafallRegistryTypes.itemStackIdentifierParsers.resolveOrThrow().values().sortedByDescending { it.priority }
+        val parsers =
+            ScafallRegistryTypes.itemStackIdentifierParsers.resolveOrThrow().values().sortedByDescending { it.priority }
         val identifier = parsers.firstNotNullOfOrNull {
             it.from(stack)
         }

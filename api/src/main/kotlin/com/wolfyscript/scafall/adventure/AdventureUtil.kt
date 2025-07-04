@@ -33,7 +33,7 @@ interface AdventureUtil {
     val miniMsg: MiniMessage
         get() = MiniMessage.miniMessage()
 
-    fun toVanilla(component: Component): MutableComponent
+    fun toVanilla(component: Component): net.minecraft.network.chat.Component
 
 }
 
@@ -56,7 +56,7 @@ fun String.deser(vararg tagResolver: TagResolver = emptyArray()) = MiniMessage.m
 /**
  * Converts this adventure Component to a Minecraft Chat Component using the best platform specific conversion.
  */
-fun Component.vanilla(): MutableComponent = ScafallProvider.get().adventure.toVanilla(this)
+fun Component.vanilla(): net.minecraft.network.chat.Component = ScafallProvider.get().adventure.toVanilla(this)
 
 /* ************************************************************** *
  *  Util extension functions for creating simple text components  *

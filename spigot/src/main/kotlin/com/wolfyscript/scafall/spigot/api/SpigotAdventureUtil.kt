@@ -1,5 +1,7 @@
 package com.wolfyscript.scafall.spigot.api
 
+import com.google.gson.JsonParseException
+import com.mojang.serialization.JsonOps
 import com.wolfyscript.scafall.adventure.AdventureUtil
 import com.wolfyscript.scafall.Scafall
 import net.kyori.adventure.audience.Audience
@@ -8,8 +10,6 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.core.registries.Registries
-import net.minecraft.network.chat.MutableComponent
 import java.util.*
 
 class SpigotAdventureUtil(private val scafall: Scafall) : AdventureUtil {
@@ -44,13 +44,14 @@ class SpigotAdventureUtil(private val scafall: Scafall) : AdventureUtil {
         return adventure.console()
     }
 
-    override fun toVanilla(component: Component): MutableComponent {
-        val json = GsonComponentSerializer.gson().serialize(component)
+    override fun toVanilla(component: Component): net.minecraft.network.chat.Component {
+        val json = GsonComponentSerializer.gson().serializeToTree(component)
         val holder = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY)
-        val mutableComponent = net.minecraft.network.chat.Component.Serializer.fromJson(json, holder)
-        if (mutableComponent == null) {
-            throw IllegalStateException("Failed to serialize Component to vanilla! This should not happen for valid adventure components!")
+
+        val result = net.minecraft.network.chat.ComponentSerialization.CODEC.decode(holder.createSerializationContext(JsonOps.INSTANCE), json)
+        if (result.isError) {
+            throw JsonParseException(result.error().get().message())
         }
-        return mutableComponent
+        return result.result().get().first
     }
 }

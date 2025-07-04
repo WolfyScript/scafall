@@ -8,12 +8,12 @@ plugins {
 dependencies {
     api(project(":api"))
     implementation(project(":loader-api"))
-    minecraft("com.mojang:minecraft:${project.properties["minecraft_version"]}")
+    minecraft("com.mojang:minecraft:${libs.versions.minecraft.get()}")
     modCompileOnly(libs.adventure.platform.shared)
     mappings(
         loom.layered {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${project.properties["minecraft_version"]}:${project.properties["parchment_version"]}@zip")
+//            parchment("org.parchmentmc.data:parchment-${libs.versions.minecraft.get()}:${libs.versions.parchment.get()}@zip")
         }
     )
 }

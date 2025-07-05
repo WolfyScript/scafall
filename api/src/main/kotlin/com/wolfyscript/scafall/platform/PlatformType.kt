@@ -8,8 +8,8 @@ enum class PlatformType {
     FOLIA,
     SPONGE;
 
-    fun isPaperCompatible() {
-        when(this) {
+    fun isPaperCompatible(): Boolean {
+        return when(this) {
             PAPER, FOLIA, PURPUR -> true
             else -> false
         }

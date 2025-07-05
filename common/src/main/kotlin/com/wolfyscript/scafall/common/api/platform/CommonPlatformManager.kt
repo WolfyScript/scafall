@@ -43,23 +43,4 @@ abstract class CommonPlatformManager(val scafallClassLoader: ClassLoader) : Plat
 
 }
 
-/**
- * Runs the given function if the current [PlatformManager.platformType] is equal to the specified [platform]
- */
-fun ifPlatform(platform: PlatformType, fn: () -> Unit) {
-    if (ScafallProvider.get().platformManager.platformType == platform) {
-        fn()
-    }
-}
 
-/**
- * Runs the given [then] function if the current [PlatformManager.platformType] is equal to the specified [platform].
- * Otherwise, runs the [orElse] function.
- */
-fun ifPlatformOrElse(platform: PlatformType, then: () -> Unit, orElse: () -> Unit) {
-    if (ScafallProvider.get().platformManager.platformType == platform) {
-        then()
-        return
-    }
-    orElse()
-}

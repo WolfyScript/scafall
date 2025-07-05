@@ -6,10 +6,8 @@ import com.wolfyscript.scafall.common.api.ScafallCommon
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
 import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
-import com.wolfyscript.scafall.factories.Factories
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
-import com.wolfyscript.scafall.registry.ScafallRegistries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
@@ -18,7 +16,6 @@ import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManager
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManagerBukkit
-import com.wolfyscript.scafall.spigot.platform.persistent.PersistentStorage
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.SpigotWrapperUtilsImpl
 import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
@@ -49,7 +46,6 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
     //
     // Spigot-only features
     //
-    internal val persistentStorageInternal : PersistentStorage = PersistentStorage(this)
     internal val compatibilityManagerInternal : CompatibilityManager = CompatibilityManagerBukkit(this)
 
     override fun init() {
@@ -98,7 +94,5 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
 }
 
 // Provide access to spigot-only features without having to cast Scaffolding
-val Scafall.persistentStorage : PersistentStorage
-    get() = (this as ScafallSpigot).persistentStorageInternal
 val Scafall.compatibilityManager : CompatibilityManager
     get() = (this as ScafallSpigot).compatibilityManagerInternal

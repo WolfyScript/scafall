@@ -20,6 +20,9 @@ import org.slf4j.Logger
  */
 interface Scafall {
 
+    /**
+     * All the provided registries that scafall provides
+     */
     val registries: ScafallRegistries
 
     val scheduler: Scheduler

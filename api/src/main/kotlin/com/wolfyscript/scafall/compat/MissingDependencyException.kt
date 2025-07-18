@@ -1,9 +1,9 @@
-package com.wolfyscript.scafall.dependency
+package com.wolfyscript.scafall.compat
 
 class MissingDependencyException : RuntimeException {
+
     constructor(message: String?) : super(message)
 
     constructor(message: String?, cause: Throwable?) : super(message, cause)
 
-    constructor(cause: Throwable?) : super(cause)
 }

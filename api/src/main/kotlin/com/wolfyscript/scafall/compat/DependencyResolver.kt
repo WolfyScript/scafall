@@ -1,5 +1,6 @@
-package com.wolfyscript.scafall.dependency
+package com.wolfyscript.scafall.compat
 
+import com.wolfyscript.scafall.identifier.Key
 import kotlin.reflect.full.createInstance
 
 /**
@@ -16,7 +17,7 @@ interface DependencyResolver {
      * @param type  The type for which to get the dependencies
      * @return A collection of all dependencies of the given type & value
      */
-    fun resolve(value: Any?, type: Class<*>?): Collection<Dependency>
+    fun resolve(value: Any?, type: Class<*>?): Collection<Key>
 
     companion object {
         /**
@@ -33,16 +34,14 @@ interface DependencyResolver {
          * @return A set of dependencies that this type and all included children depend on
          * @param <T> The type of the value
         </T> */
-        fun <T> resolveDependenciesFor(value: T, type: Class<out T>): Set<Dependency> {
-            val dependencies: MutableSet<Dependency> = HashSet()
+        fun <T> resolveDependenciesFor(value: T, type: Class<out T>): Set<Key> {
+            val dependencies: MutableSet<Key> = HashSet()
 
-            if (type.isAnnotationPresent(DependencyResolverSettings::class.java)) {
-                val annotation = type.getAnnotation(
-                    DependencyResolverSettings::class.java
-                )
+            val resolverSettings = type.getAnnotation(DependencyResolverSettings::class.java)
+            if (resolverSettings != null) {
                 try {
-                    val resolver = annotation.value.createInstance()
-                    dependencies.addAll(resolver.resolve(value, type)!!)
+                    val resolver = resolverSettings.value.createInstance()
+                    dependencies.addAll(resolver.resolve(value, type))
                 } catch (e: ReflectiveOperationException) {
                     throw MissingDependencyException("Could not resolve dependency resolver settings", e)
                 }
@@ -53,8 +52,8 @@ interface DependencyResolver {
                     // Field type is directly annotated with resolver settings
                     if (declaredField.type.isAnnotationPresent(DependencyResolverSettings::class.java)) {
                         try {
-                            val `object` = declaredField[value]
-                            dependencies.addAll(resolveDependenciesFor(`object`, `object`.javaClass))
+                            val obj = declaredField[value]
+                            dependencies.addAll(resolveDependenciesFor(obj, obj.javaClass))
                         } catch (e: IllegalAccessException) {
                             throw MissingDependencyException(
                                 "Failed to fetch dependencies of type '" + declaredField.type.name + "'!",
@@ -64,9 +63,7 @@ interface DependencyResolver {
                     }
 
                     // Field type isn't providing dependencies directly, but may propagate dependencies
-                    val dependencySource = declaredField.getAnnotation(
-                        DependencySource::class.java
-                    )
+                    val dependencySource = declaredField.getAnnotation(DependencySource::class.java)
                     if (dependencySource != null) {
                         try {
                             val fieldObj = declaredField[value] ?: continue

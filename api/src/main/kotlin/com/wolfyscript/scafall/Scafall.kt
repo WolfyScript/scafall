@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall
 
 import com.wolfyscript.scafall.adventure.AdventureUtil
+import com.wolfyscript.scafall.compat.DependencyManager
 import com.wolfyscript.scafall.config.jackson.JacksonUtil
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
@@ -24,6 +25,8 @@ interface Scafall {
      * All the provided registries that scafall provides
      */
     val registries: ScafallRegistries
+
+    val dependencyManager: DependencyManager
 
     val scheduler: Scheduler
 

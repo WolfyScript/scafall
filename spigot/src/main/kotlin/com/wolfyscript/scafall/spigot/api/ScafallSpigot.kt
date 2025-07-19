@@ -17,6 +17,7 @@ import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManager
 import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManagerBukkit
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.SpigotWrapperUtilsImpl
+import com.wolfyscript.scafall.spigot.compat.PluginDependencyLoader
 import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.bukkit.Bukkit
@@ -47,12 +48,15 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
     // Spigot-only features
     //
     internal val compatibilityManagerInternal : CompatibilityManager = CompatibilityManagerBukkit(this)
+    internal val pluginDependencyLoader = PluginDependencyLoader(this)
 
     override fun init() {
         // initiate essential components
         factories.init()
         registries.initRegistries()
         registries.registerForJackson()
+
+        pluginDependencyLoader.loadDependencies()
 
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, bootstrap.corePlugin.plugin.dataFolder.toPath().resolve("libs"))
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()
@@ -73,6 +77,7 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
      */
     override fun enable() {
         adventure.init()
+        Bukkit.getPluginManager().registerEvents(pluginDependencyLoader, bootstrap.corePlugin.plugin)
         compatibilityManagerInternal.init()
 
         platformManager.implementationModules.forEach {

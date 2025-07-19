@@ -14,8 +14,6 @@ import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
 import com.wolfyscript.scafall.spigot.api.factories.SpigotFactoriesImpl
 import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
-import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManager
-import com.wolfyscript.scafall.spigot.platform.compatibility.CompatibilityManagerBukkit
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.SpigotWrapperUtilsImpl
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyLoader
 import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
@@ -47,7 +45,6 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
     //
     // Spigot-only features
     //
-    internal val compatibilityManagerInternal : CompatibilityManager = CompatibilityManagerBukkit(this)
     internal val pluginDependencyLoader = PluginDependencyLoader(this)
 
     override fun init() {
@@ -78,7 +75,6 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
     override fun enable() {
         adventure.init()
         Bukkit.getPluginManager().registerEvents(pluginDependencyLoader, bootstrap.corePlugin.plugin)
-        compatibilityManagerInternal.init()
 
         platformManager.implementationModules.forEach {
             it.value.onEnable()
@@ -97,7 +93,3 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
     }
 
 }
-
-// Provide access to spigot-only features without having to cast Scaffolding
-val Scafall.compatibilityManager : CompatibilityManager
-    get() = (this as ScafallSpigot).compatibilityManagerInternal

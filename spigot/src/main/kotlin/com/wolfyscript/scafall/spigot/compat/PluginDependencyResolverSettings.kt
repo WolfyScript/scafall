@@ -1,4 +1,4 @@
-package com.wolfyscript.scafall.spigot.platform.compatibility
+package com.wolfyscript.scafall.spigot.compat
 
 import com.wolfyscript.scafall.compat.Dependency
 import kotlin.reflect.KClass

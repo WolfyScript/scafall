@@ -1,8 +1,7 @@
-package com.wolfyscript.scafall.spigot.platform.compatibility
+package com.wolfyscript.scafall.spigot.compat
 
 import com.wolfyscript.scafall.compat.DependencyResolver
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.spigot.compat.PluginDependency
 
 class PluginDependencyResolver : DependencyResolver {
 

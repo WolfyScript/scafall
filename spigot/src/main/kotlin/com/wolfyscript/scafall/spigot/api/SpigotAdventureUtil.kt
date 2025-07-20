@@ -22,7 +22,7 @@ class SpigotAdventureUtil(private val scafall: Scafall) : AdventureUtil {
         }
 
     fun init() {
-        this.backingAdventure = BukkitAudiences.create(scafall.corePlugin.into().plugin)
+        this.backingAdventure = BukkitAudiences.create(scafall.modInfo.into().plugin)
     }
 
     fun unload() {

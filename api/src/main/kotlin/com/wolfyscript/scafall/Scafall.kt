@@ -40,7 +40,7 @@ interface Scafall {
 
     val factories: Factories
 
-    val corePlugin: PluginWrapper
+    val modInfo: ModWrapper
 
     val server: ScafallServer
 
@@ -49,11 +49,11 @@ interface Scafall {
     val minecraftWrapper: MinecraftWrapper
 
     val logger: Logger
-        get() = corePlugin.logger
+        get() = modInfo.logger
 
     val jacksonUtil: JacksonUtil
 
-    fun createOrGetPluginWrapper(pluginName: String) : PluginWrapper?
+    fun createOrGetPluginWrapper(pluginName: String) : ModWrapper?
 
     companion object
 

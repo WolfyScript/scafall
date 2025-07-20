@@ -1,7 +1,6 @@
 package com.wolfyscript.scafall.spigot.api
 
-import com.wolfyscript.scafall.PluginWrapper
-import com.wolfyscript.scafall.Scafall
+import com.wolfyscript.scafall.ModWrapper
 import com.wolfyscript.scafall.common.api.ScafallCommon
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
@@ -27,7 +26,7 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
     //       Only init things that don't depend on it and use init() instead!
     //
 
-    override val corePlugin: PluginWrapper = bootstrap.corePlugin
+    override val modInfo: ModWrapper = bootstrap.corePlugin
 
     // Essentials
     override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
@@ -88,7 +87,7 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
         adventure.unload()
     }
 
-    override fun createOrGetPluginWrapper(pluginName: String): PluginWrapper? {
+    override fun createOrGetPluginWrapper(pluginName: String): ModWrapper? {
         return Bukkit.getPluginManager().getPlugin(pluginName)?.let { SpigotPluginWrapper(it) }
     }
 

@@ -1,8 +1,8 @@
 package com.wolfyscript.scafall.common.api
 
-import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.ModWrapper
 
-inline fun <reified T : PluginWrapper> PluginWrapper.into(): T {
+inline fun <reified T : ModWrapper> ModWrapper.into(): T {
     if (this is T) {
         return this
     }

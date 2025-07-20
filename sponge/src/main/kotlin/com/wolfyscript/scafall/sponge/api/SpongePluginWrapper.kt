@@ -1,11 +1,11 @@
 package com.wolfyscript.scafall.sponge.api
 
-import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.ModWrapper
 import com.wolfyscript.scafall.common.api.into
 import org.slf4j.LoggerFactory
 import org.spongepowered.plugin.PluginContainer
 
-class SpongePluginWrapper(val plugin: PluginContainer) : PluginWrapper {
+class SpongePluginWrapper(val plugin: PluginContainer) : ModWrapper {
 
     override val name: String = plugin.metadata().name().orElse("")
 
@@ -14,6 +14,6 @@ class SpongePluginWrapper(val plugin: PluginContainer) : PluginWrapper {
 
 }
 
-internal fun PluginWrapper.into() : SpongePluginWrapper {
+internal fun ModWrapper.into() : SpongePluginWrapper {
     return into<SpongePluginWrapper>()
 }

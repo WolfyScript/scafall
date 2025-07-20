@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.sponge.api
 
 import com.wolfyscript.scafall.adventure.AdventureUtil
-import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.ModWrapper
 import com.wolfyscript.scafall.common.api.ScafallCommon
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
@@ -34,7 +34,7 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : ScafallCommon() {
     override val adventure: AdventureUtil = SpongeAdventureUtil(this)
     override val minecraftWrapper: MinecraftWrapper
         get() = TODO("Not yet implemented")
-    override val corePlugin: PluginWrapper = bootstrap.corePlugin
+    override val modInfo: ModWrapper = bootstrap.corePlugin
     override val server: ScafallServer = ScafallSpongeServer()
 
     override fun init() {
@@ -58,7 +58,7 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : ScafallCommon() {
 
     }
 
-    override fun createOrGetPluginWrapper(pluginName: String): PluginWrapper? {
+    override fun createOrGetPluginWrapper(pluginName: String): ModWrapper? {
         return Sponge.pluginManager().plugin(pluginName).getOrNull()?.let { SpongePluginWrapper(it) }
     }
 

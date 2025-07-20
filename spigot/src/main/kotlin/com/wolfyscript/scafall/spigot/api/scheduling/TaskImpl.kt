@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.spigot.api.scheduling
 
-import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.ModWrapper
 import com.wolfyscript.scafall.function.ReceiverConsumer
 import com.wolfyscript.scafall.scheduling.Task
 import com.wolfyscript.scafall.spigot.api.SpigotPluginWrapper
@@ -9,11 +9,11 @@ import org.bukkit.plugin.Plugin
 import org.bukkit.scheduler.BukkitScheduler
 import org.bukkit.scheduler.BukkitTask
 
-internal class TaskImpl(private val task: BukkitTask, private val plugin: PluginWrapper) : Task {
+internal class TaskImpl(private val task: BukkitTask, private val plugin: ModWrapper) : Task {
 
     override fun cancel() = task.cancel()
 
-    override fun plugin(): PluginWrapper = plugin
+    override fun plugin(): ModWrapper = plugin
 
     internal class Builder(private val plugin: SpigotPluginWrapper) : Task.Builder {
 

@@ -19,7 +19,7 @@ class OraxenDependency : Dependency, Listener {
     }
 
     init {
-        Bukkit.getPluginManager().registerEvents(this, ScafallProvider.get().corePlugin.into().plugin)
+        Bukkit.getPluginManager().registerEvents(this, ScafallProvider.get().modInfo.into().plugin)
     }
 
     override var isInitialized: Boolean = false

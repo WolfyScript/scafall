@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.sponge.api.scheduling
 
-import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.ModWrapper
 import com.wolfyscript.scafall.function.ReceiverConsumer
 import com.wolfyscript.scafall.scheduling.Task
 import com.wolfyscript.scafall.sponge.api.SpongePluginWrapper
@@ -9,15 +9,15 @@ import org.spongepowered.api.scheduler.ScheduledTask
 import org.spongepowered.api.util.Ticks
 import java.util.function.Consumer
 
-internal class TaskImpl(private val plugin: PluginWrapper, private val scheduledTask: ScheduledTask) : Task {
+internal class TaskImpl(private val plugin: ModWrapper, private val scheduledTask: ScheduledTask) : Task {
 
     override fun cancel() {
         scheduledTask.cancel()
     }
 
-    override fun plugin(): PluginWrapper = plugin
+    override fun plugin(): ModWrapper = plugin
 
-    internal class BuilderImpl(private val plugin: PluginWrapper) : Task.Builder {
+    internal class BuilderImpl(private val plugin: ModWrapper) : Task.Builder {
         private var async = false
         private val builder: org.spongepowered.api.scheduler.Task.Builder =
             org.spongepowered.api.scheduler.Task.builder()
@@ -67,7 +67,7 @@ internal class TaskImpl(private val plugin: PluginWrapper, private val scheduled
         }
     }
 
-    private class ScheduledTaskConsumerWrapper(private val plugin: PluginWrapper,
+    private class ScheduledTaskConsumerWrapper(private val plugin: ModWrapper,
                                                private val executor: ReceiverConsumer<Task>
     ) :
         Consumer<ScheduledTask> {

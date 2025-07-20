@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.scheduling
 
-import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.ModWrapper
 import com.wolfyscript.scafall.function.ReceiverConsumer
 
 interface Task {
@@ -9,7 +9,7 @@ interface Task {
 
     fun cancel()
 
-    fun plugin(): PluginWrapper
+    fun plugin(): ModWrapper
 
     interface Builder {
         fun async(): Builder

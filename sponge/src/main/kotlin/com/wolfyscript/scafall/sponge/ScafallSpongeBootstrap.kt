@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.sponge
 
 import com.fasterxml.jackson.databind.module.SimpleModule
-import com.wolfyscript.scafall.PluginWrapper
+import com.wolfyscript.scafall.ModWrapper
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallBootstrap
 import com.wolfyscript.scafall.sponge.api.ScafallSponge
@@ -13,7 +13,7 @@ import java.util.function.Consumer
 
 class ScafallSpongeBootstrap(applyScafall: Consumer<Scafall>, val classLoader: ClassLoader, plugin: PluginContainer) : ScafallBootstrap.ScafallModule {
 
-    internal val corePlugin: PluginWrapper = SpongePluginWrapper(plugin)
+    internal val corePlugin: ModWrapper = SpongePluginWrapper(plugin)
     override val bridge: ScafallSponge = ScafallSponge(this)
 
     init {

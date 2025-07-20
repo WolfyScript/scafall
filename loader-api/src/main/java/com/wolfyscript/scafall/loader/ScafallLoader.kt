@@ -49,7 +49,7 @@ object ScafallLoader {
 
     fun <T> loadObject(
         moduleType: Class<T>,
-        innerJarLoader: InnerJarClassloader,
+        innerJarLoader: ClassLoader,
         pathToModule: String,
     ): T {
         val moduleClass = try {

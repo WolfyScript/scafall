@@ -1,3 +1,5 @@
+import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
+
 plugins {
     `java-library`
     `maven-publish`
@@ -5,6 +7,7 @@ plugins {
     id("scafall.spigot")
     id("scafall.docker.run")
     alias(libs.plugins.shadow)
+    alias(libs.plugins.resource.factory.bukkit)
 
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.17"
 }
@@ -19,6 +22,53 @@ dependencies {
     implementation(project(":loader-api"))
 
     paperweight.paperDevBundle(libs.versions.papermc.get())
+}
+
+bukkitPluginYaml {
+    name = "scafall"
+    version = project.version.toString()
+    main = "com.wolfyscript.scafall.spigot.loader.SpigotLoaderPlugin"
+    apiVersion = libs.versions.minecraft.get() // Only support the latest Minecraft version!
+    authors.add("WolfyScript")
+    load = BukkitPluginYaml.PluginLoadOrder.STARTUP
+
+    libraries.apply {
+        addAll(
+            libs.kotlin.stdlib.get().toString(),
+            libs.kotlin.reflect.get().toString(),
+            libs.jetbrains.annotations.get().toString(),
+            libs.commons.lang3.get().toString(),
+            libs.reflections.get().toString(),
+        )
+
+        libs.bundles.adventure.get().forEach {
+            add(it.toString())
+        }
+        add(libs.adventure.platform.bukkit.get().toString())
+
+        addAll(
+            libs.jackson.databind.get().toString(),
+            libs.jackson.annotations.get().toString(),
+            libs.jackson.core.get().toString(),
+        )
+    }
+
+    softDepend.addAll(
+        "Magic",
+        "LWC",
+        "PlotSquared",
+        "WorldGuard",
+        "MythicMobs",
+        "MMOItems",
+        "BungeeChat",
+        "mcMMO",
+        "Oraxen",
+        "ItemsAdder",
+        "PlaceholderAPI",
+        "eco",
+        "zAuctionHouseV3",
+        "SCore"
+    )
 }
 
 tasks {

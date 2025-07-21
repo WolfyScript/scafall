@@ -39,6 +39,7 @@ bukkitPluginYaml {
             libs.jetbrains.annotations.get().toString(),
             libs.commons.lang3.get().toString(),
             libs.reflections.get().toString(),
+            libs.hocon.get().toString(),
         )
 
         libs.bundles.adventure.get().forEach {
@@ -47,6 +48,7 @@ bukkitPluginYaml {
         add(libs.adventure.platform.bukkit.get().toString())
 
         addAll(
+            libs.jackson.kotlin.get().toString(),
             libs.jackson.databind.get().toString(),
             libs.jackson.annotations.get().toString(),
             libs.jackson.core.get().toString(),
@@ -90,6 +92,7 @@ tasks {
             include(project(":api"))
             include(project(":loader-api"))
             include(project(":spigot:spigot-api"))
+            include(dependency(libs.jackson.dataformat.hocon))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
 

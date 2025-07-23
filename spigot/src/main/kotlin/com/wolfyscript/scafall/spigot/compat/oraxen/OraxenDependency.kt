@@ -27,7 +27,7 @@ class OraxenDependency : Dependency, Listener {
     @EventHandler
     private fun onItemsLoaded(event: OraxenItemsLoadedEvent) {
         isInitialized = true
-        ScafallProvider.get().dependencyManager.dependencyInitiated(key)
+        ScafallProvider.get().dependencyManager.initiateDependency(key)
     }
 
 }

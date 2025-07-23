@@ -27,7 +27,7 @@ class ItemsAdderDependency : Dependency, Listener {
     @EventHandler
     private fun onInit(event: ItemsAdderLoadDataEvent) {
         isInitialized = true
-        ScafallProvider.get().dependencyManager.dependencyInitiated(key)
+        ScafallProvider.get().dependencyManager.initiateDependency(key)
     }
 
 }

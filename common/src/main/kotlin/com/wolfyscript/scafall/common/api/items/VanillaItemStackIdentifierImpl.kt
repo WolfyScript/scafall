@@ -8,9 +8,6 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 
 class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaItemStackIdentifier {
 
-    override val parser: ItemStackIdentifier.Parser<*>
-        get() = TODO("Not yet implemented")
-
     override fun matches(
         stack: ItemStack,
         matchTags: Boolean,

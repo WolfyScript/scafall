@@ -21,7 +21,7 @@ interface DependencyManager {
     /**
      * Notifies the Manager that the specified Dependency has been initialized.
      */
-    fun dependencyInitiated(id: Key): Boolean
+    fun initiateDependency(id: Key): Boolean
 
     fun getDependency(id: Key): Dependency?
 
@@ -43,6 +43,6 @@ interface DependencyManager {
     /**
      * Registers a Callback that will get called when the dependency has been initialized, so all data has been loaded and registered.
      */
-    fun onDependencyInitialized(dependency: Key, fn: (Dependency) -> Unit)
+    fun onDependencyInitialized(dependency: Key? = null, fn: (Dependency) -> Unit)
 
 }

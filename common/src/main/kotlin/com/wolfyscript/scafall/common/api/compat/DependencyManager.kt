@@ -9,6 +9,7 @@ class DependencyManagerCommon : DependencyManager {
 
     private val dependencies = mutableMapOf<Key, Dependency>()
 
+    private val wildcardInitListeners = mutableListOf<(Dependency) -> Unit>()
     private val initListeners = Multimaps.newListMultimap<Key, (Dependency) -> Unit>(mutableMapOf()) { mutableListOf() }
 
     override fun loadDependency(
@@ -20,7 +21,7 @@ class DependencyManagerCommon : DependencyManager {
         }
     }
 
-    override fun dependencyInitiated(id: Key): Boolean {
+    override fun initiateDependency(id: Key): Boolean {
         val dependency = dependencies[id]
         if (dependency == null) {
             return false
@@ -53,12 +54,12 @@ class DependencyManagerCommon : DependencyManager {
         return null
     }
 
-    override fun onDependencyInitialized(
-        dependency: Key,
-        fn: (Dependency) -> Unit,
-    ) {
-        initListeners[dependency].add(fn)
+    override fun onDependencyInitialized(dependency: Key?, fn: (Dependency) -> Unit) {
+        if (dependency == null) {
+            wildcardInitListeners.add(fn)
+        } else {
+            initListeners[dependency].add(fn)
+        }
     }
-
 
 }

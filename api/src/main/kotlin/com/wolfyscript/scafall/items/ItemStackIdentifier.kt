@@ -11,8 +11,6 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 @JsonPropertyOrder("type")
 interface ItemStackIdentifier {
 
-    val parser: Parser<*>
-
     fun matches(stack: ItemStack, matchTags: Boolean): Boolean
 
     fun create(): ItemStack

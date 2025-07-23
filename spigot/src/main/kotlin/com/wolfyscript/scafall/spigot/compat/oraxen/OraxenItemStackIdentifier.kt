@@ -7,7 +7,6 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import io.th0rgal.oraxen.api.OraxenItems
 
 class OraxenItemStackIdentifier(
-    override val parser: ItemStackIdentifier.Parser<*>,
     val id: String,
 ) : ItemStackIdentifier {
 

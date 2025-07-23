@@ -11,6 +11,6 @@ class OraxenStackIdentifierParser : ItemStackIdentifier.Parser<OraxenItemStackId
 
     override fun from(stack: ItemStack): OraxenItemStackIdentifier? {
         val id = OraxenItems.getIdByItem(stack.unwrapSpigot()) ?: return null
-        return OraxenItemStackIdentifier(this, id)
+        return OraxenItemStackIdentifier(id)
     }
 }

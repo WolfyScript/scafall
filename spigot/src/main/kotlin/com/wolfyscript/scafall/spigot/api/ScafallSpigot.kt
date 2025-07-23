@@ -5,10 +5,8 @@ import com.wolfyscript.scafall.common.api.ScafallCommon
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
 import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
-import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
-import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
@@ -17,10 +15,6 @@ import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.SpigotWrapperUtilsImpl
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyLoader
-import com.wolfyscript.scafall.spigot.compat.itemsadder.ItemsAdderStackIdentifier
-import com.wolfyscript.scafall.spigot.compat.itemsadder.ItemsAdderStackIdentifierParser
-import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenItemStackIdentifier
-import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenStackIdentifierParser
 import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.bukkit.Bukkit
@@ -62,16 +56,6 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
 
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, bootstrap.corePlugin.plugin.dataFolder.toPath().resolve("libs"))
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()
-
-        ScafallRegistryTypes.itemStackIdentifiers.resolveOrThrow().apply {
-            register(Key.defaultKey("oraxen"), OraxenItemStackIdentifier::class.java)
-            register(Key.defaultKey("itemsadder"), ItemsAdderStackIdentifier::class.java)
-        }
-
-        ScafallRegistryTypes.itemStackIdentifierParsers.resolveOrThrow().apply {
-            register(Key.defaultKey("oraxen"), OraxenStackIdentifierParser())
-            register(Key.defaultKey("itemsadder"), ItemsAdderStackIdentifierParser())
-        }
     }
 
     /**

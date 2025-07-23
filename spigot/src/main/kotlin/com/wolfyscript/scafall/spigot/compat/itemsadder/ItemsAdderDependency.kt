@@ -3,8 +3,18 @@ package com.wolfyscript.scafall.spigot.compat.itemsadder
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.compat.Dependency
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.spigot.api.into
 import com.wolfyscript.scafall.spigot.compat.PluginDependency
+import com.wolfyscript.scafall.spigot.compat.magic.MagicDependency
+import com.wolfyscript.scafall.spigot.compat.magic.MagicStackIdentifier
+import com.wolfyscript.scafall.spigot.compat.mmoitems.MMOItemsDependency
+import com.wolfyscript.scafall.spigot.compat.mmoitems.MMOItemsStackIdentifier
+import com.wolfyscript.scafall.spigot.compat.mythicmobs.MythicMobsDependency
+import com.wolfyscript.scafall.spigot.compat.mythicmobs.MythicMobsStackIdentifier
+import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenDependency
+import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenItemStackIdentifier
+import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenStackIdentifierParser
 import dev.lone.itemsadder.api.Events.ItemsAdderLoadDataEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
@@ -20,6 +30,12 @@ class ItemsAdderDependency : Dependency, Listener {
 
     init {
         Bukkit.getPluginManager().registerEvents(this, ScafallProvider.get().modInfo.into().plugin)
+        ScafallRegistryTypes.itemStackIdentifiers.resolveOrThrow().apply {
+            register(ItemsAdderDependency.key, ItemsAdderStackIdentifier::class.java)
+        }
+        ScafallRegistryTypes.itemStackIdentifierParsers.resolveOrThrow().apply {
+            register(ItemsAdderDependency.key, ItemsAdderStackIdentifierParser())
+        }
     }
 
     override var isInitialized: Boolean = false

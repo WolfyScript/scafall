@@ -22,12 +22,12 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("com.willfp:eco:6.13.0")
     compileOnly("com.github.LoneDev6:api-itemsadder:3.1.5")
-//    compileOnly("com.elmakers.mine.bukkit:MagicAPI:10.2")
+    compileOnly("com.elmakers.mine.bukkit:MagicAPI:10.2")
 //    compileOnly("com.github.AlessioGr:FancyBags:2.7.0")
     compileOnly("com.github.oraxen:oraxen:1.152.0")
-//    compileOnly("io.lumine:MythicLib:1.1.5")
-    compileOnly("net.Indyuce:MMOItems-API:6.9.2-SNAPSHOT")
-//    compileOnly("io.lumine:Mythic-Dist:5.6.1")
+    compileOnly("io.lumine:MythicLib-dist:1.7.1-SNAPSHOT")
+    compileOnly("net.Indyuce:MMOItems-API:6.10.1-SNAPSHOT")
+    compileOnly("io.lumine:Mythic-Dist:5.9.5")
 
     api(project(":common"))
 }

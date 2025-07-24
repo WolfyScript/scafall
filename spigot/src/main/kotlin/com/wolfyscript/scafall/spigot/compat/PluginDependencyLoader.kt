@@ -15,13 +15,18 @@ class PluginDependencyLoader(val scafall: ScafallSpigot) : Listener {
         for (type in annotated) {
             val annotation = type.getAnnotation(PluginDependency::class.java)
             if (annotation != null && Dependency::class.java.isAssignableFrom(type)) {
+                val key = if (annotation.id.contains(":")) {
+                    Key.parse(annotation.id)
+                } else {
+                    Key.defaultKey(annotation.id)
+                }
+
+                if (scafall.dependencyManager.getDependency(key) != null) {
+                    continue
+                }
+
                 if (Bukkit.getPluginManager().isPluginEnabled(annotation.pluginName)) {
                     val dependency = Dependency::class.java.cast(type.getConstructor().newInstance())
-                    val key = if (annotation.id.contains(":")) {
-                        Key.parse(annotation.id)
-                    } else {
-                        Key.defaultKey(annotation.id)
-                    }
                     scafall.dependencyManager.loadDependency(key, dependency)
                 }
             }

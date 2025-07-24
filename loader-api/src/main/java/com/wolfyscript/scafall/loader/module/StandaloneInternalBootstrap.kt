@@ -8,7 +8,7 @@ import java.lang.reflect.Constructor
  *
  * For example, loading it from the inner-jar and registering the bridge as a Singleton.
  */
-abstract class StandaloneInternalBootstrap<T>(val moduleBaseType: Class<out Module<T>>, val innerJarClassloader: InnerJarClassloader) {
+abstract class StandaloneInternalBootstrap<T>(val moduleBaseType: Class<out Module<T>>, val innerJarClassloader: ClassLoader) {
 
     /**
      * Loads the module from the inner-jar for further processing within the shared module.

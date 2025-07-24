@@ -9,7 +9,7 @@ import org.jetbrains.annotations.ApiStatus.Internal
  *
  */
 @Internal
-internal class InternalBootstrap(val classLoader: InnerJarClassloader) : ScafallBootstrap(classLoader) {
+internal class InternalBootstrap(val classLoader: ClassLoader) : ScafallBootstrap(classLoader) {
 
     override val registered: Boolean
         get() = ScafallProvider.registered()

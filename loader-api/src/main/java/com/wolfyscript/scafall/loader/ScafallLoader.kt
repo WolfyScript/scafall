@@ -59,7 +59,7 @@ object ScafallLoader {
         }
 
         val module = try {
-            moduleClass.getConstructor(InnerJarClassloader::class.java).newInstance(innerJarLoader)
+            moduleClass.getConstructor(ClassLoader::class.java).newInstance(innerJarLoader)
         } catch (e: ReflectiveOperationException) {
             throw RuntimeException("Could not load module", e)
         }

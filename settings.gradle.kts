@@ -1,5 +1,7 @@
 rootProject.name = "scafall"
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -50,7 +52,6 @@ sequenceOf(
 // Spigot
 sequenceOf(
     "spigot",
-    "spigot:loader",
     "spigot:spigot-api",
 ).forEach {
     include(":$it")

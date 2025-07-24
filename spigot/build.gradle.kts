@@ -14,20 +14,7 @@ dependencies {
     api(libs.adventure.platform.bukkit)
 
     paperweight.paperDevBundle(libs.versions.papermc.get())
-//    compileOnly(libs.bundles.spigot.external.plugins)
-
-//    compileOnly("com.ssomar.score:SCore:4.24.4.15")
-//    compileOnly("com.ssomar.executableblocks:ExecutableBlocks:4.24.4.15")
-//    compileOnly("com.denizenscript:denizen:1.2.5-SNAPSHOT")
-    compileOnly("me.clip:placeholderapi:2.11.6")
-    compileOnly("com.willfp:eco:6.13.0")
-    compileOnly("com.github.LoneDev6:api-itemsadder:3.1.5")
-    compileOnly("com.elmakers.mine.bukkit:MagicAPI:10.2")
-//    compileOnly("com.github.AlessioGr:FancyBags:2.7.0")
-    compileOnly("com.github.oraxen:oraxen:1.152.0")
-    compileOnly("io.lumine:MythicLib-dist:1.7.1-SNAPSHOT")
-    compileOnly("net.Indyuce:MMOItems-API:6.10.1-SNAPSHOT")
-    compileOnly("io.lumine:Mythic-Dist:5.9.5")
+    compileOnly(libs.bundles.spigot.external.plugins)
 
     api(project(":common"))
 }

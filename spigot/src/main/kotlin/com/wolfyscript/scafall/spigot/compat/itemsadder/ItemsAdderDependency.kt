@@ -6,15 +6,6 @@ import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.spigot.api.into
 import com.wolfyscript.scafall.spigot.compat.PluginDependency
-import com.wolfyscript.scafall.spigot.compat.magic.MagicDependency
-import com.wolfyscript.scafall.spigot.compat.magic.MagicStackIdentifier
-import com.wolfyscript.scafall.spigot.compat.mmoitems.MMOItemsDependency
-import com.wolfyscript.scafall.spigot.compat.mmoitems.MMOItemsStackIdentifier
-import com.wolfyscript.scafall.spigot.compat.mythicmobs.MythicMobsDependency
-import com.wolfyscript.scafall.spigot.compat.mythicmobs.MythicMobsStackIdentifier
-import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenDependency
-import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenItemStackIdentifier
-import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenStackIdentifierParser
 import dev.lone.itemsadder.api.Events.ItemsAdderLoadDataEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler

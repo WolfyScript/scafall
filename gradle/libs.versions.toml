@@ -7,14 +7,14 @@ jetbrains-annotations = "23.0.0"
 
 # configuration
 jackson = "2.13.4"  # We need to use this outdated version for now, since minecraft bundles it, with currently no way to overwrite the version at runtime.
-                    # A custom parent-last classloader could work, but other plugins would have to be loaded by it to access the api of scafall...
+# A custom parent-last classloader could work, but other plugins would have to be loaded by it to access the api of scafall...
 jackson-kotlin = "2.13.4" # We need to use this one, even though it does not officially support the kotlin version. No issue yet...
 dataformat-hocon = "2.1-SNAPSHOT"
 typesafe-config = "1.3.1"
 
 # minecraft
 minecraft = "1.21.7"
-parchment="2025.06.15" # see https://parchmentmc.org/docs/getting-started#choose-a-version for new versions
+parchment = "2025.06.15" # see https://parchmentmc.org/docs/getting-started#choose-a-version for new versions
 authlib = "1.5.21"
 netty = "4.1.74.Final"
 fastutil = "8.5.15"
@@ -46,11 +46,17 @@ resource-factory = "1.3.0"
 papermc = "1.21.7-R0.1-SNAPSHOT"
 item-nbt-api = "2.13.1"
 # external plugins
-lwc = "5.0.16-SNAPSHOT"
-worldedit = "7.4.0-SNAPSHOT"
-worldguard = "7.1.0-SNAPSHOT"
-plotsquared = "6.4.0"
-mcmmo = "2.1.139-SNAPSHOT"
+spigot-plugin-score = "4.24.4.15"
+spigot-plugin-executableblocks = "4.24.4.15"
+spigot-plugin-denizen = "1.2.5-SNAPSHOT"
+spigot-plugin-eco = "6.76.2"
+spigot-plugin-itemsadder = "3.1.5"
+spigot-plugin-oraxen = "1.152.0"
+spigot-plugin-magic = "10.2"
+spigot-plugin-mythic = "5.9.5"
+spigot-plugin-mythiclib = "1.7.1-SNAPSHOT"
+spigot-plugin-mmoitems = "6.10.1-SNAPSHOT"
+spigot-plugin-placeholderapi = "2.11.6"
 ## ##
 
 ## Sponge Impl dependencies ##
@@ -59,8 +65,8 @@ sponge-api = "15.0.0-SNAPSHOT"
 sponge-impl = "1.21.5-15.0.0-SNAPSHOT"
 
 ## Fabric Impl
-fabric="0.128.2+1.21.7"
-fabric-loader="0.16.14"
+fabric = "0.128.2+1.21.7"
+fabric-loader = "0.16.14"
 
 [libraries]
 # Kotlin & Jetbrains dependencies
@@ -76,10 +82,10 @@ reflections = { module = "org.reflections:reflections", version.ref = "reflectio
 fastutil = { module = "it.unimi.dsi:fastutil", version.ref = "fastutil" }
 netty = { module = "io.netty:netty-all", version.ref = "netty" }
 mojang-authlib = { module = "com.mojang:authlib", version.ref = "authlib" }
-caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine"}
+caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
 
 # Logging
-slf4j-api = { module = "org.slf4j:slf4j-api", version.ref="slf4j-api" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j-api" }
 
 # Adventure
 adventure-api = { module = "net.kyori:adventure-api", version.ref = "adventure-api" }
@@ -104,12 +110,17 @@ papermc-paper = { module = "io.papermc.paper:paper-api", version.ref = "papermc"
 tr7zw-item-nbt-api = { module = "de.tr7zw:item-nbt-api-plugin", version.ref = "item-nbt-api" }
 adventure-platform-bukkit = { module = "net.kyori:adventure-platform-bukkit", version.ref = "adventure-platform-api" }
 # external plugins
-cubeside-lwc = { module = "de.iani.cubeside:LWC", version.ref="lwc" }
-worldedit-bukkit = { module = "com.sk89q.worldedit:worldedit-bukkit", version.ref="worldedit" }
-worldguard-bukkit = { module = "com.sk89q.worldguard:worldguard-bukkit", version.ref="worldguard" }
-plotsquared-core = { module = "com.plotsquared:PlotSquared-Core", version.ref = "plotsquared" }
-plotsquared-bukkit = { module = "com.plotsquared:PlotSquared-Bukkit", version.ref="plotsquared" }
-nossr50-mcmmo = { module = "com.gmail.nossr50.mcMMO:mcMMO", version.ref="mcmmo" }
+spigot-plugin-score = { module = "com.ssomar.score:SCore", version.ref = "spigot-plugin-score" }
+spigot-plugin-executableblocks = { module = "com.ssomar.executableblocks:ExecutableBlocks", version.ref = "spigot-plugin-executableblocks" }
+spigot-plugin-denizen = { module = "com.denizenscript:denizen", version.ref = "spigot-plugin-denizen" }
+spigot-plugin-eco = { module = "com.willfp:eco", version.ref = "spigot-plugin-eco" }
+spigot-plugin-itemsadder = { module = "com.github.LoneDev6:api-itemsadder", version.ref = "spigot-plugin-itemsadder" }
+spigot-plugin-oraxen = { module = "com.github.oraxen:oraxen", version.ref = "spigot-plugin-oraxen" }
+spigot-plugin-magic = { module = "com.elmakers.mine.bukkit:MagicAPI", version.ref = "spigot-plugin-magic" }
+spigot-plugin-mythic = { module = "io.lumine:Mythic-Dist", version.ref = "spigot-plugin-mythic" }
+spigot-plugin-mythiclib = { module = "io.lumine:MythicLib-dist", version.ref = "spigot-plugin-mythiclib" }
+spigot-plugin-mmoitems = { module = "net.Indyuce:MMOItems-API", version.ref = "spigot-plugin-mmoitems" }
+spigot-plugin-placeholderapi = { module = "me.clip:placeholderapi", version.ref = "spigot-plugin-placeholderapi" }
 ## ##
 
 ## Sponge Impl dependencies ##
@@ -121,17 +132,29 @@ fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fab
 fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
 
 [bundles]
-jackson = [ "jackson-core", "jackson-annotations", "jackson-databind", "jackson-dataformat-hocon" ]
-adventure = [ "adventure-api", "adventure-platform-api", "adventure-text-minimessage" ]
-spigot-external-plugins = [ "cubeside-lwc", "worldedit-bukkit", "worldguard-bukkit", "plotsquared-bukkit", "plotsquared-core", "nossr50-mcmmo" ]
+jackson = ["jackson-core", "jackson-annotations", "jackson-databind", "jackson-dataformat-hocon"]
+adventure = ["adventure-api", "adventure-platform-api", "adventure-text-minimessage"]
+spigot-external-plugins = [
+    "spigot-plugin-score",
+    "spigot-plugin-denizen",
+    "spigot-plugin-eco",
+    "spigot-plugin-executableblocks",
+    "spigot-plugin-itemsadder",
+    "spigot-plugin-magic",
+    "spigot-plugin-mmoitems",
+    "spigot-plugin-mythic",
+    "spigot-plugin-mythiclib",
+    "spigot-plugin-oraxen",
+    "spigot-plugin-placeholderapi",
+]
 
 [plugins]
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
-devtools-docker-run = { id = "com.wolfyscript.devtools.docker.run", version.ref = "devtools-docker"}
-devtools-docker-minecraft = { id = "com.wolfyscript.devtools.docker.minecraft_servers", version.ref = "devtools-docker"}
+devtools-docker-run = { id = "com.wolfyscript.devtools.docker.run", version.ref = "devtools-docker" }
+devtools-docker-minecraft = { id = "com.wolfyscript.devtools.docker.minecraft_servers", version.ref = "devtools-docker" }
 spongepowered-gradle = { id = "org.spongepowered.gradle.plugin", version.ref = "sponge-gradle" }
 spongepowered-repository = { id = "org.spongepowered.gradle.repository", version.ref = "sponge-gradle" }
-artifactory = { id = "com.jfrog.artifactory", version.ref = "artifactory"}
+artifactory = { id = "com.jfrog.artifactory", version.ref = "artifactory" }
 fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }
 foojay-resolver = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "foojay-resolver" }
-resource-factory-bukkit = { id = "xyz.jpenilla.resource-factory-bukkit-convention", version.ref= "resource-factory"}
+resource-factory-bukkit = { id = "xyz.jpenilla.resource-factory-bukkit-convention", version.ref = "resource-factory" }

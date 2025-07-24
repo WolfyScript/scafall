@@ -5,9 +5,6 @@ import com.wolfyscript.scafall.compat.Dependency
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.spigot.compat.PluginDependency
-import com.wolfyscript.scafall.spigot.compat.itemsadder.ItemsAdderDependency
-import com.wolfyscript.scafall.spigot.compat.itemsadder.ItemsAdderStackIdentifier
-import com.wolfyscript.scafall.spigot.compat.itemsadder.ItemsAdderStackIdentifierParser
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 

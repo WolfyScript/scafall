@@ -4,8 +4,6 @@ import com.wolfyscript.scafall.compat.Dependency
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.spigot.compat.PluginDependency
-import com.wolfyscript.scafall.spigot.compat.magic.MagicStackIdentifier
-import com.wolfyscript.scafall.spigot.compat.magic.MagicStackIdentifierParser
 import org.bukkit.event.Listener
 
 @PluginDependency("MMOItems", MMOItemsDependency.ID)

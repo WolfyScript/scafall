@@ -1,7 +1,6 @@
-package com.wolfyscript.scafall.spigot.compat.executableitems
+package com.wolfyscript.scafall.spigot.compat.executableblocks
 
-import com.ssomar.score.api.executableitems.ExecutableItemsAPI
-import com.ssomar.score.api.executableitems.config.ExecutableItemsManagerInterface
+import com.ssomar.executableblocks.executableblocks.ExecutableBlocksManager
 import com.wolfyscript.scafall.compat.DependencyResolverSettings
 import com.wolfyscript.scafall.items.ItemStackIdentifier
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrapSpigot
@@ -14,23 +13,23 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 @DependencyResolverSettings(PluginDependencyResolver::class)
-@PluginDependencyResolverSettings(ExecutableItemsDependency::class)
-class ExecutableItemsStackIdentifier(
+@PluginDependencyResolverSettings(ExecutableBlocksDependency::class)
+class ExecutableBlocksStackIdentifier(
     val id: String,
 ) : ItemStackIdentifier {
 
-    val manager: ExecutableItemsManagerInterface = ExecutableItemsAPI.getExecutableItemsManager()
+    val manager: ExecutableBlocksManager = ExecutableBlocksManager.getInstance()
 
     override fun matches(
         stack: ItemStack,
         matchTags: Boolean,
     ): Boolean {
         if (stack.isEmpty) return false
-        val item = manager.getExecutableItem(stack.unwrapSpigot()).getOrNull() ?: return false
+        val item = manager.getExecutableBlock(stack.unwrapSpigot()).getOrNull() ?: return false
         return item.id == id
     }
 
     override fun create(): ItemStack {
-        return manager.getExecutableItem(id).map { it.buildItem(1, Optional.empty()) }.getOrNull()?.wrap() ?: net.minecraft.world.item.ItemStack.EMPTY.wrap()
+        return manager.getExecutableBlock(id).map { it.buildItem(1, Optional.empty()) }.getOrNull()?.wrap() ?: net.minecraft.world.item.ItemStack.EMPTY.wrap()
     }
 }

@@ -9,6 +9,7 @@ repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
 
+    maven("https://repo.auxilor.io/repository/maven-public/")
     maven(url = "https://maven.enginehub.org/repo/")
     maven(url = "https://repo.citizensnpcs.co")
     maven(url = "https://repo.codemc.io/repository/maven-public/")

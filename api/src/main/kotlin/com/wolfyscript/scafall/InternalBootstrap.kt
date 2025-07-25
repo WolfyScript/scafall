@@ -1,6 +1,5 @@
 package com.wolfyscript.scafall
 
-import com.wolfyscript.scafall.loader.InnerJarClassloader
 import com.wolfyscript.scafall.loader.module.Module
 import org.jetbrains.annotations.ApiStatus.Internal
 

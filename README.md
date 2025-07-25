@@ -1,6 +1,5 @@
 ## Scafall
-> Previously **WolfyUtils**
- 
+
 Scaffolding aims to be a source of APIs and Utils to assist in the creation of multi-platform Minecraft Plugins/Mods.
 The initial goal is to provide APIs that provide access to the most used parts of each platform,  
 which include for example: Tasks & Scheduling, Adventure Wrappers for common Audiences, ItemStacks, and more.

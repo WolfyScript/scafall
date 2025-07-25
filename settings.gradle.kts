@@ -67,6 +67,15 @@ sequenceOf(
     project(":$it").projectDir = file(it.replace(":", "/"))
 }
 
+
+// Fabric
+sequenceOf(
+    "fabric",
+).forEach {
+    include(":$it")
+    project(":$it").projectDir = file(it.replace(":", "/"))
+}
+
 // Sample Plugin Modules
 val samplesDir: String = "samples"
 

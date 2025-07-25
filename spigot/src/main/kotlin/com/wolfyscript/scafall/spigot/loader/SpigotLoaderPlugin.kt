@@ -4,6 +4,7 @@ import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallBootstrap
 import com.wolfyscript.scafall.loader.ScafallLoader
 import com.wolfyscript.scafall.loader.module.Module
+import com.wolfyscript.scafall.spigot.api.ScafallSpigot
 import org.bukkit.plugin.java.JavaPlugin
 
 class SpigotLoaderPlugin : JavaPlugin() {
@@ -15,11 +16,9 @@ class SpigotLoaderPlugin : JavaPlugin() {
             classLoader,
             "com.wolfyscript.scafall.InternalBootstrap"
         )
-        module = bootstrap.loadModuleFromInnerJar(
-            "com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap",
-            JavaPlugin::class.java,
-            this
-        )
+        module = bootstrap.loadModule {
+            ScafallSpigot(this.classLoader, this)
+        }
     }
 
     override fun onLoad() {

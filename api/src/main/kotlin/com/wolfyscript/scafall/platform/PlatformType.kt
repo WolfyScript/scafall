@@ -6,7 +6,8 @@ enum class PlatformType {
     PAPER,
     PURPUR,
     FOLIA,
-    SPONGE;
+    SPONGE,
+    FABRIC;
 
     fun isPaperCompatible(): Boolean {
         return when(this) {

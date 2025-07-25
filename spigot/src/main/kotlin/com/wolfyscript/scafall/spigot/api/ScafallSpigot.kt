@@ -1,6 +1,8 @@
 package com.wolfyscript.scafall.spigot.api
 
 import com.wolfyscript.scafall.ModWrapper
+import com.wolfyscript.scafall.Scafall
+import com.wolfyscript.scafall.ScafallBootstrap
 import com.wolfyscript.scafall.common.api.ScafallCommon
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
@@ -9,7 +11,6 @@ import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
-import com.wolfyscript.scafall.spigot.ScafallSpigotBootstrap
 import com.wolfyscript.scafall.spigot.api.factories.SpigotFactoriesImpl
 import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
@@ -18,15 +19,18 @@ import com.wolfyscript.scafall.spigot.compat.PluginDependencyLoader
 import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.bukkit.Bukkit
+import org.bukkit.plugin.java.JavaPlugin
 
-class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCommon() {
+class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : ScafallCommon(), ScafallBootstrap.ScafallModule {
+
+    override val bridge: Scafall = this
 
     //
     // Note: This is called before this bridge is registered! ScafallProvider.get() will fail!
     //       Only init things that don't depend on it and use init() instead!
     //
 
-    override val modInfo: ModWrapper = bootstrap.corePlugin
+    override val modInfo: ModWrapper = SpigotPluginWrapper(plugin)
 
     // Essentials
     override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
@@ -54,7 +58,7 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
 
         pluginDependencyLoader.loadDependencies()
 
-        mavenDependencyHandler = MavenDependencyHandlerImpl(this, bootstrap.corePlugin.plugin.dataFolder.toPath().resolve("libs"))
+        mavenDependencyHandler = MavenDependencyHandlerImpl(this, plugin.dataFolder.toPath().resolve("libs"))
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()
     }
 
@@ -73,7 +77,7 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
      */
     override fun enable() {
         adventure.init()
-        Bukkit.getPluginManager().registerEvents(pluginDependencyLoader, bootstrap.corePlugin.plugin)
+        Bukkit.getPluginManager().registerEvents(pluginDependencyLoader, plugin)
 
         platformManager.implementationModules.forEach {
             it.value.onEnable()
@@ -89,6 +93,18 @@ class ScafallSpigot(internal val bootstrap: ScafallSpigotBootstrap) : ScafallCom
 
     override fun createOrGetPluginWrapper(pluginName: String): ModWrapper? {
         return Bukkit.getPluginManager().getPlugin(pluginName)?.let { SpigotPluginWrapper(it) }
+    }
+
+    override fun onLoad() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onEnable() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onUnload() {
+        TODO("Not yet implemented")
     }
 
 }

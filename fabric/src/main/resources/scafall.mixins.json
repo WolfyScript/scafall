@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "com.wolfyscript.scafall.fabric.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+
+  ],
+  "server": [
+
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

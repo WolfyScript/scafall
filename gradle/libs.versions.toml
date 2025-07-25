@@ -7,7 +7,7 @@ jetbrains-annotations = "23.0.0"
 
 # configuration
 jackson = "2.13.4"  # We need to use this outdated version for now, since minecraft bundles it, with currently no way to overwrite the version at runtime.
-# A custom parent-last classloader could work, but other plugins would have to be loaded by it to access the api of scafall...
+                    # A custom parent-last classloader could work, but other plugins would have to be loaded by it to access the api of scafall...
 jackson-kotlin = "2.13.4" # We need to use this one, even though it does not officially support the kotlin version. No issue yet...
 dataformat-hocon = "2.1-SNAPSHOT"
 typesafe-config = "1.3.1"
@@ -67,6 +67,7 @@ sponge-impl = "1.21.5-15.0.0-SNAPSHOT"
 ## Fabric Impl
 fabric = "0.128.2+1.21.7"
 fabric-loader = "0.16.14"
+fabric-kotlin="1.13.4+kotlin.2.2.0"
 
 [libraries]
 # Kotlin & Jetbrains dependencies
@@ -130,6 +131,7 @@ spongepowered-impl = { module = "org.spongepowered:sponge", version.ref = "spong
 ## Fabric Impl
 fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric" }
 fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
+fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric-kotlin" }
 
 [bundles]
 jackson = ["jackson-core", "jackson-annotations", "jackson-databind", "jackson-dataformat-hocon"]

@@ -1,6 +1,5 @@
 package com.wolfyscript.scafall.loader.module
 
-import com.wolfyscript.scafall.loader.InnerJarClassloader
 import java.lang.reflect.Constructor
 
 /**
@@ -21,7 +20,7 @@ abstract class StandaloneInternalBootstrap<T>(val moduleBaseType: Class<out Modu
      */
     fun loadModuleFromInnerJar(pathToModule: String, loaderType: Class<*>, loader: Any): Module<T> {
         if (registered) {
-            throw IllegalStateException("Bootstrap $pathToModule is already initialized!")
+            throw IllegalStateException("Bootstrap $moduleBaseType is already initialized!")
         }
 
         val plugin: Class<out Module<T>> = try {
@@ -41,6 +40,19 @@ abstract class StandaloneInternalBootstrap<T>(val moduleBaseType: Class<out Modu
         } catch (e: ReflectiveOperationException) {
             throw IllegalStateException("Could not create plugin bootstrap instance", e)
         }
+        register(module)
+        module.onInit()
+        return module
+    }
+
+    /**
+     * A simple loading function
+     */
+    fun loadModule(loader: () -> Module<T>) : Module<T> {
+        if (registered) {
+            throw IllegalStateException("Bootstrap $moduleBaseType is already initialized!")
+        }
+        val module = loader()
         register(module)
         module.onInit()
         return module

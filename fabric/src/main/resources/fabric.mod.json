@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "scafall",
+  "version": "${version}",
+  "name": "scafall",
+  "description": "",
+  "authors": [
+    "WolfyScript"
+  ],
+  "contact": {
+    "sources": "https://github.com/WolfyScript/scafall"
+  },
+  "license": "CC0-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "value": "com.wolfyscript.scafall.fabric.ScafallFabricMod",
+        "adapter": "kotlin"
+      }
+    ]
+  },
+  "mixins": [
+    "scafall.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.21.7",
+    "java": ">=21",
+    "fabric-api": "*",
+    "fabric-language-kotlin": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

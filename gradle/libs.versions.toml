@@ -4,6 +4,7 @@
 # kotlin & jetbrains
 kotlin = "2.1.21"
 jetbrains-annotations = "23.0.0"
+exposed = "1.0.0-beta-2"
 
 # configuration
 jackson = "2.13.4"  # We need to use this outdated version for now, since minecraft bundles it, with currently no way to overwrite the version at runtime.
@@ -74,6 +75,10 @@ fabric-kotlin="1.13.4+kotlin.2.2.0"
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed-json = { module = "org.jetbrains.exposed:exposed-json", version.ref = "exposed" }
+
 
 # Misc (Utils, Datastructurs, etc.)
 guice = { module = "com.google.inject:guice", version.ref = "guice" }
@@ -135,6 +140,7 @@ fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = 
 
 [bundles]
 jackson = ["jackson-core", "jackson-annotations", "jackson-databind", "jackson-dataformat-hocon"]
+exposed = [ "exposed-core", "exposed-jdbc", "exposed-json" ]
 adventure = ["adventure-api", "adventure-platform-api", "adventure-text-minimessage"]
 spigot-external-plugins = [
     "spigot-plugin-score",

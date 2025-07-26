@@ -83,6 +83,9 @@ bukkitPluginYaml {
             libs.reflections.get().toString(),
             libs.hocon.get().toString(),
         )
+        libs.bundles.exposed.get().forEach {
+            add(it.toString())
+        }
 
         libs.bundles.adventure.get().forEach {
             add(it.toString())

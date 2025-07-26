@@ -50,7 +50,7 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
     //
     internal val pluginDependencyLoader = PluginDependencyLoader(this)
 
-    override fun init() {
+    override fun onInit() {
         // initiate essential components
         factories.init()
         registries.initRegistries()
@@ -65,7 +65,7 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
     /**
      * Initiates everything that requires that the plugin instance was created and other plugins are available, but doesn't require the plugin to be enabled.
      */
-    override fun load() {
+    override fun onLoad() {
         platformManager.implementationModules.forEach {
             it.value.onLoad()
         }
@@ -75,7 +75,7 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
      * initiates everything that requires the Spigot Plugin to be enabled.
      * e.g. Adventure, Events, etc.
      */
-    override fun enable() {
+    override fun onEnable() {
         adventure.init()
         Bukkit.getPluginManager().registerEvents(pluginDependencyLoader, plugin)
 
@@ -84,7 +84,7 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
         }
     }
 
-    override fun unload() {
+    override fun onUnload() {
         platformManager.implementationModules.forEach {
             it.value.onUnload()
         }
@@ -93,18 +93,6 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
 
     override fun createOrGetPluginWrapper(pluginName: String): ModWrapper? {
         return Bukkit.getPluginManager().getPlugin(pluginName)?.let { SpigotPluginWrapper(it) }
-    }
-
-    override fun onLoad() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onEnable() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onUnload() {
-        TODO("Not yet implemented")
     }
 
 }

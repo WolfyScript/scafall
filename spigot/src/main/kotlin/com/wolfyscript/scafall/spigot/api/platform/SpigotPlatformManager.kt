@@ -5,7 +5,7 @@ import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.spigot.api.ScafallSpigot
 import io.papermc.paper.ServerBuildInfo
 
-class SpigotPlatformManager internal constructor(scafallSpigot: ScafallSpigot) : CommonPlatformManager(scafallSpigot.bootstrap.classLoader) {
+class SpigotPlatformManager internal constructor(scafallSpigot: ScafallSpigot) : CommonPlatformManager(scafallSpigot.classLoader) {
 
     override val platformType: PlatformType = detectPlatform()
 

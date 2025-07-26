@@ -50,7 +50,7 @@ class ScafallFabricServer(val classLoader: ClassLoader, val mcServer: MinecraftS
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
 
-    override fun init() {
+    override fun onInit() {
         factories.init()
 
         registries.initRegistries()
@@ -61,33 +61,20 @@ class ScafallFabricServer(val classLoader: ClassLoader, val mcServer: MinecraftS
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()
     }
 
-    override fun load() {
+    override fun onLoad() {
 
     }
 
-    override fun enable() {
+    override fun onEnable() {
 
     }
 
-    override fun unload() {
+    override fun onUnload() {
 
     }
 
     override fun createOrGetPluginWrapper(pluginName: String): ModWrapper? {
         return null // TODO
     }
-
-    override fun onLoad() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onEnable() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onUnload() {
-        TODO("Not yet implemented")
-    }
-
 
 }

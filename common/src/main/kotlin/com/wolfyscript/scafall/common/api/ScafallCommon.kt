@@ -21,14 +21,4 @@ abstract class ScafallCommon() : Scafall {
             .addScanners(*Scanners.entries.toTypedArray())
     )
 
-    /**
-     * The Module was just initiated and registered. The Plugin has not been loaded yet!
-     */
-    abstract fun init()
-
-    abstract fun load()
-
-    abstract fun enable()
-
-    abstract fun unload()
 }

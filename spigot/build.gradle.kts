@@ -120,25 +120,23 @@ bukkitPluginYaml {
 
 minecraftServers {
     libName.set("spigot-${version}.jar") // Makes sure to copy the correct file (when using shaded classifier "-all.jar" this needs to be changed!)
-    serversDir.set(file("${System.getProperty("user.home")}${File.separator}minecraft${File.separator}test_servers_v5"))
-    val debugPort = System.getProperty("debugPort") ?: "5006"
-    val debugPortMapping = "${debugPort}:${debugPort}"
     servers {
         // Scaffolding will only support 1.21+
-        register("spigot_1_21") {
+        register("spigot") {
             destFileName.set("scafall.jar")
-            version.set("1.21.7")
+            version.set(libs.versions.minecraft.get())
             type.set("SPIGOT")
-            imageVersion.set("java21")
-            ports.set(setOf(debugPortMapping, "25565:25565"))
+            imageVersion.set("java21-graalvm") // need jdk to build from source
+            extraEnv.put("BUILD_FROM_SOURCE", "true")
+            ports.add("25565:25565")
         }
         // Paper test servers
-        register("paper_1_21") {
+        register("paper") {
             destFileName.set("scafall.jar")
-            version.set("1.21.7")
+            version.set(libs.versions.minecraft.get())
             type.set("PAPER")
             imageVersion.set("java21")
-            ports.set(setOf(debugPortMapping, "25566:25565"))
+            ports.add("25566:25565")
         }
     }
 }

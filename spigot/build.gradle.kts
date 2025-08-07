@@ -1,4 +1,3 @@
-import org.gradle.accessors.dm.RootProjectAccessor
 import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
 
 plugins {

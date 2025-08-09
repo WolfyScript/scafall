@@ -78,8 +78,6 @@ bukkitPluginYaml {
             libs.kotlin.stdlib.get().toString(),
             libs.kotlin.reflect.get().toString(),
             libs.jetbrains.annotations.get().toString(),
-            libs.commons.lang3.get().toString(),
-            libs.reflections.get().toString(),
             libs.hocon.get().toString(),
         )
         libs.bundles.exposed.get().forEach {

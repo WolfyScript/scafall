@@ -16,7 +16,6 @@ dependencies {
     compileOnly(project(":loader-api"))
     api(project(":common"))
     implementation(libs.slf4j.api)
-    compileOnly(libs.reflections)
     compileOnly(libs.fastutil)
     compileOnly(libs.jetbrains.annotations)
     compileOnly(libs.spongepowered.impl)

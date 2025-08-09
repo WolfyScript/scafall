@@ -19,7 +19,6 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":loader-api"))
     implementation(libs.slf4j.api)
-    implementation(libs.reflections)
 }
 
 sponge {
@@ -58,7 +57,6 @@ tasks {
         include("**")
 
         dependencies {
-            include(dependency("${libs.reflections.get().group}:.*"))
             include(dependency("org.javassist:.*"))
             include(dependency("com.wolfyscript.scafall:.*"))
             include(dependency("org.jetbrains:.*"))

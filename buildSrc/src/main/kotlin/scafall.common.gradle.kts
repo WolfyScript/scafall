@@ -65,7 +65,6 @@ dependencies {
     implementation(libs.kotlin.stdlib)
 
     compileOnly(libs.guice)
-    compileOnly(libs.reflections)
     compileOnly(libs.fastutil)
     compileOnly(libs.jetbrains.annotations)
     compileOnly(libs.netty)

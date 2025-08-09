@@ -16,6 +16,7 @@ class ScafallCommonRegistries(val scafall: Scafall) : ScafallRegistries {
 
     fun initRegistries() {
         rootRegistry = RegistrySimple(ScafallRegistryTypes.root)
+        createRegistry(ScafallRegistryTypes.dependencies) { TypeRegistrySimple(it) }
 
         createRegistry(ScafallRegistryTypes.itemStackIdentifiers) {
             TypeRegistrySimple<ItemStackIdentifier>(it).apply {

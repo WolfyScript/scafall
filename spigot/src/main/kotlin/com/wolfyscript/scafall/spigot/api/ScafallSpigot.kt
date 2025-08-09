@@ -7,8 +7,10 @@ import com.wolfyscript.scafall.common.api.ScafallCommon
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
 import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
+import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
+import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.spigot.api.factories.SpigotFactoriesImpl
@@ -16,6 +18,15 @@ import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.SpigotWrapperUtilsImpl
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyLoader
+import com.wolfyscript.scafall.spigot.compat.denizen.DenizenDependency
+import com.wolfyscript.scafall.spigot.compat.eco.EcoDependency
+import com.wolfyscript.scafall.spigot.compat.executableblocks.ExecutableBlocksDependency
+import com.wolfyscript.scafall.spigot.compat.executableitems.ExecutableItemsDependency
+import com.wolfyscript.scafall.spigot.compat.itemsadder.ItemsAdderDependency
+import com.wolfyscript.scafall.spigot.compat.magic.MagicDependency
+import com.wolfyscript.scafall.spigot.compat.mmoitems.MMOItemsDependency
+import com.wolfyscript.scafall.spigot.compat.mythicmobs.MythicMobsDependency
+import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenDependency
 import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import org.bukkit.Bukkit
@@ -55,6 +66,18 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
         factories.init()
         registries.initRegistries()
         registries.registerForJackson()
+
+        ScafallRegistryTypes.dependencies.resolveOrThrow().apply {
+            register(Key.defaultKey("plugins/${DenizenDependency.ID}"), DenizenDependency::class.java)
+            register(Key.defaultKey("plugins/${EcoDependency.ID}"), EcoDependency::class.java)
+            register(Key.defaultKey("plugins/${ExecutableItemsDependency.ID}"), ExecutableItemsDependency::class.java)
+            register(Key.defaultKey("plugins/${ExecutableBlocksDependency.ID}"), ExecutableBlocksDependency::class.java)
+            register(Key.defaultKey("plugins/${ItemsAdderDependency.ID}"), ItemsAdderDependency::class.java)
+            register(Key.defaultKey("plugins/${MagicDependency.ID}"), MagicDependency::class.java)
+            register(Key.defaultKey("plugins/${MMOItemsDependency.ID}"), MMOItemsDependency::class.java)
+            register(Key.defaultKey("plugins/${MythicMobsDependency.ID}"), MythicMobsDependency::class.java)
+            register(Key.defaultKey("plugins/${OraxenDependency.ID}"), OraxenDependency::class.java)
+        }
 
         pluginDependencyLoader.loadDependencies()
 

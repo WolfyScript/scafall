@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.registry
 
+import com.wolfyscript.scafall.compat.Dependency
 import com.wolfyscript.scafall.eval.operator.Operator
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
@@ -16,6 +17,8 @@ object ScafallRegistryTypes {
     val operators = createRegistryType<Class<out Operator>>("operators")
 
     val nbtConfigs = createRegistryType<Class<out NBTTagConfig>>("nbt_configs")
+    
+    val dependencies = createRegistryType<Class<out Dependency>>("compat/dependencies")
 
     val itemStackConfigOverrides = createRegistryType<Class<out ItemStackConfig.Override>>("items/config/overrides")
 

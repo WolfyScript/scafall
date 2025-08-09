@@ -11,7 +11,6 @@ import com.wolfyscript.scafall.registry.ScafallRegistries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
-import org.reflections.Reflections
 import org.slf4j.Logger
 
 /**
@@ -31,8 +30,6 @@ interface Scafall {
     val scheduler: Scheduler
 
     val platformManager: PlatformManager
-
-    val reflections: Reflections
 
     val mavenDependencyHandler: MavenDependencyHandler
 

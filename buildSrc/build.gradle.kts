@@ -6,6 +6,7 @@ repositories {
     // Use the plugin portal to apply community plugins in convention plugins.
     gradlePluginPortal()
     mavenCentral()
+    mavenLocal()
     maven("https://artifacts.wolfyscript.com/artifactory/gradle-dev")
 }
 

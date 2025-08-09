@@ -46,6 +46,13 @@ publishing {
 }
 
 tasks {
+    processResources {
+        inputs.property("version", project.version)
+
+        filesMatching("fabric.mod.json") {
+            expand("version" to project.version)
+        }
+    }
     shadowJar {
         // Mappings are in the runtime classpath. Not sure why they are included even though we use include for dependencies...
         // So to be sure nothing else slips in, just accept dependencies from the shadow configuration.

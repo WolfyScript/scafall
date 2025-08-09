@@ -47,7 +47,7 @@ tasks {
         dependsOn(reobfJar)
     }
     reobfJar {
-        finalizedBy("spigot_1_21_copy")
+        finalizedBy("spigot_copy")
     }
 }
 

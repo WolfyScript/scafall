@@ -45,7 +45,6 @@ dependencies {
     compileOnly(libs.jetbrains.annotations)
     compileOnly(libs.netty)
     compileOnly(libs.mojang.authlib)
-    compileOnly(libs.guava)
 
     compileOnly(libs.bundles.jackson)
     compileOnlyApi(libs.bundles.adventure)

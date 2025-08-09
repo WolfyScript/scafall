@@ -18,10 +18,14 @@ loom {
 }
 
 dependencies {
-    api(shadow(project(":api"))!!)
-    api(shadow(project(":common"))!!)
+    api(shadow(projects.api)!!)
+    api(shadow(projects.common)!!)
 
-    implementation(project(":loader-api"))
+    implementation(projects.loaderApi)
+
+    shadow(libs.hocon)
+    shadow(libs.bundles.jackson)
+    shadow(libs.bundles.exposed)
 
     minecraft("com.mojang:minecraft:${libs.versions.minecraft.get()}")
     mappings(
@@ -60,8 +64,17 @@ tasks {
         finalizedBy(remapJar)
 
         dependencies {
-            include(project(":api"))
-            include(project(":common"))
+            include(project(project.projects.api))
+            include(project(project.projects.common))
+
+            include(dependency(libs.hocon))
+            libs.bundles.exposed.get().forEach {
+                include(dependency(it))
+            }
+            include(dependency(libs.jackson.databind))
+            libs.bundles.jackson.get().forEach {
+                include(dependency(it))
+            }
         }
 
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL

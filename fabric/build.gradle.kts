@@ -74,6 +74,7 @@ minecraftServers {
     libName.set("${project.name}-${version}.jar")
     servers {
         register("fabric") {
+            destPath.set("mods")
             destFileName.set("scafall.jar")
             version.set(libs.versions.minecraft.get())
             type.set("FABRIC")

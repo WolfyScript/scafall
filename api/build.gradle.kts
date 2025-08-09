@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    compileOnly(project(":loader-api"))
+    api(shadow(project(":loader-api"))!!)
     implementation(kotlin("reflect"))
     minecraft("com.mojang:minecraft:${libs.versions.minecraft.get()}")
 
@@ -21,7 +21,6 @@ dependencies {
 tasks {
     shadowJar {
         archiveBaseName = "scafall-api"
-        archiveClassifier = ""
 
         // Mappings are in the runtime classpath. Not sure why they are included even though we use include for dependencies...
         // So to be sure nothing else slips in, just accept dependencies from the shadow configuration.

@@ -4,6 +4,7 @@ plugins {
     id("scafall.common")
     id("scafall.docker.run")
     alias(libs.plugins.fabric.loom)
+    alias(libs.plugins.shadow)
 }
 
 loom {
@@ -17,8 +18,9 @@ loom {
 }
 
 dependencies {
-    api(project(":api"))
-    api(project(":common"))
+    api(shadow(project(":api"))!!)
+    api(shadow(project(":common"))!!)
+
     implementation(project(":loader-api"))
 
     minecraft("com.mojang:minecraft:${libs.versions.minecraft.get()}")
@@ -44,7 +46,28 @@ publishing {
 }
 
 tasks {
+    shadowJar {
+        // Mappings are in the runtime classpath. Not sure why they are included even though we use include for dependencies...
+        // So to be sure nothing else slips in, just accept dependencies from the shadow configuration.
+        configurations = listOf(project.configurations.shadow.get())
+        finalizedBy(remapJar)
 
+        dependencies {
+            include(project(":api"))
+            include(project(":common"))
+        }
+
+        metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
+    }
+    remapJar {
+        dependsOn(shadowJar)
+        finalizedBy("fabric_copy")
+        inputFile.set(shadowJar.get().archiveFile)
+    }
+}
+
+artifacts {
+    archives(tasks.remapJar)
 }
 
 minecraftServers {

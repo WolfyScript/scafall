@@ -20,7 +20,13 @@ dependencies {
 
 tasks {
     shadowJar {
-        archiveFileName = "scafall-api"
+        archiveBaseName = "scafall-api"
+        archiveClassifier = ""
+
+        // Mappings are in the runtime classpath. Not sure why they are included even though we use include for dependencies...
+        // So to be sure nothing else slips in, just accept dependencies from the shadow configuration.
+        configurations = listOf(project.configurations.shadow.get())
+        finalizedBy(remapJar)
 
         dependencies {
             include(dependency("com.wolfyscript.scafall:.*"))
@@ -30,11 +36,17 @@ tasks {
     // This will get shaded into other platforms that then use their specific remapper instead.
     // Additionally, this will be a public api, which should work across all platforms.
     remapJar {
+        dependsOn(shadowJar)
         targetNamespace = "named"
+        inputFile.set(shadowJar.get().archiveFile)
     }
     remapSourcesJar {
         targetNamespace = "named"
     }
+}
+
+artifacts {
+    archives(tasks.remapJar)
 }
 
 publishing {

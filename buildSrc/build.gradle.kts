@@ -23,13 +23,7 @@ java {
 }
 
 kotlin {
-    target {
-        compilations.configureEach {
-            kotlinOptions {
-                jvmTarget = "21"
-            }
-        }
-    }
+    jvmToolchain(21)
 }
 
 fun Provider<PluginDependency>.text(): String {

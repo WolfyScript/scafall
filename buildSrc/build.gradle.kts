@@ -14,7 +14,7 @@ dependencies {
 
     implementation(libs.plugins.devtools.docker.run.text())
     implementation(libs.plugins.devtools.docker.minecraft.text())
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.21")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}")
 }
 
 java {

@@ -18,6 +18,7 @@ minecraftDockerRun {
         mapOf(
             // Limit each container memory
             "MEMORY" to "2G",
+            "EULA" to "true",
             // Allows to attach the IntelliJ Debugger
             "JVM_OPTS" to "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${debugPort}",
             "FORCE_REDOWNLOAD" to "false"

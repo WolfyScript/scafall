@@ -23,6 +23,9 @@ dependencies {
 
     implementation(projects.loaderApi)
 
+    include(libs.adventure.platform.fabric)
+    include(libs.jackson.kotlin)
+
     shadow(libs.hocon)
     shadow(libs.bundles.jackson)
     shadow(libs.bundles.exposed)
@@ -36,7 +39,6 @@ dependencies {
     )
     modImplementation(libs.fabric.loader)
     modImplementation(libs.fabric.api)
-    include(libs.adventure.platform.fabric)
     modImplementation(libs.adventure.text.minimessage)
     modCompileOnly(libs.adventure.platform.shared)
 }
@@ -102,7 +104,8 @@ minecraftServers {
             type.set("FABRIC")
             imageVersion.set("java21")
             ports.add("25569:25565")
-            extraEnv.put("MODRINTH_PROJECTS", "fabric-api")
+            extraEnv.put("MODRINTH_PROJECTS", "fabric-api, fabric-language-kotlin")
+            extraEnv.put("FABRIC_LOADER_VERSION", libs.versions.fabric.loader.get())
         }
     }
 }

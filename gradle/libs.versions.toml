@@ -27,10 +27,9 @@ slf4j-api = "2.0.16"
 caffeine = "3.2.0"
 
 # adventure
-adventure-api = "4.21.0"
-adventure-platform-api = "4.1.0"
-adventure-platform-mod-shared = "6.4.0"
-adventure-minimessage = "4.10.0"
+adventure-api = "4.24.0"
+adventure-platform-api = "4.4.1"
+adventure-platform-mod = "6.6.0"
 
 ## Gradle plugins
 artifactory = "5+"
@@ -91,8 +90,9 @@ slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j-api" }
 adventure-api = { module = "net.kyori:adventure-api", version.ref = "adventure-api" }
 adventure-serializer-gson = { module = "net.kyori:adventure-text-serializer-gson", version.ref = "adventure-api" }
 adventure-platform-api = { module = "net.kyori:adventure-platform-api", version.ref = "adventure-platform-api" }
-adventure-text-minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure-minimessage" }
-adventure-platform-shared = { module = "net.kyori:adventure-platform-mod-shared-fabric-repack", version.ref = "adventure-platform-mod-shared" }
+adventure-text-minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure-api" }
+adventure-platform-shared = { module = "net.kyori:adventure-platform-mod-shared-fabric-repack", version.ref = "adventure-platform-mod" }
+adventure-platform-fabric = { module = "net.kyori:adventure-platform-fabric", version.ref = "adventure-platform-mod" }
 
 # Configs (Jackson + HOCON)
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }

@@ -36,6 +36,8 @@ dependencies {
     )
     modImplementation(libs.fabric.loader)
     modImplementation(libs.fabric.api)
+    include(libs.adventure.platform.fabric)
+    modImplementation(libs.adventure.text.minimessage)
     modCompileOnly(libs.adventure.platform.shared)
 }
 

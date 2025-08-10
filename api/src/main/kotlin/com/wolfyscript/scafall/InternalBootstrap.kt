@@ -17,4 +17,8 @@ internal class InternalBootstrap(val classLoader: ClassLoader) : ScafallBootstra
         ScafallProvider.register(module.bridge)
     }
 
+    override fun onCompleted(module: Module<Scafall>) {
+        ScafallProvider.notifyListeners()
+    }
+
 }

@@ -2,6 +2,7 @@ package com.wolfyscript.scafall.fabric
 
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallBootstrap
+import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.fabric.api.ScafallFabricServer
 import com.wolfyscript.scafall.loader.ScafallLoader.loadObject
 import com.wolfyscript.scafall.loader.module.Module
@@ -24,6 +25,7 @@ class ScafallFabricMod : ModInitializer {
         )
 
         ServerLifecycleEvents.SERVER_STARTING.register {
+            logger.info("ScafallFabricMod server starting")
             serverModule = bootstrap.loadModule {
                 ScafallFabricServer(javaClass.classLoader, it, logger)
             }
@@ -31,13 +33,14 @@ class ScafallFabricMod : ModInitializer {
         }
 
         ServerLifecycleEvents.SERVER_STARTED.register {
-            if (it == serverModule?.bridge?.server?.minecraftServer) {
+            logger.info("ScafallFabricMod server startet")
+            ScafallProvider.whenReady {
                 serverModule?.onEnable()
             }
         }
 
         ServerLifecycleEvents.SERVER_STOPPED.register {
-            if (it == serverModule?.bridge?.server?.minecraftServer) {
+            ScafallProvider.whenReady {
                 serverModule?.onUnload()
             }
         }

@@ -52,6 +52,7 @@ class ScafallFabricServer(val classLoader: ClassLoader, val mcServer: MinecraftS
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
 
     override fun onInit() {
+        logger.info("Initializing Scafall")
         factories.init()
 
         registries.initRegistries()

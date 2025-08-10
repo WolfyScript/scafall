@@ -42,6 +42,7 @@ abstract class StandaloneInternalBootstrap<T>(val moduleBaseType: Class<out Modu
         }
         register(module)
         module.onInit()
+        onCompleted(module)
         return module
     }
 
@@ -55,6 +56,7 @@ abstract class StandaloneInternalBootstrap<T>(val moduleBaseType: Class<out Modu
         val module = loader()
         register(module)
         module.onInit()
+        onCompleted(module)
         return module
     }
 
@@ -67,5 +69,7 @@ abstract class StandaloneInternalBootstrap<T>(val moduleBaseType: Class<out Modu
      * Called when the module was successfully loaded and can be registered.
      */
     protected abstract fun register(module: Module<T>)
+
+    protected open fun onCompleted(module: Module<T>) {}
 
 }

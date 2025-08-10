@@ -21,6 +21,7 @@ import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.server.MinecraftServer
+import org.slf4j.Logger
 import java.io.File
 
 /**
@@ -28,7 +29,7 @@ import java.io.File
  * T
  *
  */
-class ScafallFabricServer(val classLoader: ClassLoader, val mcServer: MinecraftServer) : ScafallCommon(), ScafallBootstrap.ScafallModule {
+class ScafallFabricServer(val classLoader: ClassLoader, val mcServer: MinecraftServer, override val logger: Logger) : ScafallCommon(), ScafallBootstrap.ScafallModule {
 
     override val bridge: Scafall = this
 

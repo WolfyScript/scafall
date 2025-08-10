@@ -8,9 +8,12 @@ import com.wolfyscript.scafall.loader.module.Module
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class ScafallFabricMod : ModInitializer {
 
+    private val logger: Logger = LoggerFactory.getLogger(javaClass)
     private var serverModule: Module<Scafall>? = null
 
     override fun onInitialize() {
@@ -22,7 +25,7 @@ class ScafallFabricMod : ModInitializer {
 
         ServerLifecycleEvents.SERVER_STARTING.register {
             serverModule = bootstrap.loadModule {
-                ScafallFabricServer(javaClass.classLoader, it)
+                ScafallFabricServer(javaClass.classLoader, it, logger)
             }
             serverModule?.onLoad()
         }

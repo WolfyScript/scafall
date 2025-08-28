@@ -2,6 +2,8 @@ package com.wolfyscript.scafall.wrappers.utils
 
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.wrappers.ScafallBlockEntity
+import com.wolfyscript.scafall.wrappers.ScafallLevel
 import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
@@ -15,6 +17,7 @@ import net.minecraft.core.GlobalPos
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.phys.Vec3
 
 /**
@@ -75,6 +78,21 @@ interface MinecraftWrapper {
 
     fun unwrapGlobalBlockPos(globalBlockPos: ScafallGlobalBlockPos): GlobalPos
 
+    //
+    // BlockEntity
+    //
+
+    fun wrapBlockEntity(blockEntity: BlockEntity): ScafallBlockEntity
+
+    fun unwrapBlockEntity(scafallBlockEntity: ScafallBlockEntity): BlockEntity
+
+    //
+    // Level
+    //
+
+    fun wrapLevel(level: Level): ScafallLevel
+
+    fun unwrapLevel(scafallLevel: ScafallLevel): Level
 }
 
 //
@@ -125,6 +143,22 @@ fun BlockPos.wrap(dimension: Key) = ScafallProvider.get().minecraftWrapper.wrapB
 fun Vec3.wrap() = ScafallProvider.get().minecraftWrapper.wrapVec3(this)
 
 fun Vec3.wrap(dimension: Key) = ScafallProvider.get().minecraftWrapper.wrapVec3(this, dimension)
+
+//
+// BlockEntity
+//
+
+fun BlockEntity.wrap(): ScafallBlockEntity = ScafallProvider.get().minecraftWrapper.wrapBlockEntity(this)
+
+fun ScafallBlockEntity.unwrap(): BlockEntity = ScafallProvider.get().minecraftWrapper.unwrapBlockEntity(this)
+
+//
+// Level
+//
+
+fun Level.wrap(): ScafallLevel = ScafallProvider.get().minecraftWrapper.wrapLevel(this)
+
+fun ScafallLevel.unwrap(): Level = ScafallProvider.get().minecraftWrapper.unwrapLevel(this)
 
 // unwrap
 

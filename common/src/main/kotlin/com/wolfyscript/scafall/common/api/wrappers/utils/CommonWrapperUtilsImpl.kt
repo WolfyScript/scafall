@@ -139,4 +139,28 @@ abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
     }
 
 
+    //
+    // BlockEntity
+    //
+
+    override fun wrapBlockEntity(blockEntity: BlockEntity): ScafallBlockEntity {
+        return ScafallBlockEntityCommon(blockEntity)
+    }
+
+    override fun unwrapBlockEntity(scafallBlockEntity: ScafallBlockEntity): BlockEntity {
+        return (scafallBlockEntity as ScafallBlockEntityCommon).entity
+    }
+
+    //
+    // Level
+    //
+
+    override fun wrapLevel(level: Level): ScafallLevel {
+        return ScafallLevelCommon(level)
+    }
+
+    override fun unwrapLevel(scafallLevel: ScafallLevel): Level {
+        return (scafallLevel as ScafallLevelCommon).level
+    }
+
 }

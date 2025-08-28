@@ -33,6 +33,9 @@ interface Key : Namespaced {
         @JvmStatic
         fun parse(string: String): Key = parse(string, SEPARATOR)
 
+        @JvmStatic
+        fun fromMc(location: ResourceLocation): Key = key(location.namespace, location.path)
+
     }
 
     val value: String
@@ -44,3 +47,5 @@ interface Key : Namespaced {
     override fun toString(): String
 
 }
+
+fun ResourceLocation.toKey(): Key = Key.fromMc(this)

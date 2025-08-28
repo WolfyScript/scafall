@@ -7,6 +7,7 @@ import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrapSpigot
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolver
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolverSettings
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
 @DependencyResolverSettings(PluginDependencyResolver::class)
 @PluginDependencyResolverSettings(DenizenDependency::class)
@@ -16,7 +17,7 @@ class DenizenStackIdentifier(
 ) : ItemStackIdentifier {
 
     override fun matches(
-        stack: ItemStack,
+        stack: ItemStackLike<*, *>,
         matchTags: Boolean,
     ): Boolean {
         if (stack.isEmpty) return false

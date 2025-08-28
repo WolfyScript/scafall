@@ -9,6 +9,7 @@ import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolver
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolverSettings
 import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
@@ -21,7 +22,7 @@ class ExecutableBlocksStackIdentifier(
     val manager: ExecutableBlocksManager = ExecutableBlocksManager.getInstance()
 
     override fun matches(
-        stack: ItemStack,
+        stack: ItemStackLike<*, *>,
         matchTags: Boolean,
     ): Boolean {
         if (stack.isEmpty) return false

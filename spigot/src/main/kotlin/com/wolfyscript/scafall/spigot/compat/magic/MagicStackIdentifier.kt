@@ -10,6 +10,7 @@ import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolver
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolverSettings
 import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import org.bukkit.Bukkit
 
 @DependencyResolverSettings(PluginDependencyResolver::class)
@@ -20,7 +21,7 @@ class MagicStackIdentifier(val itemKey: String) : ItemStackIdentifier {
     val magicAPI = Bukkit.getPluginManager().getPlugin("Magic") as? MagicAPI ?: error("Could not find Magic API!")
 
     override fun matches(
-        stack: ItemStack,
+        stack: ItemStackLike<*, *>,
         matchTags: Boolean,
     ): Boolean {
         return magicAPI.controller.getItemKey(stack.unwrapSpigot()) == itemKey

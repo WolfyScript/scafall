@@ -8,6 +8,7 @@ import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolver
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolverSettings
 import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import dev.lone.itemsadder.api.CustomStack
 
 @DependencyResolverSettings(PluginDependencyResolver::class)
@@ -17,7 +18,7 @@ class ItemsAdderStackIdentifier(
 ) : ItemStackIdentifier {
 
     override fun matches(
-        stack: ItemStack,
+        stack: ItemStackLike<*, *>,
         matchTags: Boolean,
     ): Boolean {
         val otherId = CustomStack.byItemStack(stack.unwrapSpigot())?.namespacedID ?: return false

@@ -3,6 +3,7 @@ package com.wolfyscript.scafall.items
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
 interface ItemStackRef {
 
@@ -25,7 +26,7 @@ interface ItemStackRef {
      */
     val identifier: ItemStackIdentifier
 
-    fun matches(stack: ItemStack, matchTags: Boolean): Boolean
+    fun matches(stack: ItemStackLike<*,*>, matchTags: Boolean): Boolean
 
     fun create(): ItemStack
 

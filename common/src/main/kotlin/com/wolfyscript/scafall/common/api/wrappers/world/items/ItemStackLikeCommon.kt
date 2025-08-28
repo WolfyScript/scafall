@@ -50,7 +50,7 @@ sealed class ItemStackLikeCommon<H: ItemStackLike<H, M>, M: DataComponentMap<H>>
     }
 
     override fun toString(): String {
-        return mcStack.toString()
+        return "$mcStack [${mcStack.componentsPatch}]"
     }
 
 }

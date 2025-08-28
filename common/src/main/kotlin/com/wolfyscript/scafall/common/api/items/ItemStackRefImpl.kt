@@ -5,6 +5,7 @@ import com.wolfyscript.scafall.items.ItemStackRef
 import com.wolfyscript.scafall.wrappers.utils.unwrap
 import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
 /**
  * Constructs a new instance of a [ItemStackRef].
@@ -15,7 +16,7 @@ class ItemStackRefImpl(
 ) : ItemStackRef {
 
     override fun matches(
-        stack: ItemStack,
+        stack: ItemStackLike<*, *>,
         matchTags: Boolean,
     ): Boolean {
         return  identifier.matches(stack, matchTags)

@@ -1,15 +1,15 @@
 package com.wolfyscript.scafall.common.api.items
 
-import com.wolfyscript.scafall.items.ItemStackIdentifier
 import com.wolfyscript.scafall.items.VanillaItemStackIdentifier
 import com.wolfyscript.scafall.wrappers.utils.unwrap
 import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
 class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaItemStackIdentifier {
 
     override fun matches(
-        stack: ItemStack,
+        stack: ItemStackLike<*, *>,
         matchTags: Boolean,
     ): Boolean {
         val other = stack.unwrap()
@@ -35,8 +35,8 @@ class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaIte
 
         override val priority: Int = 0
 
-        override fun from(stack: ItemStack): VanillaItemStackIdentifierImpl? {
-            return VanillaItemStackIdentifierImpl(stack)
+        override fun from(stack: ItemStackLike<*, *>): VanillaItemStackIdentifierImpl? {
+            return VanillaItemStackIdentifierImpl(stack.unwrap().wrap())
         }
 
     }

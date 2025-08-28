@@ -9,6 +9,7 @@ import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolver
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolverSettings
 import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import net.Indyuce.mmoitems.MMOItems
 
 @DependencyResolverSettings(PluginDependencyResolver::class)
@@ -19,7 +20,7 @@ class MMOItemsStackIdentifier(private val type: net.Indyuce.mmoitems.api.Type, v
     constructor(typeId: String, itemId: String) : this(MMOItems.plugin.types.get(typeId) ?: error("Could not find MMOItems Type $typeId"), itemId)
 
     override fun matches(
-        stack: ItemStack,
+        stack: ItemStackLike<*, *>,
         matchTags: Boolean,
     ): Boolean {
         val stackType = MMOItems.getType(stack.unwrapSpigot()) ?: return false

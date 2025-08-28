@@ -5,13 +5,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
 import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonTypeIdResolver(RegistryKeyTypeIdResolver::class)
 @JsonPropertyOrder("type")
 interface ItemStackIdentifier {
 
-    fun matches(stack: ItemStack, matchTags: Boolean): Boolean
+    fun matches(stack: ItemStackLike<*,*>, matchTags: Boolean): Boolean
 
     fun create(): ItemStack
 
@@ -19,7 +20,7 @@ interface ItemStackIdentifier {
 
         val priority: Int
 
-        fun from(stack: ItemStack): T?
+        fun from(stack: ItemStackLike<*,*>): T?
 
     }
 

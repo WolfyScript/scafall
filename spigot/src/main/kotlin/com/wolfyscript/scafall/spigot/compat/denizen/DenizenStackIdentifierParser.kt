@@ -3,12 +3,14 @@ package com.wolfyscript.scafall.spigot.compat.denizen
 import com.denizenscript.denizen.scripts.containers.core.ItemScriptHelper
 import com.wolfyscript.scafall.items.ItemStackIdentifier
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrapSpigot
-import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.utils.unwrap
+import com.wolfyscript.scafall.wrappers.utils.wrap
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
 class DenizenStackIdentifierParser(override val priority: Int = 0) : ItemStackIdentifier.Parser<DenizenStackIdentifier> {
 
-    override fun from(stack: ItemStack): DenizenStackIdentifier? {
+    override fun from(stack: ItemStackLike<*, *>): DenizenStackIdentifier? {
         val script = ItemScriptHelper.getItemScriptNameText(stack.unwrapSpigot()) ?: return null
-        return DenizenStackIdentifier(stack, script)
+        return DenizenStackIdentifier(stack.unwrap().wrap(), script)
     }
 }

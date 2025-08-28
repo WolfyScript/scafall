@@ -7,6 +7,7 @@ import com.wolfyscript.scafall.spigot.api.wrappers.utils.wrap
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolver
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolverSettings
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import io.th0rgal.oraxen.api.OraxenItems
 
 @DependencyResolverSettings(PluginDependencyResolver::class)
@@ -16,7 +17,7 @@ class OraxenItemStackIdentifier(
 ) : ItemStackIdentifier {
 
     override fun matches(
-        stack: ItemStack,
+        stack: ItemStackLike<*, *>,
         matchTags: Boolean,
     ): Boolean {
         val otherId = OraxenItems.getIdByItem(stack.unwrapSpigot()) ?: return false

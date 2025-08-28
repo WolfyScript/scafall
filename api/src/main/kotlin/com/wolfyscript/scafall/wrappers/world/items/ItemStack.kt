@@ -1,9 +1,7 @@
 package com.wolfyscript.scafall.wrappers.world.items
 
-import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.data.DataHolder
-import com.wolfyscript.scafall.identifier.Key
 
 /**
  * A mutable version of the ItemStack.

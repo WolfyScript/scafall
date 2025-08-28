@@ -10,6 +10,7 @@ import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolver
 import com.wolfyscript.scafall.spigot.compat.PluginDependencyResolverSettings
 import com.wolfyscript.scafall.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
@@ -22,7 +23,7 @@ class ExecutableItemsStackIdentifier(
     val manager: ExecutableItemsManagerInterface = ExecutableItemsAPI.getExecutableItemsManager()
 
     override fun matches(
-        stack: ItemStack,
+        stack: ItemStackLike<*, *>,
         matchTags: Boolean,
     ): Boolean {
         if (stack.isEmpty) return false

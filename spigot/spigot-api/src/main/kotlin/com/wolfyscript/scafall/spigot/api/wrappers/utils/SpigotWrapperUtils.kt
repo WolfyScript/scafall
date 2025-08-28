@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
+import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
@@ -56,8 +57,8 @@ interface SpigotWrapperUtils : MinecraftWrapper {
     // Player
     //
 
-    fun wrapPlayer(player: org.bukkit.entity.Player): com.wolfyscript.scafall.wrappers.world.entity.Player
+    fun wrapPlayer(player: org.bukkit.entity.Player): ScafallPlayer
 
-    fun unwrapToSpigot(player: com.wolfyscript.scafall.wrappers.world.entity.Player): org.bukkit.entity.Player?
+    fun unwrapToSpigot(scafallPlayer: ScafallPlayer): org.bukkit.entity.Player?
 
 }

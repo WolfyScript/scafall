@@ -6,13 +6,14 @@ import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
 import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
-import com.wolfyscript.scafall.wrappers.world.entity.Player
+import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import net.minecraft.core.BlockPos
 import net.minecraft.core.GlobalPos
 import net.minecraft.resources.ResourceKey
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
 
@@ -48,9 +49,9 @@ interface MinecraftWrapper {
     // Player
     //
 
-    fun wrapMcPlayer(player: net.minecraft.world.entity.player.Player): Player
+    fun wrapMcPlayer(player: Player): ScafallPlayer
 
-    fun unwrapToMcPlayer(player: Player): net.minecraft.world.entity.player.Player?
+    fun unwrapToMcPlayer(scafallPlayer: ScafallPlayer): Player?
 
     //
     // Position
@@ -103,13 +104,13 @@ fun ItemStackLike<*, *>.unwrap(): net.minecraft.world.item.ItemStack = ScafallPr
 // Player
 //
 
-fun net.minecraft.world.entity.player.Player.wrap(): Player = ScafallProvider.get().minecraftWrapper.wrapMcPlayer(this)
+fun Player.wrap(): ScafallPlayer = ScafallProvider.get().minecraftWrapper.wrapMcPlayer(this)
 
 /**
  * Unwraps the Player to the Minecraft Player.
  * @return The minecraft Player; null if the player is no longer available.
  */
-fun Player.unwrap(): net.minecraft.world.entity.player.Player? = ScafallProvider.get().minecraftWrapper.unwrapToMcPlayer(this)
+fun ScafallPlayer.unwrap(): Player? = ScafallProvider.get().minecraftWrapper.unwrapToMcPlayer(this)
 
 //
 // Position

@@ -1,15 +1,19 @@
 package com.wolfyscript.scafall.common.api.wrappers.utils
 
 import com.wolfyscript.scafall.ScafallProvider
+import com.wolfyscript.scafall.common.api.wrappers.ScafallBlockEntityCommon
+import com.wolfyscript.scafall.common.api.wrappers.ScafallLevelCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.ScafallBlockPosCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.ScafallGlobalBlockPosCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.ScafallGlobalPrecisePosCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.ScafallPrecisePosCommon
-import com.wolfyscript.scafall.common.api.wrappers.world.entity.PlayerCommon
+import com.wolfyscript.scafall.common.api.wrappers.world.entity.ScafallPlayerCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackLikeCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackSnapshotCommon
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.wrappers.ScafallBlockEntity
+import com.wolfyscript.scafall.wrappers.ScafallLevel
 import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
 import com.wolfyscript.scafall.wrappers.utils.unwrap
 import com.wolfyscript.scafall.wrappers.utils.wrap
@@ -17,7 +21,7 @@ import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
 import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
-import com.wolfyscript.scafall.wrappers.world.entity.Player
+import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import net.minecraft.core.BlockPos
@@ -26,6 +30,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.phys.Vec3
 
 abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
@@ -62,12 +67,12 @@ abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
     // Player
     //
 
-    override fun wrapMcPlayer(player: net.minecraft.world.entity.player.Player): Player {
-        return PlayerCommon(player)
+    override fun wrapMcPlayer(player: net.minecraft.world.entity.player.Player): ScafallPlayer {
+        return ScafallPlayerCommon(player)
     }
 
-    override fun unwrapToMcPlayer(player: Player): net.minecraft.world.entity.player.Player? {
-        return ScafallProvider.get().server.minecraftServer.playerList.getPlayer(player.uuid)
+    override fun unwrapToMcPlayer(scafallPlayer: ScafallPlayer): net.minecraft.world.entity.player.Player? {
+        return ScafallProvider.get().server.minecraftServer.playerList.getPlayer(scafallPlayer.uuid)
     }
 
     //

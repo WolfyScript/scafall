@@ -3,6 +3,7 @@ package com.wolfyscript.scafall.spigot.api.wrappers.utils
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
@@ -79,12 +80,12 @@ fun ItemStackLike<*, *>.unwrapSpigot(): ItemStack = wrapper.unwrapItemStack(this
 /**
  * Wraps this [Player] in a scafall wrapper.
  */
-fun Player.wrap(): com.wolfyscript.scafall.wrappers.world.entity.Player = wrapper.wrapPlayer(this)
+fun Player.wrap(): ScafallPlayer = wrapper.wrapPlayer(this)
 
 /**
  * Unwraps this wrapper to a Spigot/Bukkit [Player].
  */
-fun com.wolfyscript.scafall.wrappers.world.entity.Player.unwrapSpigot(): Player? = wrapper.unwrapToSpigot(this)
+fun ScafallPlayer.unwrapSpigot(): Player? = wrapper.unwrapToSpigot(this)
 
 //
 // Location wrappers

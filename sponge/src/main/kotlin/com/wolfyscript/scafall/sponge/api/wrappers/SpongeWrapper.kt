@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall.sponge.api.wrappers
 
-import com.wolfyscript.scafall.sponge.api.wrappers.world.entity.SpongePlayer
+import com.wolfyscript.scafall.sponge.api.wrappers.world.entity.SpongeScafallPlayer
+import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.utils.snapshot
 import com.wolfyscript.scafall.wrappers.utils.unwrap
 import com.wolfyscript.scafall.wrappers.utils.wrap
@@ -14,8 +15,8 @@ fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStack {
     return ItemStackUtil.toNative(this).wrap() // Sponge uses mixins, so the MC ItemStack implements ItemStack interface
 }
 
-fun Player.wrap(): SpongePlayer {
-    return SpongePlayer(this)
+fun Player.wrap(): SpongeScafallPlayer {
+    return SpongeScafallPlayer(this)
 }
 
 fun ItemStackSnapshot.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot {
@@ -30,6 +31,6 @@ fun com.wolfyscript.scafall.wrappers.world.items.ItemStack.unwrap(): ItemStack {
     return ItemStackUtil.fromNative(this.unwrap())
 }
 
-fun com.wolfyscript.scafall.wrappers.world.entity.Player.unwrap(): Player {
-    return (this as SpongePlayer).ref.get() ?: throw Exception("Player is null")
+fun ScafallPlayer.unwrap(): Player {
+    return (this as SpongeScafallPlayer).ref.get() ?: throw Exception("Player is null")
 }

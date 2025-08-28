@@ -11,7 +11,7 @@ import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
 import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
-import com.wolfyscript.scafall.wrappers.world.entity.Player
+import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import net.minecraft.world.phys.Vec3
@@ -106,12 +106,12 @@ class SpigotWrapperUtilsImpl : CommonWrapperUtilsImpl(), SpigotWrapperUtils {
     // Player
     //
 
-    override fun wrapPlayer(player: org.bukkit.entity.Player): Player {
+    override fun wrapPlayer(player: org.bukkit.entity.Player): ScafallPlayer {
         return (player as CraftPlayer).handle.wrap()
     }
 
-    override fun unwrapToSpigot(player: Player): org.bukkit.entity.Player? {
-        return Bukkit.getPlayer(player.uuid)
+    override fun unwrapToSpigot(scafallPlayer: ScafallPlayer): org.bukkit.entity.Player? {
+        return Bukkit.getPlayer(scafallPlayer.uuid)
     }
 
 }

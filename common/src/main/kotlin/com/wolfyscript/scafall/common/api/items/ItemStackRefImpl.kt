@@ -11,7 +11,7 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
  * Constructs a new instance of a [ItemStackRef].
  */
 class ItemStackRefImpl(
-    override val amount: Int,
+    override val amount: Int = 1,
     override val identifier: ItemStackIdentifier,
 ) : ItemStackRef {
 

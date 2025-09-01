@@ -5,8 +5,11 @@ import net.kyori.adventure.key.Key
 import net.minecraft.resources.ResourceLocation
 
 /**
- * Converts this key to a scafall [com.wolfyscript.scafall.identifier.Key]
+ * Converts an Adventure key to a scafall [com.wolfyscript.scafall.identifier.Key]
  */
 fun Key.toScafall() : com.wolfyscript.scafall.identifier.Key = ScafallProvider.get().factories.identifierFactory.key(this.namespace(), this.value())
 
+/**
+ * Converts a minecraft [ResourceLocation] to a scafall [com.wolfyscript.scafall.identifier.Key]
+ */
 fun ResourceLocation.toScafall() : com.wolfyscript.scafall.identifier.Key = ScafallProvider.get().factories.identifierFactory.key(this.namespace, this.path)

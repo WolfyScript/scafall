@@ -16,6 +16,10 @@ interface ScafallProvider {
             return instance != null
         }
 
+        /**
+         * Runs the given listener when the provider is initialized.
+         * If the provider is already initialized, the listener will be called immediately.
+         */
         fun whenReady(listener: (Scafall)->Unit) {
             if (registered()) {
                 listener(get())

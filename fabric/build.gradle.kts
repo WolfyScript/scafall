@@ -87,6 +87,8 @@ tasks {
         dependsOn(shadowJar)
         finalizedBy("fabric_copy")
         inputFile.set(shadowJar.get().archiveFile)
+        archiveBaseName.set("scafall")
+        archiveClassifier.set("fabric-${libs.versions.minecraft.get()}")
     }
 }
 
@@ -95,7 +97,7 @@ artifacts {
 }
 
 minecraftServers {
-    libName.set("${project.name}-${version}.jar")
+    libName.set("scafall-${version}-fabric-${libs.versions.minecraft.get()}.jar")
     servers {
         register("fabric") {
             destPath.set("mods")

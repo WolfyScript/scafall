@@ -24,13 +24,15 @@ dependencies {
     implementation(project(":common"))
 }
 
+fun archiveName(): String {
+    return "scafall-${project.version}-spigot-${libs.versions.minecraft.get()}"
+}
+
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.REOBF_PRODUCTION
 
 tasks {
     shadowJar {
-        archiveBaseName = "scafall-spigot"
-        archiveClassifier = ""
-        archiveAppendix = ""
+        archiveFileName.set("${archiveName()}-mojmap.jar")
 
         finalizedBy(reobfJar)
 
@@ -48,6 +50,7 @@ tasks {
     }
     reobfJar {
         finalizedBy("spigot_copy")
+        outputJar.set(layout.buildDirectory.file("libs/${archiveName()}.jar"))
     }
 }
 

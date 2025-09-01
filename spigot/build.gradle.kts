@@ -119,7 +119,7 @@ bukkitPluginYaml {
 }
 
 minecraftServers {
-    libName.set("spigot-${version}.jar") // Makes sure to copy the correct file (when using shaded classifier "-all.jar" this needs to be changed!)
+    libName.set("${archiveName()}.jar") // Makes sure to copy the correct file
     servers {
         // Scaffolding will only support 1.21+
         register("spigot") {

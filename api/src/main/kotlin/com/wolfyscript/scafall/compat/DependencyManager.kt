@@ -19,10 +19,22 @@ interface DependencyManager {
     fun loadDependency(id: Key, dependency: Dependency)
 
     /**
+     * Notifies the Manager that the specified Dependency has failed to initialize.
+     * This means after this, [isLoaded] will be invalid for the specified dependency.
+     * The Manager will not attempt to load the dependency again.
+     */
+    fun failedToInitDependency(id: Key)
+
+    /**
      * Notifies the Manager that the specified Dependency has been initialized.
      */
     fun initiateDependency(id: Key): Boolean
 
+    /**
+     * Gets a dependency by its [id] if it has been loaded.
+     *
+     * @return The dependency or null if it has not been loaded.
+     */
     fun getDependency(id: Key): Dependency?
 
     /**
@@ -45,4 +57,14 @@ interface DependencyManager {
      */
     fun onDependencyInitialized(dependency: Key? = null, fn: (Dependency) -> Unit)
 
+    /**
+     * Registers a Callback that will get called when all dependencies have been initialized.
+     * Called immediately if all dependencies are already initialized.
+     */
+    fun onAllDependenciesInitialized(action: (Map<Key, Dependency>) -> Unit)
+
+    /**
+     * Registers a Callback that will get called when the dependency has failed to initialize.
+     */
+    fun onDependencyFailed(dependency: Key? = null, fn: (Dependency) -> Unit)
 }

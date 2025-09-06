@@ -79,8 +79,6 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
             register(Key.defaultKey("plugins/${OraxenDependency.ID}"), OraxenDependency::class.java)
         }
 
-        pluginDependencyLoader.loadDependencies()
-
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, plugin.dataFolder.toPath().resolve("libs"))
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()
     }
@@ -99,6 +97,8 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
      * e.g. Adventure, Events, etc.
      */
     override fun onEnable() {
+        pluginDependencyLoader.loadDependencies()
+
         adventure.init()
         Bukkit.getPluginManager().registerEvents(pluginDependencyLoader, plugin)
 

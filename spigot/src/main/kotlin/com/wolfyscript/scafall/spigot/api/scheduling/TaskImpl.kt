@@ -1,7 +1,6 @@
 package com.wolfyscript.scafall.spigot.api.scheduling
 
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.function.ReceiverConsumer
 import com.wolfyscript.scafall.scheduling.Task
 import com.wolfyscript.scafall.spigot.api.SpigotPluginWrapper
 import org.bukkit.Bukkit
@@ -21,7 +20,7 @@ internal class TaskImpl(private val task: BukkitTask, private val plugin: ModWra
         private var delay: Long = 0
         private var interval: Long = -1
         private var taskRunnable: Runnable? = null
-        private var executor: ReceiverConsumer<Task>? = null
+        private var executor: (Task.() -> Unit)? = null
 
         override fun async(): Task.Builder = apply {
             async = true
@@ -39,7 +38,7 @@ internal class TaskImpl(private val task: BukkitTask, private val plugin: ModWra
             taskRunnable = runnable
         }
 
-        override fun execute(executor: ReceiverConsumer<Task>): Task.Builder = apply {
+        override fun execute(executor: Task.() -> Unit): Task.Builder = apply {
             this.executor = executor
         }
 
@@ -70,14 +69,12 @@ internal class TaskImpl(private val task: BukkitTask, private val plugin: ModWra
 
     }
 
-    internal class SelfSupplyRunnable(bukkitScheduler: BukkitScheduler, private val executor: ReceiverConsumer<Task>) : Runnable {
+    internal class SelfSupplyRunnable(bukkitScheduler: BukkitScheduler, private val executor: Task.() -> Unit) : Runnable {
 
         internal lateinit var task: Task
 
         override fun run() {
-            with(executor) {
-                task.consume()
-            }
+            task.executor()
         }
 
     }

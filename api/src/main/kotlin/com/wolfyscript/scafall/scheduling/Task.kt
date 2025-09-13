@@ -1,7 +1,6 @@
 package com.wolfyscript.scafall.scheduling
 
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.function.ReceiverConsumer
 
 interface Task {
     //    long delay();
@@ -20,7 +19,7 @@ interface Task {
 
         fun execute(runnable: Runnable): Builder
 
-        fun execute(executor: ReceiverConsumer<Task>): Builder
+        fun execute(executor: Task.() -> Unit): Builder
 
         fun build(): Task
     }

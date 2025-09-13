@@ -1,7 +1,6 @@
 package com.wolfyscript.scafall.sponge.api.scheduling
 
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.function.ReceiverConsumer
 import com.wolfyscript.scafall.scheduling.Task
 import com.wolfyscript.scafall.sponge.api.SpongePluginWrapper
 import org.spongepowered.api.Sponge
@@ -21,7 +20,7 @@ internal class TaskImpl(private val plugin: ModWrapper, private val scheduledTas
         private var async = false
         private val builder: org.spongepowered.api.scheduler.Task.Builder =
             org.spongepowered.api.scheduler.Task.builder()
-        private var executor: ReceiverConsumer<Task>? = null
+        private var executor: (Task.() -> Unit)? = null
 
         init {
             builder.plugin((plugin as SpongePluginWrapper).plugin)
@@ -47,7 +46,7 @@ internal class TaskImpl(private val plugin: ModWrapper, private val scheduledTas
             return this
         }
 
-        override fun execute(executor: ReceiverConsumer<Task>): Task.Builder {
+        override fun execute(executor: Task.() -> Unit): Task.Builder {
             this.executor = executor
             return this
         }
@@ -68,7 +67,7 @@ internal class TaskImpl(private val plugin: ModWrapper, private val scheduledTas
     }
 
     private class ScheduledTaskConsumerWrapper(private val plugin: ModWrapper,
-                                               private val executor: ReceiverConsumer<Task>
+                                               private val executor: Task.() -> Unit
     ) :
         Consumer<ScheduledTask> {
         var task: Task? = null
@@ -77,9 +76,7 @@ internal class TaskImpl(private val plugin: ModWrapper, private val scheduledTas
             if (task == null) {
                 task = TaskImpl(plugin, scheduledTask)
             }
-            with(executor) {
-                task?.consume()
-            }
+            task?.executor()
         }
     }
 }

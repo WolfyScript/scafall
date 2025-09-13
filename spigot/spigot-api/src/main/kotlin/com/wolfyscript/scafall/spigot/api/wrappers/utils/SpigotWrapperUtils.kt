@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
 import com.wolfyscript.scafall.wrappers.ScafallPlayer
-import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
+import com.wolfyscript.scafall.wrappers.MinecraftWrapper
 import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos

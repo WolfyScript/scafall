@@ -28,7 +28,7 @@ import com.wolfyscript.scafall.spigot.compat.mmoitems.MMOItemsDependency
 import com.wolfyscript.scafall.spigot.compat.mythicmobs.MythicMobsDependency
 import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenDependency
 import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
-import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
+import com.wolfyscript.scafall.wrappers.MinecraftWrapper
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 

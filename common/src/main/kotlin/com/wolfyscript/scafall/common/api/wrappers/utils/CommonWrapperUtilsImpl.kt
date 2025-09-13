@@ -14,9 +14,9 @@ import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackSnapshot
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.wrappers.ScafallBlockEntity
 import com.wolfyscript.scafall.wrappers.ScafallLevel
-import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
-import com.wolfyscript.scafall.wrappers.utils.unwrap
-import com.wolfyscript.scafall.wrappers.utils.wrap
+import com.wolfyscript.scafall.wrappers.MinecraftWrapper
+import com.wolfyscript.scafall.wrappers.unwrap
+import com.wolfyscript.scafall.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos

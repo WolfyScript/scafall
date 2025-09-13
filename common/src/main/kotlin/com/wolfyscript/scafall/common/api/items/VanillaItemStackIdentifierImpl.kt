@@ -1,8 +1,8 @@
 package com.wolfyscript.scafall.common.api.items
 
 import com.wolfyscript.scafall.items.VanillaItemStackIdentifier
-import com.wolfyscript.scafall.wrappers.utils.unwrap
-import com.wolfyscript.scafall.wrappers.utils.wrap
+import com.wolfyscript.scafall.wrappers.unwrap
+import com.wolfyscript.scafall.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 

@@ -3,7 +3,7 @@ package com.wolfyscript.scafall.common.api.wrappers.world.items
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.wrappers.utils.unwrap
+import com.wolfyscript.scafall.wrappers.unwrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import net.minecraft.SharedConstants

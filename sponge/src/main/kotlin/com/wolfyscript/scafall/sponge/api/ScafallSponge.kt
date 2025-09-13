@@ -18,7 +18,7 @@ import com.wolfyscript.scafall.sponge.api.factories.SpongeFactories
 import com.wolfyscript.scafall.sponge.api.platform.PlatformManagerImpl
 import com.wolfyscript.scafall.sponge.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.sponge.server.ScafallSpongeServer
-import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
+import com.wolfyscript.scafall.wrappers.MinecraftWrapper
 import org.spongepowered.api.Sponge
 import kotlin.io.path.Path
 import kotlin.jvm.optionals.getOrNull

@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.common.api.wrappers.world.entity
 
-import com.wolfyscript.scafall.wrappers.utils.wrap
+import com.wolfyscript.scafall.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
 import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import net.kyori.adventure.text.Component

@@ -18,7 +18,7 @@ import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
-import com.wolfyscript.scafall.wrappers.utils.MinecraftWrapper
+import com.wolfyscript.scafall.wrappers.MinecraftWrapper
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.server.MinecraftServer
 import org.slf4j.Logger

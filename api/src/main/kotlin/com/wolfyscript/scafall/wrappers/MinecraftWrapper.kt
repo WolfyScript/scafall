@@ -1,14 +1,11 @@
-package com.wolfyscript.scafall.wrappers.utils
+package com.wolfyscript.scafall.wrappers
 
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.wrappers.ScafallBlockEntity
-import com.wolfyscript.scafall.wrappers.ScafallLevel
 import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
 import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
-import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
@@ -44,7 +41,7 @@ interface MinecraftWrapper {
     /**
      * Unwraps a Scafall ItemStack into a Minecraft ItemStack.
      *
-     * @param wrappedStack The Scafall [ItemStack] or [ItemStackSnapshot][com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot] to unwrap
+     * @param wrappedStack The Scafall [ItemStack] or [ItemStackSnapshot][ItemStackSnapshot] to unwrap
      */
     fun unwrapToMcStack(wrappedStack: ItemStackLike): net.minecraft.world.item.ItemStack
 

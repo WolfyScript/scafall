@@ -2,9 +2,9 @@ package com.wolfyscript.scafall.sponge.api.wrappers
 
 import com.wolfyscript.scafall.sponge.api.wrappers.world.entity.SpongeScafallPlayer
 import com.wolfyscript.scafall.wrappers.ScafallPlayer
-import com.wolfyscript.scafall.wrappers.utils.snapshot
-import com.wolfyscript.scafall.wrappers.utils.unwrap
-import com.wolfyscript.scafall.wrappers.utils.wrap
+import com.wolfyscript.scafall.wrappers.snapshot
+import com.wolfyscript.scafall.wrappers.unwrap
+import com.wolfyscript.scafall.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import org.spongepowered.api.entity.living.player.Player
 import org.spongepowered.api.item.inventory.ItemStack
@@ -23,7 +23,7 @@ fun ItemStackSnapshot.wrap() : com.wolfyscript.scafall.wrappers.world.items.Item
     return ItemStackUtil.fromSnapshotToNative(this).snapshot()
 }
 
-fun <T: ItemStackLike<*,*>> T.unwrap(): org.spongepowered.api.item.inventory.ItemStackLike {
+fun <T: ItemStackLike> T.unwrap(): org.spongepowered.api.item.inventory.ItemStackLike {
     TODO("Not yet implemented")
 }
 

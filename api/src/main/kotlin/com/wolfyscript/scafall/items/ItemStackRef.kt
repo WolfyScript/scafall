@@ -35,7 +35,7 @@ interface ItemStackRef {
     /**
      * Checks if the given [stack] matches this reference.
      */
-    fun matches(stack: ItemStackLike<*,*>, matchTags: Boolean): Boolean
+    fun matches(stack: ItemStackLike, matchTags: Boolean): Boolean
 
     /**
      * Creates the ItemStack from this reference by looking up the [identifier] and constructing it.

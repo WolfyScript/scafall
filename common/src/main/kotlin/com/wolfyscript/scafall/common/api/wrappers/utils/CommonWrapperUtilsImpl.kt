@@ -47,8 +47,8 @@ abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
         return ItemStackSnapshotCommon(mcStack.copy())
     }
 
-    override fun unwrapToMcStack(wrappedStack: ItemStackLike<*, *>): net.minecraft.world.item.ItemStack {
-        if (wrappedStack !is ItemStackLikeCommon<*, *>) {
+    override fun unwrapToMcStack(wrappedStack: ItemStackLike): net.minecraft.world.item.ItemStack {
+        if (wrappedStack !is ItemStackLikeCommon) {
             throw IllegalArgumentException("Wrapped stack is not an instance of ${ItemStackLikeCommon::class.simpleName}")
         }
 

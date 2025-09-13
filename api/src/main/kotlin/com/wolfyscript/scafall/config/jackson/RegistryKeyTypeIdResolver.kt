@@ -68,12 +68,12 @@ class RegistryKeyTypeIdResolver : TypeIdResolverBase() {
             return TypeFactory.unknownType()
         }
 
+        val namespace = superType.rawClass.getAnnotation(DefaultNamespace::class.java)?.namespace ?: registry.key.namespace
         val key = if (id.contains(':')) {
             Key.parse(id)
         } else {
             // Complete the key with the default namespace if it isn't yet.
             // It assumes that the default namespace is equal to the namespace of the registry (alternatively, it can be overwritten).
-            val namespace = superType.rawClass.getAnnotation(DefaultNamespace::class.java)?.namespace ?: registry.key.namespace
             Key.key(namespace, id)
         }
 
@@ -81,7 +81,12 @@ class RegistryKeyTypeIdResolver : TypeIdResolverBase() {
         return if (clazz != null) {
             context.constructSpecializedType(superType, clazz)
         } else {
-            ScafallProvider.get().logger.error("Failed to get type of key $key for ${baseType}! Is it registered?")
+            if (key.namespace != namespace) {
+                ScafallProvider.get().logger.error("Failed to get type of key $key for $baseType! May depend on a third-party. Please check your dependencies!")
+            } else {
+                // In case the namespace is the default, then it is most likely a mistake by the dev or configuration
+                ScafallProvider.get().logger.error("Failed to get type of key $key for ${baseType}! Is it registered?")
+            }
             TypeFactory.unknownType()
         }
     }

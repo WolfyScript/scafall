@@ -1,7 +1,6 @@
 package com.wolfyscript.scafall.common.api.wrappers.world.items
 
 import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.data.DataComponentMap
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import net.minecraft.core.registries.BuiltInRegistries
@@ -12,7 +11,7 @@ import net.minecraft.world.item.ItemStack
 import java.io.ByteArrayOutputStream
 import kotlin.jvm.optionals.getOrNull
 
-sealed class ItemStackLikeCommon<H: ItemStackLike<H, M>, M: DataComponentMap<H>>(val mcStack: net.minecraft.world.item.ItemStack) : ItemStackLike<H, M> {
+sealed class ItemStackLikeCommon(val mcStack: ItemStack) : ItemStackLike {
 
     override val item: Key
         get() {

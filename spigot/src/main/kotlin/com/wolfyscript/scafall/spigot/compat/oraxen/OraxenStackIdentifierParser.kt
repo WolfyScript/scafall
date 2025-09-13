@@ -7,7 +7,7 @@ import io.th0rgal.oraxen.api.OraxenItems
 
 class OraxenStackIdentifierParser(override val priority: Int = 1900) : ItemStackIdentifier.Parser<OraxenItemStackIdentifier> {
 
-    override fun from(stack: ItemStackLike<*, *>): OraxenItemStackIdentifier? {
+    override fun from(stack: ItemStackLike): OraxenItemStackIdentifier? {
         val id = OraxenItems.getIdByItem(stack.unwrapSpigot()) ?: return null
         return OraxenItemStackIdentifier(id)
     }

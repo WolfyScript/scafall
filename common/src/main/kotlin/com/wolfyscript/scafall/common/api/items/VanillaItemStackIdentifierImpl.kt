@@ -9,7 +9,7 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaItemStackIdentifier {
 
     override fun matches(
-        stack: ItemStackLike<*, *>,
+        stack: ItemStackLike,
         matchTags: Boolean,
     ): Boolean {
         val other = stack.unwrap()
@@ -35,7 +35,7 @@ class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaIte
 
         override val priority: Int = 0
 
-        override fun from(stack: ItemStackLike<*, *>): VanillaItemStackIdentifierImpl? {
+        override fun from(stack: ItemStackLike): VanillaItemStackIdentifierImpl? {
             return VanillaItemStackIdentifierImpl(stack.unwrap().wrap())
         }
 

@@ -22,7 +22,7 @@ class ExecutableBlocksStackIdentifier(
     val manager: ExecutableBlocksManager = ExecutableBlocksManager.getInstance()
 
     override fun matches(
-        stack: ItemStackLike<*, *>,
+        stack: ItemStackLike,
         matchTags: Boolean,
     ): Boolean {
         if (stack.isEmpty) return false

@@ -10,7 +10,7 @@ class ExecutableBlocksStackIdentifierParser(override val priority: Int = 1800) :
 
     private val manager: ExecutableBlocksManager = ExecutableBlocksManager.getInstance()
 
-    override fun from(stack: ItemStackLike<*, *>): ExecutableBlocksStackIdentifier? {
+    override fun from(stack: ItemStackLike): ExecutableBlocksStackIdentifier? {
         val item = manager.getExecutableBlock(stack.unwrapSpigot()).getOrNull() ?: return null
         return ExecutableBlocksStackIdentifier(item.id)
     }

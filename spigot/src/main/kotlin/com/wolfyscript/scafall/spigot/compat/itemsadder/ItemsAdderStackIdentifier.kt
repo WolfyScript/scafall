@@ -18,7 +18,7 @@ class ItemsAdderStackIdentifier(
 ) : ItemStackIdentifier {
 
     override fun matches(
-        stack: ItemStackLike<*, *>,
+        stack: ItemStackLike,
         matchTags: Boolean,
     ): Boolean {
         val otherId = CustomStack.byItemStack(stack.unwrapSpigot())?.namespacedID ?: return false

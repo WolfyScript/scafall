@@ -9,7 +9,7 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
 class DenizenStackIdentifierParser(override val priority: Int = 0) : ItemStackIdentifier.Parser<DenizenStackIdentifier> {
 
-    override fun from(stack: ItemStackLike<*, *>): DenizenStackIdentifier? {
+    override fun from(stack: ItemStackLike): DenizenStackIdentifier? {
         val script = ItemScriptHelper.getItemScriptNameText(stack.unwrapSpigot()) ?: return null
         return DenizenStackIdentifier(stack.unwrap().wrap(), script)
     }

@@ -17,7 +17,7 @@ class OraxenItemStackIdentifier(
 ) : ItemStackIdentifier {
 
     override fun matches(
-        stack: ItemStackLike<*, *>,
+        stack: ItemStackLike,
         matchTags: Boolean,
     ): Boolean {
         val otherId = OraxenItems.getIdByItem(stack.unwrapSpigot()) ?: return false

@@ -10,7 +10,7 @@ class ExecutableItemsStackIdentifierParser(override val priority: Int = 1800) : 
 
     private val manager = ExecutableItemsAPI.getExecutableItemsManager()
 
-    override fun from(stack: ItemStackLike<*, *>): ExecutableItemsStackIdentifier? {
+    override fun from(stack: ItemStackLike): ExecutableItemsStackIdentifier? {
         val item = manager.getExecutableItem(stack.unwrapSpigot()).getOrNull() ?: return null
         return ExecutableItemsStackIdentifier(item.id)
     }

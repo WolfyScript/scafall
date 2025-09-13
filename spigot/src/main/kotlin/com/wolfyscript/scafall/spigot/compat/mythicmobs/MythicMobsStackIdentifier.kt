@@ -15,7 +15,7 @@ import io.lumine.mythic.bukkit.MythicBukkit
 class MythicMobsStackIdentifier(val mythicType: String) : ItemStackIdentifier {
 
     override fun matches(
-        stack: ItemStackLike<*, *>,
+        stack: ItemStackLike,
         matchTags: Boolean,
     ): Boolean {
         if (stack.isEmpty) return false

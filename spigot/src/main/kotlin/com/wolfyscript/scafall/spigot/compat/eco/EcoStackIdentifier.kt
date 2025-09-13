@@ -19,7 +19,7 @@ class EcoStackIdentifier(
 ) : ItemStackIdentifier {
 
     override fun matches(
-        stack: ItemStackLike<*, *>,
+        stack: ItemStackLike,
         matchTags: Boolean,
     ): Boolean {
         if (stack.isEmpty) return false

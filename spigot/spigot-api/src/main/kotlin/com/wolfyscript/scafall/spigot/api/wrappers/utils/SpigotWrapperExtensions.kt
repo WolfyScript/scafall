@@ -70,7 +70,7 @@ fun ItemStack.snapshot() : ItemStackSnapshot = wrapper.wrapItemStackSnapshot(thi
 /**
  * Unwraps this item stack wrapper to a Bukkit [ItemStack]
  */
-fun ItemStackLike<*, *>.unwrapSpigot(): ItemStack = wrapper.unwrapItemStack(this)
+fun ItemStackLike.unwrapSpigot(): ItemStack = wrapper.unwrapItemStack(this)
 
 
 //

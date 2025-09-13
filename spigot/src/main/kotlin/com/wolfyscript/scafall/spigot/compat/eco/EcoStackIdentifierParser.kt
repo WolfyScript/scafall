@@ -8,7 +8,7 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
 class EcoStackIdentifierParser(override val priority: Int = 100) : ItemStackIdentifier.Parser<EcoStackIdentifier> {
 
-    override fun from(stack: ItemStackLike<*, *>): EcoStackIdentifier? {
+    override fun from(stack: ItemStackLike): EcoStackIdentifier? {
         val item = Items.getCustomItem(stack.unwrapSpigot()) ?: return null
         return EcoStackIdentifier(item.key.api())
     }

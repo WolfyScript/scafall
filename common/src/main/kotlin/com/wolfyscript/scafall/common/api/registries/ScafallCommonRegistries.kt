@@ -51,9 +51,7 @@ class ScafallCommonRegistries(val scafall: Scafall) : ScafallRegistries {
 
     override fun <T> get(type: RegistryKey<T>): Result<Registry<T>> {
         val registry = rootRegistry[type.registry]
-        if (registry == null) {
-            return Result.failure(IllegalArgumentException("No registry found for ${type.registry}"))
-        }
+            ?: return Result.failure(IllegalArgumentException("No registry found for ${type.registry}"))
         return Result.success(registry as Registry<T>)
     }
 }

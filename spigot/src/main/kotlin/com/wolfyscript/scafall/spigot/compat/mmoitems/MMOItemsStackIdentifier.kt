@@ -20,7 +20,7 @@ class MMOItemsStackIdentifier(private val type: net.Indyuce.mmoitems.api.Type, v
     constructor(typeId: String, itemId: String) : this(MMOItems.plugin.types.get(typeId) ?: error("Could not find MMOItems Type $typeId"), itemId)
 
     override fun matches(
-        stack: ItemStackLike<*, *>,
+        stack: ItemStackLike,
         matchTags: Boolean,
     ): Boolean {
         val stackType = MMOItems.getType(stack.unwrapSpigot()) ?: return false

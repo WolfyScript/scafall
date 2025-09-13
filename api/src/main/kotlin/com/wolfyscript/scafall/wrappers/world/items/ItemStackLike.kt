@@ -2,14 +2,12 @@ package com.wolfyscript.scafall.wrappers.world.items
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.wolfyscript.scafall.data.DataComponentMap
-import com.wolfyscript.scafall.data.DataHolder
 import com.wolfyscript.scafall.identifier.Key
 
 /**
  * The base type of [ItemStack] and [ItemStackSnapshot], combining common properties and functions
  */
-interface ItemStackLike<H: ItemStackLike<H, M>, M: DataComponentMap<H>> : DataHolder<H, M> {
+interface ItemStackLike {
 
     /**
      * The id representing the item of this ItemStack.<br></br>

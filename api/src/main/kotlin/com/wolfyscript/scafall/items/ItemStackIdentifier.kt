@@ -18,7 +18,7 @@ interface ItemStackIdentifier {
     /**
      * Checks if the given stack matches the stack represented by this identifier.
      */
-    fun matches(stack: ItemStackLike<*,*>, matchTags: Boolean): Boolean
+    fun matches(stack: ItemStackLike, matchTags: Boolean): Boolean
 
     /**
      * Creates the item stack that this identifier represents by looking it up at the source.
@@ -40,7 +40,7 @@ interface ItemStackIdentifier {
          *
          * @return The identifier of the stack or null if the stack is not recognized.
          */
-        fun from(stack: ItemStackLike<*,*>): T?
+        fun from(stack: ItemStackLike): T?
 
     }
 

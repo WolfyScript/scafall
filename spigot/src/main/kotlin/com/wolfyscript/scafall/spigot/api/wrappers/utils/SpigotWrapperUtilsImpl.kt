@@ -60,8 +60,8 @@ class SpigotWrapperUtilsImpl : CommonWrapperUtilsImpl(), SpigotWrapperUtils {
         return CraftItemStack.asNMSCopy(spigotStack).snapshot()
     }
 
-    override fun unwrapItemStack(wrappedStack: ItemStackLike<*, *>): ItemStack {
-        if (wrappedStack !is ItemStackLikeCommon<*, *>) {
+    override fun unwrapItemStack(wrappedStack: ItemStackLike): ItemStack {
+        if (wrappedStack !is ItemStackLikeCommon) {
             throw IllegalArgumentException("Wrapped stack is not an instance of ${ItemStackLikeCommon::class.simpleName}")
         }
 

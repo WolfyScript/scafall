@@ -21,7 +21,7 @@ class MagicStackIdentifier(val itemKey: String) : ItemStackIdentifier {
     val magicAPI = Bukkit.getPluginManager().getPlugin("Magic") as? MagicAPI ?: error("Could not find Magic API!")
 
     override fun matches(
-        stack: ItemStackLike<*, *>,
+        stack: ItemStackLike,
         matchTags: Boolean,
     ): Boolean {
         return magicAPI.controller.getItemKey(stack.unwrapSpigot()) == itemKey

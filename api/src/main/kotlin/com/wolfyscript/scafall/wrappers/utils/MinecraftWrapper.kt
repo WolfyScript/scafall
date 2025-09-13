@@ -46,7 +46,7 @@ interface MinecraftWrapper {
      *
      * @param wrappedStack The Scafall [ItemStack] or [ItemStackSnapshot][com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot] to unwrap
      */
-    fun unwrapToMcStack(wrappedStack: ItemStackLike<*,*>): net.minecraft.world.item.ItemStack
+    fun unwrapToMcStack(wrappedStack: ItemStackLike): net.minecraft.world.item.ItemStack
 
     //
     // Player
@@ -116,7 +116,7 @@ fun net.minecraft.world.item.ItemStack.snapshot(): ItemStackSnapshot = ScafallPr
 /**
  * Unwraps a scafall [ItemStackLike] to a minecraft [net.minecraft.world.item.ItemStack]
  */
-fun ItemStackLike<*, *>.unwrap(): net.minecraft.world.item.ItemStack = ScafallProvider.get().minecraftWrapper.unwrapToMcStack(this)
+fun ItemStackLike.unwrap(): net.minecraft.world.item.ItemStack = ScafallProvider.get().minecraftWrapper.unwrapToMcStack(this)
 
 //
 // Player

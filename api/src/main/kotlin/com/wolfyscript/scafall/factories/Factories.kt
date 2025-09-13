@@ -9,7 +9,5 @@ interface Factories {
 
     val itemsFactory: ItemsFactory
 
-    val dataKeyFactory: DataKeyFactory
-
     val registryFactory: RegistryFactory
 }

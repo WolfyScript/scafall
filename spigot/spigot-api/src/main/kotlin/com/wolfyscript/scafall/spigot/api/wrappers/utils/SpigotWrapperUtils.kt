@@ -39,7 +39,7 @@ interface SpigotWrapperUtils : MinecraftWrapper {
     /**
      * Unwraps the specified [ItemStackLike] to a Bukkit stack.
      */
-    fun unwrapItemStack(wrappedStack: ItemStackLike<*, *>): ItemStack
+    fun unwrapItemStack(wrappedStack: ItemStackLike): ItemStack
 
     //
     // Position

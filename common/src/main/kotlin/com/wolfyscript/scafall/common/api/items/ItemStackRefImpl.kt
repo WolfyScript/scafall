@@ -16,7 +16,7 @@ class ItemStackRefImpl(
 ) : ItemStackRef {
 
     override fun matches(
-        stack: ItemStackLike<*, *>,
+        stack: ItemStackLike,
         matchTags: Boolean,
     ): Boolean {
         return  identifier.matches(stack, matchTags)

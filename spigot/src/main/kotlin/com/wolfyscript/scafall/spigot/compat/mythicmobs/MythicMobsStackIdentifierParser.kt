@@ -7,7 +7,7 @@ import io.lumine.mythic.bukkit.MythicBukkit
 
 class MythicMobsStackIdentifierParser(override val priority: Int = 1600) : ItemStackIdentifier.Parser<MythicMobsStackIdentifier> {
 
-    override fun from(stack: ItemStackLike<*, *>): MythicMobsStackIdentifier? {
+    override fun from(stack: ItemStackLike): MythicMobsStackIdentifier? {
         val type = MythicBukkit.inst().itemManager.getMythicTypeFromItem(stack.unwrapSpigot()) ?: return null
         return MythicMobsStackIdentifier(type)
     }

@@ -10,7 +10,7 @@ class MagicStackIdentifierParser(override val priority: Int = 600) : ItemStackId
 
     val magicAPI = Bukkit.getPluginManager().getPlugin("Magic") as? MagicAPI ?: error("Could not find Magic API!")
 
-    override fun from(stack: ItemStackLike<*, *>): MagicStackIdentifier? {
+    override fun from(stack: ItemStackLike): MagicStackIdentifier? {
         val itemStack = stack.unwrapSpigot()
         if(magicAPI.isBrush(itemStack) || magicAPI.isSpell(itemStack) || magicAPI.isUpgrade(itemStack) || magicAPI.isWand(itemStack)) {
             return MagicStackIdentifier(magicAPI.getItemKey(itemStack));

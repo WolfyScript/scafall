@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall.common.api.compat
 
 import com.google.common.collect.Multimaps
+import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.compat.Dependency
 import com.wolfyscript.scafall.compat.DependencyManager
 import com.wolfyscript.scafall.identifier.Key
@@ -65,6 +66,7 @@ class DependencyManagerCommon : DependencyManager {
 
     override fun initiateDependency(id: Key): Boolean {
         val dependency = dependencies[id] ?: return false
+        ScafallProvider.get().logger.info("Initializing dependency $id")
         notifyInitListeners(id, dependency)
         return true
     }

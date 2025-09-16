@@ -2,7 +2,7 @@ plugins {
     `java-library`
     `maven-publish`
     id("scafall.common")
-    id("scafall.spigot")
+    id("scafall.spigotlike")
     alias(libs.plugins.shadow)
 }
 
@@ -11,7 +11,7 @@ dependencies {
     implementation(project(":common"))
     api(libs.tr7zw.item.nbt.api)
     api(libs.adventure.platform.bukkit)
-    implementation(libs.papermc.paper)
+    paperweight.paperDevBundle(libs.versions.papermc.get())
 }
 
 tasks {

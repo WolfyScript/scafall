@@ -8,7 +8,7 @@ import com.wolfyscript.scafall.common.api.wrappers.world.ScafallGlobalBlockPosCo
 import com.wolfyscript.scafall.common.api.wrappers.world.ScafallGlobalPrecisePosCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.ScafallPrecisePosCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.entity.ScafallPlayerCommon
-import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackCommon
+import com.wolfyscript.scafall.common.api.wrappers.world.items.ScafallItemStackCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackLikeCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackSnapshotCommon
 import com.wolfyscript.scafall.identifier.Key
@@ -39,8 +39,8 @@ abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
     // ItemStack
     //
 
-    override fun wrapMcStack(mcStack: net.minecraft.world.item.ItemStack): com.wolfyscript.scafall.wrappers.world.items.ItemStack {
-        return ItemStackCommon.fromVanilla(mcStack)
+    override fun wrapMcStack(mcStack: net.minecraft.world.item.ItemStack): com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack {
+        return ScafallItemStackCommon.fromVanilla(mcStack)
     }
 
     override fun wrapMcStackSnapshot(mcStack: net.minecraft.world.item.ItemStack): ItemStackSnapshot {
@@ -53,7 +53,7 @@ abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
         }
 
         return when (wrappedStack) {
-            is ItemStackCommon -> {
+            is ScafallItemStackCommon -> {
                 wrappedStack.mcStack
             }
 

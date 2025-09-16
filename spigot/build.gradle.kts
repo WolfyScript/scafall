@@ -4,14 +4,14 @@ plugins {
     `java-library`
     `maven-publish`
     id("scafall.common")
-    id("scafall.spigot")
+    id("scafall.spigotlike")
     id("scafall.docker.run")
     alias(libs.plugins.shadow)
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.17"
     alias(libs.plugins.resource.factory.bukkit)
 }
 
 dependencies {
+    implementation(projects.spigotlike)
     api(projects.api)
     implementation(projects.spigot.spigotApi)
     implementation(projects.loaderApi)
@@ -21,11 +21,11 @@ dependencies {
     paperweight.paperDevBundle(libs.versions.papermc.get())
     compileOnly(libs.bundles.spigot.external.plugins)
 
-    implementation(project(":common"))
+    implementation(projects.common)
 }
 
 fun archiveName(): String {
-    return "scafall-${project.version}-spigot-${libs.versions.minecraft.get()}"
+    return "${rootProject.name}-${project.version}-${project.name}-${libs.versions.minecraft.get()}"
 }
 
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.REOBF_PRODUCTION
@@ -37,11 +37,7 @@ tasks {
         finalizedBy(reobfJar)
 
         dependencies {
-            include(project(project.projects.api))
-            include(project(project.projects.loaderApi))
-            include(project(project.projects.spigot.spigotApi))
-            include(project(project.projects.common))
-            include(dependency(libs.jackson.dataformat.hocon))
+            include(project(project.projects.spigotlike))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
     }
@@ -49,7 +45,7 @@ tasks {
         dependsOn(reobfJar)
     }
     reobfJar {
-        finalizedBy("spigot_copy")
+        finalizedBy(jar)
         outputJar.set(layout.buildDirectory.file("libs/${archiveName()}.jar"))
     }
 }
@@ -58,20 +54,10 @@ artifacts {
     archives(tasks.reobfJar)
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("lib") {
-            from(components.getByName("java"))
-            groupId = "com.wolfyscript.scafall.spigot"
-            artifactId = "spigot"
-        }
-    }
-}
-
 bukkitPluginYaml {
     name = "scafall"
     version = project.version.toString()
-    main = "com.wolfyscript.scafall.spigot.loader.SpigotLoaderPlugin"
+    main = "com.wolfyscript.scafall.spigot.SpigotLoaderPlugin"
     apiVersion = libs.versions.minecraft.get() // Only support the latest Minecraft version!
     authors.add("WolfyScript")
     load = BukkitPluginYaml.PluginLoadOrder.STARTUP
@@ -129,14 +115,6 @@ minecraftServers {
             imageVersion.set("java21-graalvm") // need jdk to build from source
             extraEnv.put("BUILD_FROM_SOURCE", "true")
             ports.add("25565:25565")
-        }
-        // Paper test servers
-        register("paper") {
-            destFileName.set("scafall.jar")
-            version.set(libs.versions.minecraft.get())
-            type.set("PAPER")
-            imageVersion.set("java21")
-            ports.add("25566:25565")
         }
     }
 }

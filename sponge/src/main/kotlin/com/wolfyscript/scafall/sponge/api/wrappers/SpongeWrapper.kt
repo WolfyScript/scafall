@@ -11,7 +11,7 @@ import org.spongepowered.api.item.inventory.ItemStack
 import org.spongepowered.api.item.inventory.ItemStackSnapshot
 import org.spongepowered.common.item.util.ItemStackUtil
 
-fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStack {
+fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack {
     return ItemStackUtil.toNative(this).wrap() // Sponge uses mixins, so the MC ItemStack implements ItemStack interface
 }
 
@@ -27,7 +27,7 @@ fun <T: ItemStackLike> T.unwrap(): org.spongepowered.api.item.inventory.ItemStac
     TODO("Not yet implemented")
 }
 
-fun com.wolfyscript.scafall.wrappers.world.items.ItemStack.unwrap(): ItemStack {
+fun com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack.unwrap(): ItemStack {
     return ItemStackUtil.fromNative(this.unwrap())
 }
 

@@ -31,10 +31,7 @@ abstract class CommonPlatformManager(val scafallClassLoader: ClassLoader) : Plat
         key: Key,
         moduleType: Class<T>,
     ): T? {
-        val moduleEntry = implementationModules[key]
-        if (moduleEntry == null) {
-            return null
-        }
+        val moduleEntry = implementationModules[key] ?: return null
         if (!moduleType.isInstance(moduleEntry.bridge)) {
             throw IllegalArgumentException("Failed to get bridge of module ${key}: Expected type ${moduleType}, but got ${moduleEntry.bridge::class}!")
         }

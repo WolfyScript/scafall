@@ -2,14 +2,16 @@ package com.wolfyscript.scafall.common.api.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
+import com.fasterxml.jackson.databind.type.TypeFactory
+import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.common.api.identifiers.KeyImpl
 import com.wolfyscript.scafall.common.api.items.ItemStackRefImpl
-import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackCommon
+import com.wolfyscript.scafall.common.api.wrappers.world.items.ScafallItemStackCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackSnapshotCommon
 import com.wolfyscript.scafall.config.jackson.JacksonUtil
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.items.ItemStackRef
-import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 
 class JacksonUtilImpl : JacksonUtil {
@@ -18,7 +20,7 @@ class JacksonUtilImpl : JacksonUtil {
 
     init {
         module.apply {
-            addAbstractTypeMapping(ItemStack::class.java, ItemStackCommon::class.java)
+            addAbstractTypeMapping(ScafallItemStack::class.java, ScafallItemStackCommon::class.java)
             addAbstractTypeMapping(ItemStackSnapshot::class.java, ItemStackSnapshotCommon::class.java)
 
             addAbstractTypeMapping(ItemStackRef::class.java, ItemStackRefImpl::class.java)
@@ -27,6 +29,9 @@ class JacksonUtilImpl : JacksonUtil {
     }
 
     override fun registerScafallModule(mapper: ObjectMapper): ObjectMapper {
+        val info = mapper.deserializationConfig.introspect(TypeFactory.defaultInstance().constructType(
+            ScafallItemStackCommon::class.java))
+        ScafallProvider.get().logger.info("ScafallItemStack Info introspect: ${info.constructors}")
         mapper.apply {
             registerModule(module)
         }

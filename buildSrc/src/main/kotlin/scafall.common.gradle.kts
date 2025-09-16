@@ -71,7 +71,8 @@ dependencies {
     compileOnly(libs.mojang.authlib)
     compileOnly(libs.slf4j.api)
 
-    compileOnly(libs.bundles.jackson)
+    implementation(libs.bundles.jackson)
+
     compileOnlyApi(libs.bundles.adventure)
 
     testImplementation(libs.junit.jupiter)

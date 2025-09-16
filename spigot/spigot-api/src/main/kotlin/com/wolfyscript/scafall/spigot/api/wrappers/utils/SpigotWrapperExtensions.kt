@@ -44,7 +44,7 @@ fun NamespacedKey.toScafall() : Key {
 //
 
 /**
- * Wraps the Minecraft Stack of this Bukkit ItemStack in a scafall [ItemStack][com.wolfyscript.scafall.wrappers.world.items.ItemStack].
+ * Wraps the Minecraft Stack of this Bukkit ItemStack in a scafall [ItemStack][com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack].
  *
  * #### **Warning!**
  *
@@ -58,7 +58,7 @@ fun NamespacedKey.toScafall() : Key {
  *
  * @see snapshot
  */
-fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ItemStack = wrapper.wrapItemStack(this)
+fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack = wrapper.wrapItemStack(this)
 
 /**
  * Wraps the Minecraft Stack of this Bukkit ItemStack in a scafall [ItemStackSnapshot].

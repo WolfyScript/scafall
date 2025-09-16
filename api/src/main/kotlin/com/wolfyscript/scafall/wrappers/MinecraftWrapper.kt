@@ -6,7 +6,7 @@ import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
 import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
-import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import net.minecraft.core.BlockPos
@@ -34,14 +34,14 @@ interface MinecraftWrapper {
      *
      * @param mcStack The Minecraft ItemStack to wrap
      */
-    fun wrapMcStack(mcStack: net.minecraft.world.item.ItemStack): ItemStack
+    fun wrapMcStack(mcStack: net.minecraft.world.item.ItemStack): ScafallItemStack
 
     fun wrapMcStackSnapshot(mcStack: net.minecraft.world.item.ItemStack): ItemStackSnapshot
 
     /**
      * Unwraps a Scafall ItemStack into a Minecraft ItemStack.
      *
-     * @param wrappedStack The Scafall [ItemStack] or [ItemStackSnapshot][ItemStackSnapshot] to unwrap
+     * @param wrappedStack The Scafall [ScafallItemStack] or [ItemStackSnapshot][ItemStackSnapshot] to unwrap
      */
     fun unwrapToMcStack(wrappedStack: ItemStackLike): net.minecraft.world.item.ItemStack
 
@@ -97,11 +97,11 @@ interface MinecraftWrapper {
 //
 
 /**
- * Wraps this Minecraft ItemStack in a scafall [ItemStack].
+ * Wraps this Minecraft ItemStack in a scafall [ScafallItemStack].
  *
  * **Any changes** made to the wrapped stack, once unwrapped, **are reflected on this original stack**.
  */
-fun net.minecraft.world.item.ItemStack.wrap(): ItemStack = ScafallProvider.get().minecraftWrapper.wrapMcStack(this)
+fun net.minecraft.world.item.ItemStack.wrap(): ScafallItemStack = ScafallProvider.get().minecraftWrapper.wrapMcStack(this)
 
 /**
  * Wraps a snapshot of this ItemStack in a scafall [ItemStackSnapshot]

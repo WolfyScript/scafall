@@ -13,7 +13,7 @@ class SpongeItemStackConfig(
         context: EvalContext,
         miniMessage: MiniMessage?,
         tagResolvers: TagResolver
-    ): com.wolfyscript.scafall.wrappers.world.items.ItemStack {
+    ): com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack {
         return stack.createStack().apply {
             overrides.forEach { (key, value) ->
                 value.applyTo(this, context, miniMessage, tagResolvers)

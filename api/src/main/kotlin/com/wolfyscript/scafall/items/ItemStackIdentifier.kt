@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
 import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
-import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
 /**
@@ -23,7 +23,7 @@ interface ItemStackIdentifier {
     /**
      * Creates the item stack that this identifier represents by looking it up at the source.
      */
-    fun create(): ItemStack
+    fun create(): ScafallItemStack
 
     /**
      * A parser that parses the identifier (and therefore the original source) of an existing item stack in the game.

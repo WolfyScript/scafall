@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.identifier.Key
 
 /**
- * The base type of [ItemStack] and [ItemStackSnapshot], combining common properties and functions
+ * The base type of [ScafallItemStack] and [ItemStackSnapshot], combining common properties and functions
  */
 interface ItemStackLike {
 

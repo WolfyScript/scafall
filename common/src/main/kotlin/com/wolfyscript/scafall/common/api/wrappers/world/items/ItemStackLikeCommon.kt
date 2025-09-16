@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.common.api.wrappers.world.items
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
@@ -11,17 +12,27 @@ import net.minecraft.world.item.ItemStack
 import java.io.ByteArrayOutputStream
 import kotlin.jvm.optionals.getOrNull
 
-sealed class ItemStackLikeCommon(val mcStack: ItemStack) : ItemStackLike {
+sealed class ItemStackLikeCommon : ItemStackLike {
 
+    @JsonIgnore
+    val mcStack: ItemStack
+
+    protected constructor(mcStack: ItemStack) {
+        this.mcStack = mcStack
+    }
+
+    @get:JsonIgnore
     override val item: Key
         get() {
             val mcKey = BuiltInRegistries.ITEM.getKey(mcStack.item)
             return Key.key(mcKey.namespace, mcKey.path)
         }
 
+    @get:JsonIgnore
     override val amount: Int
         get() = mcStack.count
 
+    @get:JsonIgnore
     override val isEmpty: Boolean
         get() = mcStack.isEmpty
 

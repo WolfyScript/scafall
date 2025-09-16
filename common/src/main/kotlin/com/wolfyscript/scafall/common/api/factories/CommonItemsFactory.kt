@@ -7,7 +7,7 @@ import com.wolfyscript.scafall.common.api.items.VanillaItemStackIdentifierImpl
 import com.wolfyscript.scafall.factories.ItemsFactory
 import com.wolfyscript.scafall.items.ItemStackRef
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
-import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import com.wolfyscript.scafall.wrappers.wrap
 import net.minecraft.SharedConstants
 import net.minecraft.nbt.NbtOps
@@ -18,7 +18,7 @@ import net.minecraft.world.item.Item
 
 class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
 
-    override fun createFromSNBT(snbt: String): ItemStack {
+    override fun createFromSNBT(snbt: String): ScafallItemStack {
         val version = SharedConstants.getCurrentVersion().dataVersion().version
         return parseFromSNBT(snbt, version, version)
     }
@@ -27,7 +27,7 @@ class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
         snbt: String,
         fromVersion: Int,
         toVersion: Int,
-    ): ItemStack {
+    ): ScafallItemStack {
         val tag = TagParser.parseCompoundFully(snbt)
 
         // Update the stack using the data version if necessary
@@ -45,7 +45,7 @@ class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
             .map { it.wrap() }.orElseGet { net.minecraft.world.item.ItemStack.EMPTY.wrap() }
     }
 
-    override fun createVanillaStackRef(stack: ItemStack, count: Int): ItemStackRef {
+    override fun createVanillaStackRef(stack: ScafallItemStack, count: Int): ItemStackRef {
         return ItemStackRefImpl(count, VanillaItemStackIdentifierImpl(stack))
     }
 
@@ -56,7 +56,7 @@ class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
         return createVanillaStackRef(net.minecraft.world.item.ItemStack(item).wrap(), count)
     }
 
-    override fun parseStackRef(stack: ItemStack, count: Int): ItemStackRef? {
+    override fun parseStackRef(stack: ScafallItemStack, count: Int): ItemStackRef? {
         val parsers =
             ScafallRegistryTypes.itemStackIdentifierParsers.resolveOrThrow().values().sortedByDescending { it.priority }
         val identifier = parsers.firstNotNullOfOrNull {

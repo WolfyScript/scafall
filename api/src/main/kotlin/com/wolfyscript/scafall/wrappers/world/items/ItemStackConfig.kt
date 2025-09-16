@@ -47,10 +47,10 @@ interface ItemStackConfig {
         context: EvalContext = EvalContext(),
         miniMessage: MiniMessage? = MiniMessage.miniMessage(),
         tagResolvers: TagResolver = TagResolver.empty(),
-    ): ItemStack?
+    ): ScafallItemStack?
 
     /**
-     * An override specifies settings that are applied to the [ItemStack] created from an [ItemStackConfig].
+     * An override specifies settings that are applied to the [ScafallItemStack] created from an [ItemStackConfig].
      * Therefore, an override is designed to be serializable and configurable.
      *
      * The values applied by an override can also adapt to the given [EvalContext].
@@ -65,9 +65,9 @@ interface ItemStackConfig {
     interface Override {
 
         /**
-         * Applies this override to the [ItemStack] that is being constructed.
+         * Applies this override to the [ScafallItemStack] that is being constructed.
          */
-        fun applyTo(itemStack: ItemStack, context: EvalContext, miniMessage: MiniMessage?, tagResolvers: TagResolver)
+        fun applyTo(itemStack: ScafallItemStack, context: EvalContext, miniMessage: MiniMessage?, tagResolvers: TagResolver)
 
     }
 

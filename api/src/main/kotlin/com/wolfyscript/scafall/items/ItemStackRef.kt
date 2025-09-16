@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.items
 
 import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 
 /**
@@ -12,11 +12,11 @@ interface ItemStackRef {
 
     companion object {
 
-        fun create(stack: ItemStack, count: Int = stack.amount): ItemStackRef {
+        fun create(stack: ScafallItemStack, count: Int = stack.amount): ItemStackRef {
             return ScafallProvider.get().factories.itemsFactory.createVanillaStackRef(stack, count)
         }
 
-        fun parse(stack: ItemStack, count: Int = stack.amount): ItemStackRef? {
+        fun parse(stack: ScafallItemStack, count: Int = stack.amount): ItemStackRef? {
             return ScafallProvider.get().factories.itemsFactory.parseStackRef(stack, count)
         }
 
@@ -40,6 +40,6 @@ interface ItemStackRef {
     /**
      * Creates the ItemStack from this reference by looking up the [identifier] and constructing it.
      */
-    fun create(): ItemStack
+    fun create(): ScafallItemStack
 
 }

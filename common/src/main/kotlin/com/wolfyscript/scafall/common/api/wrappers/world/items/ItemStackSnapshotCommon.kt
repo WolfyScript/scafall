@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.wrappers.unwrap
-import com.wolfyscript.scafall.wrappers.world.items.ItemStack
+import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import net.minecraft.SharedConstants
 
@@ -40,8 +40,8 @@ class ItemStackSnapshotCommon @JsonCreator(mode = JsonCreator.Mode.DISABLED) int
         ScafallProvider.get().factories.itemsFactory.parseFromSNBT(snbt, version).unwrap()
     )
 
-    override fun createStack(): ItemStack {
-        return ItemStackCommon.fromVanilla(mcStack.copy())
+    override fun createStack(): ScafallItemStack {
+        return ScafallItemStackCommon.fromVanilla(mcStack.copy())
     }
 
 }

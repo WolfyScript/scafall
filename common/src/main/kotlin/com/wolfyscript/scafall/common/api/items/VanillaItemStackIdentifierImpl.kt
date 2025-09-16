@@ -1,12 +1,20 @@
 package com.wolfyscript.scafall.common.api.items
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wolfyscript.scafall.items.VanillaItemStackIdentifier
 import com.wolfyscript.scafall.wrappers.unwrap
 import com.wolfyscript.scafall.wrappers.wrap
-import com.wolfyscript.scafall.wrappers.world.items.ItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
+import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
+import net.minecraft.world.item.ItemStack
 
-class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaItemStackIdentifier {
+class VanillaItemStackIdentifierImpl : VanillaItemStackIdentifier {
+
+    override val stack: ScafallItemStack
+
+    constructor(stack: ScafallItemStack) {
+        this.stack = stack
+    }
 
     override fun matches(
         stack: ItemStackLike,
@@ -18,12 +26,12 @@ class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaIte
             return true // Same instance of stacks, so they must be equal!
         }
         if (matchTags) {
-            return net.minecraft.world.item.ItemStack.isSameItemSameComponents(thisStack, other)
+            return ItemStack.isSameItemSameComponents(thisStack, other)
         }
-        return net.minecraft.world.item.ItemStack.isSameItem(thisStack, other)
+        return ItemStack.isSameItem(thisStack, other)
     }
 
-    override fun create(): ItemStack {
+    override fun create(): ScafallItemStack {
         return stack.unwrap().copy().wrap()
     }
 
@@ -35,7 +43,7 @@ class VanillaItemStackIdentifierImpl(override val stack: ItemStack) : VanillaIte
 
         override val priority: Int = 0
 
-        override fun from(stack: ItemStackLike): VanillaItemStackIdentifierImpl? {
+        override fun from(stack: ItemStackLike): VanillaItemStackIdentifierImpl {
             return VanillaItemStackIdentifierImpl(stack.unwrap().wrap())
         }
 

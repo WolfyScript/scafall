@@ -13,21 +13,22 @@ import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
-import com.wolfyscript.scafall.spigot.api.factories.SpigotFactoriesImpl
-import com.wolfyscript.scafall.spigot.api.scheduling.SchedulerImpl
+import com.wolfyscript.scafall.spigotlike.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
-import com.wolfyscript.scafall.spigot.api.wrappers.utils.SpigotWrapperUtilsImpl
-import com.wolfyscript.scafall.spigot.compat.PluginDependencyLoader
-import com.wolfyscript.scafall.spigot.compat.denizen.DenizenDependency
-import com.wolfyscript.scafall.spigot.compat.eco.EcoDependency
-import com.wolfyscript.scafall.spigot.compat.executableblocks.ExecutableBlocksDependency
-import com.wolfyscript.scafall.spigot.compat.executableitems.ExecutableItemsDependency
-import com.wolfyscript.scafall.spigot.compat.itemsadder.ItemsAdderDependency
-import com.wolfyscript.scafall.spigot.compat.magic.MagicDependency
-import com.wolfyscript.scafall.spigot.compat.mmoitems.MMOItemsDependency
-import com.wolfyscript.scafall.spigot.compat.mythicmobs.MythicMobsDependency
-import com.wolfyscript.scafall.spigot.compat.oraxen.OraxenDependency
-import com.wolfyscript.scafall.spigot.server.ScafallSpigotServer
+import com.wolfyscript.scafall.spigotlike.api.wrappers.SpigotLikeWrapperUtilsImpl
+import com.wolfyscript.scafall.spigotlike.compat.PluginDependencyLoader
+import com.wolfyscript.scafall.spigotlike.compat.denizen.DenizenDependency
+import com.wolfyscript.scafall.spigotlike.compat.eco.EcoDependency
+import com.wolfyscript.scafall.spigotlike.compat.executableblocks.ExecutableBlocksDependency
+import com.wolfyscript.scafall.spigotlike.compat.executableitems.ExecutableItemsDependency
+import com.wolfyscript.scafall.spigotlike.compat.itemsadder.ItemsAdderDependency
+import com.wolfyscript.scafall.spigotlike.compat.magic.MagicDependency
+import com.wolfyscript.scafall.spigotlike.compat.mmoitems.MMOItemsDependency
+import com.wolfyscript.scafall.spigotlike.compat.mythicmobs.MythicMobsDependency
+import com.wolfyscript.scafall.spigotlike.compat.oraxen.OraxenDependency
+import com.wolfyscript.scafall.spigotlike.server.ScafallSpigotLikeServer
+import com.wolfyscript.scafall.spigotlike.api.BukkitPluginWrapper
+import com.wolfyscript.scafall.spigotlike.api.factories.SpigotFactoriesImpl
 import com.wolfyscript.scafall.wrappers.MinecraftWrapper
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -41,16 +42,16 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
     //       Only init things that don't depend on it and use init() instead!
     //
 
-    override val modInfo: ModWrapper = SpigotPluginWrapper(plugin)
+    override val modInfo: ModWrapper = BukkitPluginWrapper(plugin)
 
     // Essentials
     override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
     override val registries: ScafallCommonRegistries = ScafallCommonRegistries(this)
 
-    override val server: ScafallServer = ScafallSpigotServer()
+    override val server: ScafallServer = ScafallSpigotLikeServer()
     override val scheduler: Scheduler = SchedulerImpl()
     override val platformManager: SpigotPlatformManager = SpigotPlatformManager(this)
-    override val minecraftWrapper: MinecraftWrapper = SpigotWrapperUtilsImpl()
+    override val minecraftWrapper: MinecraftWrapper = SpigotLikeWrapperUtilsImpl()
     override val adventure: SpigotAdventureUtil = SpigotAdventureUtil(this)
 
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
@@ -115,7 +116,7 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
     }
 
     override fun createOrGetPluginWrapper(pluginName: String): ModWrapper? {
-        return Bukkit.getPluginManager().getPlugin(pluginName)?.let { SpigotPluginWrapper(it) }
+        return Bukkit.getPluginManager().getPlugin(pluginName)?.let { BukkitPluginWrapper(it) }
     }
 
 }

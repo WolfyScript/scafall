@@ -38,39 +38,18 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+// Platforms
 sequenceOf(
     "api",
     "common",
-    "loader-api"
-).forEach {
-    include(":$it")
-    project(":$it").projectDir = file(it)
-}
-
-// Platforms
-
-// Spigot
-sequenceOf(
+    "loader-api",
+    "spigotlike",
     "spigot",
     "spigot:spigot-api",
-).forEach {
-    include(":$it")
-    project(":$it").projectDir = file(it.replace(":", "/"))
-}
-
-// Sponge
-sequenceOf(
+    "paper",
+    "fabric",
     "sponge",
     "sponge:loader"
-).forEach {
-    include(":$it")
-    project(":$it").projectDir = file(it.replace(":", "/"))
-}
-
-
-// Fabric
-sequenceOf(
-    "fabric",
 ).forEach {
     include(":$it")
     project(":$it").projectDir = file(it.replace(":", "/"))

@@ -28,11 +28,12 @@ class PluginDependencyLoader(val scafall: Scafall) : Listener {
                 }
 
                 if (Bukkit.getPluginManager().getPlugin(annotation.pluginName) != null) {
-                    scafall.logger.info("   ${annotation.pluginName}: loaded")
-                    val dependency = Dependency::class.java.cast(depType.getConstructor().newInstance())
-                    scafall.dependencyManager.loadDependency(key, dependency)
-                    if (dependency.isInitialized) { // Some dependencies may already be initialized at this point.
-                        scafall.dependencyManager.initiateDependency(key)
+                    try {
+                        val dependency = Dependency::class.java.cast(depType.getConstructor().newInstance())
+                        scafall.dependencyManager.loadDependency(key, dependency)
+                        scafall.logger.info("   ${annotation.pluginName}: loaded")
+                    } catch (e: Exception) { // Catch all the types of exception since we don't necessarily control the dependency classes
+                        scafall.logger.error("   ${annotation.pluginName}: failed", e)
                     }
                 }
             }

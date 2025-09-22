@@ -66,9 +66,19 @@ class DependencyManagerCommon : DependencyManager {
 
     override fun initiateDependency(id: Key): Boolean {
         val dependency = dependencies[id] ?: return false
-        ScafallProvider.get().logger.info("Initializing dependency $id")
-        notifyInitListeners(id, dependency)
-        return true
+        try {
+            dependency.onInit()
+        } catch (e: Exception) {
+            ScafallProvider.get().logger.error("Failed to initialize dependency $id", e)
+            return false
+        }
+        if (dependency.isInitialized) {
+            ScafallProvider.get().logger.info("Initializing dependency $id")
+            notifyInitListeners(id, dependency)
+            return true
+        }
+        ScafallProvider.get().logger.warn("Failed to initialize dependency $id")
+        return false
     }
 
     override fun getDependency(id: Key): Dependency? {

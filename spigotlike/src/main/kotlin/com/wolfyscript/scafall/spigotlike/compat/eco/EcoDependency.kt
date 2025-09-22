@@ -8,13 +8,16 @@ import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.spigotlike.api.into
 import com.wolfyscript.scafall.spigotlike.compat.PluginDependency
 import org.bukkit.Bukkit
+import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.server.PluginEnableEvent
 
-@PluginDependency("eco", EcoDependency.ID)
+@PluginDependency(EcoDependency.PLUGIN_NAME, EcoDependency.ID)
 class EcoDependency : Dependency, Listener {
 
     companion object {
         const val ID = "eco"
+        const val PLUGIN_NAME = ID
         val key = Key.defaultKey(ID)
     }
 
@@ -22,18 +25,26 @@ class EcoDependency : Dependency, Listener {
 
     init {
         Bukkit.getPluginManager().registerEvents(this, ScafallProvider.get().modInfo.into().plugin)
+    }
+
+    override fun onInit() {
+        isInitialized = true
         ScafallRegistryTypes.itemStackIdentifiers.resolveOrThrow().apply {
             register(EcoDependency.key, EcoStackIdentifier::class.java)
         }
         ScafallRegistryTypes.itemStackIdentifierParsers.resolveOrThrow().apply {
             register(EcoDependency.key, EcoStackIdentifierParser())
         }
+    }
 
-        val plugin = EcoPlugin.getPlugin("eco")
-        plugin?.afterLoad {
-            isInitialized = true
+    @EventHandler
+    private fun onEnabled(event: PluginEnableEvent) {
+        val plugin = event.plugin
+        if (plugin.name == PLUGIN_NAME && plugin is EcoPlugin) {
+            plugin.afterLoad {
+                ScafallProvider.get().dependencyManager.initiateDependency(key)
+            }
         }
-
     }
 
 }

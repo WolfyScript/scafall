@@ -1,10 +1,14 @@
 package com.wolfyscript.scafall.spigotlike.compat.magic
 
 import com.elmakers.mine.bukkit.api.event.LoadEvent
+import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.compat.Dependency
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
+import com.wolfyscript.scafall.spigotlike.api.into
 import com.wolfyscript.scafall.spigotlike.compat.PluginDependency
+import com.wolfyscript.scafall.spigotlike.compat.itemsadder.ItemsAdderDependency
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
@@ -16,7 +20,14 @@ class MagicDependency : Dependency, Listener {
         val key = Key.defaultKey(ID)
     }
 
+    override var isInitialized: Boolean = false
+
     init {
+        Bukkit.getPluginManager().registerEvents(this, ScafallProvider.get().modInfo.into().plugin)
+    }
+
+    override fun onInit() {
+        isInitialized = true
         ScafallRegistryTypes.itemStackIdentifiers.resolveOrThrow().apply {
             register(key, MagicStackIdentifier::class.java)
         }
@@ -25,12 +36,10 @@ class MagicDependency : Dependency, Listener {
         }
     }
 
-    override var isInitialized: Boolean = false
-
     @EventHandler
     private fun onLoaded(event: LoadEvent) {
         if (event.controller != null) {
-            isInitialized = true
+            ScafallProvider.get().dependencyManager.initiateDependency(key)
         }
     }
 

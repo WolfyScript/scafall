@@ -19,8 +19,14 @@ class ItemsAdderDependency : Dependency, Listener {
         val key = Key.defaultKey(ID)
     }
 
+    override var isInitialized: Boolean = false
+
     init {
         Bukkit.getPluginManager().registerEvents(this, ScafallProvider.get().modInfo.into().plugin)
+    }
+
+    override fun onInit() {
+        isInitialized = true
         ScafallRegistryTypes.itemStackIdentifiers.resolveOrThrow().apply {
             register(ItemsAdderDependency.key, ItemsAdderStackIdentifier::class.java)
         }
@@ -29,11 +35,8 @@ class ItemsAdderDependency : Dependency, Listener {
         }
     }
 
-    override var isInitialized: Boolean = false
-
     @EventHandler
     private fun onInit(event: ItemsAdderLoadDataEvent) {
-        isInitialized = true
         ScafallProvider.get().dependencyManager.initiateDependency(key)
     }
 

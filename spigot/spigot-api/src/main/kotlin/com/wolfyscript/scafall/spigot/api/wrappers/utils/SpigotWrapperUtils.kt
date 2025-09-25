@@ -2,12 +2,14 @@ package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
 import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.MinecraftWrapper
+import com.wolfyscript.scafall.wrappers.ScafallBlockEntity
 import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import org.bukkit.Location
+import org.bukkit.block.TileState
 import org.bukkit.inventory.ItemStack
 
 /**
@@ -60,5 +62,12 @@ interface SpigotWrapperUtils : MinecraftWrapper {
     fun wrapPlayer(player: org.bukkit.entity.Player): ScafallPlayer
 
     fun unwrapToSpigot(scafallPlayer: ScafallPlayer): org.bukkit.entity.Player?
+
+    //
+    // Block Entity
+    //
+    fun wrapTileState(tileState: TileState): ScafallBlockEntity
+
+    fun unwrapToSpigot(blockEntity: ScafallBlockEntity): TileState
 
 }

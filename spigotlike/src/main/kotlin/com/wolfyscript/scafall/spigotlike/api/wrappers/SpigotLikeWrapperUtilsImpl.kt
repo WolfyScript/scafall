@@ -7,8 +7,10 @@ import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackLikeComm
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackSnapshotCommon
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.SpigotWrapperUtils
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.toScafall
+import com.wolfyscript.scafall.wrappers.ScafallBlockEntity
 import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.snapshot
+import com.wolfyscript.scafall.wrappers.unwrap
 import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
@@ -19,6 +21,9 @@ import com.wolfyscript.scafall.wrappers.wrap
 import net.minecraft.world.phys.Vec3
 import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.block.TileState
+import org.bukkit.craftbukkit.block.CraftBlockEntityState
+import org.bukkit.craftbukkit.block.CraftBlockStates
 import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.craftbukkit.inventory.CraftItemStack
 import org.bukkit.craftbukkit.util.CraftLocation
@@ -115,6 +120,31 @@ class SpigotLikeWrapperUtilsImpl : CommonWrapperUtilsImpl(), SpigotWrapperUtils 
 
     override fun unwrapToSpigot(scafallPlayer: ScafallPlayer): Player? {
         return Bukkit.getPlayer(scafallPlayer.uuid)
+    }
+
+    //
+    // Block Entity
+    //
+
+    override fun wrapTileState(tileState: TileState): ScafallBlockEntity {
+        if (tileState is CraftBlockEntityState<*>) {
+            val be = tileState.block.handle.getBlockEntity(tileState.block.position)
+            if (be != null) {
+                return be.wrap()
+            }
+        }
+        throw IllegalStateException("Cannot wrap TileState of type ${tileState::class.simpleName}: Not a block entity!")
+    }
+
+    override fun unwrapToSpigot(blockEntity: ScafallBlockEntity): TileState {
+        val mcBlockEntity = blockEntity.unwrap()
+        val blockState = CraftBlockStates.getBlockState(mcBlockEntity.level?.world, mcBlockEntity.blockPos, mcBlockEntity.blockState, mcBlockEntity)
+        if (blockState != null) {
+            if (blockState is TileState) {
+                return blockState
+            }
+        }
+        throw IllegalStateException("Cannot unwrap Block Entity ${blockEntity::class.simpleName} to TileState: Not a valid TileState!")
     }
 
 }

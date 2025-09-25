@@ -70,15 +70,15 @@ class ScafallPaper(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scafa
         registries.registerForJackson()
 
         ScafallRegistryTypes.dependencies.resolveOrThrow().apply {
-            register(Key.defaultKey("plugins/${DenizenDependency.ID}"), DenizenDependency::class.java)
-            register(Key.defaultKey("plugins/${EcoDependency.ID}"), EcoDependency::class.java)
-            register(Key.defaultKey("plugins/${ExecutableItemsDependency.ID}"), ExecutableItemsDependency::class.java)
-            register(Key.defaultKey("plugins/${ExecutableBlocksDependency.ID}"), ExecutableBlocksDependency::class.java)
-            register(Key.defaultKey("plugins/${ItemsAdderDependency.ID}"), ItemsAdderDependency::class.java)
-            register(Key.defaultKey("plugins/${MagicDependency.ID}"), MagicDependency::class.java)
-            register(Key.defaultKey("plugins/${MMOItemsDependency.ID}"), MMOItemsDependency::class.java)
-            register(Key.defaultKey("plugins/${MythicMobsDependency.ID}"), MythicMobsDependency::class.java)
-            register(Key.defaultKey("plugins/${OraxenDependency.ID}"), OraxenDependency::class.java)
+            register(Key.scafall("plugins/${DenizenDependency.ID}"), DenizenDependency::class.java)
+            register(Key.scafall("plugins/${EcoDependency.ID}"), EcoDependency::class.java)
+            register(Key.scafall("plugins/${ExecutableItemsDependency.ID}"), ExecutableItemsDependency::class.java)
+            register(Key.scafall("plugins/${ExecutableBlocksDependency.ID}"), ExecutableBlocksDependency::class.java)
+            register(Key.scafall("plugins/${ItemsAdderDependency.ID}"), ItemsAdderDependency::class.java)
+            register(Key.scafall("plugins/${MagicDependency.ID}"), MagicDependency::class.java)
+            register(Key.scafall("plugins/${MMOItemsDependency.ID}"), MMOItemsDependency::class.java)
+            register(Key.scafall("plugins/${MythicMobsDependency.ID}"), MythicMobsDependency::class.java)
+            register(Key.scafall("plugins/${OraxenDependency.ID}"), OraxenDependency::class.java)
         }
 
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, plugin.dataFolder.toPath().resolve("libs"))

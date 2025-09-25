@@ -16,7 +16,7 @@ class MMOItemsDependency : Dependency, Listener {
 
     companion object {
         const val ID = "mmoitems"
-        val key = Key.defaultKey(ID)
+        val key = Key.scafall(ID)
     }
 
     override var isInitialized: Boolean = false

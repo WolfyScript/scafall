@@ -16,7 +16,7 @@ class ItemsAdderDependency : Dependency, Listener {
 
     companion object {
         const val ID = "itemsadder"
-        val key = Key.defaultKey(ID)
+        val key = Key.scafall(ID)
     }
 
     override var isInitialized: Boolean = false

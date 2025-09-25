@@ -19,7 +19,7 @@ interface Key : Namespaced {
          * Creates a new Key with the scafall namespace
          */
         @JvmStatic
-        fun defaultKey(key: String): Key = key(SCAFFOLDING_NAMESPACE, key)
+        fun scafall(key: String): Key = key(SCAFFOLDING_NAMESPACE, key)
 
         /**
          * Creates a new Key with the minecraft namespace

@@ -23,7 +23,7 @@ enum class DyeColor(val id: Int, val key: Key, rgb: Int, mapColor: Any, firework
     RED(14, "red", 11546150, MapColor.COLOR_RED, 11743532, 16711680),
     BLACK(15, "black", 1908001, MapColor.COLOR_BLACK, 1973019, 0);
 
-    constructor(id: Int, name: String, rgb: Int, mapColor: Any, fireworkColor: Int, textColor: Int) : this(id, Key.defaultKey(name), rgb, mapColor, fireworkColor, textColor);
+    constructor(id: Int, name: String, rgb: Int, mapColor: Any, fireworkColor: Int, textColor: Int) : this(id, Key.scafall(name), rgb, mapColor, fireworkColor, textColor);
 
     companion object {
 

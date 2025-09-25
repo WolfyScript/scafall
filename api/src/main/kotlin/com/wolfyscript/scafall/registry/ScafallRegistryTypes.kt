@@ -10,7 +10,7 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 
 object ScafallRegistryTypes {
 
-    val root = Key.defaultKey("root")
+    val root = Key.scafall("root")
 
     val valueProviders = createRegistryType<Class<out ValueProvider<*>>>("value_providers")
 
@@ -27,7 +27,7 @@ object ScafallRegistryTypes {
     val itemStackIdentifierParsers = createRegistryType<ItemStackIdentifier.Parser<*>>("items/identifiers/parser")
 
     private fun <T> createRegistryType(registryKey: String): RegistryReference<T> {
-        return RegistryKey.of<T>(root, Key.defaultKey(registryKey)).reference()
+        return RegistryKey.of<T>(root, Key.scafall(registryKey)).reference()
     }
 
 }

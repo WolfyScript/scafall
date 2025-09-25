@@ -16,7 +16,7 @@ class ExecutableBlocksDependency : Dependency, Listener {
 
     companion object {
         const val ID = "executableblocks"
-        val key = Key.defaultKey(ID)
+        val key = Key.scafall(ID)
     }
 
     override var isInitialized: Boolean = false

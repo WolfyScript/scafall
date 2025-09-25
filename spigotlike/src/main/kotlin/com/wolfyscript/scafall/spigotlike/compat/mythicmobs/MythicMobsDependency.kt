@@ -17,7 +17,7 @@ class MythicMobsDependency : Dependency, Listener {
     companion object {
         const val PLUGIN_NAME = "MythicMobs"
         const val ID = "mythicmobs"
-        val key = Key.defaultKey(ID)
+        val key = Key.scafall(ID)
     }
 
     override var isInitialized: Boolean = false

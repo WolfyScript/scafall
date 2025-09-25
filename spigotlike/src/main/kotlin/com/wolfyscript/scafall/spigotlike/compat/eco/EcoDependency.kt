@@ -18,7 +18,7 @@ class EcoDependency : Dependency, Listener {
     companion object {
         const val ID = "eco"
         const val PLUGIN_NAME = ID
-        val key = Key.defaultKey(ID)
+        val key = Key.scafall(ID)
     }
 
     override var isInitialized: Boolean = false

@@ -7,7 +7,6 @@ import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.spigotlike.api.into
 import com.wolfyscript.scafall.spigotlike.compat.PluginDependency
-import com.wolfyscript.scafall.spigotlike.compat.itemsadder.ItemsAdderDependency
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -17,7 +16,7 @@ class MagicDependency : Dependency, Listener {
 
     companion object {
         const val ID = "magic"
-        val key = Key.defaultKey(ID)
+        val key = Key.scafall(ID)
     }
 
     override var isInitialized: Boolean = false

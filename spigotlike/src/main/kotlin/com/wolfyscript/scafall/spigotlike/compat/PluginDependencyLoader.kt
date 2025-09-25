@@ -20,7 +20,7 @@ class PluginDependencyLoader(val scafall: Scafall) : Listener {
                 val key = if (annotation.id.contains(":")) {
                     Key.parse(annotation.id)
                 } else {
-                    Key.defaultKey(annotation.id)
+                    Key.scafall(annotation.id)
                 }
 
                 if (scafall.dependencyManager.getDependency(key) != null) {
@@ -57,7 +57,7 @@ class PluginDependencyLoader(val scafall: Scafall) : Listener {
                     val key = if (annotation.id.contains(":")) {
                         Key.parse(annotation.id)
                     } else {
-                        Key.defaultKey(annotation.id)
+                        Key.scafall(annotation.id)
                     }
                     if (scafall.dependencyManager.getDependency(key) == null) {
                         continue

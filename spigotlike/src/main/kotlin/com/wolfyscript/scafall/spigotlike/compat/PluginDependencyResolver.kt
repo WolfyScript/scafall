@@ -14,7 +14,7 @@ class PluginDependencyResolver : DependencyResolver {
                     val key = if (dependencyAnno.id.contains(":")) {
                         Key.parse(dependencyAnno.id)
                     } else {
-                        Key.defaultKey(dependencyAnno.id)
+                        Key.scafall(dependencyAnno.id)
                     }
                     return setOf(key)
                 }

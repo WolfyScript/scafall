@@ -3,17 +3,16 @@ package com.wolfyscript.scafall.spigot.api
 import com.google.gson.JsonParseException
 import com.mojang.serialization.JsonOps
 import com.wolfyscript.scafall.adventure.AdventureUtil
-import com.wolfyscript.scafall.Scafall
-import com.wolfyscript.scafall.spigotlike.api.into
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
+import org.bukkit.plugin.java.JavaPlugin
 import java.util.*
 
-class SpigotAdventureUtil(private val scafall: Scafall) : AdventureUtil {
+class SpigotAdventureUtil() : AdventureUtil {
 
     private var backingAdventure: BukkitAudiences? = null
     private val adventure : BukkitAudiences
@@ -22,8 +21,8 @@ class SpigotAdventureUtil(private val scafall: Scafall) : AdventureUtil {
             return backingAdventure!!
         }
 
-    fun init() {
-        this.backingAdventure = BukkitAudiences.create(scafall.modInfo.into().plugin)
+    fun init(plugin: JavaPlugin) {
+        this.backingAdventure = BukkitAudiences.create(plugin)
     }
 
     fun unload() {

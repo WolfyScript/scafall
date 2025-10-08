@@ -3,26 +3,26 @@ package com.wolfyscript.scafall.paper.api
 import com.google.gson.JsonParseException
 import com.mojang.serialization.JsonOps
 import com.wolfyscript.scafall.adventure.AdventureUtil
-import com.wolfyscript.scafall.paper.ScafallPaper
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
+import org.bukkit.Server
 import java.util.UUID
 
-class PaperAdventureUtil(val scafall: ScafallPaper) : AdventureUtil {
+class PaperAdventureUtil(val bukkitServer: Server) : AdventureUtil {
 
     override fun player(uuid: UUID): Audience {
-        return scafall.plugin.server.getPlayer(uuid) ?: Audience.empty()
+        return bukkitServer.getPlayer(uuid) ?: Audience.empty()
     }
 
     override fun all(): Audience {
-        return scafall.plugin.server
+        return bukkitServer
     }
 
     override fun system(): Audience {
-        return scafall.plugin.server.consoleSender
+        return bukkitServer.consoleSender
     }
 
     override fun toVanilla(component: net.kyori.adventure.text.Component): Component {

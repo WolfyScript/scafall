@@ -1,6 +1,5 @@
 package com.wolfyscript.scafall
 
-import com.wolfyscript.scafall.loader.module.Module
 import org.jetbrains.annotations.ApiStatus.Internal
 
 /**
@@ -13,11 +12,11 @@ internal class InternalBootstrap(val classLoader: ClassLoader) : ScafallBootstra
     override val registered: Boolean
         get() = ScafallProvider.registered()
 
-    override fun register(module: Module<Scafall>) {
-        ScafallProvider.register(module.bridge)
+    override fun register(module: Scafall) {
+        ScafallProvider.register(module)
     }
 
-    override fun onCompleted(module: Module<Scafall>) {
+    override fun onCompleted(module: Scafall) {
         ScafallProvider.notifyListeners()
     }
 

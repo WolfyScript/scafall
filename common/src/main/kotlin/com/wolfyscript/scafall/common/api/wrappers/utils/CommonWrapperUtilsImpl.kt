@@ -72,7 +72,7 @@ abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
     }
 
     override fun unwrapToMcPlayer(scafallPlayer: ScafallPlayer): net.minecraft.world.entity.player.Player? {
-        return ScafallProvider.get().server.minecraftServer.playerList.getPlayer(scafallPlayer.uuid)
+        return ScafallProvider.get().server?.minecraftServer?.playerList?.getPlayer(scafallPlayer.uuid)
     }
 
     //

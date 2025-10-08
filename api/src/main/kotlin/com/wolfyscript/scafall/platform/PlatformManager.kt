@@ -2,14 +2,15 @@ package com.wolfyscript.scafall.platform
 
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.loader.module.Module
 
 interface PlatformManager {
 
     val platformType: PlatformType
 
-    fun <T> registerImplementationModule(key: Key, moduleType: Class<T>, innerJarHost: ClassLoader, pathToInnerJar: String, pathToModule: String)
+    fun <T: Module<*,*>> registerImplementationModule(key: Key, moduleType: Class<T>, innerJarHost: ClassLoader, pathToInnerJar: String, pathToModule: String)
 
-    fun <T> getImplementationModule(key: Key, moduleType: Class<T>): T?
+    fun <T: Module<*,*>> getImplementationModule(key: Key, moduleType: Class<T>): T?
 
 }
 

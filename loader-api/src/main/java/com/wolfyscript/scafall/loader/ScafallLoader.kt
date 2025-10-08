@@ -15,21 +15,21 @@ object ScafallLoader {
      * It is very likely that [innerJarHost] and [loader] are the same, for example when loading your plugin implementation,
      * from an inner jar.
      */
-    fun <T> loadModule(
-        moduleType: Class<Module<T>>,
+    fun <T: Module<*,*>> loadModule(
+        moduleType: Class<T>,
         loader: ClassLoader,
         innerJarHost: ClassLoader,
         pathToInnerJar: String,
         pathToModule: String,
-    ): Module<T> {
+    ): T {
         return loadObject(moduleType, loader, innerJarHost, pathToInnerJar, pathToModule)
     }
 
-    fun <T> loadModule(
-        moduleType: Class<Module<T>>,
+    fun <T: Module<*,*>> loadModule(
+        moduleType: Class<T>,
         innerJarLoader: InnerJarClassloader,
         pathToModule: String,
-    ): Module<T> {
+    ): T {
         return loadObject(moduleType, innerJarLoader, pathToModule)
     }
 
@@ -75,9 +75,7 @@ object ScafallLoader {
      */
     fun extractJar(hostLoader: ClassLoader, innerJarPath: String): URL {
         val innerJar = hostLoader.getResource(innerJarPath)
-        if (innerJar == null) {
-            throw java.lang.RuntimeException("Could not locate inner jar: $innerJarPath")
-        }
+            ?: throw java.lang.RuntimeException("Could not locate inner jar: $innerJarPath")
 
         val path: Path
         try {

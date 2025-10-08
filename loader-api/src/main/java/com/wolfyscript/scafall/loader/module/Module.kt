@@ -1,37 +1,46 @@
 package com.wolfyscript.scafall.loader.module
 
 /**
- * The module is implemented in the platform specific implementation
- * and handles the instantiation of the Bridge, that links the implementation to the API.
+ * Simplifies the instantiation and load behaviour of public API across platforms.
  *
- * [T] The type of the Bridge interface that is implemented in the platform specific implementation module.
+ * The module itself may provide API features that are available across all client and server environments.
+ *
+ * The [client] and [server] APIs each provide features only available in their specific environment.
+ * The types of which are defined via the generics:
+ * * [S] The type of the server API interface. Available on Client and Dedicated Server
+ * * [C] The type of the client API interface. Available on Client
  */
-interface Module<T> {
+interface Module<S: Server, C: Client> {
 
     /**
-     * Called when the module was initiated and/or registered.
-     *
-     * Not called when the Module loaded manually using the loader-api, then this needs to be run manually too.
+     * Called after the module has been instantiated and registered.
      */
     fun onInit() {}
 
     /**
-     * Called when the module was created and is now being initiated by the platform.
+     * API Features only available when loaded on a server.
+     * i.a. Client (local server), or Dedicated Server
      */
+    val server: S?
+
+    /**
+     * API Features only available when loaded on a client.
+     */
+    val client: C?
+}
+
+interface Client {
+
     fun onLoad()
 
-    /**
-     * Called when all initiations are completed and the Module is ready to be used.
-     */
-    fun onEnable()
-
-    /**
-     * Called when the platform is unloading. This is unloaded before scafall.
-     */
     fun onUnload()
 
-    /**
-     * The instance that links the bridge interface to this platform module
-     */
-    val bridge: T
+}
+
+interface Server {
+
+    fun onLoad()
+
+    fun onUnload()
+
 }

@@ -10,5 +10,6 @@ abstract class ScafallCommon() : Scafall {
 
     override val jacksonUtil: JacksonUtil = JacksonUtilImpl()
     override val dependencyManager: DependencyManager = DependencyManagerCommon()
+    override val client = null
 
 }

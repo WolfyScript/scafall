@@ -6,6 +6,8 @@ import com.wolfyscript.scafall.config.jackson.JacksonUtil
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.factories.Factories
+import com.wolfyscript.scafall.loader.module.Client
+import com.wolfyscript.scafall.loader.module.Module
 import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.registry.ScafallRegistries
 import com.wolfyscript.scafall.scheduling.Scheduler
@@ -18,7 +20,7 @@ import org.slf4j.Logger
  *
  * It is usually registered in the service manager of the platform.
  */
-interface Scafall {
+interface Scafall : Module<ScafallServer, Client>{
 
     /**
      * All the provided registries that scafall provides
@@ -38,10 +40,6 @@ interface Scafall {
     val factories: Factories
 
     val modInfo: ModWrapper
-
-    val server: ScafallServer
-
-    val adventure: AdventureUtil
 
     val minecraftWrapper: MinecraftWrapper
 

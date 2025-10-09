@@ -45,7 +45,6 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
     override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
     override val registries: ScafallCommonRegistries = ScafallCommonRegistries(this)
 
-    override var server: ScafallServer? = null
     override val scheduler: Scheduler = SchedulerImpl()
     override val platformManager: SpigotPlatformManager = SpigotPlatformManager(this)
     override val minecraftWrapper: MinecraftWrapper = SpigotLikeWrapperUtilsImpl()

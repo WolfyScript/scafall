@@ -33,7 +33,6 @@ class ScafallPaper(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scafa
     override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
     override val registries: ScafallCommonRegistries = ScafallCommonRegistries(this)
 
-    override var server: ScafallServer? = null
     override val scheduler: Scheduler = SchedulerImpl()
     override val platformManager: PaperPlatformManager = PaperPlatformManager(this)
     override val minecraftWrapper: MinecraftWrapper = SpigotLikeWrapperUtilsImpl()

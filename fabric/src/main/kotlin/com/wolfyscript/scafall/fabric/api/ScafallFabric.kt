@@ -1,7 +1,6 @@
 package com.wolfyscript.scafall.fabric.api
 
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.adventure.AdventureUtil
 import com.wolfyscript.scafall.common.api.ScafallCommon
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
@@ -15,11 +14,9 @@ import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.scheduling.Scheduler
-import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.wrappers.MinecraftWrapper
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.server.MinecraftServer
-import org.checkerframework.checker.units.qual.min
 import org.slf4j.Logger
 import java.io.File
 
@@ -35,7 +32,6 @@ class ScafallFabric(val classLoader: ClassLoader, override val logger: Logger) :
     //       Only init things that don't depend on it and use init() instead!
     //
 
-    override var server: ScafallServer? = null
     override val registries: ScafallCommonRegistries = ScafallCommonRegistries(this)
     override val scheduler: Scheduler
         get() = TODO("Not yet implemented")
@@ -48,7 +44,7 @@ class ScafallFabric(val classLoader: ClassLoader, override val logger: Logger) :
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
 
     override fun onInit() {
-        logger.info("Initializing Scafall")
+        logger.info("[scafall] Initializing...")
         factories.init()
 
         registries.initRegistries()

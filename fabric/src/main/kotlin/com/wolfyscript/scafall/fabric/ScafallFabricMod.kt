@@ -24,17 +24,18 @@ class ScafallFabricMod : ModInitializer {
 
     override fun onInitialize() {
         ServerLifecycleEvents.SERVER_STARTING.register {
-            logger.info("ScafallFabricMod server starting")
+            logger.info("[scafall] Loading server")
 
             scafall.initServer(it)
             scafall.server?.onLoad()
         }
 
         ServerLifecycleEvents.SERVER_STARTED.register {
-            logger.info("ScafallFabricMod server startet")
+            logger.info("[scafall] Server started")
         }
 
         ServerLifecycleEvents.SERVER_STOPPED.register {
+            logger.info("[scafall] Unload server")
 
             scafall.server?.onUnload()
         }

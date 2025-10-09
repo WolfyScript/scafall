@@ -27,6 +27,11 @@ interface Module<S: Server, C: Client> {
      * API Features only available when loaded on a client.
      */
     val client: C?
+
+    fun onServerAvailable(fn: (server: S) -> Unit)
+
+    fun onClientAvailable(fn: (client: C) -> Unit)
+
 }
 
 interface Client {

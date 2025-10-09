@@ -1,6 +1,5 @@
 package com.wolfyscript.scafall
 
-import com.wolfyscript.scafall.adventure.AdventureUtil
 import com.wolfyscript.scafall.compat.DependencyManager
 import com.wolfyscript.scafall.config.jackson.JacksonUtil
 import com.wolfyscript.scafall.maven.MavenDependencyHandler

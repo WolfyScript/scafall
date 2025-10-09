@@ -2,8 +2,6 @@ package com.wolfyscript.scafall.common.api.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
-import com.fasterxml.jackson.databind.type.TypeFactory
-import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.common.api.identifiers.KeyImpl
 import com.wolfyscript.scafall.common.api.items.ItemStackRefImpl
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ScafallItemStackCommon
@@ -29,12 +27,6 @@ class JacksonUtilImpl : JacksonUtil {
     }
 
     override fun registerScafallModule(mapper: ObjectMapper): ObjectMapper {
-        val info = mapper.deserializationConfig.introspect(TypeFactory.defaultInstance().constructType(
-            ScafallItemStackCommon::class.java))
-        ScafallProvider.get().logger.info("ScafallItemStack Info introspect: ${info.constructors}")
-        mapper.apply {
-            registerModule(module)
-        }
-        return mapper
+        return mapper.apply { registerModule(module) }
     }
 }

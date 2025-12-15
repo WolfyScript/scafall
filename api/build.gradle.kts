@@ -10,13 +10,8 @@ dependencies {
     implementation(kotlin("reflect"))
     minecraft("com.mojang:minecraft:${libs.versions.minecraft.get()}")
 
-    // ****** To be removed next MC release ******
-    mappings(
-        loom.layered {
-            officialMojangMappings()
-//            parchment("org.parchmentmc.data:parchment-${libs.versions.minecraft.get()}:${libs.versions.parchment.get()}@zip")
-        }
-    )
+    // TODO: To be removed next MC release
+    mappings(loom.officialMojangMappings())
 }
 
 tasks {

@@ -159,7 +159,7 @@ devtools-docker-minecraft = { id = "com.wolfyscript.devtools.docker.minecraft_se
 spongepowered-gradle = { id = "org.spongepowered.gradle.plugin", version.ref = "sponge-gradle" }
 spongepowered-repository = { id = "org.spongepowered.gradle.repository", version.ref = "sponge-gradle" }
 artifactory = { id = "com.jfrog.artifactory", version.ref = "artifactory" }
-fabric-loom = { id = "net.fabricmc.fabric-loom-remap", version.ref = "fabric-loom" } # net.fabricmc.fabric-loom for non remapped
+fabric-loom = { id = "net.fabricmc.fabric-loom-remap", version.ref = "fabric-loom" } # TODO: "net.fabricmc.fabric-loom" for non remapped MC release
 foojay-resolver = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "foojay-resolver" }
 resource-factory-bukkit = { id = "xyz.jpenilla.resource-factory-bukkit-convention", version.ref = "resource-factory" }
 resource-factory-paper = { id = "xyz.jpenilla.resource-factory-paper-convention", version.ref = "resource-factory" }

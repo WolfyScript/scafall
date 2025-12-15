@@ -27,8 +27,8 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import net.minecraft.core.BlockPos
 import net.minecraft.core.GlobalPos
 import net.minecraft.core.registries.Registries
+import net.minecraft.resources.Identifier
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.phys.Vec3
@@ -80,7 +80,7 @@ abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
     //
 
     override fun wrapGlobalBlockPos(position: GlobalPos): ScafallGlobalBlockPos {
-        val dimension = position.dimension().location()
+        val dimension = position.dimension().identifier()
         return ScafallGlobalBlockPosCommon(Key.key(dimension.namespace, dimension.path), position.pos.wrap())
     }
 
@@ -114,7 +114,7 @@ abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
         return Pair(
             precisePos.pos.unwrap(), ResourceKey.create(
                 Registries.DIMENSION,
-                ResourceLocation.fromNamespaceAndPath(
+                Identifier.fromNamespaceAndPath(
                     precisePos.dimension.namespace,
                     precisePos.dimension.value
                 )
@@ -128,9 +128,9 @@ abstract class CommonWrapperUtilsImpl : MinecraftWrapper {
 
     override fun unwrapGlobalBlockPos(globalBlockPos: ScafallGlobalBlockPos): GlobalPos {
         return GlobalPos.of(
-            ResourceKey.create<Level>(
+            ResourceKey.create(
                 Registries.DIMENSION,
-                ResourceLocation.fromNamespaceAndPath(
+                Identifier.fromNamespaceAndPath(
                     globalBlockPos.dimension.namespace,
                     globalBlockPos.dimension.value
                 )

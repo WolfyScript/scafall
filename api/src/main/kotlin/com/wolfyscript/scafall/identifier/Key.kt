@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.identifier
 
 import com.wolfyscript.scafall.ScafallProvider
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import org.intellij.lang.annotations.RegExp
 
 interface Key : Namespaced {
@@ -55,7 +55,7 @@ interface Key : Namespaced {
          * Creates a new Key from a minecraft ResourceLocation
          */
         @JvmStatic
-        fun fromMc(location: ResourceLocation): Key = key(location.namespace, location.path)
+        fun fromMc(location: Identifier): Key = key(location.namespace, location.path)
 
     }
 
@@ -69,7 +69,7 @@ interface Key : Namespaced {
     /**
      * Creates a new Minecraft [ResourceLocation] from this key
      */
-    fun toMc() : ResourceLocation
+    fun toMc() : Identifier
 
     override fun toString(): String
 
@@ -78,4 +78,4 @@ interface Key : Namespaced {
 /**
  * Creates a new Key from a minecraft ResourceLocation
  */
-fun ResourceLocation.toKey(): Key = Key.fromMc(this)
+fun Identifier.toKey(): Key = Key.fromMc(this)

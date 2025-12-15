@@ -6,7 +6,7 @@ import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.KEY_REGEX
 import com.wolfyscript.scafall.identifier.Key.Companion.NAMESPACE_REGEX
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import java.util.regex.Pattern
 
 class KeyImpl @JsonCreator(mode = JsonCreator.Mode.DISABLED) internal constructor(override val namespace: String, override val value: String) : Key {
@@ -24,8 +24,8 @@ class KeyImpl @JsonCreator(mode = JsonCreator.Mode.DISABLED) internal constructo
         return net.kyori.adventure.key.Key.key(namespace, value)
     }
 
-    override fun toMc(): ResourceLocation {
-        return ResourceLocation.fromNamespaceAndPath(namespace, value)
+    override fun toMc(): Identifier {
+        return Identifier.fromNamespaceAndPath(namespace, value)
     }
 
     @JsonValue

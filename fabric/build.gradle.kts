@@ -31,12 +31,14 @@ dependencies {
     shadow(libs.bundles.exposed)
 
     minecraft("com.mojang:minecraft:${libs.versions.minecraft.get()}")
+    // TODO: To be removed next MC release
     mappings(
         loom.layered {
             officialMojangMappings()
 //            parchment("org.parchmentmc.data:parchment-${libs.versions.minecraft.get()}:${libs.versions.parchment.get()}@zip")
         }
     )
+    // TODO: Change next MC release
     modImplementation(libs.fabric.loader)
     modImplementation(libs.fabric.api)
     modImplementation(libs.adventure.text.minimessage)
@@ -65,7 +67,6 @@ tasks {
         // Mappings are in the runtime classpath. Not sure why they are included even though we use include for dependencies...
         // So to be sure nothing else slips in, just accept dependencies from the shadow configuration.
         configurations = listOf(project.configurations.shadow.get())
-        finalizedBy(remapJar)
 
         dependencies {
             include(project(project.projects.api))
@@ -83,6 +84,7 @@ tasks {
 
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
     }
+    // TODO: To be removed next MC release
     remapJar {
         dependsOn(shadowJar)
         finalizedBy("fabric_copy")
@@ -93,6 +95,7 @@ tasks {
 }
 
 artifacts {
+    // TODO: Change next MC release
     archives(tasks.remapJar)
 }
 

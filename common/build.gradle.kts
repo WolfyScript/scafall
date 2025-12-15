@@ -9,7 +9,10 @@ dependencies {
     api(project(":api"))
     implementation(project(":loader-api"))
     minecraft("com.mojang:minecraft:${libs.versions.minecraft.get()}")
+
+    // TODO: Change next MC release
     modCompileOnly(libs.adventure.platform.shared)
+    // TODO: To be removed next MC release
     mappings(
         loom.layered {
             officialMojangMappings()
@@ -29,6 +32,7 @@ publishing {
 }
 
 tasks {
+    // TODO: To be removed next MC release
     // Disable remapping without having to disable the tasks
     // This will get shaded into other platforms that then use their specific remapper instead.
     // Additionally, this will be a public api, which should work across all platforms.

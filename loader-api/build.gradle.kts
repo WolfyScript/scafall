@@ -14,6 +14,9 @@ publishing {
             from(components.getByName("java"))
             groupId = "com.wolfyscript.scafall.loader"
             artifactId = "loader-api"
+            artifact(tasks.kotlinSourcesJar) {
+                classifier = "sources"
+            }
         }
     }
 }

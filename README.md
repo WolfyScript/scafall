@@ -5,7 +5,7 @@ The main goal of scafall is to provide a lightweight solution for creating cross
 Another goal is to provide wrappers for the most used parts of each platform, like Tasks & Scheduling and Adventure Utils for convenience.  
 
 ### Proxy Interfaces
-Scafall achieves avoiding wrapping every niche Platform/Minecraft by providing simple wrapper interfaces,  
+Scafall avoids wrapping every niche Platform/Minecraft by providing simple wrapper interfaces,  
 that are used as a kind of proxy.  
 
 1. The API is constructed by accepting proxy interface arguments (e.g. `ScafallItemStack`).   

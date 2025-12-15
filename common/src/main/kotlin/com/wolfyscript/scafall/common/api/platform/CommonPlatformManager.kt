@@ -25,6 +25,16 @@ abstract class CommonPlatformManager(val scafallClassLoader: ClassLoader) : Plat
         return
     }
 
+    override fun <T: Module<*,*>> registerModule(
+        key: Key,
+        supplier: () -> T,
+    ): T {
+        val module = supplier()
+        implementationModules[key] = module
+        module.onInit()
+        return module
+    }
+
     override fun <T: Module<*,*>> getImplementationModule(
         key: Key,
         moduleType: Class<T>,

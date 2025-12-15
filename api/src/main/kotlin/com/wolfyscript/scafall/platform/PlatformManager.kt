@@ -10,6 +10,8 @@ interface PlatformManager {
 
     fun <T: Module<*,*>> registerImplementationModule(key: Key, moduleType: Class<T>, innerJarHost: ClassLoader, pathToInnerJar: String, pathToModule: String)
 
+    fun <T: Module<*,*>> registerModule(key: Key, supplier: () -> T): T
+
     fun <T: Module<*,*>> getImplementationModule(key: Key, moduleType: Class<T>): T?
 
 }

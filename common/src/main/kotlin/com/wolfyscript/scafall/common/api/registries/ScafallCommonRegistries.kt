@@ -2,7 +2,7 @@ package com.wolfyscript.scafall.common.api.registries
 
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.common.api.items.VanillaItemStackIdentifierImpl
-import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
+import com.wolfyscript.scafall.config.jackson.registerTypeRegistry
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.items.ItemStackIdentifier
@@ -42,7 +42,7 @@ class ScafallCommonRegistries(val scafall: Scafall) : ScafallRegistries {
     }
 
     fun registerForJackson() {
-        RegistryKeyTypeIdResolver.registerTypeRegistry(
+        registerTypeRegistry(
             ItemStackIdentifier::class.java,
             get(ScafallRegistryTypes.itemStackIdentifiers.key).getOrThrow()
         )

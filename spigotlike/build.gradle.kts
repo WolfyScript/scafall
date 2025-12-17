@@ -27,13 +27,11 @@ fun archiveName(): String {
     return "scafall-${project.version}-spigot-${libs.versions.minecraft.get()}"
 }
 
-paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.REOBF_PRODUCTION
+paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
 
 tasks {
     shadowJar {
         archiveFileName.set("${archiveName()}-mojmap.jar")
-
-        finalizedBy(reobfJar)
 
         dependencies {
             include(project(project.projects.api))
@@ -43,13 +41,6 @@ tasks {
             include(dependency(libs.jackson.dataformat.hocon))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
-    }
-    assemble {
-        dependsOn(reobfJar)
-    }
-    reobfJar {
-        finalizedBy(jar)
-        outputJar.set(layout.buildDirectory.file("libs/${archiveName()}.jar"))
     }
 }
 

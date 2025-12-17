@@ -25,6 +25,8 @@ dependencies {
     implementation(project(":common"))
 }
 
+paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
+
 fun archiveName(): String {
     return "${rootProject.name}-${project.version}-${project.name}-${libs.versions.minecraft.get()}"
 }

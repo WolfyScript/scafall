@@ -28,7 +28,7 @@ class SpongeLoaderPlugin @Inject constructor(private val injector: Injector?, co
             "scafall-sponge.innerjar",
             "com.wolfyscript.scafall.InternalBootstrap"
         )
-        module = bootstrap.loadModuleFromInnerJar(
+        module = bootstrap.loadModule(
             "com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap",
             PluginContainer::class.java,
             container

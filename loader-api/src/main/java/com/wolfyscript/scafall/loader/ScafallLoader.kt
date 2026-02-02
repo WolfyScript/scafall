@@ -15,7 +15,7 @@ object ScafallLoader {
      * It is very likely that [innerJarHost] and [loader] are the same, for example when loading your plugin implementation,
      * from an inner jar.
      */
-    fun <T: Module<*,*>> loadModule(
+    fun <T : Module<*, *>> loadModule(
         moduleType: Class<T>,
         loader: ClassLoader,
         innerJarHost: ClassLoader,
@@ -25,7 +25,7 @@ object ScafallLoader {
         return loadObject(moduleType, loader, innerJarHost, pathToInnerJar, pathToModule)
     }
 
-    fun <T: Module<*,*>> loadModule(
+    fun <T : Module<*, *>> loadModule(
         moduleType: Class<T>,
         innerJarLoader: InnerJarClassloader,
         pathToModule: String,
@@ -49,22 +49,25 @@ object ScafallLoader {
 
     fun <T> loadObject(
         moduleType: Class<T>,
-        innerJarLoader: ClassLoader,
+        classLoader: ClassLoader,
         pathToModule: String,
     ): T {
         val moduleClass = try {
-            innerJarLoader.loadClass(pathToModule).asSubclass(moduleType)
+            classLoader.loadClass(pathToModule).asSubclass(moduleType)
         } catch (e: ReflectiveOperationException) {
             throw RuntimeException("Could not load module", e)
         }
 
         val module = try {
-            moduleClass.getConstructor(ClassLoader::class.java).newInstance(innerJarLoader)
+            moduleClass.getConstructor(ClassLoader::class.java).newInstance(classLoader)
         } catch (e: ReflectiveOperationException) {
             throw RuntimeException("Could not load module", e)
         }
         return module
     }
+
+    inline fun <reified T> loadObject(classLoader: ClassLoader, pathToModule: String) =
+        loadObject(T::class.java, classLoader, pathToModule)
 
     /**
      * Extracts the specified inner jar to a temporary file. The temporary file is deleted on exit of the program.

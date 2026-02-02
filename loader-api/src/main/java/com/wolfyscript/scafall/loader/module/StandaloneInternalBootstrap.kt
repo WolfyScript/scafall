@@ -18,7 +18,7 @@ abstract class StandaloneInternalBootstrap<T: Module<*, *>>(val moduleBaseType: 
      *
      * [loaderType] - The type of that loader. E.g. for spigot JavaPlugin
      */
-    fun loadModuleFromInnerJar(pathToModule: String, loaderType: Class<*>, loader: Any): T {
+    fun loadModule(pathToModule: String, loaderType: Class<*>, loader: Any): T {
         if (registered) {
             throw IllegalStateException("Bootstrap $moduleBaseType is already initialized!")
         }
@@ -58,6 +58,10 @@ abstract class StandaloneInternalBootstrap<T: Module<*, *>>(val moduleBaseType: 
         module.onInit()
         onCompleted(module)
         return module
+    }
+
+    open fun loadInternal(): T {
+        throw NotImplementedError("Not supported by this module")
     }
 
     /**

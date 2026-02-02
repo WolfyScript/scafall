@@ -19,7 +19,7 @@ import org.slf4j.Logger
  *
  * It is usually registered in the service manager of the platform.
  */
-interface Scafall : Module<ScafallServer, Client>{
+interface Scafall : Module<ScafallServer, Client> {
 
     /**
      * All the provided registries that scafall provides

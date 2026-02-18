@@ -2,7 +2,7 @@
 
 [versions]
 # kotlin & jetbrains
-kotlin = "2.2.0"
+kotlin = "2.3.10"
 jetbrains-annotations = "23.0.0"
 exposed = "1.0.0-beta-2"
 

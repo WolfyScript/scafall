@@ -73,6 +73,7 @@ tasks {
                 include(dependency(it))
             }
         }
+        archiveFileName.set("scafall-${version}-fabric-${sharedLibs.versions.minecraft.get()}.jar")
 
         finalizedBy("fabric_copy")
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL

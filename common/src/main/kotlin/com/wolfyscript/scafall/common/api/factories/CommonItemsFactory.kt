@@ -39,7 +39,7 @@ class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
             tag
         }
 
-        return net.minecraft.world.item.ItemStack.SINGLE_ITEM_CODEC
+        return net.minecraft.world.item.ItemStack.CODEC
             .parse(Dynamic(NbtOps.INSTANCE, fixed))
             .result()
             .map { it.wrap() }.orElseGet { net.minecraft.world.item.ItemStack.EMPTY.wrap() }

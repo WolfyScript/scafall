@@ -38,7 +38,7 @@ sealed class ItemStackLikeCommon : ItemStackLike {
 
     override fun toNBTString(): String {
         val registryAccess = ScafallProvider.get().server?.minecraftServer?.registryAccess()
-        val result = ItemStack.SINGLE_ITEM_CODEC.encodeStart(registryAccess?.createSerializationContext(NbtOps.INSTANCE), mcStack)
+        val result = ItemStack.CODEC.encodeStart(registryAccess?.createSerializationContext(NbtOps.INSTANCE), mcStack)
         // TODO: handle errors
         return result.result().map { it.toString() }.orElse("")
     }
@@ -47,7 +47,7 @@ sealed class ItemStackLikeCommon : ItemStackLike {
         val stream = ByteArrayOutputStream()
 
         val registryAccess = ScafallProvider.get().server?.minecraftServer?.registryAccess()
-        val result = ItemStack.SINGLE_ITEM_CODEC.encodeStart(registryAccess?.createSerializationContext(NbtOps.INSTANCE), mcStack).result().getOrNull()
+        val result = ItemStack.CODEC.encodeStart(registryAccess?.createSerializationContext(NbtOps.INSTANCE), mcStack).result().getOrNull()
 
         if (result == null || result !is CompoundTag) {
             return ByteArray(0)

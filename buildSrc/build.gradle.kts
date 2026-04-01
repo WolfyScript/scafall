@@ -11,21 +11,17 @@ repositories {
 }
 
 dependencies {
-    implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+    implementation(files(libs::class.java.protectionDomain.codeSource.location))
+    implementation(files(sharedLibs::class.java.protectionDomain.codeSource.location))
 
-    implementation(libs.plugins.devtools.docker.run.text())
-    implementation(libs.plugins.devtools.docker.minecraft.text())
-    implementation(libs.plugins.paperweight.userdev.text())
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}")
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    implementation(sharedLibs.plugins.devtools.docker.run.text())
+    implementation(sharedLibs.plugins.devtools.docker.minecraft.text())
+    implementation(sharedLibs.plugins.paperweight.userdev.text())
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${sharedLibs.versions.kotlin.get()}")
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
 }
 
 fun Provider<PluginDependency>.text(): String {

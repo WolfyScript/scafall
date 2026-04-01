@@ -12,11 +12,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.papermc.paper)
+    compileOnly(sharedLibs.papermc.paper)
     implementation("com.wolfyscript.scafall:api:alpha0.0.1.0-SNAPSHOT")
-    api(libs.adventure.api)
-    api(libs.adventure.text.minimessage)
-    api(libs.adventure.platform.bukkit)
+    api(sharedLibs.adventure.api)
+    api(sharedLibs.adventure.minimessage)
+    api(sharedLibs.adventure.platform.bukkit)
 }
 
 kotlin {

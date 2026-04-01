@@ -7,6 +7,8 @@ plugins {
 
 val Project.libs
     get() = extensions.getByType(org.gradle.accessors.dm.LibrariesForLibs::class)
+val Project.sharedLibs
+    get() = the<org.gradle.accessors.dm.LibrariesForSharedLibs>()
 
 repositories {
     mavenLocal()
@@ -38,18 +40,18 @@ tasks {
 }
 
 dependencies {
-    api(libs.jackson.dataformat.hocon)
-    implementation(libs.kotlin.stdlib)
+    api(sharedLibs.jackson.dataformat.hocon)
+    implementation(sharedLibs.kotlin.stdlib)
 
-    compileOnly(libs.guice)
-    compileOnly(libs.fastutil)
-    compileOnly(libs.jetbrains.annotations)
-    compileOnly(libs.netty)
-    compileOnly(libs.mojang.authlib)
+//    compileOnly(libs.guice)
+    compileOnly(sharedLibs.fastutil)
+    compileOnly(sharedLibs.jetbrains.annotations)
+    compileOnly(sharedLibs.netty.all)
+    compileOnly(sharedLibs.mojang.authlib)
 
-    compileOnlyApi(libs.bundles.adventure)
+    compileOnlyApi(sharedLibs.bundles.adventure)
 
-    testImplementation(libs.junit.jupiter)
+    testImplementation(sharedLibs.junit.jupiter)
 
-    implementation(libs.bundles.jackson)
+    implementation(sharedLibs.bundles.jackson)
 }

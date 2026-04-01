@@ -2,23 +2,15 @@ plugins {
     `java-library`
     `maven-publish`
     id("scafall.common")
-    alias(libs.plugins.fabric.loom)
+    alias(sharedLibs.plugins.fabric.loom)
 }
 
 dependencies {
     api(project(":api"))
     implementation(project(":loader-api"))
-    minecraft("com.mojang:minecraft:${libs.versions.minecraft.get()}")
+    minecraft(sharedLibs.minecraft)
 
-    // TODO: Change next MC release
-    modCompileOnly(libs.adventure.platform.shared)
-    // TODO: To be removed next MC release
-    mappings(
-        loom.layered {
-            officialMojangMappings()
-//            parchment("org.parchmentmc.data:parchment-${libs.versions.minecraft.get()}:${libs.versions.parchment.get()}@zip")
-        }
-    )
+    compileOnly(sharedLibs.adventure.platform.shared)
 }
 
 publishing {
@@ -32,18 +24,5 @@ publishing {
 }
 
 tasks {
-    // TODO: To be removed next MC release
-    // Disable remapping without having to disable the tasks
-    // This will get shaded into other platforms that then use their specific remapper instead.
-    // Additionally, this will be a public api, which should work across all platforms.
-    remapJar {
-        targetNamespace = "named"
-    }
-    remapSourcesJar {
-        targetNamespace = "named"
-    }
-}
 
-artifacts {
-    archives(tasks.remapJar)
 }

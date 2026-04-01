@@ -6,7 +6,7 @@ authors: [ WolfyScript ]
 load: STARTUP
 
 libraries:
-  - "${libs.adventure.api.get()}"
-  - "${libs.adventure.text.minimessage.get()}"
-  - "${libs.adventure.platform.bukkit.get()}"
+  - "${sharedLibs.adventure.api.get()}"
+  - "${sharedLibs.adventure.minimessage.get()}"
+  - "${sharedLibs.adventure.platform.bukkit.get()}"
   - ""

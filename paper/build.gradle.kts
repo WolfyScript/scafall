@@ -7,8 +7,8 @@ plugins {
     id("scafall.common")
     id("scafall.spigotlike")
     id("scafall.docker.run")
-    alias(libs.plugins.shadow)
-    alias(libs.plugins.resource.factory.bukkit)
+    alias(sharedLibs.plugins.shadow)
+    alias(sharedLibs.plugins.resource.factory.bukkit)
 }
 
 dependencies {
@@ -16,10 +16,10 @@ dependencies {
     api(projects.api)
     implementation(projects.spigot.spigotApi)
     implementation(projects.loaderApi)
-    api(libs.tr7zw.item.nbt.api)
-    api(libs.adventure.platform.bukkit)
+    api(sharedLibs.item.nbt.api)
+    api(sharedLibs.adventure.platform.bukkit)
 
-    paperweight.paperDevBundle(libs.versions.papermc.get())
+    paperweight.paperDevBundle(sharedLibs.versions.papermc.get())
     compileOnly(libs.bundles.spigot.external.plugins)
 
     implementation(project(":common"))
@@ -28,7 +28,7 @@ dependencies {
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
 
 fun archiveName(): String {
-    return "${rootProject.name}-${project.version}-${project.name}-${libs.versions.minecraft.get()}"
+    return "${rootProject.name}-${project.version}-${project.name}-${sharedLibs.versions.minecraft.get()}"
 }
 
 tasks {
@@ -60,30 +60,30 @@ bukkitPluginYaml {
     name = "scafall"
     version = project.version.toString()
     main = "com.wolfyscript.scafall.paper.PaperLoaderPlugin"
-    apiVersion = libs.versions.minecraft.get() // Only support the latest Minecraft version!
+    apiVersion = sharedLibs.versions.minecraft.get() // Only support the latest Minecraft version!
     authors.add("WolfyScript")
     load = BukkitPluginYaml.PluginLoadOrder.STARTUP
 
     libraries.apply {
         addAll(
-            libs.kotlin.stdlib.get().toString(),
-            libs.kotlin.reflect.get().toString(),
-            libs.jetbrains.annotations.get().toString(),
-            libs.hocon.get().toString(),
+            sharedLibs.kotlin.stdlib.get().toString(),
+            sharedLibs.kotlin.reflect.get().toString(),
+            sharedLibs.jetbrains.annotations.get().toString(),
+            sharedLibs.typesafe.config.get().toString(),
         )
-        libs.bundles.exposed.get().forEach {
+        sharedLibs.bundles.exposed.get().forEach {
             add(it.toString())
         }
 
-        libs.bundles.adventure.get().forEach {
+        sharedLibs.bundles.adventure.get().forEach {
             add(it.toString())
         }
-        add(libs.adventure.platform.bukkit.get().toString())
+        add(sharedLibs.adventure.platform.bukkit.get().toString())
         addAll(
-            libs.jackson.kotlin.get().toString(),
-            libs.jackson.databind.get().toString(),
-            libs.jackson.annotations.get().toString(),
-            libs.jackson.core.get().toString(),
+            sharedLibs.jackson.kotlin.get().toString(),
+            sharedLibs.jackson.databind.get().toString(),
+            sharedLibs.jackson.annotations.get().toString(),
+            sharedLibs.jackson.core.get().toString(),
         )
     }
 
@@ -111,7 +111,7 @@ minecraftServers {
         // Paper test servers
         register("paper") {
             destFileName.set("scafall.jar")
-            version.set(libs.versions.minecraft.get())
+            version.set(sharedLibs.versions.minecraft.get())
             type.set("PAPER")
             imageVersion.set("java21")
             ports.add("25566:25565")

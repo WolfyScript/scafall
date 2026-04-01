@@ -7,8 +7,8 @@ plugins {
     `maven-publish`
     id("scafall.common")
     id("scafall.docker.run")
-    alias(libs.plugins.shadow)
-    alias(libs.plugins.spongepowered.gradle)
+//    alias(sharedLibs.plugins.shadow)
+    alias(sharedLibs.plugins.spongepowered.gradle)
 }
 
 repositories {
@@ -18,11 +18,11 @@ repositories {
 dependencies {
     implementation(project(":api"))
     implementation(project(":loader-api"))
-    implementation(libs.slf4j.api)
+    implementation(sharedLibs.slf4j.api)
 }
 
 sponge {
-    apiVersion(libs.versions.sponge.api.get())
+    apiVersion(sharedLibs.versions.sponge.api.get())
     license("GNU GPL 3.0")
     loader {
         name(PluginLoaders.JAVA_PLAIN)
@@ -46,28 +46,28 @@ tasks {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
 
-    shadowJar {
-        dependsOn(project(":sponge").tasks.shadowJar.get())
-        mustRunAfter("jar")
-
-        archiveBaseName = "scafall-sponge"
-        archiveClassifier = ""
-        archiveAppendix = ""
-
-        include("**")
-
-        dependencies {
-            include(dependency("org.javassist:.*"))
-            include(dependency("com.wolfyscript.scafall:.*"))
-            include(dependency("org.jetbrains:.*"))
-            include(dependency("org.jetbrains.kotlin:.*"))
-        }
-
-        mergeServiceFiles()
-
-        // Include the inner jar files for internal implementation
-        from(project(":sponge").tasks.shadowJar.get().archiveFile)
-    }
+//    shadowJar {
+//        dependsOn(project(":sponge").tasks.shadowJar.get())
+//        mustRunAfter("jar")
+//
+//        archiveBaseName = "scafall-sponge"
+//        archiveClassifier = ""
+//        archiveAppendix = ""
+//
+//        include("**")
+//
+//        dependencies {
+//            include(dependency("org.javassist:.*"))
+//            include(dependency("com.wolfyscript.scafall:.*"))
+//            include(dependency("org.jetbrains:.*"))
+//            include(dependency("org.jetbrains.kotlin:.*"))
+//        }
+//
+//        mergeServiceFiles()
+//
+//        // Include the inner jar files for internal implementation
+//        from(project(":sponge").tasks.shadowJar.get().archiveFile)
+//    }
 
     withType<JavaCompile> {
         options.encoding = "UTF-8"
@@ -79,7 +79,7 @@ tasks {
 }
 
 artifacts {
-    archives(tasks.shadowJar)
+//    archives(tasks.shadowJar)
 }
 
 minecraftServers {

@@ -1,3 +1,5 @@
+import com.wolfyscript.devtools.docker.run.ContainerPlatform
+
 val Project.libs
     get() = the<org.gradle.accessors.dm.LibrariesForLibs>()
 
@@ -14,6 +16,7 @@ minecraftDockerRun {
     // That makes it impossible to know why a container may fail to start.
     // In that case disable it to debug and delete container manually.
 //     clean.set(false)
+    platform.set(ContainerPlatform.PODMAN)
     env.putAll(
         mapOf(
             // Limit each container memory
@@ -28,8 +31,7 @@ minecraftDockerRun {
         // Constrain to only use 2 cpus to better align with real production servers
         "--cpus",
         "2",
-        // allow console interactivity (docker attach)
-        "-it"
+        "--userns=keep-id"
     )
     ports.set(listOf(debugPortMapping))
 }

@@ -24,9 +24,9 @@
     "scafall.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.14",
-    "minecraft": "~1.21.7",
-    "java": ">=21",
+    "fabricloader": ">=${fabricLoaderVersion}",
+    "minecraft": "~${minecraftVersion}",
+    "java": ">=${javaVersion}",
     "fabric-api": "*",
     "fabric-language-kotlin": "*"
   },

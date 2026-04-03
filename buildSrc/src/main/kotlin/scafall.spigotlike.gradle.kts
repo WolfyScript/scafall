@@ -26,18 +26,10 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
 }
 
-tasks {
-    withType<JavaCompile> {
-        options.encoding = "UTF-8"
-    }
 
-    withType<Javadoc> {
-        options.encoding = "UTF-8"
-    }
-}
 
 dependencies {
     api(sharedLibs.jackson.dataformat.hocon)

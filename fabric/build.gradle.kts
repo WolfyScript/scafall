@@ -18,9 +18,8 @@ loom {
 }
 
 dependencies {
-    api(shadow(projects.api)!!)
-    api(shadow(projects.common)!!)
-
+    api(projects.api)
+    api(projects.common)
     implementation(projects.loaderApi)
 
 //    include(sharedLibs.adventure.platform.fabric)
@@ -49,20 +48,22 @@ publishing {
 
 tasks {
     processResources {
-        inputs.property("version", project.version)
+        doNotTrackState("Always process resources to stay up-to-date with versions")
 
         filesMatching("fabric.mod.json") {
-            expand("version" to project.version)
+            expand(
+                "version" to project.version,
+                "minecraftVersion" to sharedLibs.versions.minecraft.get(),
+                "fabricLoaderVersion" to sharedLibs.versions.fabric.loader.get(),
+                "javaVersion" to kotlin.target.compilerOptions.jvmTarget.get().target
+            )
         }
     }
     shadowJar {
-        // Mappings are in the runtime classpath. Not sure why they are included even though we use include for dependencies...
-        // So to be sure nothing else slips in, just accept dependencies from the shadow configuration.
-        configurations = listOf(project.configurations.shadow.get())
-
         dependencies {
             include(project(project.projects.api))
             include(project(project.projects.common))
+            include(project(project.projects.loaderApi))
 
             include(dependency(sharedLibs.typesafe.config))
             sharedLibs.bundles.exposed.get().forEach {
@@ -92,7 +93,7 @@ minecraftServers {
             destFileName.set("scafall.jar")
             version.set(sharedLibs.versions.minecraft.get())
             type.set("FABRIC")
-            imageVersion.set("java21")
+            imageVersion.set("java25")
             ports.add("25569:25565")
             extraEnv.put("MODRINTH_PROJECTS", "fabric-api, fabric-language-kotlin")
             extraEnv.put("FABRIC_LOADER_VERSION", sharedLibs.versions.fabric.loader.get())

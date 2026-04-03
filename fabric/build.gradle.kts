@@ -4,7 +4,6 @@ plugins {
     id("scafall.common")
     id("scafall.docker.run")
     alias(sharedLibs.plugins.fabric.loom)
-    alias(sharedLibs.plugins.shadow)
 }
 
 loom {
@@ -18,22 +17,25 @@ loom {
 }
 
 dependencies {
-    api(projects.api)
-    api(projects.common)
-    implementation(projects.loaderApi)
+    implementation(include(projects.api)!!)
+    implementation(include(projects.common)!!)
+    implementation(include(projects.loaderApi)!!)
 
-//    include(sharedLibs.adventure.platform.fabric)
-    include(sharedLibs.jackson.kotlin)
+    implementation(include(sharedLibs.adventure.platform.fabric.get())!!)
+    implementation(include(sharedLibs.jackson.kotlin.get())!!)
 
-    shadow(sharedLibs.typesafe.config)
-    shadow(sharedLibs.bundles.jackson)
-    shadow(sharedLibs.bundles.exposed)
+    implementation(include(sharedLibs.typesafe.config.get())!!)
+    sharedLibs.bundles.exposed.get().forEach {
+        implementation(include(it)!!)
+    }
+    sharedLibs.bundles.jackson.get().forEach {
+        implementation(include(it)!!)
+    }
 
     minecraft(sharedLibs.minecraft)
     implementation(sharedLibs.fabric.loader)
     implementation(sharedLibs.fabric.api)
     implementation(sharedLibs.adventure.minimessage)
-    compileOnly(sharedLibs.adventure.platform.shared)
 }
 
 publishing {
@@ -59,31 +61,24 @@ tasks {
             )
         }
     }
-    shadowJar {
-        dependencies {
-            include(project(project.projects.api))
-            include(project(project.projects.common))
-            include(project(project.projects.loaderApi))
-
-            include(dependency(sharedLibs.typesafe.config))
-            sharedLibs.bundles.exposed.get().forEach {
-                include(dependency(it))
-            }
-            include(dependency(sharedLibs.jackson.databind))
-            sharedLibs.bundles.jackson.get().forEach {
-                include(dependency(it))
-            }
-        }
+    jar {
         archiveFileName.set("scafall-${version}-fabric-${sharedLibs.versions.minecraft.get()}.jar")
-
         finalizedBy("fabric_copy")
-        metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
     }
+//    shadowJar {
+//        dependencies {
+//            include(project(project.projects.api))
+//            include(project(project.projects.common))
+//            include(project(project.projects.loaderApi))
+//        }
+//
+//        metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
+//    }
 }
 
-artifacts {
-    archives(tasks.shadowJar)
-}
+//artifacts {
+//    archives(tasks.jar)
+//}
 
 minecraftServers {
     libName.set("scafall-${version}-fabric-${sharedLibs.versions.minecraft.get()}.jar")

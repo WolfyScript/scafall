@@ -7,12 +7,16 @@ plugins {
 repositories {
     mavenCentral()
     maven {
-        url = uri("https://maven.parchmentmc.org/")
-        content { includeGroup("org.parchmentmc.data") }
-    }
-    maven {
         url = uri("https://maven.neoforged.net/releases")
         content { includeGroup("org.parchmentmc.data") }
+    }
+    maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+        name = "sonatype-oss-snapshots1"
+        mavenContent { snapshotsOnly() }
+    }
+    maven(url = "https://central.sonatype.com/repository/maven-snapshots/") {
+        name = "central-snapshots"
+        mavenContent { snapshotsOnly() }
     }
     maven(url = "https://artifacts.wolfyscript.com/artifactory/gradle-dev")
     maven(url = "https://libraries.minecraft.net/")

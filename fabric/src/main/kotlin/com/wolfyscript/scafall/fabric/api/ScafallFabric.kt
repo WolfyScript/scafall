@@ -13,8 +13,9 @@ import com.wolfyscript.scafall.fabric.server.FabricScafallServer
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.platform.PlatformManager
-import com.wolfyscript.scafall.scheduling.Scheduler
+import com.wolfyscript.scafall.scheduling.SimpleScheduler
 import com.wolfyscript.scafall.wrappers.MinecraftWrapper
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.server.MinecraftServer
 import org.slf4j.Logger
@@ -33,8 +34,7 @@ class ScafallFabric(val classLoader: ClassLoader, override val logger: Logger) :
     //
 
     override val registries: ScafallCommonRegistries = ScafallCommonRegistries(this)
-    override val scheduler: Scheduler
-        get() = TODO("Not yet implemented")
+    override val scheduler: SimpleScheduler = SimpleScheduler()
     override val platformManager: PlatformManager = FabricPlatformManager(this)
     override val factories: FabricFactoriesImpl = FabricFactoriesImpl(this)
     override val modInfo: ModWrapper = FabricModWrapper(FabricLoader.getInstance().getModContainer("scafall").get(), logger)
@@ -46,6 +46,10 @@ class ScafallFabric(val classLoader: ClassLoader, override val logger: Logger) :
     override fun onInit() {
         logger.info("[scafall] Initializing...")
         factories.init()
+
+        ServerTickEvents.START_SERVER_TICK.register { server ->
+            scheduler.tick(server)
+        }
 
         registries.initRegistries()
         registries.registerForJackson()

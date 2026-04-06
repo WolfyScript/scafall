@@ -52,9 +52,7 @@ val Project.sharedLibs
 
 dependencies {
     api(sharedLibs.jackson.dataformat.hocon)
-    implementation(sharedLibs.kotlin.stdlib)
-
-//    compileOnly(libs.guice)
+    implementation(sharedLibs.kotlinx.coroutines)
     compileOnly(sharedLibs.fastutil)
     compileOnly(sharedLibs.jetbrains.annotations)
     compileOnly(sharedLibs.netty.all)

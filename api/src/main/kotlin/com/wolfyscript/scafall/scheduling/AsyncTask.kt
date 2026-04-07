@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall.scheduling
 
 import com.wolfyscript.scafall.ModWrapper
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ internal class AsyncTask(
         if (taskJob.isCompleted) {
             return
         }
-        launch {
+        launch(CoroutineName("$id")) {
             this@AsyncTask.fn()
         }
     }

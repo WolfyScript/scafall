@@ -12,7 +12,7 @@ internal class TaskBuilder(
 
     private var async = false
     private var delay: Delay = Delay.Instant
-    private var repeat: Repeat = Repeat.Never
+    private var timer: Timer = Timer.Once
     private var fn: Task.() -> Unit = {}
 
     override fun async(): Task.Builder = apply {
@@ -23,15 +23,15 @@ internal class TaskBuilder(
         delay = if (ticks <= 0) {
             Delay.Instant
         } else {
-            Delay.amount(ticks)
+            Delay.amount(ticks.toInt())
         }
     }
 
     override fun interval(ticks: Long): Task.Builder = apply {
-        repeat = if (ticks <= 0) {
-            Repeat.forever(ticks)
+        timer = if (ticks <= 0) {
+            Timer.forever(ticks.toInt())
         } else {
-            Repeat.Never
+            Timer.Once
         }
     }
 
@@ -49,7 +49,7 @@ internal class TaskBuilder(
                 parentCoroutineContext,
                 fn = fn,
                 delay = delay,
-                repeat = repeat,
+                timer = timer,
                 mod = mod
             )
         } else {
@@ -57,7 +57,7 @@ internal class TaskBuilder(
                 mod = mod,
                 fn = fn,
                 delay = delay,
-                repeat = repeat,
+                timer = timer,
             )
         }
         scheduler.schedule(task)

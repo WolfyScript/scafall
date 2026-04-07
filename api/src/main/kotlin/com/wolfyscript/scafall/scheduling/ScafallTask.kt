@@ -6,7 +6,7 @@ internal interface ScafallTask : Task {
 
     val fn: Task.() -> Unit
 
-    val repeat: Repeat
+    val timer: Timer
 
     val delay: Delay
 
@@ -19,7 +19,5 @@ internal interface ScafallTask : Task {
     val isCompleted: Boolean
 
     fun run()
-
-    fun complete()
 
 }

@@ -5,7 +5,7 @@ import java.util.UUID
 
 internal class SyncTask(
     override val fn: Task.() -> Unit,
-    override val repeat: Repeat = Repeat.Never,
+    override val timer: Timer = Timer.Once,
     override val delay: Delay = Delay.Instant,
     override val id: UUID = UUID.randomUUID(),
     val mod: ModWrapper,
@@ -22,11 +22,9 @@ internal class SyncTask(
         }
     }
 
-    override fun complete() {
+    override fun cancel() {
         isCompleted = true
     }
-
-    override fun cancel() = complete()
 
     override fun plugin(): ModWrapper = mod
 }

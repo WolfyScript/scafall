@@ -4,18 +4,18 @@ interface Delay {
 
     companion object {
 
-        fun amount(ticks: Long) : Amount {
-            return TODO()
+        fun amount(ticks: Int) : Amount {
+            return DelayAmount(ticks)
         }
 
     }
 
-    object Instant : Delay
+    val ticks: Int
 
-    interface Amount : Delay {
-
-        val ticks: Long
-
+    object Instant : Delay {
+        override val ticks: Int = 0
     }
+
+    interface Amount : Delay
 
 }

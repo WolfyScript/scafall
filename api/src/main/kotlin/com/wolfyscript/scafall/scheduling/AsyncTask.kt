@@ -12,7 +12,7 @@ internal class AsyncTask(
     parentCoroutineContext: CoroutineContext,
     override val id: UUID = UUID.randomUUID(),
     override val fn: Task.() -> Unit,
-    override val repeat: Repeat = Repeat.Never,
+    override val timer: Timer = Timer.Once,
     override val delay: Delay = Delay.Instant,
     val mod: ModWrapper,
 ) : ScafallTask, CoroutineScope {
@@ -32,10 +32,6 @@ internal class AsyncTask(
         launch(CoroutineName("$id")) {
             this@AsyncTask.fn()
         }
-    }
-
-    override fun complete() {
-        taskJob.complete()
     }
 
     override fun cancel() {

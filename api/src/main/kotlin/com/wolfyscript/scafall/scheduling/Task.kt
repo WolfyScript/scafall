@@ -3,8 +3,6 @@ package com.wolfyscript.scafall.scheduling
 import com.wolfyscript.scafall.ModWrapper
 
 interface Task {
-    //    long delay();
-    //    long interval();
 
     fun cancel()
 

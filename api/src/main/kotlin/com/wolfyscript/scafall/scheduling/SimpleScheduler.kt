@@ -25,22 +25,31 @@ class SimpleScheduler : Scheduler, CoroutineScope {
     private var tickCount = 0
 
     private val pending: PriorityQueue<ScafallTask> = PriorityQueue(
-        10, Comparator.comparingLong { it.nextRunTicks }
+        10, Comparator.comparingInt { it.timer.nextRunTick }
     )
-    private val tasks = ConcurrentHashMap<UUID, Task>()
+    private val runningTasks = HashMap<UUID, ScafallTask>()
+    private val queuedTasks = ConcurrentHashMap<UUID, ScafallTask>()
 
     fun tick(server: MinecraftServer) {
         tickCount = server.tickCount
 
-        while (pending.isNotEmpty() && pending.first().nextRunTicks <= tickCount) {
+        // New queued tasks from previous tick not yet in the pending priority queue
+        for (task in queuedTasks.values) {
+            task.timer.start(tickCount + task.delay.ticks)
+            pending.add(task)
+        }
+        queuedTasks.clear()
+
+        // Run the tasks that are scheduled for this tick (or previous ticks in case ticks were skipped)
+        while (pending.isNotEmpty() && pending.first().timer.nextRunTick <= tickCount) {
             val task = pending.remove()
+            runningTasks[task.id] = task
             task.run()
 
-            if (task.repeat.completed) {
-                task.complete()
-                tasks.remove(task.id)
+            if (task.timer.completed) {
+                runningTasks.remove(task.id)
             } else {
-                task.repeat.tick()
+                task.timer.update(tickCount)
                 pending.add(task)
             }
         }
@@ -57,7 +66,7 @@ class SimpleScheduler : Scheduler, CoroutineScope {
     ): Task {
         val task = SyncTask(
             fn = { task.run() },
-            delay = Delay.amount(delay),
+            delay = Delay.amount(delay.toInt()),
             mod = plugin,
         )
         schedule(task)
@@ -72,7 +81,7 @@ class SimpleScheduler : Scheduler, CoroutineScope {
         val task = AsyncTask(
             coroutineContext,
             fn = { task.run() },
-            delay = Delay.amount(delay),
+            delay = Delay.amount(delay.toInt()),
             mod = plugin,
         )
         schedule(task)
@@ -87,8 +96,8 @@ class SimpleScheduler : Scheduler, CoroutineScope {
     ): Task {
         val task = SyncTask(
             fn = { task.run() },
-            repeat = Repeat.forever(interval),
-            delay = Delay.amount(delay),
+            timer = Timer.forever(interval.toInt()),
+            delay = Delay.amount(delay.toInt()),
             mod = plugin,
         )
         schedule(task)
@@ -104,8 +113,8 @@ class SimpleScheduler : Scheduler, CoroutineScope {
         val task = AsyncTask(
             coroutineContext,
             fn = { task.run() },
-            repeat = Repeat.forever(interval),
-            delay = Delay.amount(delay),
+            timer = Timer.forever(interval.toInt()),
+            delay = Delay.amount(delay.toInt()),
             mod = plugin,
         )
         schedule(task)
@@ -113,7 +122,7 @@ class SimpleScheduler : Scheduler, CoroutineScope {
     }
 
     internal fun schedule(task: ScafallTask) {
-        tasks[task.id] = task
+        queuedTasks[task.id] = task
     }
 
 }

@@ -1,6 +1,9 @@
 package com.wolfyscript.scafall.scheduling
 
 import com.wolfyscript.scafall.ModWrapper
+import com.wolfyscript.scafall.ScafallProvider
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import net.minecraft.server.MinecraftServer
@@ -13,7 +16,10 @@ import kotlin.coroutines.CoroutineContext
 class SimpleScheduler : Scheduler, CoroutineScope {
 
     private val asyncCoroutineDispatcher = Dispatchers.Default
-    override val coroutineContext: CoroutineContext = asyncCoroutineDispatcher
+    private val exceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { context, throwable ->
+        ScafallProvider.get().logger.error("[Scafall][Scheduler] An error occurred in async task ${context[CoroutineName]?.name ?: ""}", throwable)
+    }
+    override val coroutineContext: CoroutineContext = asyncCoroutineDispatcher + exceptionHandler
 
     @Volatile
     private var tickCount = 0

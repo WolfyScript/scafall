@@ -1,9 +1,7 @@
-package com.wolfyscript.scafall.common.api.compat
+package com.wolfyscript.scafall.compat
 
 import com.google.common.collect.Multimaps
 import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.compat.Dependency
-import com.wolfyscript.scafall.compat.DependencyManager
 import com.wolfyscript.scafall.identifier.Key
 import java.util.Collections
 

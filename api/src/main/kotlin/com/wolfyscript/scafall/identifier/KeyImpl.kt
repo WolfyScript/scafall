@@ -48,5 +48,3 @@ class KeyImpl @JsonCreator(mode = JsonCreator.Mode.DISABLED) internal constructo
 
 }
 
-val NAMESPACE_PATTERN: Pattern = Pattern.compile(NAMESPACE_REGEX)
-val KEY_PATTERN: Pattern = Pattern.compile(KEY_REGEX)

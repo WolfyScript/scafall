@@ -82,7 +82,4 @@ interface Key : Namespaced {
 
 }
 
-/**
- * Creates a new Key from a minecraft ResourceLocation
- */
-fun Identifier.toKey(): Key = Key.fromMc(this)
+

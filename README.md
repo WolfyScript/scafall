@@ -13,8 +13,8 @@ that are used as a kind of proxy.
 3. Mods/Plugins on other platforms `wrap()` their platform specific instances (e.g. `org.bukkit.inventory.ItemStack`) and use those in the API.
 
 These interfaces are lightweight and provide access to very few properties of the wrapped object.
-The idea is to purely use them as a transfer between Third-Party Mods/Plugins, API, and Implementation:   
-`Third-Party Mods/Plugins <--unwrap/wrap--> API <--wrap/unwrap--> Implementation`.
+The idea is to purely use them as a transfer between Third-Party Mods/Plugins, API, and Implementation:
+![Wrapping and Unwrapping: Third-Party Mods/Plugins <--unwrap/wrap--> API <--wrap/unwrap--> Implementation](https://github.com/user-attachments/assets/d752060d-2e59-4d30-a756-a0540923c005)
 
 Scafall uses Minecraft as the ground truth, so proxies always wrap the native Minecraft types.  
 When wrapping other platform types, those are first converted into the native MC types.  

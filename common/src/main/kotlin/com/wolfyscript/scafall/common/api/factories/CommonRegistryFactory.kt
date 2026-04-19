@@ -7,7 +7,7 @@ import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ValueKey
 import com.wolfyscript.scafall.registry.RegistryKey
 
-class CommonRegistryFactory : RegistryFactory {
+internal class CommonRegistryFactory : RegistryFactory {
 
     override fun <R, T : R> createRegistryKey(registry: RegistryKey<R>, key: Key, valueType: Class<T>): ValueKey<R, T> {
         return ScafallValueKey(registry, key, valueType)

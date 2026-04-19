@@ -1,9 +1,8 @@
-package com.wolfyscript.scafall.common.api.identifiers
+package com.wolfyscript.scafall.identifier
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonValue
 import com.google.common.base.Preconditions
-import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.identifier.Key.Companion.KEY_REGEX
 import com.wolfyscript.scafall.identifier.Key.Companion.NAMESPACE_REGEX
 import net.minecraft.resources.Identifier

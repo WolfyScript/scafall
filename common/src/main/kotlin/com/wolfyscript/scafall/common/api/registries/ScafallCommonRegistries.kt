@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.common.api.registries
 
 import com.wolfyscript.scafall.Scafall
-import com.wolfyscript.scafall.common.api.items.VanillaItemStackIdentifierImpl
+import com.wolfyscript.scafall.items.VanillaItemStackIdentifierImpl
 import com.wolfyscript.scafall.config.jackson.registerTypeRegistry
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key

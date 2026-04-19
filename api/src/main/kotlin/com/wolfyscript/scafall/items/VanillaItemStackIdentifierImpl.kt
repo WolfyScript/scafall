@@ -1,11 +1,9 @@
-package com.wolfyscript.scafall.common.api.items
+package com.wolfyscript.scafall.items
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.wolfyscript.scafall.items.VanillaItemStackIdentifier
 import com.wolfyscript.scafall.wrappers.unwrap
-import com.wolfyscript.scafall.wrappers.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
+import com.wolfyscript.scafall.wrappers.wrap
 import net.minecraft.world.item.ItemStack
 
 class VanillaItemStackIdentifierImpl : VanillaItemStackIdentifier {

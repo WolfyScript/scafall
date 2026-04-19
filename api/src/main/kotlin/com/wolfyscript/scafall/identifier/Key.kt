@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.identifier
 
-import com.wolfyscript.scafall.ScafallProvider
+import com.google.common.base.Preconditions
 import net.minecraft.resources.Identifier
 import org.intellij.lang.annotations.RegExp
 
@@ -31,7 +31,7 @@ interface Key : Namespaced {
          * Creates a new Key with the specified namespace and key
          */
         @JvmStatic
-        fun key(namespace: String, key: String): Key = ScafallProvider.get().factories.identifierFactory.key(namespace, key)
+        fun key(namespace: String, key: String): Key = KeyImpl(namespace, key)
 
         /**
          * Creates a new Key with the specified namespace of the namespaced object and key
@@ -43,7 +43,14 @@ interface Key : Namespaced {
          * Parses a key from a string of the format `<namespace><separator><key>`
          */
         @JvmStatic
-        fun parse(string: String, separator: Char): Key = ScafallProvider.get().factories.identifierFactory.parse(string, separator)
+        fun parse(string: String, separator: Char): Key {
+            Preconditions.checkArgument(string.length < 256, "NamespacedKey must be less than 256 characters (%s)", string)
+            val split = string.split(separator)
+            if (split.size != 2) {
+                throw IllegalArgumentException("$string is not a valid key")
+            }
+            return KeyImpl(split[0], split[1])
+        }
 
         /**
          * Parses a key from a string of the format `<namespace>:<key>`

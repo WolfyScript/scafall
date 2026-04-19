@@ -2,8 +2,8 @@ package com.wolfyscript.scafall.common.api.factories
 
 import com.mojang.serialization.Dynamic
 import com.wolfyscript.scafall.Scafall
-import com.wolfyscript.scafall.common.api.items.ItemStackRefImpl
-import com.wolfyscript.scafall.common.api.items.VanillaItemStackIdentifierImpl
+import com.wolfyscript.scafall.items.ItemStackRefImpl
+import com.wolfyscript.scafall.items.VanillaItemStackIdentifierImpl
 import com.wolfyscript.scafall.factories.ItemsFactory
 import com.wolfyscript.scafall.items.ItemStackRef
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
@@ -16,7 +16,7 @@ import net.minecraft.util.datafix.DataFixers
 import net.minecraft.util.datafix.fixes.References
 import net.minecraft.world.item.Item
 
-class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
+internal class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
 
     override fun createFromSNBT(snbt: String): ScafallItemStack {
         val version = SharedConstants.getCurrentVersion().dataVersion().version

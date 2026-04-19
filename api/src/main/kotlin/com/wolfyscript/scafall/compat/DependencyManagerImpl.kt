@@ -5,7 +5,7 @@ import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
 import java.util.Collections
 
-class DependencyManagerCommon : DependencyManager {
+internal class DependencyManagerImpl : DependencyManager {
 
     private val dependencies = mutableMapOf<Key, Dependency>()
     private val failedDependencies = mutableSetOf<Key>()

@@ -2,8 +2,8 @@ package com.wolfyscript.scafall.common.api.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
-import com.wolfyscript.scafall.common.api.identifiers.KeyImpl
-import com.wolfyscript.scafall.common.api.items.ItemStackRefImpl
+import com.wolfyscript.scafall.identifier.KeyImpl
+import com.wolfyscript.scafall.items.ItemStackRefImpl
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ScafallItemStackCommon
 import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackSnapshotCommon
 import com.wolfyscript.scafall.config.jackson.JacksonUtil

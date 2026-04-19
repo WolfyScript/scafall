@@ -12,6 +12,13 @@ import com.wolfyscript.scafall.identifier.Key
  */
 interface DependencyManager {
 
+    companion object {
+
+        fun createNew(): DependencyManager {
+            return DependencyManagerImpl()
+        }
+    }
+
     /**
      * Marks a Dependency as loaded and loads it into the manager.
      * This means after this, [isLoaded] will be valid for the specified dependency.

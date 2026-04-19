@@ -11,7 +11,7 @@ import kotlin.coroutines.CoroutineContext
 internal class AsyncTask(
     parentCoroutineContext: CoroutineContext,
     override val id: UUID = UUID.randomUUID(),
-    override val fn: Task.() -> Unit,
+    val fn: suspend () -> Unit,
     override val timer: Timer = Timer.Once,
     override val delay: Delay = Delay.Instant,
     val mod: ModWrapper,
@@ -30,7 +30,7 @@ internal class AsyncTask(
             return
         }
         launch(CoroutineName("$id")) {
-            this@AsyncTask.fn()
+            fn()
         }
     }
 

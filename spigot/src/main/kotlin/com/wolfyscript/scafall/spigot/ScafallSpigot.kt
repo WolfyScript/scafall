@@ -1,33 +1,20 @@
 package com.wolfyscript.scafall.spigot
 
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.common.api.ScafallCommon
 import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
 import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
-import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
-import com.wolfyscript.scafall.registry.ScafallRegistryTypes
-import com.wolfyscript.scafall.scheduling.Scheduler
-import com.wolfyscript.scafall.server.ScafallServer
+import com.wolfyscript.scafall.scheduling.SimpleScheduler
 import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
 import com.wolfyscript.scafall.spigotlike.ScafallSpigotLike
 import com.wolfyscript.scafall.spigotlike.api.BukkitPluginWrapper
 import com.wolfyscript.scafall.spigotlike.api.factories.SpigotFactoriesImpl
-import com.wolfyscript.scafall.spigotlike.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.spigotlike.api.wrappers.SpigotLikeWrapperUtilsImpl
 import com.wolfyscript.scafall.spigotlike.compat.PluginDependencyLoader
-import com.wolfyscript.scafall.spigotlike.compat.denizen.DenizenDependency
-import com.wolfyscript.scafall.spigotlike.compat.eco.EcoDependency
-import com.wolfyscript.scafall.spigotlike.compat.executableblocks.ExecutableBlocksDependency
-import com.wolfyscript.scafall.spigotlike.compat.executableitems.ExecutableItemsDependency
-import com.wolfyscript.scafall.spigotlike.compat.itemsadder.ItemsAdderDependency
-import com.wolfyscript.scafall.spigotlike.compat.magic.MagicDependency
-import com.wolfyscript.scafall.spigotlike.compat.mmoitems.MMOItemsDependency
-import com.wolfyscript.scafall.spigotlike.compat.mythicmobs.MythicMobsDependency
-import com.wolfyscript.scafall.spigotlike.compat.oraxen.OraxenDependency
 import com.wolfyscript.scafall.wrappers.MinecraftWrapper
+import net.minecraft.server.MinecraftServer
 import org.bukkit.Bukkit
 import org.bukkit.Server
 import org.bukkit.plugin.java.JavaPlugin
@@ -45,7 +32,7 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
     override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
     override val registries: ScafallCommonRegistries = ScafallCommonRegistries(this)
 
-    override val scheduler: Scheduler = SchedulerImpl()
+    override val scheduler: SimpleScheduler = SimpleScheduler()
     override val platformManager: SpigotPlatformManager = SpigotPlatformManager(this)
     override val minecraftWrapper: MinecraftWrapper = SpigotLikeWrapperUtilsImpl()
 
@@ -60,6 +47,11 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
     override fun onInit() {
         // initiate essential components
         super.onInit()
+
+        // Trick to run our own custom scheduler on each tick
+        Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
+            scheduler.tick(MinecraftServer.getServer().tickCount)
+        }, 0L, 1L)
 
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, plugin.dataFolder.toPath().resolve("libs"))
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()

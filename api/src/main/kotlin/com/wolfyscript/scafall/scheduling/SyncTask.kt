@@ -4,7 +4,7 @@ import com.wolfyscript.scafall.ModWrapper
 import java.util.UUID
 
 internal class SyncTask(
-    override val fn: Task.() -> Unit,
+    val fn: () -> Unit,
     override val timer: Timer = Timer.Once,
     override val delay: Delay = Delay.Instant,
     override val id: UUID = UUID.randomUUID(),
@@ -18,7 +18,7 @@ internal class SyncTask(
 
     override fun run() {
         if (!isCompleted) {
-            this.fn()
+            fn()
         }
     }
 

@@ -6,7 +6,6 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import net.minecraft.server.MinecraftServer
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.CoroutineContext
@@ -30,8 +29,8 @@ class SimpleScheduler : Scheduler, CoroutineScope {
     private val runningTasks = HashMap<UUID, ScafallTask>()
     private val queuedTasks = ConcurrentHashMap<UUID, ScafallTask>()
 
-    fun tick(server: MinecraftServer) {
-        tickCount = server.tickCount
+    fun tick(tickCount: Int) {
+        this.tickCount = tickCount
 
         // New queued tasks from previous tick not yet in the pending priority queue
         for (task in queuedTasks.values) {
@@ -55,66 +54,33 @@ class SimpleScheduler : Scheduler, CoroutineScope {
         }
     }
 
-    override fun task(plugin: ModWrapper): Task.Builder {
-        return TaskBuilder(this, coroutineContext, plugin)
-    }
-
-    override fun syncTask(
+    override fun async(
         plugin: ModWrapper,
-        task: Runnable,
-        delay: Long,
-    ): Task {
-        val task = SyncTask(
-            fn = { task.run() },
-            delay = Delay.amount(delay.toInt()),
-            mod = plugin,
-        )
-        schedule(task)
-        return task
-    }
-
-    override fun asyncTask(
-        plugin: ModWrapper,
-        task: Runnable,
-        delay: Long,
+        delay: Delay,
+        timer: Timer,
+        task: suspend () -> Unit,
     ): Task {
         val task = AsyncTask(
             coroutineContext,
-            fn = { task.run() },
-            delay = Delay.amount(delay.toInt()),
+            fn = task,
+            timer = timer,
+            delay = delay,
             mod = plugin,
         )
         schedule(task)
         return task
     }
 
-    override fun syncTimerTask(
+    override fun sync(
         plugin: ModWrapper,
-        task: Runnable,
-        delay: Long,
-        interval: Long,
+        delay: Delay,
+        timer: Timer,
+        task: () -> Unit,
     ): Task {
         val task = SyncTask(
-            fn = { task.run() },
-            timer = Timer.forever(interval.toInt()),
-            delay = Delay.amount(delay.toInt()),
-            mod = plugin,
-        )
-        schedule(task)
-        return task
-    }
-
-    override fun asyncTimerTask(
-        plugin: ModWrapper,
-        task: Runnable,
-        delay: Long,
-        interval: Long,
-    ): Task {
-        val task = AsyncTask(
-            coroutineContext,
-            fn = { task.run() },
-            timer = Timer.forever(interval.toInt()),
-            delay = Delay.amount(delay.toInt()),
+            fn = task,
+            timer = timer,
+            delay = delay,
             mod = plugin,
         )
         schedule(task)

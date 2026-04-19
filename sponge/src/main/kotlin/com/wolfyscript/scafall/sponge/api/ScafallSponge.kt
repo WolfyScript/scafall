@@ -12,11 +12,11 @@ import com.wolfyscript.scafall.factories.Factories
 import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.registry.ScafallRegistries
 import com.wolfyscript.scafall.scheduling.Scheduler
+import com.wolfyscript.scafall.scheduling.SimpleScheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap
 import com.wolfyscript.scafall.sponge.api.factories.SpongeFactories
 import com.wolfyscript.scafall.sponge.api.platform.PlatformManagerImpl
-import com.wolfyscript.scafall.sponge.api.scheduling.SchedulerImpl
 import com.wolfyscript.scafall.sponge.server.ScafallSpongeServer
 import com.wolfyscript.scafall.wrappers.MinecraftWrapper
 import org.spongepowered.api.Sponge
@@ -43,7 +43,7 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : ScafallCommon() {
 
     override fun load() {
         factories = SpongeFactories(this)
-        scheduler = SchedulerImpl()
+        scheduler = SimpleScheduler()
         registries = ScafallCommonRegistries(this)
 
         // maven

@@ -4,8 +4,6 @@ import java.util.UUID
 
 internal interface ScafallTask : Task {
 
-    val fn: Task.() -> Unit
-
     val timer: Timer
 
     val delay: Delay

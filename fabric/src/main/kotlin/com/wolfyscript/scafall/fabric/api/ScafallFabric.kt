@@ -48,7 +48,7 @@ class ScafallFabric(val classLoader: ClassLoader, override val logger: Logger) :
         factories.init()
 
         ServerTickEvents.START_SERVER_TICK.register { server ->
-            scheduler.tick(server)
+            scheduler.tick(server.tickCount)
         }
 
         registries.initRegistries()

@@ -11,7 +11,6 @@ import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.registry.ScafallRegistries
 import com.wolfyscript.scafall.scheduling.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
-import com.wolfyscript.scafall.wrappers.MinecraftWrapper
 import org.slf4j.Logger
 
 /**
@@ -39,8 +38,6 @@ interface Scafall : Module<ScafallServer, Client> {
     val factories: Factories
 
     val modInfo: ModWrapper
-
-    val minecraftWrapper: MinecraftWrapper
 
     val logger: Logger
         get() = modInfo.logger

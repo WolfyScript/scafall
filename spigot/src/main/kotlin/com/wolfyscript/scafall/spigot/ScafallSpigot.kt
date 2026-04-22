@@ -11,9 +11,7 @@ import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
 import com.wolfyscript.scafall.spigotlike.ScafallSpigotLike
 import com.wolfyscript.scafall.spigotlike.api.BukkitPluginWrapper
 import com.wolfyscript.scafall.spigotlike.api.factories.SpigotFactoriesImpl
-import com.wolfyscript.scafall.spigotlike.api.wrappers.SpigotLikeWrapperUtilsImpl
 import com.wolfyscript.scafall.spigotlike.compat.PluginDependencyLoader
-import com.wolfyscript.scafall.wrappers.MinecraftWrapper
 import net.minecraft.server.MinecraftServer
 import org.bukkit.Bukkit
 import org.bukkit.Server
@@ -34,7 +32,6 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
 
     override val scheduler: SimpleScheduler = SimpleScheduler()
     override val platformManager: SpigotPlatformManager = SpigotPlatformManager(this)
-    override val minecraftWrapper: MinecraftWrapper = SpigotLikeWrapperUtilsImpl()
 
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler

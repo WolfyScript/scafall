@@ -1,10 +1,6 @@
-package com.wolfyscript.scafall.common.api.wrappers.world
+package com.wolfyscript.scafall.wrappers.world
 
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.wrappers.world.ScafallBlockPos
-import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
-import com.wolfyscript.scafall.wrappers.world.ScafallGlobalPrecisePos
-import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
 import net.minecraft.core.BlockPos
 import net.minecraft.world.phys.Vec3
 

@@ -1,9 +1,9 @@
 package com.wolfyscript.scafall.items
 
-import com.wolfyscript.scafall.wrappers.unwrap
+import com.wolfyscript.scafall.wrappers.minecraft.unwrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
-import com.wolfyscript.scafall.wrappers.wrap
+import com.wolfyscript.scafall.wrappers.minecraft.wrap
 import net.minecraft.world.item.ItemStack
 
 class VanillaItemStackIdentifierImpl : VanillaItemStackIdentifier {

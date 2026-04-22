@@ -8,7 +8,7 @@ import com.wolfyscript.scafall.factories.ItemsFactory
 import com.wolfyscript.scafall.items.ItemStackRef
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
-import com.wolfyscript.scafall.wrappers.wrap
+import com.wolfyscript.scafall.wrappers.minecraft.wrap
 import net.minecraft.SharedConstants
 import net.minecraft.nbt.NbtOps
 import net.minecraft.nbt.TagParser

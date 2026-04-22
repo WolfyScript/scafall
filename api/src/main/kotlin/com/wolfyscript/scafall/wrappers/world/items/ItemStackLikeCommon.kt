@@ -1,9 +1,8 @@
-package com.wolfyscript.scafall.common.api.wrappers.world.items
+package com.wolfyscript.scafall.wrappers.world.items
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtIo

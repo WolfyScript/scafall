@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.items
 
-import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackConfigCommon
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfigCommon
 import com.wolfyscript.scafall.eval.context.EvalContext
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver

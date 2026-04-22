@@ -1,8 +1,8 @@
-package com.wolfyscript.scafall.common.api.wrappers.world.entity
+package com.wolfyscript.scafall.wrappers.world.entity
 
-import com.wolfyscript.scafall.wrappers.wrap
-import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
 import com.wolfyscript.scafall.wrappers.ScafallPlayer
+import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
+import com.wolfyscript.scafall.wrappers.minecraft.wrap
 import net.kyori.adventure.text.Component
 import net.minecraft.world.entity.player.Player
 import java.lang.ref.WeakReference

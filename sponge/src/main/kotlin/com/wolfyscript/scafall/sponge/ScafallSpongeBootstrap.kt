@@ -11,10 +11,10 @@ import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 import org.spongepowered.plugin.PluginContainer
 import java.util.function.Consumer
 
-class ScafallSpongeBootstrap(applyScafall: Consumer<Scafall>, val classLoader: ClassLoader, plugin: PluginContainer) : ScafallBootstrap.ScafallModule {
+class ScafallSpongeBootstrap(applyScafall: Consumer<Scafall>, val classLoader: ClassLoader, plugin: PluginContainer) : ScafallBootstrap {
 
     internal val corePlugin: ModWrapper = SpongePluginWrapper(plugin)
-    override val bridge: ScafallSponge = ScafallSponge(this)
+    val bridge: ScafallSponge = ScafallSponge(this)
 
     init {
         applyScafall.accept(bridge)

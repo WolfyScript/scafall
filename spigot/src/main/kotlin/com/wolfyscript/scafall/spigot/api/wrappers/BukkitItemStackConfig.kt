@@ -2,7 +2,7 @@ package com.wolfyscript.scafall.spigot.api.wrappers
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.wolfyscript.scafall.common.api.wrappers.world.items.ItemStackConfigCommon
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfigCommon
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot

@@ -8,13 +8,11 @@ import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
 import com.wolfyscript.scafall.fabric.api.factories.FabricFactoriesImpl
 import com.wolfyscript.scafall.fabric.api.platform.FabricPlatformManager
 import com.wolfyscript.scafall.fabric.api.wrappers.FabricModWrapper
-import com.wolfyscript.scafall.fabric.api.wrappers.FabricWrapperUtils
 import com.wolfyscript.scafall.fabric.server.FabricScafallServer
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.scheduling.SimpleScheduler
-import com.wolfyscript.scafall.wrappers.MinecraftWrapper
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.server.MinecraftServer
@@ -38,7 +36,6 @@ class ScafallFabric(val classLoader: ClassLoader, override val logger: Logger) :
     override val platformManager: PlatformManager = FabricPlatformManager(this)
     override val factories: FabricFactoriesImpl = FabricFactoriesImpl(this)
     override val modInfo: ModWrapper = FabricModWrapper(FabricLoader.getInstance().getModContainer("scafall").get(), logger)
-    override val minecraftWrapper: MinecraftWrapper = FabricWrapperUtils()
 
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler

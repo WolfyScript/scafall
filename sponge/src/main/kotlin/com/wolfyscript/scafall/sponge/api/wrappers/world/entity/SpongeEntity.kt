@@ -1,11 +1,8 @@
 package com.wolfyscript.scafall.sponge.api.wrappers.world.entity
 
-import com.wolfyscript.scafall.common.api.wrappers.world.ScafallPrecisePosCommon
+import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePosCommon
 import com.wolfyscript.scafall.sponge.api.wrappers.SpongeRefWrapper
-import com.wolfyscript.scafall.wrappers.world.ScafallGlobalBlockPos
 import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
-import com.wolfyscript.scafall.wrappers.world.Vector3D
-import com.wolfyscript.scafall.wrappers.world.World
 import com.wolfyscript.scafall.wrappers.world.entity.Entity
 import net.minecraft.world.phys.Vec3
 import java.util.UUID

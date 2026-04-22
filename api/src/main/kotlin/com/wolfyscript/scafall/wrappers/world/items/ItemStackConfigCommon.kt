@@ -1,12 +1,10 @@
-package com.wolfyscript.scafall.common.api.wrappers.world.items
+package com.wolfyscript.scafall.wrappers.world.items
 
 import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonSetter
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.eval.value_provider.ValueProviderIntegerConst
 import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 
 abstract class ItemStackConfigCommon(
     override val stack: ItemStackSnapshot

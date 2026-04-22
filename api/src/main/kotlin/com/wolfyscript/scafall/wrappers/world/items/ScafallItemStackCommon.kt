@@ -1,19 +1,18 @@
-package com.wolfyscript.scafall.common.api.wrappers.world.items
+package com.wolfyscript.scafall.wrappers.world.items
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.wrappers.unwrap
-import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
+import com.wolfyscript.scafall.wrappers.minecraft.unwrap
 import net.minecraft.SharedConstants
+import net.minecraft.world.item.ItemStack
 
 class ScafallItemStackCommon  : ItemStackLikeCommon, ScafallItemStack {
 
     @JsonIgnore
     private constructor(
-        mcStack: net.minecraft.world.item.ItemStack,
+        mcStack: ItemStack,
     ) : super(mcStack)
 
     /**
@@ -30,7 +29,7 @@ class ScafallItemStackCommon  : ItemStackLikeCommon, ScafallItemStack {
 
     /**
      * Used to parse the ItemStack from a SNBT string and version.
-     * If the version indicates that an upgrade is necessary, then the parsed NBT is upgraded using the [com.mojang.datafixers.DataFixerUpper] before parsing the [net.minecraft.world.item.ItemStack]
+     * If the version indicates that an upgrade is necessary, then the parsed NBT is upgraded using the [com.mojang.datafixers.DataFixerUpper] before parsing the [ItemStack]
      *
      * This JsonCreator is the counterpart to the default serialization of this stack wrapper, which includes SNBT and version.
      */
@@ -46,7 +45,7 @@ class ScafallItemStackCommon  : ItemStackLikeCommon, ScafallItemStack {
 
     companion object {
 
-        fun fromVanilla(stack: net.minecraft.world.item.ItemStack): ScafallItemStackCommon {
+        fun fromVanilla(stack: ItemStack): ScafallItemStackCommon {
             return ScafallItemStackCommon(stack)
         }
 

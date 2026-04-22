@@ -11,8 +11,8 @@ plugins {
 }
 
 dependencies {
-    api(projects.api)
-    implementation(projects.spigot.spigotApi)
+    api(projects.core)
+    implementation(projects.spigot.spigotWrappers)
     implementation(projects.loaderApi)
     api(sharedLibs.item.nbt.api)
     api(sharedLibs.adventure.platform.bukkit)
@@ -34,9 +34,9 @@ tasks {
         archiveFileName.set("${archiveName()}-mojmap.jar")
 
         dependencies {
-            include(project(project.projects.api))
+            include(project(project.projects.core))
             include(project(project.projects.loaderApi))
-            include(project(project.projects.spigot.spigotApi))
+            include(project(project.projects.spigot.spigotWrappers))
             include(project(project.projects.common))
             include(dependency(sharedLibs.jackson.dataformat.hocon))
         }

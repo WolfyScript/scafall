@@ -11,5 +11,5 @@ repositories {
 dependencies {
     compileOnly(sharedLibs.papermc.paper)
     api(project(":loader-api"))
-    api(project(":api"))
+    api(project(":core"))
 }

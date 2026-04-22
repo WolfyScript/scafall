@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":api"))
+    api(project(":core"))
     implementation(project(":common"))
     api(sharedLibs.item.nbt.api)
     api(sharedLibs.adventure.platform.bukkit)

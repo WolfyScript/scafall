@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":api"))
+    api(project(":core"))
     implementation(project(":loader-api"))
     minecraft(sharedLibs.minecraft)
 

@@ -53,12 +53,12 @@ plugins {
 
 // Platforms
 sequenceOf(
-    "api",
+    "core",
     "common",
     "loader-api",
     "spigotlike",
     "spigot",
-    "spigot:spigot-api",
+    "spigot:spigot-wrappers",
     "paper",
     "fabric",
     "sponge",

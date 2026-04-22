@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":api"))
+    implementation(project(":core"))
     implementation(project(":loader-api"))
     implementation(sharedLibs.slf4j.api)
 }

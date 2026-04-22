@@ -17,7 +17,7 @@ loom {
 }
 
 dependencies {
-    implementation(include(projects.api)!!)
+    implementation(include(projects.core)!!)
     implementation(include(projects.common)!!)
     implementation(include(projects.loaderApi)!!)
 
@@ -65,15 +65,6 @@ tasks {
         archiveFileName.set("scafall-${version}-fabric-${sharedLibs.versions.minecraft.get()}.jar")
         finalizedBy("fabric_copy")
     }
-//    shadowJar {
-//        dependencies {
-//            include(project(project.projects.api))
-//            include(project(project.projects.common))
-//            include(project(project.projects.loaderApi))
-//        }
-//
-//        metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
-//    }
 }
 
 //artifacts {

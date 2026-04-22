@@ -4,10 +4,20 @@ sealed interface Timer {
 
     companion object {
 
+        /**
+         * Creates a [Timer] that runs forever until the server stops.
+         *
+         * @param tickInterval The amount of ticks to wait between task executions.
+         */
         fun forever(tickInterval: Int): Forever {
             return TimerForever(tickInterval)
         }
 
+        /**
+         * Creates a [Timer] that runs the specified [amount] of times.
+         *
+         * @param tickInterval The amount of ticks to wait between task executions.
+         */
         fun amount(amount: Int, tickInterval: Int): Amount {
             return TimerAmount(amount, tickInterval)
         }
@@ -31,8 +41,9 @@ sealed interface Timer {
      */
     fun update(currentTick: Int)
 
+
     /**
-     *
+     * Runs a task only once
      */
     object Once : Timer {
         override var nextRunTick: Int = 0
@@ -46,6 +57,9 @@ sealed interface Timer {
 
     }
 
+    /**
+     * Runs a task only the specified [amount] of times with the specified [interval]
+     */
     interface Amount : Timer {
 
         val amount: Int
@@ -54,6 +68,9 @@ sealed interface Timer {
 
     }
 
+    /**
+     * Runs a task forever (until the server stops) in the specified [interval]
+     */
     interface Forever : Timer {
 
         val interval: Int

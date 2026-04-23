@@ -1,10 +1,9 @@
-package com.wolfyscript.scafall.common.api.factories
+package com.wolfyscript.scafall.factories
 
 import com.mojang.serialization.Dynamic
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.items.ItemStackRefImpl
 import com.wolfyscript.scafall.items.VanillaItemStackIdentifierImpl
-import com.wolfyscript.scafall.factories.ItemsFactory
 import com.wolfyscript.scafall.items.ItemStackRef
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
@@ -15,6 +14,7 @@ import net.minecraft.nbt.TagParser
 import net.minecraft.util.datafix.DataFixers
 import net.minecraft.util.datafix.fixes.References
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
 
 internal class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
 
@@ -39,10 +39,10 @@ internal class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
             tag
         }
 
-        return net.minecraft.world.item.ItemStack.CODEC
+        return ItemStack.CODEC
             .parse(Dynamic(NbtOps.INSTANCE, fixed))
             .result()
-            .map { it.wrap() }.orElseGet { net.minecraft.world.item.ItemStack.EMPTY.wrap() }
+            .map { it.wrap() }.orElseGet { ItemStack.EMPTY.wrap() }
     }
 
     override fun createVanillaStackRef(stack: ScafallItemStack, count: Int): ItemStackRef {
@@ -53,7 +53,7 @@ internal class CommonItemsFactory(val scafall: Scafall) : ItemsFactory {
         item: Item,
         count: Int,
     ): ItemStackRef {
-        return createVanillaStackRef(net.minecraft.world.item.ItemStack(item).wrap(), count)
+        return createVanillaStackRef(ItemStack(item).wrap(), count)
     }
 
     override fun parseStackRef(stack: ScafallItemStack, count: Int): ItemStackRef? {

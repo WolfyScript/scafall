@@ -14,7 +14,6 @@ repositories {
 
 dependencies {
     compileOnly(project(":loader-api"))
-    api(project(":common"))
     implementation(sharedLibs.slf4j.api)
     compileOnly(sharedLibs.fastutil)
     compileOnly(sharedLibs.jetbrains.annotations)

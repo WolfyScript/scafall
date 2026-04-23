@@ -2,10 +2,10 @@ package com.wolfyscript.scafall.sponge.api
 
 import com.wolfyscript.scafall.adventure.AdventureUtil
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.common.api.ScafallCommon
-import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
-import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
-import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
+import com.wolfyscript.scafall.ScafallCommon
+import com.wolfyscript.scafall.dependencies.MavenDependencyHandlerImpl
+import com.wolfyscript.scafall.dependencies.MavenRepositoryHandlerImpl
+import com.wolfyscript.scafall.registry.ScafallCommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.factories.Factories

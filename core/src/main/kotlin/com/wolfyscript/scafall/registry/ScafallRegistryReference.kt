@@ -1,9 +1,4 @@
-package com.wolfyscript.scafall.common.api.registries
-
-import com.wolfyscript.scafall.registry.Registry
-import com.wolfyscript.scafall.registry.RegistryHolder
-import com.wolfyscript.scafall.registry.RegistryKey
-import com.wolfyscript.scafall.registry.RegistryReference
+package com.wolfyscript.scafall.registry
 
 class ScafallRegistryReference<R>(override val key: RegistryKey<R>, val defaultHolder: () -> RegistryHolder) : RegistryReference<R> {
 

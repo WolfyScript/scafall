@@ -21,8 +21,6 @@ dependencies {
 
     paperweight.paperDevBundle(sharedLibs.versions.papermc.get())
     compileOnly(libs.bundles.spigot.external.plugins)
-
-    implementation(project(":common"))
 }
 
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION

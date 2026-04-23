@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.paper.api
 
-import com.wolfyscript.scafall.common.api.platform.CommonPlatformManager
+import com.wolfyscript.scafall.platform.CommonPlatformManager
 import com.wolfyscript.scafall.paper.ScafallPaper
 import com.wolfyscript.scafall.platform.PlatformType
 import io.papermc.paper.ServerBuildInfo

@@ -1,4 +1,4 @@
-package com.wolfyscript.scafall.common.api.registries
+package com.wolfyscript.scafall.registry
 
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.items.VanillaItemStackIdentifierImpl
@@ -7,7 +7,6 @@ import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.items.ItemStackIdentifier
 import com.wolfyscript.scafall.items.ItemStackIdentifiers
-import com.wolfyscript.scafall.registry.*
 
 class ScafallCommonRegistries(val scafall: Scafall) : ScafallRegistries {
 

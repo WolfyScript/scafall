@@ -1,4 +1,4 @@
-package com.wolfyscript.scafall.common.api
+package com.wolfyscript.scafall.platform
 
 import com.wolfyscript.scafall.ModWrapper
 

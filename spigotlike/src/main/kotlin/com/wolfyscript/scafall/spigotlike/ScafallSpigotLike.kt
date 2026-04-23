@@ -1,8 +1,8 @@
 package com.wolfyscript.scafall.spigotlike
 
-import com.wolfyscript.scafall.common.api.ScafallCommon
-import com.wolfyscript.scafall.common.api.factories.CommonFactories
-import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
+import com.wolfyscript.scafall.ScafallCommon
+import com.wolfyscript.scafall.factories.CommonFactories
+import com.wolfyscript.scafall.registry.ScafallCommonRegistries
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.spigotlike.compat.denizen.DenizenDependency

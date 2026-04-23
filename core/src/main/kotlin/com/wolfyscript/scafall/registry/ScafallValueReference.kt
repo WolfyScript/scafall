@@ -1,8 +1,4 @@
-package com.wolfyscript.scafall.common.api.registries
-
-import com.wolfyscript.scafall.registry.RegistryHolder
-import com.wolfyscript.scafall.registry.ValueKey
-import com.wolfyscript.scafall.registry.ValueReference
+package com.wolfyscript.scafall.registry
 
 class ScafallValueReference<R, T: R>(
     override val key: ValueKey<R, T>,

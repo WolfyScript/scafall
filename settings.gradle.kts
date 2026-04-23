@@ -54,7 +54,6 @@ plugins {
 // Platforms
 sequenceOf(
     "core",
-    "common",
     "loader-api",
     "spigotlike",
     "spigot",

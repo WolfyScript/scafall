@@ -18,7 +18,6 @@ loom {
 
 dependencies {
     implementation(include(projects.core)!!)
-    implementation(include(projects.common)!!)
     implementation(include(projects.loaderApi)!!)
 
     implementation(include(sharedLibs.adventure.platform.fabric.get())!!)

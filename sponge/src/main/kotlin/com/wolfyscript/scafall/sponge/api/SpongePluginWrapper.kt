@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.sponge.api
 
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.common.api.into
+import com.wolfyscript.scafall.platform.into
 import org.slf4j.LoggerFactory
 import org.spongepowered.plugin.PluginContainer
 

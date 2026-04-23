@@ -1,4 +1,4 @@
-package com.wolfyscript.scafall.common.api.dependencies
+package com.wolfyscript.scafall.dependencies
 
 import com.wolfyscript.scafall.ModWrapper
 import com.wolfyscript.scafall.maven.MavenRepository

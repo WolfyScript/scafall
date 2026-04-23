@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.spigotlike.api
 
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.common.api.into
+import com.wolfyscript.scafall.platform.into
 import org.bukkit.plugin.Plugin
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

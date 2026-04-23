@@ -2,9 +2,9 @@ package com.wolfyscript.scafall.paper
 
 import com.destroystokyo.paper.event.server.ServerTickStartEvent
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
-import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
-import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
+import com.wolfyscript.scafall.dependencies.MavenDependencyHandlerImpl
+import com.wolfyscript.scafall.dependencies.MavenRepositoryHandlerImpl
+import com.wolfyscript.scafall.registry.ScafallCommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.paper.api.PaperPlatformManager

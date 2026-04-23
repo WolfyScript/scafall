@@ -14,8 +14,6 @@ class ScafallPlayerCommon(player: Player) : ScafallPlayer {
 
     override val uuid: UUID = player.uuid
 
-    override var displayName: Component? = null //TODO
-
     override val pos: ScafallPrecisePos
         get() {
             return ref.get()?.position()?.wrap() ?: throw IllegalStateException("Player is not available!")

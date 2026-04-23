@@ -1,8 +1,7 @@
-package com.wolfyscript.scafall.common.api.factories
+package com.wolfyscript.scafall.factories
 
-import com.wolfyscript.scafall.common.api.registries.ScafallRegistryKey
-import com.wolfyscript.scafall.common.api.registries.ScafallValueKey
-import com.wolfyscript.scafall.factories.RegistryFactory
+import com.wolfyscript.scafall.registry.ScafallRegistryKey
+import com.wolfyscript.scafall.registry.ScafallValueKey
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ValueKey
 import com.wolfyscript.scafall.registry.RegistryKey

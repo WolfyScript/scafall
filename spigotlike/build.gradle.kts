@@ -19,8 +19,6 @@ dependencies {
 
     paperweight.paperDevBundle(sharedLibs.versions.papermc.get())
     compileOnly(libs.bundles.spigot.external.plugins)
-
-    implementation(project(":common"))
 }
 
 fun archiveName(): String {
@@ -37,7 +35,6 @@ tasks {
             include(project(project.projects.core))
             include(project(project.projects.loaderApi))
             include(project(project.projects.spigot.spigotWrappers))
-            include(project(project.projects.common))
             include(dependency(sharedLibs.jackson.dataformat.hocon))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL

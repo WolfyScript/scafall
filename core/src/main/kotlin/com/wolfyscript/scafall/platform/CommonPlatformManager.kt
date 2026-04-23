@@ -1,15 +1,14 @@
-package com.wolfyscript.scafall.common.api.platform
+package com.wolfyscript.scafall.platform
 
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.loader.InnerJarClassloader
 import com.wolfyscript.scafall.loader.module.Module
-import com.wolfyscript.scafall.platform.PlatformManager
 
 abstract class CommonPlatformManager(val scafallClassLoader: ClassLoader) : PlatformManager {
 
-    val implementationModules: MutableMap<Key, Module<*,*>> = mutableMapOf()
+    val implementationModules: MutableMap<Key, Module<*, *>> = mutableMapOf()
 
-    override fun <T: Module<*,*>> registerImplementationModule(
+    override fun <T: Module<*, *>> registerImplementationModule(
         key: Key,
         moduleType: Class<T>,
         innerJarHost: ClassLoader,
@@ -18,14 +17,14 @@ abstract class CommonPlatformManager(val scafallClassLoader: ClassLoader) : Plat
     ) {
         val moduleClassLoader =
             InnerJarClassloader.create(scafallClassLoader, innerJarHost, pathToInnerJar)
-        val moduleClass = moduleClassLoader.loadClass(pathToModule).asSubclass<Module<*,*>>(Module::class.java)
+        val moduleClass = moduleClassLoader.loadClass(pathToModule).asSubclass<Module<*, *>>(Module::class.java)
         val module = moduleClass.getConstructor().newInstance()
         implementationModules[key] = module
         module.onInit()
         return
     }
 
-    override fun <T: Module<*,*>> registerModule(
+    override fun <T: Module<*, *>> registerModule(
         key: Key,
         supplier: () -> T,
     ): T {
@@ -35,7 +34,7 @@ abstract class CommonPlatformManager(val scafallClassLoader: ClassLoader) : Plat
         return module
     }
 
-    override fun <T: Module<*,*>> getImplementationModule(
+    override fun <T: Module<*, *>> getImplementationModule(
         key: Key,
         moduleType: Class<T>,
     ): T? {
@@ -47,5 +46,3 @@ abstract class CommonPlatformManager(val scafallClassLoader: ClassLoader) : Plat
     }
 
 }
-
-

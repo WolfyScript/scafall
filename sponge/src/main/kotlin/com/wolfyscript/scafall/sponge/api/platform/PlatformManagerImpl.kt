@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.sponge.api.platform
 
-import com.wolfyscript.scafall.common.api.platform.CommonPlatformManager
+import com.wolfyscript.scafall.platform.CommonPlatformManager
 import com.wolfyscript.scafall.platform.PlatformType
 import com.wolfyscript.scafall.sponge.api.ScafallSponge
 

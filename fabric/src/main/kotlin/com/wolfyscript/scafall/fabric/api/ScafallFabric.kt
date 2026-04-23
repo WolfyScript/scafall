@@ -1,10 +1,10 @@
 package com.wolfyscript.scafall.fabric.api
 
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.common.api.ScafallCommon
-import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
-import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
-import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
+import com.wolfyscript.scafall.ScafallCommon
+import com.wolfyscript.scafall.dependencies.MavenDependencyHandlerImpl
+import com.wolfyscript.scafall.dependencies.MavenRepositoryHandlerImpl
+import com.wolfyscript.scafall.registry.ScafallCommonRegistries
 import com.wolfyscript.scafall.fabric.api.factories.FabricFactoriesImpl
 import com.wolfyscript.scafall.fabric.api.platform.FabricPlatformManager
 import com.wolfyscript.scafall.fabric.api.wrappers.FabricModWrapper

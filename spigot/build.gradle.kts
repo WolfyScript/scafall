@@ -20,8 +20,6 @@ dependencies {
 
     paperweight.paperDevBundle(sharedLibs.versions.papermc.get())
     compileOnly(libs.bundles.spigot.external.plugins)
-
-    implementation(projects.common)
 }
 
 fun archiveName(): String {

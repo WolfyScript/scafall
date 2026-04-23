@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.fabric.api.platform
 
-import com.wolfyscript.scafall.common.api.platform.CommonPlatformManager
+import com.wolfyscript.scafall.platform.CommonPlatformManager
 import com.wolfyscript.scafall.fabric.api.ScafallFabric
 import com.wolfyscript.scafall.platform.PlatformType
 

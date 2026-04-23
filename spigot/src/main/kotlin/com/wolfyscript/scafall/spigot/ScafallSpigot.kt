@@ -1,9 +1,9 @@
 package com.wolfyscript.scafall.spigot
 
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.common.api.dependencies.MavenDependencyHandlerImpl
-import com.wolfyscript.scafall.common.api.dependencies.MavenRepositoryHandlerImpl
-import com.wolfyscript.scafall.common.api.registries.ScafallCommonRegistries
+import com.wolfyscript.scafall.dependencies.MavenDependencyHandlerImpl
+import com.wolfyscript.scafall.dependencies.MavenRepositoryHandlerImpl
+import com.wolfyscript.scafall.registry.ScafallCommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.scheduling.SimpleScheduler

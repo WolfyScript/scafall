@@ -5,6 +5,11 @@ import com.wolfyscript.scafall.wrappers.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.world.entity.ScafallPlayerCommon
 import net.minecraft.world.entity.player.Player
 
+/**
+ * Wraps this [net.minecraft.server.level.ServerPlayer] or [net.minecraft.client.player.AbstractClientPlayer].
+ *
+ * The specific type is lost and should be checked after unwrapping!
+ */
 fun Player.wrap(): ScafallPlayer = ScafallPlayerCommon(this)
 
 /**

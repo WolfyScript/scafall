@@ -17,21 +17,37 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
 
+/**
+ * Wraps this [GlobalPos] in a [ScafallGlobalBlockPos] that holds a reference to the dimension and position.
+ */
 fun GlobalPos.wrap(): ScafallGlobalBlockPos {
     val dimension = dimension().identifier()
     return ScafallGlobalBlockPosCommon(Key.key(dimension.namespace, dimension.path), pos.wrap())
 }
 
+/**
+ * Wraps this [BlockPos] in a [ScafallBlockPos]
+ */
 fun BlockPos.wrap(): ScafallBlockPos = ScafallBlockPosCommon(this)
 
+/**
+ * Wraps this [BlockPos] and a specified [dimension] in a [ScafallGlobalBlockPos]
+ */
 fun BlockPos.wrap(dimension: Key): ScafallGlobalBlockPos = ScafallGlobalBlockPosCommon(dimension, this.wrap())
 
+/**
+ * Wraps this [Vec3] in a [ScafallPrecisePos]
+ */
 fun Vec3.wrap() = ScafallPrecisePosCommon(this)
 
+/**
+ * Wraps this [Vec3] and a specified [dimension] in a [ScafallGlobalPrecisePos]
+ */
 fun Vec3.wrap(dimension: Key) = ScafallGlobalPrecisePosCommon(dimension, this.wrap())
 
-// unwrap
-
+/**
+ * Unwraps this to the Minecraft [GlobalPos]
+ */
 fun ScafallGlobalBlockPos.unwrap(): GlobalPos {
     return GlobalPos.of(
         ResourceKey.create(
@@ -44,6 +60,11 @@ fun ScafallGlobalBlockPos.unwrap(): GlobalPos {
     )
 }
 
+/**
+ * Unwraps this to a [Vec3] and dimension [ResourceKey].
+ *
+ * There is no exact representation for this in Minecraft, so it is split and returned as a [Pair]
+ */
 fun ScafallGlobalPrecisePos.unwrap(): Pair<Vec3, ResourceKey<Level>> {
     return Pair(
         pos.unwrap(), ResourceKey.create(
@@ -56,6 +77,12 @@ fun ScafallGlobalPrecisePos.unwrap(): Pair<Vec3, ResourceKey<Level>> {
     )
 }
 
+/**
+ * Unwraps this to the Minecraft [BlockPos]
+ */
 fun ScafallBlockPos.unwrap(): BlockPos = BlockPos(x, y, z)
 
+/**
+ * Unwraps this precise position to a Minecraft [Vec3]
+ */
 fun ScafallPrecisePos.unwrap(): Vec3 = Vec3(x, y, z)

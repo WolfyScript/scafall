@@ -1,13 +1,11 @@
 package com.wolfyscript.scafall.wrappers.minecraft
 
-import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLikeCommon
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshotCommon
 import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStackCommon
-
 
 /**
  * Wraps this Minecraft ItemStack in a scafall [ScafallItemStack].

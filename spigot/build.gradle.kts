@@ -8,6 +8,7 @@ plugins {
     id("scafall.docker.run")
     alias(sharedLibs.plugins.shadow)
     alias(sharedLibs.plugins.resource.factory.bukkit)
+    alias(sharedLibs.plugins.modrinth.minotaur)
 }
 
 dependencies {
@@ -115,4 +116,15 @@ minecraftServers {
             ports.add("25565:25565")
         }
     }
+}
+
+modrinth {
+    token.set(System.getenv("MODRINTH_TOKEN"))
+    projectId.set("scafall")
+    versionNumber.set(project.version.toString())
+    versionType.set("alpha")
+    uploadFile.set(tasks.shadowJar)
+    gameVersions.set(listOf(sharedLibs.versions.minecraft.get()))
+    loaders.set(listOf("spigot"))
+    changelog.set(System.getenv("CHANGELOG") ?: "")
 }

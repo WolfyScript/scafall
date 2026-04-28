@@ -4,6 +4,10 @@ import com.google.common.base.Preconditions
 import net.minecraft.resources.Identifier
 import org.intellij.lang.annotations.RegExp
 
+/**
+ * Represents a namespaced key used for identifying resources in the system.
+ * Keys consist of a namespace and a value, separated by a colon.
+ */
 interface Key : Namespaced {
 
     companion object {

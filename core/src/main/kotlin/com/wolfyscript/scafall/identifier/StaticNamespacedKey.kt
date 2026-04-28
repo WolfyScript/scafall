@@ -1,5 +1,14 @@
 package com.wolfyscript.scafall.identifier
 
+/**
+ * Annotation class for creating static namespaced keys used for the annotated type.
+ *
+ * This annotation allows defining a key either by providing a complete key string [value],
+ * or by specifying a [namespace] and [key] separately.
+ *
+ * The [KeyBuilder] inner object provides utility methods for constructing key strings
+ * based on the annotation's properties.
+ */
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS)
 annotation class StaticNamespacedKey(

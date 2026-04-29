@@ -1,8 +1,6 @@
-package com.wolfyscript.scafall.dependencies
+package com.wolfyscript.scafall.maven
 
 import com.wolfyscript.scafall.ModWrapper
-import com.wolfyscript.scafall.maven.MavenRepository
-import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import java.util.Collections.unmodifiableSet
 
 class MavenRepositoryHandlerImpl() : MavenRepositoryHandler {

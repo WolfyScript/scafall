@@ -1,6 +1,4 @@
-package com.wolfyscript.scafall.dependencies
-
-import com.wolfyscript.scafall.maven.MavenDependency
+package com.wolfyscript.scafall.maven
 
 class MavenDependencyImpl(
     override val group: String,

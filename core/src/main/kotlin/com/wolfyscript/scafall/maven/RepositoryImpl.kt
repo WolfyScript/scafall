@@ -1,7 +1,5 @@
-package com.wolfyscript.scafall.dependencies
+package com.wolfyscript.scafall.maven
 
-import com.wolfyscript.scafall.maven.MavenDependency
-import com.wolfyscript.scafall.maven.MavenRepository
 import java.io.OutputStream
 import java.net.URL
 import java.net.URLConnection

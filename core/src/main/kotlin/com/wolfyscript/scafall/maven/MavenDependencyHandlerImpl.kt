@@ -1,8 +1,6 @@
-package com.wolfyscript.scafall.dependencies
+package com.wolfyscript.scafall.maven
 
 import com.wolfyscript.scafall.Scafall
-import com.wolfyscript.scafall.maven.MavenDependency
-import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import java.nio.file.Path
 import kotlin.io.path.exists
 

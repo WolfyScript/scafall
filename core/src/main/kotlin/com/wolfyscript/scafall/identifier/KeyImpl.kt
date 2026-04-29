@@ -8,7 +8,7 @@ import com.wolfyscript.scafall.identifier.Key.Companion.NAMESPACE_REGEX
 import net.minecraft.resources.Identifier
 import java.util.regex.Pattern
 
-class KeyImpl @JsonCreator(mode = JsonCreator.Mode.DISABLED) internal constructor(override val namespace: String, override val value: String) : Key {
+internal class KeyImpl @JsonCreator(mode = JsonCreator.Mode.DISABLED) internal constructor(override val namespace: String, override val value: String) : Key {
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     internal constructor(key: String) : this(key.substringBefore(':', Key.SCAFFOLDING_NAMESPACE), key.substringAfter(':'))

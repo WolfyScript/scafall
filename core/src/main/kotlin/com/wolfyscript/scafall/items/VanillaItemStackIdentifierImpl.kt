@@ -6,7 +6,7 @@ import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import com.wolfyscript.scafall.wrappers.minecraft.wrap
 import net.minecraft.world.item.ItemStack
 
-class VanillaItemStackIdentifierImpl : VanillaItemStackIdentifier {
+internal class VanillaItemStackIdentifierImpl : VanillaItemStackIdentifier {
 
     override val stack: ScafallItemStack
 

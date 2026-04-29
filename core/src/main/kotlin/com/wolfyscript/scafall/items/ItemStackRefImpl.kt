@@ -8,7 +8,7 @@ import com.wolfyscript.scafall.wrappers.minecraft.wrap
 /**
  * Constructs a new instance of a [ItemStackRef].
  */
-class ItemStackRefImpl constructor(
+internal class ItemStackRefImpl(
     override val amount: Int = 1,
     override val identifier: ItemStackIdentifier,
 ) : ItemStackRef {

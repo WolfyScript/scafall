@@ -8,6 +8,9 @@ import com.wolfyscript.scafall.items.ItemStackIdentifier
 import com.wolfyscript.scafall.nbt.NBTTagConfig
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
 
+/**
+ * A central registry for defining and accessing various registry types used within the Scafall framework.
+ */
 object ScafallRegistryTypes {
 
     val root = Key.scafall("root")

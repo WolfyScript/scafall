@@ -4,6 +4,11 @@ import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.loader.InnerJarClassloader
 import com.wolfyscript.scafall.loader.module.Module
 
+/**
+ * Abstract base class for managing common platform-specific module registration and retrieval.
+ *
+ * @property scafallClassLoader The ClassLoader used for loading classes from inner JARs during module registration.
+ */
 abstract class CommonPlatformManager(val scafallClassLoader: ClassLoader) : PlatformManager {
 
     val implementationModules: MutableMap<Key, Module<*, *>> = mutableMapOf()

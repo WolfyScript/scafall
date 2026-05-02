@@ -3,11 +3,13 @@ package com.wolfyscript.scafall.registry
 import com.wolfyscript.scafall.identifier.Key
 
 /**
- * A registry to register objects under specified namespaced keys.
- * This allows for easier management of custom content etc.
+ * An interface for managing and accessing registered values.
  *
- * @param <V>
-</V> */
+ * The [Registry] provides methods to interact with registered values using a [Namespaced][com.wolfyscript.scafall.identifier.Namespaced] [Key] system.
+ * It allows registering values, retrieving values by their keys, and obtaining sets of keys and values.
+ *
+ * @param V The type of value stored in the registry.
+ */
 interface Registry<V> : Iterable<V> {
     /**
      * Get the value of the registry by its [NamespacedKey]

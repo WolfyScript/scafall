@@ -8,17 +8,32 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * An asynchronous task that runs in the background without blocking the main thread.
+ *
+ * This task executes a suspendable function in the background and can be configured
+ * with timers and delays. It runs independently of the main thread and supports
+ * coroutine cancellation.
+ *
+ * @param parentCoroutineContext The coroutine context from which this task inherits
+ * @property id A unique identifier for this task
+ * @property fn The suspendable function to execute
+ * @property timer The timer configuration for task execution scheduling
+ * @property delay The initial delay before task execution begins
+ * @property mod The mod wrapper associated with this task
+ */
 internal class AsyncTask(
     parentCoroutineContext: CoroutineContext,
     override val id: UUID = UUID.randomUUID(),
     val fn: suspend () -> Unit,
     override val timer: Timer = Timer.Once,
     override val delay: Delay = Delay.Instant,
-    val mod: ModWrapper,
+    override val mod: ModWrapper,
 ) : ScafallTask, CoroutineScope {
 
     override var nextRunTicks: Long = 0
     internal val taskJob = Job(parentCoroutineContext[Job])
+
     override val coroutineContext: CoroutineContext = parentCoroutineContext + taskJob
 
     override val sync: Boolean = false
@@ -37,7 +52,5 @@ internal class AsyncTask(
     override fun cancel() {
         taskJob.cancel()
     }
-
-    override fun plugin(): ModWrapper = mod
 
 }

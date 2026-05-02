@@ -8,7 +8,10 @@ interface Delay {
     companion object {
 
         /**
-         * Delays the task by the given amount of ticks
+         * Creates a delay amount that represents a specific number of ticks.
+         *
+         * @param ticks The number of ticks to delay execution
+         * @return A delay amount representing the specified tick count
          */
         fun amount(ticks: Int) : Amount {
             return DelayAmount(ticks)
@@ -19,7 +22,8 @@ interface Delay {
     val ticks: Int
 
     /**
-     * Runs a task on the next possible tick without further delay.
+     * Represents an instant delay value that indicates no delay should be applied,
+     * effectively executing the task immediately upon scheduling.
      */
     object Instant : Delay {
         override val ticks: Int = 0

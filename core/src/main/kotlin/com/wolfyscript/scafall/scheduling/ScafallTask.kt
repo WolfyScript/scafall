@@ -1,20 +1,14 @@
 package com.wolfyscript.scafall.scheduling
 
-import java.util.UUID
-
+/**
+ * An internal extension of the [Task] interface, specifically designed for tasks managed by Scafall's scheduling system.
+ *
+ * This interface introduces [nextRunTicks], a property that tracks when the task should execute next based on tick counts,
+ * and defines a contract for executing the task via the [run] function.
+ */
 internal interface ScafallTask : Task {
 
-    val timer: Timer
-
-    val delay: Delay
-
-    val id: UUID
-
-    val sync: Boolean
-
     var nextRunTicks: Long
-
-    val isCompleted: Boolean
 
     fun run()
 

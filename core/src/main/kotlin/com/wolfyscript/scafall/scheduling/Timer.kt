@@ -1,5 +1,9 @@
 package com.wolfyscript.scafall.scheduling
 
+/**
+ * Represents a timer that controls the execution schedule of tasks within the scheduling system.
+ * Timers define when and how often a task should run, supporting both finite and infinite execution patterns.
+ */
 sealed interface Timer {
 
     companion object {
@@ -29,21 +33,34 @@ sealed interface Timer {
      */
     val completed: Boolean
 
+    /**
+     * The tick when the next execution of the task should occur. This is used to queue the task for execution at a later time.
+     */
     val nextRunTick: Int
 
     /**
-     * Initiates the timer at the specified tick count
+     * Starts the timer with the specified tick count.
+     *
+     * @param tickCount The tick count to start the timer with. This is usually the current tick count of the server.
      */
     fun start(tickCount: Int)
 
     /**
-     * Updates the timer at the current tick
+     * Updates the timer state based on the current tick count.
+     *
+     * This method is responsible for managing the timing logic of a task,
+     * including checking if the task should run and updating internal
+     * state such as next execution time and completion status.
+     *
+     * @param currentTick The current tick count
      */
     fun update(currentTick: Int)
 
 
     /**
-     * Runs a task only once
+     * A [Timer] that executes a task exactly once.
+     *
+     * The timer starts at a specified tick count and immediately completes.
      */
     object Once : Timer {
         override var nextRunTick: Int = 0
@@ -58,21 +75,35 @@ sealed interface Timer {
     }
 
     /**
-     * Runs a task only the specified [amount] of times with the specified [interval]
+     * A [Timer] that executes a task a specified number of times.
+     *
+     * This timer executes a task at regular intervals defined by the [interval] property.
      */
     interface Amount : Timer {
 
+        /**
+         * The number of times the task should be executed. The timer will complete after this many executions.
+         */
         val amount: Int
 
+        /**
+         * The time delay between consecutive task executions in ticks.
+         */
         val interval: Int
 
     }
 
     /**
-     * Runs a task forever (until the server stops) in the specified [interval]
+     * A [Timer] that executes a task that runs forever until the server stops.
+     *
+     * This timer executes a task at regular intervals defined by the [interval] property.
+     * The execution continues indefinitely without completing.
      */
     interface Forever : Timer {
 
+        /**
+         * The time delay between consecutive task executions in ticks.
+         */
         val interval: Int
 
     }

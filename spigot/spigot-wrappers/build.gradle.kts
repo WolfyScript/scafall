@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":core"))
+    api(projects.core)
     api(sharedLibs.item.nbt.api)
     api(sharedLibs.adventure.platform.bukkit)
     paperweight.paperDevBundle(sharedLibs.versions.papermc.get())

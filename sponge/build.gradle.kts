@@ -20,21 +20,6 @@ dependencies {
     compileOnly(libs.spongepowered.impl)
 }
 
-//tasks {
-//    shadowJar {
-//        archiveFileName = "scafall-sponge.innerjar"
-//
-//        dependencies {
-//            include(dependency("com.wolfyscript.scafall:.*"))
-//            include(project(":common"))
-//        }
-//    }
-//}
-//
-//artifacts {
-//    archives(tasks.shadowJar)
-//}
-
 minecraft {
     version("1.21.5") // or: latestRelease() or latestSnapshot()
 }

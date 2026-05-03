@@ -71,7 +71,6 @@ sequenceOf(
 val samplesDir: String = "samples"
 
 fun samplePlugin(root: String, vararg modules: String) {
-    println("Samples dir: $samplesDir")
     include(":$samplesDir:$root")
     project(":$samplesDir:$root").projectDir = file("$samplesDir/$root")
 

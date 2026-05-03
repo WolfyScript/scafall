@@ -20,9 +20,15 @@ Scafall uses Minecraft as the ground truth, so proxies always wrap the native Mi
 When wrapping other platform types, those are first converted into the native MC types.  
 (they are usually wrappers themselves, in which case it just uses that wrapped value)
 
-## Still in WIP (Alpha)
-While I consider the basics to be done, this project is very much still in early alpha.   
-So the **API may receive breaking changes at anytime without notice!**
+#### Limitations & Memory Concerns
+The same limitation applies to wrappers as they do to native types. That means one should never
+attempt to store a wrapper in a list or map or anything else, as that would lead to memory leaks.
+They are intended to be used only as parameters or return values to/from API calls.
+
+## Work in Progress 
+This is still a work-in-progress project, so don't expect anything to work seamlessly.
+There is no guarantee of API compatibility yet, but it will be provided eventually.
+The current API is still unstable and **likely to change at anytime without notice!**
 
 ## Additional Modules/Libraries
 The goal of this project is to really just provide the basic scaffolding and assist in the development process.  

@@ -1,18 +1,8 @@
 package com.wolfyscript.scafall.adventure
 
-import com.wolfyscript.scafall.ScafallProvider
 import net.kyori.adventure.audience.Audience
-import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.ComponentBuilder
-import net.kyori.adventure.text.ComponentLike
-import net.kyori.adventure.text.TextComponent
-import net.kyori.adventure.text.format.Style
-import net.kyori.adventure.text.format.TextColor
-import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.minimessage.MiniMessage
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
-import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import java.util.*
 
 /**
@@ -23,96 +13,39 @@ import java.util.*
  */
 interface AdventureUtil {
 
-    fun player(uuid: UUID) : Audience
+    /**
+     * Get an audience for a specific player by UUID.
+     *
+     * @param uuid The unique identifier of the player
+     * @return An Audience representing the player
+     */
+    fun player(uuid: UUID): Audience
 
-    fun all() : Audience
+    /**
+     * Get an audience for all players on the server.
+     *
+     * @return An Audience representing all players
+     */
+    fun all(): Audience
 
-    fun system() : Audience
+    /**
+     * Get an audience for system messages.
+     *
+     * @return An Audience representing system messages
+     */
+    fun system(): Audience
+
+    /**
+     * Converts an Adventure Component to a Minecraft Chat Component.
+     *
+     * This method uses the platform-specific implementation to convert between Adventure and Minecraft's native component types.
+     *
+     * @param component The Adventure Component to convert
+     * @return The corresponding Minecraft Chat Component
+     */
+    fun toVanilla(component: Component): net.minecraft.network.chat.Component
 
     val miniMsg: MiniMessage
         get() = MiniMessage.miniMessage()
 
-    fun toVanilla(component: Component): net.minecraft.network.chat.Component
-
 }
-
-/* ****************************************** *
- *  Util extension functions for MiniMessage  *
- * ****************************************** */
-
-fun String.deser(tagResolver: TagResolver = TagResolver.empty(), miniMsg: MiniMessage = MiniMessage.miniMessage()) = miniMsg.deserialize(this, tagResolver)
-
-fun String.deser(vararg tagResolver: TagResolver = emptyArray(), miniMsg: MiniMessage = MiniMessage.miniMessage()) = miniMsg.deserialize(this, *tagResolver)
-
-fun String.deser(vararg tagResolver: TagResolver = emptyArray()) = MiniMessage.miniMessage().deserialize(this, *tagResolver)
-
-/* ******************************************************************** *
- *  Cross-platform util for conversion between Adventure and Minecraft  *
- * ******************************************************************** */
-
-/**
- * Converts this adventure Component to a Minecraft Chat Component using the best platform specific conversion.
- */
-fun Component.vanilla(): net.minecraft.network.chat.Component {
-    val scafall = ScafallProvider.get()
-    if (scafall.server != null) {
-        return scafall.server!!.adventure.toVanilla(this)
-    }
-    TODO("Client adventure not supported yet")
-}
-
-/* ************************************************************** *
- *  Util extension functions for creating simple text components  *
- * ************************************************************** */
-
-fun Char.text(style: Style = Style.empty()) : TextComponent = Component.text(this, style)
-
-fun Char.text(textColor: TextColor? = null, vararg decorations: TextDecoration = emptyArray()) : TextComponent = Component.text(this, textColor, *decorations)
-
-fun String.text(style: Style = Style.empty()) : TextComponent = Component.text(this, style)
-
-fun String.text(textColor: TextColor? = null, vararg decorations: TextDecoration = emptyArray()) : TextComponent = Component.text(this, textColor, *decorations)
-
-fun Boolean.text(style: Style = Style.empty()) : TextComponent = Component.text(this, style)
-
-fun Boolean.text(textColor: TextColor? = null, vararg decorations: TextDecoration = emptyArray()) : TextComponent = Component.text(this, textColor, *decorations)
-
-fun Float.text(style: Style = Style.empty()) : TextComponent = Component.text(this, style)
-
-fun Float.text(textColor: TextColor? = null, vararg decorations: TextDecoration = emptyArray()) : TextComponent = Component.text(this, textColor, *decorations)
-
-fun Double.text(style: Style = Style.empty()) : TextComponent = Component.text(this, style)
-
-fun Double.text(textColor: TextColor? = null, vararg decorations: TextDecoration = emptyArray()) : TextComponent = Component.text(this, textColor, *decorations)
-
-fun Int.text(style: Style = Style.empty()) : TextComponent = Component.text(this, style)
-
-fun Int.text(textColor: TextColor? = null, vararg decorations: TextDecoration = emptyArray()) : TextComponent = Component.text(this, textColor, *decorations)
-
-fun Long.text(style: Style = Style.empty()) : TextComponent = Component.text(this, style)
-
-fun Long.text(textColor: TextColor? = null, vararg decorations: TextDecoration = emptyArray()) : TextComponent = Component.text(this, textColor, *decorations)
-
-operator fun Component.plus(component: Component) : Component {
-    return this.append(component)
-}
-
-operator fun Component.plus(component: ComponentLike) : Component {
-    return this.append(component)
-}
-
-operator fun Component.plus(component: ComponentBuilder<*, *>) : Component {
-    return this.append(component)
-}
-
-/* ********************************************************************** *
- *  Util extension functions for creating placeholders and tag resolvers  *
- * ********************************************************************** */
-
-fun String.parsed(value: String) : TagResolver.Single = Placeholder.parsed(this, value)
-
-fun String.parsed(value: Any) : TagResolver.Single = Placeholder.parsed(this, value.toString())
-
-fun String.unparsed(value: String) : TagResolver.Single = Placeholder.unparsed(this, value)
-
-fun String.component(value: Component) : TagResolver.Single = Placeholder.component(this, value)

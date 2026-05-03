@@ -14,6 +14,28 @@ import java.lang.reflect.InvocationTargetException
 import kotlin.reflect.KClass
 import kotlin.reflect.full.primaryConstructor
 
+/**
+ * Annotation used to define a custom serializer for optional values in Jackson serialization.
+ *
+ * This annotation allows specifying a [ValueSerializer] to handle serialization of optional
+ * values, with the option to delegate to the default serializer when the custom serializer
+ * indicates it doesn't handle the value.
+ *
+ * The primary use case for this annotation is to handle configuration values that may be
+ * represented differently during serialization. It allows for flexible serialization where
+ * a custom serializer can handle special cases, while falling back to the default serializer
+ * for standard cases.
+ *
+ * For example, configuration values might be represented as:
+ * - Simple values (e.g., "value")
+ * - Objects with specific structure (e.g., {"value": "something"})
+ * - Null values
+ *
+ * The annotation can be used on classes that represent configuration models, where some fields
+ * might require special handling or formatting during serialization.
+ *
+ * @property serializer The [KClass] of the [ValueSerializer] to use for serializing optional values.
+ */
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS)
 annotation class OptionalValueSerializer(val serializer: KClass<out ValueSerializer<*>>) {
@@ -44,6 +66,18 @@ annotation class OptionalValueSerializer(val serializer: KClass<out ValueSeriali
             return serializer
         }
 
+        /**
+         * Custom serializer that handles optional values with a specified [ValueSerializer].
+         *
+         * This inner class wraps the default serializer and delegates to a custom [ValueSerializer]
+         * when needed. It only delegates to the default serializer when the custom serializer
+         * indicates it doesn't handle the value.
+         *
+         * This serializer is particularly useful for handling configuration values that may be
+         * represented in multiple formats or require special formatting during serialization.
+         *
+         * @param <T> The type of the serialized object.
+         */
         private class Serializer<T : Namespaced?>(
             reference: OptionalValueSerializer,
             private val defaultSerializer: JsonSerializer<T>

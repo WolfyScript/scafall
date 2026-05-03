@@ -11,6 +11,10 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.CoroutineContext
 
 /**
+ * A simple scheduler implementation that handles both synchronous and asynchronous tasks.
+ *
+ * This scheduler manages task execution with support for delayed execution and periodic scheduling.
+ * It maintains separate queues for pending tasks and currently running tasks.
  */
 class SimpleScheduler : Scheduler, CoroutineScope {
 
@@ -29,6 +33,11 @@ class SimpleScheduler : Scheduler, CoroutineScope {
     private val runningTasks = HashMap<UUID, ScafallTask>()
     private val queuedTasks = ConcurrentHashMap<UUID, ScafallTask>()
 
+    /**
+     * Executes a tick of the scheduler, processing tasks that are due to run.
+     *
+     * @param tickCount The current tick count to process tasks against
+     */
     fun tick(tickCount: Int) {
         this.tickCount = tickCount
 
@@ -87,6 +96,11 @@ class SimpleScheduler : Scheduler, CoroutineScope {
         return task
     }
 
+    /**
+     * Adds a task to the queue for scheduling.
+     *
+     * @param task The task to schedule
+     */
     internal fun schedule(task: ScafallTask) {
         queuedTasks[task.id] = task
     }

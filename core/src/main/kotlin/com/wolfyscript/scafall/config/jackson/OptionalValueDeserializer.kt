@@ -11,6 +11,28 @@ import java.lang.reflect.InvocationTargetException
 import kotlin.reflect.KClass
 import kotlin.reflect.full.primaryConstructor
 
+/**
+ * Annotation used to define a custom deserializer for optional values in Jackson deserialization.
+ *
+ * This annotation allows specifying a [ValueDeserializer] to handle deserialization of optional
+ * values, with an option to always delegate to the [deserializer].
+ *
+ * The primary use case for this annotation is to handle configuration values that may be present
+ * in different formats or may not be present at all. It allows for flexible deserialization
+ * where a custom deserializer can handle special cases while falling back to the default
+ * deserializer for standard cases.
+ *
+ * For example, configuration values might be represented as:
+ * - Simple values (e.g., "value")
+ * - Objects with specific structure (e.g., {"value": "something"})
+ * - Null values
+ *
+ * The annotation can be used on classes that represent configuration models, where some fields
+ * might require special handling or validation during deserialization.
+ *
+ * @property deserializer The [KClass] of the [ValueDeserializer] to use for deserializing optional values.
+ * @property delegateObjectDeserializer Whether to also delegate to the [deserializer] when the deserialized value is an object.
+ */
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS)
 annotation class OptionalValueDeserializer(
@@ -44,6 +66,17 @@ annotation class OptionalValueDeserializer(
             return deserializer
         }
 
+        /**
+         * Custom deserializer that handles optional values with a specified [ValueDeserializer].
+         *
+         * This inner class wraps the default deserializer and delegates to a custom [ValueDeserializer]
+         * when needed. It can also delegate when the default object deserializer would have been used.
+         *
+         * This deserializer is particularly useful for handling configuration values that may be
+         * represented in multiple formats, such as simple values or complex object structures.
+         *
+         * @param <T> The type of the deserialized object.
+         */
         private class Deserializer<T : Any>(reference: OptionalValueDeserializer, defaultSerializer: JsonDeserializer<T>) :
             StdDeserializer<T>(defaultSerializer.handledType()), ResolvableDeserializer {
             private var deserializer: ValueDeserializer<T>? = null

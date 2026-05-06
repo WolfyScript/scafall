@@ -39,28 +39,45 @@ class SimpleScheduler : Scheduler, CoroutineScope {
      * @param tickCount The current tick count to process tasks against
      */
     fun tick(tickCount: Int) {
-        this.tickCount = tickCount
+        synchronized(runningTasks) {
+            this.tickCount = tickCount
 
-        // New queued tasks from previous tick not yet in the pending priority queue
-        for (task in queuedTasks.values) {
-            task.timer.start(tickCount + task.delay.ticks)
-            pending.add(task)
-        }
-        queuedTasks.clear()
+            // New queued tasks from previous tick not yet in the pending priority queue
+            for (task in queuedTasks.values) {
+                task.timer.start(tickCount + task.delay.ticks)
+                pending.add(task)
+            }
+            queuedTasks.clear()
 
-        // Run the tasks that are scheduled for this tick (or previous ticks in case ticks were skipped)
-        while (pending.isNotEmpty() && pending.first().timer.nextRunTick <= tickCount) {
-            val task = pending.remove()
-            runningTasks[task.id] = task
-            task.run()
+            val continueTasks = mutableListOf<ScafallTask>()
+            // Run the tasks that are scheduled for this tick (or previous ticks in case ticks were skipped)
+            while (pending.isNotEmpty() && pending.first().timer.nextRunTick <= tickCount) {
+                val task = pending.remove()
+                if (isTaskCompleted(task)) { continue }
 
-            if (task.timer.completed) {
-                runningTasks.remove(task.id)
-            } else {
+                runningTasks[task.id] = task
+                task.run()
                 task.timer.update(tickCount)
+
+                if (!isTaskCompleted(task)) {
+                    continueTasks.add(task)
+                }
+            }
+
+            // Tasks that were not completed and need to be readded to the pending queue for the next tick
+            for (task in continueTasks) {
                 pending.add(task)
             }
         }
+    }
+
+    private fun isTaskCompleted(task: ScafallTask): Boolean {
+        if (task.timer.completed) {
+            pending.remove(task)
+            runningTasks.remove(task.id)
+            return true
+        }
+        return false
     }
 
     override fun async(

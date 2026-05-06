@@ -64,13 +64,15 @@ sealed interface Timer {
      */
     object Once : Timer {
         override var nextRunTick: Int = 0
-        override var completed: Boolean = true
+        override var completed: Boolean = false
 
         override fun start(tickCount: Int) {
             nextRunTick = tickCount
         }
 
-        override fun update(currentTick: Int) {}
+        override fun update(currentTick: Int) {
+            completed = true
+        }
 
     }
 

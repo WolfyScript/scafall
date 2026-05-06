@@ -96,6 +96,22 @@ class SimpleScheduler : Scheduler, CoroutineScope {
         return task
     }
 
+    override fun cancelAll(plugin: ModWrapper) {
+        synchronized(runningTasks) {
+            runningTasks.values.filter {
+                it.mod == plugin
+            }.forEach {
+                it.cancel()
+            }
+        }
+        val iterator = queuedTasks.values.iterator()
+        while (iterator.hasNext()) {
+            if (iterator.next().mod == plugin) {
+                iterator.remove()
+            }
+        }
+    }
+
     /**
      * Adds a task to the queue for scheduling.
      *

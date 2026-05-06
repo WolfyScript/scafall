@@ -32,5 +32,15 @@ interface Scheduler {
      * @return A Task instance representing the scheduled task that can be cancelled
      */
     fun sync(plugin: ModWrapper, delay: Delay = Delay.Instant, timer: Timer = Timer.Once, task: () -> Unit): Task
+
+    /**
+     * Cancels all asynchronous and synchronous tasks that are associated with the given [ModWrapper].
+     *
+     * This method provides a way to stop all tasks that were scheduled for a specific mod. This is useful
+     * in scenarios where the mod is unloaded or needs to be cleaned up.
+     *
+     * @param plugin The mod wrapper to which to cancel all tasks.
+     */
+    fun cancelAll(plugin: ModWrapper)
     
 }

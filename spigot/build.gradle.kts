@@ -27,30 +27,19 @@ fun archiveName(): String {
     return "${rootProject.name}-${project.version}-${project.name}-${sharedLibs.versions.minecraft.get()}"
 }
 
-paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.REOBF_PRODUCTION
-
 tasks {
     shadowJar {
-        archiveFileName.set("${archiveName()}-mojmap.jar")
-
-        finalizedBy(reobfJar)
+        archiveFileName.set("${archiveName()}.jar")
 
         dependencies {
             include(project(project.projects.spigotlike))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
     }
-    assemble {
-        dependsOn(reobfJar)
-    }
-    reobfJar {
-        finalizedBy(jar)
-        outputJar.set(layout.buildDirectory.file("libs/${archiveName()}.jar"))
-    }
 }
 
 artifacts {
-    archives(tasks.reobfJar)
+    archives(tasks.shadowJar)
 }
 
 bukkitPluginYaml {

@@ -24,8 +24,6 @@ dependencies {
     compileOnly(libs.bundles.spigot.external.plugins)
 }
 
-paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
-
 fun archiveName(): String {
     return "${rootProject.name}-${project.version}-${project.name}-${sharedLibs.versions.minecraft.get()}"
 }
@@ -35,16 +33,11 @@ tasks {
         archiveFileName.set("${archiveName()}-mojmap.jar")
         dependencies {
             include(project(project.projects.spigotlike))
-//            include(dependency(libs.jackson.core))
-//            include(dependency(libs.jackson.databind))
-//            include(dependency(libs.jackson.annotations))
-//            include(dependency(libs.jackson.kotlin))
         }
         manifest {
             attributes["paperweight-mappings-namespace"] = "mojang"
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
-//        relocate("com.fasterxml.jackson", "com.wolfyscript.scafall.lib.jackson")
     }
     assemble {
         dependsOn(shadowJar)

@@ -11,7 +11,7 @@ dependencyResolutionManagement {
             from(files("../gradle/libs.versions.toml"))
         }
         create("sharedLibs") {
-            from("com.wolfyscript.scafall:scafall-versions:1.0-SNAPSHOT")
+            from("com.wolfyscript.scafall:scafall-versions:1.2.1")
         }
     }
 }

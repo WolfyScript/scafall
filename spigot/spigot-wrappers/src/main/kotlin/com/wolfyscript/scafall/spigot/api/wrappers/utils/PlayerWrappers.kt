@@ -1,13 +1,12 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
+import com.wolfyscript.scafall.wrappers.minecraft.unwrap
 import com.wolfyscript.scafall.wrappers.world.entity.ScafallPlayer
 import com.wolfyscript.scafall.wrappers.world.entity.ScafallServerPlayer
 import com.wolfyscript.scafall.wrappers.minecraft.wrap
-import com.wolfyscript.scafall.wrappers.world.entity.ScafallServerPlayerImpl
 import org.bukkit.Bukkit
 import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.entity.Player
-
 
 /**
  * Wraps this [Player] in a scafall wrapper.
@@ -32,5 +31,5 @@ fun ScafallPlayer.unwrapSpigot(): Player? {
  * Unwraps the [ScafallServerPlayer] to a Spigot/Bukkit [Player].
  */
 fun ScafallServerPlayer.unwrapSpigot(): Player {
-    return (this as ScafallServerPlayerImpl).serverPlayer.bukkitEntity
+    return this.unwrap().bukkitEntity
 }

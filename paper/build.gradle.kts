@@ -30,12 +30,9 @@ fun archiveName(): String {
 
 tasks {
     shadowJar {
-        archiveFileName.set("${archiveName()}-mojmap.jar")
+        archiveFileName.set("${archiveName()}.jar")
         dependencies {
             include(project(project.projects.spigotlike))
-        }
-        manifest {
-            attributes["paperweight-mappings-namespace"] = "mojang"
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
     }
@@ -98,7 +95,7 @@ bukkitPluginYaml {
 }
 
 minecraftServers {
-    libName.set("${archiveName()}-mojmap.jar") // Makes sure to copy the correct file
+    libName.set("${archiveName()}.jar") // Makes sure to copy the correct file
     servers {
         // Paper test servers
         register("paper") {

@@ -12,4 +12,18 @@ interface ItemStackSnapshot : ItemStackLike {
       */
      fun createStack(): ScafallItemStack
 
+     companion object {
+
+          /**
+           * Wraps a [net.minecraft.world.item.ItemStack] into an immutable [ItemStackSnapshot].
+           *
+           * @param stack The ItemStack to wrap
+           * @return An immutable ItemStackSnapshot
+           */
+          fun wrap(stack: net.minecraft.world.item.ItemStack): ItemStackSnapshot {
+               return ItemStackSnapshotImpl.wrap(stack)
+          }
+
+     }
+
 }

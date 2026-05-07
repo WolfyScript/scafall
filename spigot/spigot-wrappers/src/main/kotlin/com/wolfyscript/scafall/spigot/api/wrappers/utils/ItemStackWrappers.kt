@@ -1,14 +1,12 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
 import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.spigot.api.wrappers.utils.wrap
 import com.wolfyscript.scafall.wrappers.minecraft.snapshot
+import com.wolfyscript.scafall.wrappers.minecraft.unwrap
 import com.wolfyscript.scafall.wrappers.minecraft.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackLikeCommon
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshotCommon
-import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStackCommon
+import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import org.bukkit.craftbukkit.inventory.CraftItemStack
 import org.bukkit.inventory.ItemStack
 import java.lang.reflect.Field
@@ -65,20 +63,26 @@ fun ItemStack.snapshot() : ItemStackSnapshot {
 }
 
 /**
+ * Unwraps the Scafall [ItemStackSnapshot] to a Bukkit [ItemStack].
+ *
+ * @return The Bukkit ItemStack representation of the Scafall ItemStackSnapshot.
+ */
+fun ItemStackSnapshot.unwrapSpigot(): ItemStack {
+    return CraftItemStack.asCraftMirror(this.unwrap())
+}
+
+/**
+ * Unwraps the Scafall [ItemStack] to a Bukkit [ItemStack].
+ *
+ * @return The Bukkit ItemStack representation of the Scafall ItemStack.
+ */
+fun ScafallItemStack.unwrapSpigot(): ItemStack {
+    return CraftItemStack.asCraftMirror(this.unwrap())
+}
+
+/**
  * Unwraps this item stack wrapper to a Bukkit [ItemStack]
  */
 fun ItemStackLike.unwrapSpigot(): ItemStack {
-    if (this !is ItemStackLikeCommon) {
-        throw IllegalArgumentException("Wrapped stack is not an instance of ${ItemStackLikeCommon::class.simpleName}")
-    }
-
-    return when (this) {
-        is ScafallItemStackCommon -> {
-            CraftItemStack.asCraftMirror(mcStack)
-        }
-
-        is ItemStackSnapshotCommon -> {
-            CraftItemStack.asBukkitCopy(mcStack)
-        }
-    }
+    return CraftItemStack.asCraftMirror(this.unwrap())
 }

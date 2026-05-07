@@ -4,11 +4,18 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.wrappers.minecraft.unwrap
 import net.minecraft.SharedConstants
 import net.minecraft.world.item.ItemStack
 
-class ScafallItemStackCommon  : ItemStackLikeCommon, ScafallItemStack {
+internal class ScafallItemStackImpl : ItemStackLikeCommon, ScafallItemStack {
+
+    companion object {
+
+        fun wrap(stack: ItemStack): ScafallItemStackImpl {
+            return ScafallItemStackImpl(stack)
+        }
+
+    }
 
     @JsonIgnore
     private constructor(
@@ -43,16 +50,12 @@ class ScafallItemStackCommon  : ItemStackLikeCommon, ScafallItemStack {
     val version: Int
         get() = SharedConstants.getCurrentVersion().dataVersion().version
 
-    companion object {
-
-        fun fromVanilla(stack: ItemStack): ScafallItemStackCommon {
-            return ScafallItemStackCommon(stack)
-        }
-
+    override fun snapshot(): ItemStackSnapshot {
+        return ItemStackSnapshotImpl.wrap(mcStack)
     }
 
-    override fun snapshot(): ItemStackSnapshot {
-        return ItemStackSnapshotCommon(mcStack.copy())
+    override fun unwrap(): ItemStack {
+        return mcStack
     }
 
 }

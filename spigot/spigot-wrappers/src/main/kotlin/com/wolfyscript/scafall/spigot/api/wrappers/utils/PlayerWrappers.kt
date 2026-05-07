@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
-import com.wolfyscript.scafall.wrappers.ScafallPlayer
-import com.wolfyscript.scafall.wrappers.ScafallServerPlayer
+import com.wolfyscript.scafall.wrappers.world.entity.ScafallPlayer
+import com.wolfyscript.scafall.wrappers.world.entity.ScafallServerPlayer
 import com.wolfyscript.scafall.wrappers.minecraft.wrap
 import com.wolfyscript.scafall.wrappers.world.entity.ScafallServerPlayerImpl
 import org.bukkit.Bukkit

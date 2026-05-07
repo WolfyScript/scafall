@@ -1,16 +1,24 @@
 package com.wolfyscript.scafall.wrappers.world.entity
 
-import com.wolfyscript.scafall.wrappers.ScafallPlayer
-import com.wolfyscript.scafall.wrappers.ScafallServerPlayer
-import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
 import com.wolfyscript.scafall.wrappers.minecraft.wrap
-import net.kyori.adventure.text.Component
+import com.wolfyscript.scafall.wrappers.world.ScafallPrecisePos
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
-import java.lang.ref.WeakReference
 import java.util.UUID
 
-class ScafallPlayerCommon(val player: Player) : ScafallPlayer {
+/**
+ * Wrapper for any type of Minecraft Player.
+ *
+ * The specific type is not available, so it may wrap a ServerPlayer or ClientPlayer.
+ */
+interface ScafallPlayer : Entity
+
+/**
+ * Wrapper for a Minecraft ServerPlayer
+ */
+interface ScafallServerPlayer : Entity
+
+internal class ScafallPlayerCommon(val player: Player) : ScafallPlayer {
 
     override val uuid: UUID = player.uuid
 
@@ -21,7 +29,7 @@ class ScafallPlayerCommon(val player: Player) : ScafallPlayer {
 
 }
 
-class ScafallServerPlayerImpl(val serverPlayer: ServerPlayer) : ScafallServerPlayer {
+internal class ScafallServerPlayerImpl(val serverPlayer: ServerPlayer) : ScafallServerPlayer {
 
     override val uuid: UUID
         get() = serverPlayer.uuid

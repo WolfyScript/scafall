@@ -4,7 +4,7 @@ import com.wolfyscript.scafall.identifier.Key
 import net.minecraft.core.BlockPos
 import net.minecraft.world.phys.Vec3
 
-class ScafallBlockPosCommon(val blockPos: BlockPos) : ScafallBlockPos {
+internal class ScafallBlockPosCommon(val blockPos: BlockPos) : ScafallBlockPos {
 
     override val x: Int = blockPos.x
     override val y: Int = blockPos.y
@@ -23,7 +23,7 @@ class ScafallBlockPosCommon(val blockPos: BlockPos) : ScafallBlockPos {
 
 }
 
-class ScafallPrecisePosCommon(val pos: Vec3) : ScafallPrecisePos {
+internal class ScafallPrecisePosCommon(val pos: Vec3) : ScafallPrecisePos {
 
     override val x: Double = pos.x
     override val y: Double = pos.y
@@ -44,7 +44,7 @@ class ScafallPrecisePosCommon(val pos: Vec3) : ScafallPrecisePos {
 
 }
 
-class ScafallGlobalBlockPosCommon(
+internal class ScafallGlobalBlockPosCommon(
     override val dimension: Key,
     override val blockPos: ScafallBlockPos,
 ) : ScafallGlobalBlockPos {
@@ -66,7 +66,7 @@ class ScafallGlobalBlockPosCommon(
     }
 }
 
-class ScafallGlobalPrecisePosCommon(
+internal class ScafallGlobalPrecisePosCommon(
     override val dimension: Key,
     override val pos: ScafallPrecisePos,
 ) : ScafallGlobalPrecisePos {

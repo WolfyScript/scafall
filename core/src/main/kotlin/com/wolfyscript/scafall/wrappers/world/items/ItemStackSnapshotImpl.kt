@@ -3,12 +3,17 @@ package com.wolfyscript.scafall.wrappers.world.items
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.wolfyscript.scafall.ScafallProvider
-import com.wolfyscript.scafall.wrappers.minecraft.unwrap
 import net.minecraft.SharedConstants
 import net.minecraft.world.item.ItemStack
 
-class ItemStackSnapshotCommon @JsonCreator(mode = JsonCreator.Mode.DISABLED) internal constructor(stack: ItemStack) :
+internal class ItemStackSnapshotImpl @JsonCreator(mode = JsonCreator.Mode.DISABLED) private constructor(stack: ItemStack) :
     ItemStackLikeCommon(stack), ItemStackSnapshot {
+
+    companion object {
+        fun wrap(stack: ItemStack): ItemStackSnapshot {
+            return ItemStackSnapshotImpl(stack.copy())
+        }
+    }
 
     @get:JsonProperty("version")
     val version: Int
@@ -40,7 +45,11 @@ class ItemStackSnapshotCommon @JsonCreator(mode = JsonCreator.Mode.DISABLED) int
     )
 
     override fun createStack(): ScafallItemStack {
-        return ScafallItemStackCommon.fromVanilla(mcStack.copy())
+        return ScafallItemStackImpl.wrap(mcStack.copy())
+    }
+
+    override fun unwrap(): ItemStack {
+        return mcStack.copy()
     }
 
 }

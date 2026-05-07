@@ -60,7 +60,7 @@ class ScafallFabric(val classLoader: ClassLoader, override val logger: Logger) :
         server = FabricScafallServer(minecraftServer)
     }
 
-    override fun createOrGetPluginWrapper(pluginName: String): ModWrapper? {
+    override fun createOrGetPluginWrapper(modName: String): ModWrapper? {
         return null // TODO
     }
 

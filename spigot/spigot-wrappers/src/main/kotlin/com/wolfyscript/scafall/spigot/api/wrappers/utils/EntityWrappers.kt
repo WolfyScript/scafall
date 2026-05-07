@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
-import com.wolfyscript.scafall.wrappers.ScafallBlockEntity
+import com.wolfyscript.scafall.wrappers.world.level.block.entity.ScafallBlockEntity
 import com.wolfyscript.scafall.wrappers.minecraft.unwrap
 import com.wolfyscript.scafall.wrappers.minecraft.wrap
 import org.bukkit.block.TileState

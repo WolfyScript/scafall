@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.wrappers.minecraft
 
-import com.wolfyscript.scafall.wrappers.ScafallBlockEntity
+import com.wolfyscript.scafall.wrappers.world.level.block.entity.ScafallBlockEntity
 import net.minecraft.world.level.block.entity.BlockEntity
 
 /**

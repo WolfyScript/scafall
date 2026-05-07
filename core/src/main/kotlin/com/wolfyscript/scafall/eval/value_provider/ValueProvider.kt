@@ -86,47 +86,47 @@ interface ValueProvider<V> {
         com.wolfyscript.scafall.config.jackson.ValueSerializer<ValueProvider<*>>(ValueProvider::class.java) {
         @Throws(IOException::class)
         override fun serialize(
-            valueProvider: ValueProvider<*>,
+            targetObject: ValueProvider<*>,
             generator: JsonGenerator,
             provider: SerializerProvider,
         ): Boolean {
-            when (valueProvider) {
+            return when (targetObject) {
                 is ValueProviderStringConst -> {
-                    generator.writeString(valueProvider.value)
-                    return true
+                    generator.writeString(targetObject.value)
+                    true
                 }
 
                 is ValueProviderByteConst -> {
-                    generator.writeString("${valueProvider.value}b")
-                    return true
+                    generator.writeString("${targetObject.value}b")
+                    true
                 }
 
                 is ValueProviderShortConst -> {
-                    generator.writeString("${valueProvider.value.toByte()}s")
-                    return true
+                    generator.writeString("${targetObject.value.toByte()}s")
+                    true
                 }
 
                 is ValueProviderIntegerConst -> {
-                    generator.writeNumber(valueProvider.value)
-                    return true
+                    generator.writeNumber(targetObject.value)
+                    true
                 }
 
                 is ValueProviderLongConst -> {
-                    generator.writeString("${valueProvider.value}L")
-                    return true
+                    generator.writeString("${targetObject.value}L")
+                    true
                 }
 
                 is ValueProviderFloatConst -> {
-                    generator.writeString("${valueProvider.value}f")
-                    return true
+                    generator.writeString("${targetObject.value}f")
+                    true
                 }
 
                 is ValueProviderDoubleConst -> {
-                    generator.writeString("${valueProvider.value}d")
-                    return true
+                    generator.writeString("${targetObject.value}d")
+                    true
                 }
 
-                else -> return false
+                else -> false
             }
         }
     }

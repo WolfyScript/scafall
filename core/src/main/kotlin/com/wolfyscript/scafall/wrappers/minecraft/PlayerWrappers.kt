@@ -1,7 +1,7 @@
 package com.wolfyscript.scafall.wrappers.minecraft
 
-import com.wolfyscript.scafall.wrappers.ScafallPlayer
-import com.wolfyscript.scafall.wrappers.ScafallServerPlayer
+import com.wolfyscript.scafall.wrappers.world.entity.ScafallPlayer
+import com.wolfyscript.scafall.wrappers.world.entity.ScafallServerPlayer
 import com.wolfyscript.scafall.wrappers.world.entity.ScafallPlayerCommon
 import com.wolfyscript.scafall.wrappers.world.entity.ScafallServerPlayerImpl
 import net.minecraft.server.level.ServerPlayer

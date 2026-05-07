@@ -38,12 +38,16 @@ fun BlockPos.wrap(dimension: Key): ScafallGlobalBlockPos = ScafallGlobalBlockPos
 /**
  * Wraps this [Vec3] in a [ScafallPrecisePos]
  */
-fun Vec3.wrap() = ScafallPrecisePosCommon(this)
+fun Vec3.wrap(): ScafallPrecisePos {
+    return ScafallPrecisePosCommon(this)
+}
 
 /**
  * Wraps this [Vec3] and a specified [dimension] in a [ScafallGlobalPrecisePos]
  */
-fun Vec3.wrap(dimension: Key) = ScafallGlobalPrecisePosCommon(dimension, this.wrap())
+fun Vec3.wrap(dimension: Key): ScafallGlobalPrecisePos {
+    return ScafallGlobalPrecisePosCommon(dimension, this.wrap())
+}
 
 /**
  * Unwraps this to the Minecraft [GlobalPos]

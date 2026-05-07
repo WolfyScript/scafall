@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack
 import java.io.ByteArrayOutputStream
 import kotlin.jvm.optionals.getOrNull
 
-sealed class ItemStackLikeCommon : ItemStackLike {
+internal sealed class ItemStackLikeCommon : ItemStackLike {
 
     @JsonIgnore
     val mcStack: ItemStack

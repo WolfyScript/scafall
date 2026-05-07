@@ -56,8 +56,8 @@ class ScafallPaper(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scafa
         server = ScafallServerPaper(this, bukkitServer)
     }
 
-    override fun createOrGetPluginWrapper(pluginName: String): ModWrapper? {
-        return Bukkit.getPluginManager().getPlugin(pluginName)?.let { BukkitPluginWrapper(it) }
+    override fun createOrGetPluginWrapper(modName: String): ModWrapper? {
+        return Bukkit.getPluginManager().getPlugin(modName)?.let { BukkitPluginWrapper(it) }
     }
 
     /**

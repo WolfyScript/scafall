@@ -58,8 +58,8 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
         server = ScafallServerSpigot(plugin, bukkitServer)
     }
 
-    override fun createOrGetPluginWrapper(pluginName: String): ModWrapper? {
-        return Bukkit.getPluginManager().getPlugin(pluginName)?.let { BukkitPluginWrapper(it) }
+    override fun createOrGetPluginWrapper(modName: String): ModWrapper? {
+        return Bukkit.getPluginManager().getPlugin(modName)?.let { BukkitPluginWrapper(it) }
     }
 
 }

@@ -42,4 +42,11 @@ interface ItemStackLike {
      */
     fun toNBTBytes() : ByteArray
 
+    /**
+     * Unwraps this [ItemStackLike] into a vanilla [net.minecraft.world.item.ItemStack].
+     *
+     * @return The vanilla [net.minecraft.world.item.ItemStack].
+     */
+    fun unwrap() : net.minecraft.world.item.ItemStack
+
 }

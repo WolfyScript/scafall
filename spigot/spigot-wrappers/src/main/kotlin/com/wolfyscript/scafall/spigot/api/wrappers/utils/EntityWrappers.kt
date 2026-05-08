@@ -7,6 +7,12 @@ import org.bukkit.block.TileState
 import org.bukkit.craftbukkit.block.CraftBlockEntityState
 import org.bukkit.craftbukkit.block.CraftBlockStates
 
+/**
+ * Wraps a Bukkit [TileState] to a Scafall [ScafallBlockEntity] if it is a valid block entity.
+ *
+ * @return An Scafall [ScafallBlockEntity] wrapper.
+ * @throws IllegalStateException if the [TileState] is not a valid block entity.
+ */
 fun TileState.wrap(): ScafallBlockEntity {
     if (this is CraftBlockEntityState<*>) {
         val be = block.handle.getBlockEntity(block.position)
@@ -17,6 +23,12 @@ fun TileState.wrap(): ScafallBlockEntity {
     throw IllegalStateException("Cannot wrap TileState of type ${this::class.simpleName}: Not a block entity!")
 }
 
+/**
+ * Unwraps a Scafall [ScafallBlockEntity] to its corresponding Bukkit [TileState].
+ *
+ * @return The Bukkit [TileState].
+ * @throws IllegalStateException if the [ScafallBlockEntity] cannot be unwrapped to a valid Bukkit [TileState].
+ */
 fun ScafallBlockEntity.unwrapSpigot(): TileState {
     val mcBlockEntity = this.unwrap()
     val blockState = CraftBlockStates.getBlockState(mcBlockEntity.level?.world, mcBlockEntity.blockPos, mcBlockEntity.blockState, mcBlockEntity)

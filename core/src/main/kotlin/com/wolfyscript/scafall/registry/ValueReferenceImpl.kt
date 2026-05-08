@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.registry
 
-class ScafallValueReference<R, T: R>(
+internal class ValueReferenceImpl<R, T: R>(
     override val key: ValueKey<R, T>,
     private val defaultHolder: () -> RegistryHolder,
 ) : ValueReference<R, T> {

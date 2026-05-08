@@ -20,7 +20,7 @@ interface RegistryKey<R> {
          * @return A new [RegistryKey] holding values of type [T].
          */
         fun <T> of(root: Key, registryIdentifier: Key): RegistryKey<T> {
-            return ScafallProvider.get().factories.registryFactory.createRegistryType(root, registryIdentifier)
+            return RegistryKeyImpl(root, registryIdentifier)
         }
 
         /**

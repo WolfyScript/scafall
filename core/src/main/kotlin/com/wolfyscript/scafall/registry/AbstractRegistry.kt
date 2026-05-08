@@ -7,31 +7,13 @@ import java.util.function.Supplier
 
 abstract class AbstractRegistry<M : MutableMap<Key, V>, V>(
     override val key: Key,
-    protected val map: M,
-    val type: Class<V>?
+    protected val map: M
 ) : Registry<V> {
-
-    constructor(namespacedKey: Key, map: M) : this(
-        namespacedKey,
-        map,
-        null
-    )
 
     constructor(namespacedKey: Key, mapSupplier: Supplier<M>) : this(
         namespacedKey,
-        mapSupplier.get(),
-        null
+        mapSupplier.get()
     )
-
-    constructor(
-        namespacedKey: Key,
-        mapSupplier: Supplier<M>,
-        type: Class<V>
-    ) : this(namespacedKey, mapSupplier.get(), type)
-
-    private fun isTypeOf(type: Class<*>): Boolean {
-        return this.type != null && this.type == type
-    }
 
     override fun get(key: Key): V? {
         return map[key]

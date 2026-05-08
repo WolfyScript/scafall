@@ -17,8 +17,7 @@ open class UniqueRegistrySimple<V> : AbstractRegistry<BiMap<Key, V>, V> {
 
     constructor(namespacedKey: Key, type: Class<V>) : super(
         namespacedKey,
-        HashBiMap.create<Key, V>(),
-        type
+        HashBiMap.create<Key, V>()
     )
 
 }

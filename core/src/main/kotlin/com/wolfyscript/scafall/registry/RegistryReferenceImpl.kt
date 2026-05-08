@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.registry
 
-class ScafallRegistryReference<R>(override val key: RegistryKey<R>, val defaultHolder: () -> RegistryHolder) : RegistryReference<R> {
+internal class RegistryReferenceImpl<R>(override val key: RegistryKey<R>, val defaultHolder: () -> RegistryHolder) : RegistryReference<R> {
 
     override fun resolve(): Result<Registry<R>> {
         return resolve(defaultHolder())

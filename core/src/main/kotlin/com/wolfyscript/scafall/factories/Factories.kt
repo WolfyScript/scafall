@@ -7,5 +7,4 @@ interface Factories {
 
     val itemsFactory: ItemsFactory
 
-    val registryFactory: RegistryFactory
 }

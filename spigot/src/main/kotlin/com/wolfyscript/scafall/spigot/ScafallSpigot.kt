@@ -28,7 +28,7 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
 
     // Essentials
     override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
-    override val registries: ScafallCommonRegistries = ScafallCommonRegistries(this)
+    override val registries: ScafallCommonRegistries = ScafallCommonRegistries()
 
     override val scheduler: SimpleScheduler = SimpleScheduler()
     override val platformManager: SpigotPlatformManager = SpigotPlatformManager(this)

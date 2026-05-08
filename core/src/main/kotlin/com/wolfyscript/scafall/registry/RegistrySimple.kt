@@ -16,7 +16,6 @@ open class RegistrySimple<V> : AbstractRegistry<MutableMap<Key, V>, V> {
 
     constructor(namespacedKey: Key, type: Class<V>) : super(
         namespacedKey,
-        HashMap<Key, V>(),
-        type
+        HashMap<Key, V>()
     )
 }

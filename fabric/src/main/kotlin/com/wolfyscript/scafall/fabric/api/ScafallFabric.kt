@@ -31,7 +31,7 @@ class ScafallFabric(val classLoader: ClassLoader, override val logger: Logger) :
     //       Only init things that don't depend on it and use init() instead!
     //
 
-    override val registries: ScafallCommonRegistries = ScafallCommonRegistries(this)
+    override val registries: ScafallCommonRegistries = ScafallCommonRegistries()
     override val scheduler: SimpleScheduler = SimpleScheduler()
     override val platformManager: PlatformManager = FabricPlatformManager(this)
     override val factories: FabricFactoriesImpl = FabricFactoriesImpl(this)

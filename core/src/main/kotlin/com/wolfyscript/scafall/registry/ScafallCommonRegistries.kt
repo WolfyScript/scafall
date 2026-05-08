@@ -1,6 +1,5 @@
 package com.wolfyscript.scafall.registry
 
-import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.items.VanillaItemStackIdentifierImpl
 import com.wolfyscript.scafall.config.jackson.registerTypeRegistry
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
@@ -8,7 +7,7 @@ import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.items.ItemStackIdentifier
 import com.wolfyscript.scafall.items.ItemStackIdentifiers
 
-class ScafallCommonRegistries(val scafall: Scafall) : ScafallRegistries {
+class ScafallCommonRegistries : ScafallRegistries {
 
     private lateinit var rootRegistry: Registry<Registry<*>>
 
@@ -35,7 +34,7 @@ class ScafallCommonRegistries(val scafall: Scafall) : ScafallRegistries {
         createRegistry(ScafallRegistryTypes.operators) { RegistrySimple(it) }
     }
 
-    fun <T> createRegistry(type: RegistryReference<T>, loader: (key: Key) -> Registry<T>) {
+    private fun <T> createRegistry(type: RegistryReference<T>, loader: (key: Key) -> Registry<T>) {
         val registry = loader(type.key.registry)
         rootRegistry.register(type.key.registry, registry)
     }

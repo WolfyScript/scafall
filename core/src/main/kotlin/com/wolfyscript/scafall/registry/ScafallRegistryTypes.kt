@@ -15,21 +15,25 @@ object ScafallRegistryTypes {
 
     val root = Key.scafall("root")
 
-    val valueProviders = createRegistryType<Class<out ValueProvider<*>>>("value_providers")
+    val valueProviders = typeRegistry<ValueProvider<*>>("value_providers")
 
-    val operators = createRegistryType<Class<out Operator>>("operators")
+    val operators = typeRegistry<Operator>("operators")
 
-    val nbtConfigs = createRegistryType<Class<out NBTTagConfig>>("nbt_configs")
+    val nbtConfigs = typeRegistry<NBTTagConfig>("nbt_configs")
     
-    val dependencies = createRegistryType<Class<out Dependency>>("compat/dependencies")
+    val dependencies = typeRegistry<Dependency>("compat/dependencies")
 
-    val itemStackConfigOverrides = createRegistryType<Class<out ItemStackConfig.Override>>("items/config/overrides")
+    val itemStackConfigOverrides = typeRegistry<ItemStackConfig.Override>("items/config/overrides")
 
-    val itemStackIdentifiers = createRegistryType<Class<out ItemStackIdentifier>>("items/identifiers/types")
+    val itemStackIdentifiers = typeRegistry<ItemStackIdentifier>("items/identifiers/types")
 
-    val itemStackIdentifierParsers = createRegistryType<ItemStackIdentifier.Parser<*>>("items/identifiers/parser")
+    val itemStackIdentifierParsers = registry<ItemStackIdentifier.Parser<*>>("items/identifiers/parser")
 
-    private fun <T> createRegistryType(registryKey: String): RegistryReference<T> {
+    private fun <T> typeRegistry(registryKey: String): RegistryReference<Class<out T>> {
+        return registry<Class<out T>>(registryKey)
+    }
+
+    private fun <T> registry(registryKey: String): RegistryReference<T> {
         return RegistryKey.of<T>(root, Key.scafall(registryKey)).reference()
     }
 

@@ -8,7 +8,6 @@ import net.minecraft.world.phys.Vec3
 import org.bukkit.Location
 import org.bukkit.craftbukkit.util.CraftLocation
 
-
 /**
  * Wraps this [Location] in a [ScafallGlobalPrecisePos] (PrecisePos with an associated Level)
  *
@@ -32,7 +31,7 @@ fun Location.toPrecise(): com.wolfyscript.scafall.wrappers.world.ScafallPreciseP
  * Wraps this [Location] in a [com.wolfyscript.scafall.wrappers.world.ScafallBlockPos]
  */
 fun Location.toBlockPos(): ScafallBlockPos {
-    return CraftLocation.toBlockPosition(this).wrap()
+    return CraftLocation.toBlockPos(this).wrap()
 }
 
 /**
@@ -44,5 +43,5 @@ fun Location.toBlockPosGlobal(): ScafallGlobalBlockPos? {
     if (world == null) {
         return null
     }
-    return CraftLocation.toBlockPosition(this).wrap(world.key.toScafall())
+    return CraftLocation.toBlockPos(this).wrap(world.key.toScafall())
 }

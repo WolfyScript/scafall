@@ -48,8 +48,12 @@ interface ValueKey<R, T: R> {
 
     companion object {
 
+        fun <R, T: R> of(registry: RegistryKey<R>, key: Key, valueType: Class<T>): ValueKey<R, T> {
+            return ValueKeyImpl(registry, key, valueType)
+        }
+
         inline fun <reified R, reified T: R> of(registry: RegistryKey<R>, key: Key): ValueKey<R, T> {
-            return ValueKeyImpl(registry, key, T::class.java)
+            return of(registry, key, T::class.java)
         }
 
     }

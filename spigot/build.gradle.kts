@@ -100,7 +100,7 @@ minecraftServers {
             destFileName.set("scafall.jar")
             version.set(sharedLibs.versions.minecraft.get())
             type.set("SPIGOT")
-            imageVersion.set("java21-graalvm") // need jdk to build from source
+            imageVersion.set("java${sharedLibs.versions.jdk.get()}-graalvm") // need jdk to build from source
             extraEnv.put("BUILD_FROM_SOURCE", "true")
             ports.add("25565:25565")
         }

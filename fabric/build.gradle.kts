@@ -75,7 +75,7 @@ minecraftServers {
             destFileName.set("scafall.jar")
             version.set(sharedLibs.versions.minecraft.get())
             type.set("FABRIC")
-            imageVersion.set("java25")
+            imageVersion.set("java${sharedLibs.versions.jdk.get()}")
             ports.add("25569:25565")
             extraEnv.put("MODRINTH_PROJECTS", "fabric-api, fabric-language-kotlin")
             extraEnv.put("FABRIC_LOADER_VERSION", sharedLibs.versions.fabric.loader.get())

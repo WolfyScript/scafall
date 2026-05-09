@@ -26,10 +26,8 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(25)
+    jvmToolchain(Integer.parseInt(sharedLibs.versions.jdk.get()))
 }
-
-
 
 dependencies {
     api(sharedLibs.jackson.dataformat.hocon)

@@ -102,7 +102,7 @@ minecraftServers {
             destFileName.set("scafall.jar")
             version.set(sharedLibs.versions.minecraft.get())
             type.set("PAPER")
-            imageVersion.set("java21")
+            imageVersion.set("java${sharedLibs.versions.jdk.get()}")
             ports.add("25566:25565")
         }
     }

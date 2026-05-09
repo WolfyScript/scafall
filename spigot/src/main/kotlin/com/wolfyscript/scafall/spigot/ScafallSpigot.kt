@@ -45,8 +45,6 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
         // initiate essential components
         super.onInit()
 
-
-
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, plugin.dataFolder.toPath().resolve("libs"))
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()
     }

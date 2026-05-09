@@ -46,7 +46,6 @@ class ScafallPaper(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scafa
     override fun onInit() {
         // initiate essential components
         super.onInit()
-        Bukkit.getPluginManager().registerEvents(this, plugin)
 
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, plugin.dataFolder.toPath().resolve("libs"))
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()

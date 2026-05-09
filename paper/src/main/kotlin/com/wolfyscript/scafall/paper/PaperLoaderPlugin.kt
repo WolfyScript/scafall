@@ -23,6 +23,7 @@ class PaperLoaderPlugin : JavaPlugin() {
     override fun onEnable() {
         scafall.pluginDependencyLoader.loadDependencies()
         Bukkit.getPluginManager().registerEvents(scafall.pluginDependencyLoader, this)
+        Bukkit.getPluginManager().registerEvents(scafall, scafall.plugin)
 
         scafall.server?.onLoad()
     }

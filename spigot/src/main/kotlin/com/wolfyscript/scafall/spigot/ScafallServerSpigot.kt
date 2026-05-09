@@ -10,12 +10,10 @@ class ScafallServerSpigot(private val bukkitPlugin: JavaPlugin, bukkitServer: Se
     override val adventure: SpigotAdventureUtil = SpigotAdventureUtil()
 
     override fun onLoad() {
-
         adventure.init(bukkitPlugin)
     }
 
     override fun onUnload() {
-
         adventure.unload()
     }
 

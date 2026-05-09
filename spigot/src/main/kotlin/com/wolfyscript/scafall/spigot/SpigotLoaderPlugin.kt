@@ -2,6 +2,7 @@ package com.wolfyscript.scafall.spigot
 
 import com.wolfyscript.scafall.ScafallBootstrap
 import com.wolfyscript.scafall.loader.ScafallLoader
+import net.minecraft.server.MinecraftServer
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -23,6 +24,11 @@ class SpigotLoaderPlugin : JavaPlugin() {
     override fun onEnable() {
         scafall.pluginDependencyLoader.loadDependencies()
         Bukkit.getPluginManager().registerEvents(scafall.pluginDependencyLoader, this)
+
+        // Trick to run our own custom scheduler on each tick
+        Bukkit.getScheduler().runTaskTimer(scafall.plugin, Runnable {
+            scafall.scheduler.tick(MinecraftServer.getServer().tickCount)
+        }, 0L, 1L)
 
         scafall.server?.onLoad()
     }

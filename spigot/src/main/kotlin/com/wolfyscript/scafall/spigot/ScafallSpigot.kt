@@ -45,10 +45,7 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
         // initiate essential components
         super.onInit()
 
-        // Trick to run our own custom scheduler on each tick
-        Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
-            scheduler.tick(MinecraftServer.getServer().tickCount)
-        }, 0L, 1L)
+
 
         mavenDependencyHandler = MavenDependencyHandlerImpl(this, plugin.dataFolder.toPath().resolve("libs"))
         mavenRepositoryHandler = MavenRepositoryHandlerImpl()

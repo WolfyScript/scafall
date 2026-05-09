@@ -25,11 +25,9 @@ fun archiveName(): String {
     return "scafall-${project.version}-spigot-${sharedLibs.versions.minecraft.get()}"
 }
 
-paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
-
 tasks {
     shadowJar {
-        archiveFileName.set("${archiveName()}-mojmap.jar")
+        archiveFileName.set("${archiveName()}.jar")
 
         dependencies {
             include(project(project.projects.core))

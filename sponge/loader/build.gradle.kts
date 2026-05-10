@@ -1,6 +1,5 @@
 import org.spongepowered.gradle.plugin.config.PluginLoaders
 import org.spongepowered.plugin.metadata.model.PluginDependency
-import utils.convertToEpochVer
 
 plugins {
     `java-library`
@@ -29,7 +28,7 @@ sponge {
         version("1.0")
     }
     plugin("scafall") {
-        version(project.version.toString().convertToEpochVer())
+        version(project.version.toString())
         displayName("scafall")
         description("")
         entrypoint("com.wolfyscript.scafall.sponge.loader.SpongeLoaderPlugin")

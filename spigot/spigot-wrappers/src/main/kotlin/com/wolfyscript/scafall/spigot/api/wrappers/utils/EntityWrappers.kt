@@ -3,6 +3,7 @@ package com.wolfyscript.scafall.spigot.api.wrappers.utils
 import com.wolfyscript.scafall.wrappers.world.level.block.entity.ScafallBlockEntity
 import com.wolfyscript.scafall.wrappers.minecraft.unwrap
 import com.wolfyscript.scafall.wrappers.minecraft.wrap
+import net.minecraft.world.level.block.entity.BlockEntity
 import org.bukkit.block.TileState
 import org.bukkit.craftbukkit.block.CraftBlockEntityState
 import org.bukkit.craftbukkit.block.CraftBlockStates
@@ -14,13 +15,7 @@ import org.bukkit.craftbukkit.block.CraftBlockStates
  * @throws IllegalStateException if the [TileState] is not a valid block entity.
  */
 fun TileState.wrap(): ScafallBlockEntity {
-    if (this is CraftBlockEntityState<*>) {
-        val be = block.level.getBlockEntity(block.position)
-        if (be != null) {
-            return be.wrap()
-        }
-    }
-    throw IllegalStateException("Cannot wrap TileState of type ${this::class.simpleName}: Not a block entity!")
+    return this.into().wrap()
 }
 
 /**
@@ -30,8 +25,17 @@ fun TileState.wrap(): ScafallBlockEntity {
  * @throws IllegalStateException if the [ScafallBlockEntity] cannot be unwrapped to a valid Bukkit [TileState].
  */
 fun ScafallBlockEntity.unwrapSpigot(): TileState {
-    val mcBlockEntity = this.unwrap()
-    val blockState = CraftBlockStates.getBlockState(mcBlockEntity.level?.world, mcBlockEntity.blockPos, mcBlockEntity.blockState, mcBlockEntity)
+    return this.unwrap().into()
+}
+
+fun TileState.into(): BlockEntity {
+    require(this is CraftBlockEntityState<*>) { "Cannot convert TileState of type ${this::class.simpleName} to Minecraft BlockEntity: Not a block entity!" }
+    return block.level.getBlockEntity(block.position)
+        ?: throw IllegalStateException("Cannot convert TileState to BlockEntity: BlockEntity not found in world!")
+}
+
+fun BlockEntity.into(): TileState {
+    val blockState = CraftBlockStates.getBlockState(this.level?.world, this.blockPos, this.blockState, this)
     if (blockState is TileState) {
         return blockState
     }

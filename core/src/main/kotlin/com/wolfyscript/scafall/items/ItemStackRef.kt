@@ -3,6 +3,7 @@ package com.wolfyscript.scafall.items
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
+import net.minecraft.world.item.ItemStackTemplate
 
 /**
  * Reference to an item stack from an external source.
@@ -42,4 +43,9 @@ interface ItemStackRef {
      */
     fun create(): ScafallItemStack
 
+}
+
+fun ItemStackRef.toTemplate(): ItemStackTemplate {
+    val stack = this.create().unwrap()
+    return ItemStackTemplate(stack.item, stack.componentsPatch)
 }

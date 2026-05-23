@@ -10,7 +10,7 @@ interface ItemStackSnapshot : ItemStackLike {
      /**
       * Creates a mutable copy of this snapshot
       */
-     fun createStack(): ScafallItemStack
+     fun create(): ScafallItemStack
 
      companion object {
 

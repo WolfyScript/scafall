@@ -26,6 +26,6 @@ class DenizenStackIdentifier(
     }
 
     override fun create(): ScafallItemStack {
-        return displayStack.snapshot().createStack()
+        return displayStack.snapshot().create()
     }
 }

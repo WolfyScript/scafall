@@ -44,7 +44,7 @@ internal class ItemStackSnapshotImpl @JsonCreator(mode = JsonCreator.Mode.DISABL
         ScafallProvider.get().factories.itemsFactory.parseFromSNBT(snbt, version).unwrap()
     )
 
-    override fun createStack(): ScafallItemStack {
+    override fun create(): ScafallItemStack {
         return ScafallItemStackImpl.wrap(mcStack.copy())
     }
 

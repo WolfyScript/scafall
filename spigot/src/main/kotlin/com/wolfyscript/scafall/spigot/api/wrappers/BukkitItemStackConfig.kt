@@ -18,7 +18,7 @@ class BukkitItemStackConfig @JsonCreator constructor(@JsonProperty("stack") stac
         miniMessage: MiniMessage?,
         tagResolvers: TagResolver
     ): ScafallItemStack {
-        return stack.createStack().apply {
+        return stack.create().apply {
             overrides.forEach { (key, value) ->
                 value.applyTo(this, context, miniMessage, tagResolvers)
             }

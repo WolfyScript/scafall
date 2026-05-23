@@ -1,10 +1,10 @@
 package com.wolfyscript.scafall.scheduler
 
-import com.wolfyscript.scafall.ScafallProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import org.slf4j.Logger
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.CoroutineContext
@@ -15,11 +15,11 @@ import kotlin.coroutines.CoroutineContext
  * This scheduler manages task execution with support for delayed execution and periodic scheduling.
  * It maintains separate queues for pending tasks and currently running tasks.
  */
-class SimpleScheduler : Scheduler, CoroutineScope {
+class SimpleScheduler(val logger: Logger) : Scheduler, CoroutineScope {
 
     private val asyncCoroutineDispatcher = Dispatchers.Default
     private val exceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { context, throwable ->
-        ScafallProvider.get().logger.error("[Scafall][Scheduler] An error occurred in async task ${context[CoroutineName]?.name ?: ""}", throwable)
+        logger.error("[Scheduler] An error occurred in async task ${context[CoroutineName]?.name ?: ""}", throwable)
     }
     override val coroutineContext: CoroutineContext = asyncCoroutineDispatcher + exceptionHandler
 

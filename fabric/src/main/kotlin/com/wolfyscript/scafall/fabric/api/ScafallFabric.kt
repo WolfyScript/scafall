@@ -32,7 +32,7 @@ class ScafallFabric(val classLoader: ClassLoader, override val logger: Logger) :
     //
 
     override val registries: ScafallCommonRegistries = ScafallCommonRegistries()
-    override val scheduler: SimpleScheduler = SimpleScheduler()
+    override val scheduler: SimpleScheduler = SimpleScheduler(logger)
     override val platformManager: PlatformManager = FabricPlatformManager(this)
     override val factories: FabricFactoriesImpl = FabricFactoriesImpl(this)
     override val modInfo: ModWrapper = FabricModWrapper(FabricLoader.getInstance().getModContainer("scafall").get(), logger)

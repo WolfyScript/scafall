@@ -32,7 +32,7 @@ class ScafallPaper(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scafa
     override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
     override val registries: ScafallCommonRegistries = ScafallCommonRegistries()
 
-    override val scheduler: SimpleScheduler = SimpleScheduler()
+    override val scheduler: SimpleScheduler = SimpleScheduler(logger)
     override val platformManager: PaperPlatformManager = PaperPlatformManager(this)
 
     override lateinit var mavenDependencyHandler: MavenDependencyHandler

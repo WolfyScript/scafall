@@ -29,7 +29,7 @@ class ScafallSpigot(val classLoader: ClassLoader, val plugin: JavaPlugin) : Scaf
     override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
     override val registries: ScafallCommonRegistries = ScafallCommonRegistries()
 
-    override val scheduler: SimpleScheduler = SimpleScheduler()
+    override val scheduler: SimpleScheduler = SimpleScheduler(logger)
     override val platformManager: SpigotPlatformManager = SpigotPlatformManager(this)
 
     override lateinit var mavenDependencyHandler: MavenDependencyHandler

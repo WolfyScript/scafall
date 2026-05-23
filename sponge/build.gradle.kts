@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation(projects.core)
     compileOnly(project(":loader-api"))
     implementation(sharedLibs.slf4j.api)
     compileOnly(sharedLibs.fastutil)

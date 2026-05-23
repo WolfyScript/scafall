@@ -1,6 +1,9 @@
-package com.wolfyscript.scafall.scheduling
+package com.wolfyscript.scafall.scheduler
 
-internal class TimerForever(override val interval: Int) : Timer.Forever {
+internal class TimerAmount(
+    override var amount: Int,
+    override val interval: Int,
+) : Timer.Amount {
 
     override var nextRunTick: Int = 0
         private set
@@ -12,9 +15,13 @@ internal class TimerForever(override val interval: Int) : Timer.Forever {
         if (nextRunTick <= currentTick) {
             nextRunTick = currentTick + interval
         }
+        if (--amount <= 0) {
+            completed = true
+        }
     }
 
     override fun start(tickCount: Int) {
         nextRunTick = tickCount
     }
+
 }

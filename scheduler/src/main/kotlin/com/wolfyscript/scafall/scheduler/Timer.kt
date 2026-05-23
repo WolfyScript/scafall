@@ -1,4 +1,4 @@
-package com.wolfyscript.scafall.scheduling
+package com.wolfyscript.scafall.scheduler
 
 /**
  * Represents a timer that controls the execution schedule of tasks within the scheduling system.

@@ -1,6 +1,5 @@
-package com.wolfyscript.scafall.scheduling
+package com.wolfyscript.scafall.scheduler
 
-import com.wolfyscript.scafall.ModWrapper
 import java.util.UUID
 
 /**
@@ -11,14 +10,14 @@ import java.util.UUID
  * @property timer The timer configuration that determines how often and when the task executes.
  * @property delay The initial delay before the task begins execution.
  * @property id A unique identifier for this task instance.
- * @property mod The mod wrapper associated with this task, providing access to mod-specific resources.
+ * @property owner The mod wrapper associated with this task, providing access to mod-specific resources.
  */
 internal class SyncTask(
     val fn: () -> Unit,
     override val timer: Timer = Timer.Once,
     override val delay: Delay = Delay.Instant,
     override val id: UUID = UUID.randomUUID(),
-    override val mod: ModWrapper,
+    override val owner: TaskOwner,
 ) : ScafallTask {
 
     override var nextRunTicks: Long = 0

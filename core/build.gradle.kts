@@ -8,6 +8,7 @@ plugins {
 dependencies {
     api(shadow(project(":loader-api"))!!)
     implementation(kotlin("reflect"))
+    api(projects.scheduler)
     minecraft(sharedLibs.minecraft)
 }
 

@@ -1,6 +1,5 @@
-package com.wolfyscript.scafall.scheduling
+package com.wolfyscript.scafall.scheduler
 
-import com.wolfyscript.scafall.ModWrapper
 import com.wolfyscript.scafall.ScafallProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
@@ -81,7 +80,7 @@ class SimpleScheduler : Scheduler, CoroutineScope {
     }
 
     override fun async(
-        plugin: ModWrapper,
+        owner: TaskOwner,
         delay: Delay,
         timer: Timer,
         task: suspend () -> Unit,
@@ -91,14 +90,14 @@ class SimpleScheduler : Scheduler, CoroutineScope {
             fn = task,
             timer = timer,
             delay = delay,
-            mod = plugin,
+            owner = owner,
         )
         schedule(task)
         return task
     }
 
     override fun sync(
-        plugin: ModWrapper,
+        owner: TaskOwner,
         delay: Delay,
         timer: Timer,
         task: () -> Unit,
@@ -107,23 +106,23 @@ class SimpleScheduler : Scheduler, CoroutineScope {
             fn = task,
             timer = timer,
             delay = delay,
-            mod = plugin,
+            owner = owner,
         )
         schedule(task)
         return task
     }
 
-    override fun cancelAll(plugin: ModWrapper) {
+    override fun cancelAll(owner: TaskOwner) {
         synchronized(runningTasks) {
             runningTasks.values.filter {
-                it.mod == plugin
+                it.owner == owner
             }.forEach {
                 it.cancel()
             }
         }
         val iterator = queuedTasks.values.iterator()
         while (iterator.hasNext()) {
-            if (iterator.next().mod == plugin) {
+            if (iterator.next().owner == owner) {
                 iterator.remove()
             }
         }

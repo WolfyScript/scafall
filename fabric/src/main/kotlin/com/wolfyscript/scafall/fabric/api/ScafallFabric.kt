@@ -12,7 +12,7 @@ import com.wolfyscript.scafall.fabric.server.FabricScafallServer
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.platform.PlatformManager
-import com.wolfyscript.scafall.scheduling.SimpleScheduler
+import com.wolfyscript.scafall.scheduler.SimpleScheduler
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.server.MinecraftServer

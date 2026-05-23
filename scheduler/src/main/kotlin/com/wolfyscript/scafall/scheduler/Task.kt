@@ -1,11 +1,10 @@
-package com.wolfyscript.scafall.scheduling
+package com.wolfyscript.scafall.scheduler
 
-import com.wolfyscript.scafall.ModWrapper
 import java.util.UUID
 
 /**
  * Represents a task that can be scheduled and executed within the [Scheduler].
- * Tasks are associated with a mod plugin and can be cancelled before/during execution.
+ * Tasks are associated with an owner and can be cancelled before/during execution.
  *
  * Tasks are executed according to their scheduling configuration, which includes
  * initial delay and timer settings that determine when and how often they run.
@@ -13,9 +12,9 @@ import java.util.UUID
 interface Task {
 
     /**
-     * The [ModWrapper] associated with the task.
+     * The [com.wolfyscript.scafall.ModWrapper] associated with the task.
      */
-    val mod: ModWrapper
+    val owner: TaskOwner
 
     /**
      * The [Timer] associated with the task, defining when and how often the task should execute.

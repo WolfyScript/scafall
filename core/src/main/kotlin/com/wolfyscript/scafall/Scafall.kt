@@ -9,7 +9,7 @@ import com.wolfyscript.scafall.loader.module.Client
 import com.wolfyscript.scafall.loader.module.Module
 import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.registry.ScafallRegistries
-import com.wolfyscript.scafall.scheduling.Scheduler
+import com.wolfyscript.scafall.scheduler.Scheduler
 import com.wolfyscript.scafall.server.ScafallServer
 import org.slf4j.Logger
 

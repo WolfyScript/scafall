@@ -8,7 +8,7 @@ import com.wolfyscript.scafall.registry.ScafallCommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.paper.api.PaperPlatformManager
-import com.wolfyscript.scafall.scheduling.SimpleScheduler
+import com.wolfyscript.scafall.scheduler.SimpleScheduler
 import com.wolfyscript.scafall.spigotlike.ScafallSpigotLike
 import com.wolfyscript.scafall.spigotlike.api.BukkitPluginWrapper
 import com.wolfyscript.scafall.spigotlike.api.factories.SpigotFactoriesImpl

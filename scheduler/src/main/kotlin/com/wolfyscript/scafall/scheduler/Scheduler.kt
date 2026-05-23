@@ -1,9 +1,7 @@
-package com.wolfyscript.scafall.scheduling
-
-import com.wolfyscript.scafall.ModWrapper
+package com.wolfyscript.scafall.scheduler
 
 /**
- * A scheduler for managing asynchronous and synchronous tasks within a mod environment.
+ * A scheduler for managing asynchronous and synchronous timed and reoccurring tasks.
  *
  * The scheduler provides mechanisms to execute tasks either asynchronously (without blocking
  * the main thread) or synchronously (on the main thread). Each task can be configured with
@@ -14,33 +12,33 @@ interface Scheduler {
     /**
      * Schedules an asynchronous task to be executed.
      *
-     * @param plugin The mod wrapper associated with the task
+     * @param owner The owner associated with the task
      * @param delay The initial delay before the task starts executing
      * @param timer The timer configuration specifying how often and for how long the task should run
      * @param task The suspend function to be executed asynchronously
      * @return A Task instance representing the scheduled task that can be cancelled
      */
-    fun async(plugin: ModWrapper, delay: Delay = Delay.Instant, timer: Timer = Timer.Once, task: suspend () -> Unit): Task
+    fun async(owner: TaskOwner, delay: Delay = Delay.Instant, timer: Timer = Timer.Once, task: suspend () -> Unit): Task
 
     /**
      * Schedules a synchronous task to be executed on the main thread.
      *
-     * @param plugin The mod wrapper associated with the task
+     * @param owner The owner associated with the task
      * @param delay The initial delay before the task starts executing
      * @param timer The timer configuration specifying how often and for how long the task should run
      * @param task The function to be executed synchronously on the main thread
      * @return A Task instance representing the scheduled task that can be cancelled
      */
-    fun sync(plugin: ModWrapper, delay: Delay = Delay.Instant, timer: Timer = Timer.Once, task: () -> Unit): Task
+    fun sync(owner: TaskOwner, delay: Delay = Delay.Instant, timer: Timer = Timer.Once, task: () -> Unit): Task
 
     /**
-     * Cancels all asynchronous and synchronous tasks that are associated with the given [ModWrapper].
+     * Cancels all asynchronous and synchronous tasks that are associated with the given [TaskOwner].
      *
-     * This method provides a way to stop all tasks that were scheduled for a specific mod. This is useful
-     * in scenarios where the mod is unloaded or needs to be cleaned up.
+     * This method provides a way to stop all tasks that were scheduled for a specific owner. This is useful
+     * in scenarios where the owner is no longer available or needs to be cleaned up.
      *
-     * @param plugin The mod wrapper to which to cancel all tasks.
+     * @param owner The [TaskOwner] for which to cancel all tasks.
      */
-    fun cancelAll(plugin: ModWrapper)
+    fun cancelAll(owner: TaskOwner)
     
 }

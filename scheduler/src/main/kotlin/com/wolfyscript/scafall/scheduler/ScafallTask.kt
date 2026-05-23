@@ -1,4 +1,4 @@
-package com.wolfyscript.scafall.scheduling
+package com.wolfyscript.scafall.scheduler
 
 /**
  * An internal extension of the [Task] interface, specifically designed for tasks managed by Scafall's scheduling system.

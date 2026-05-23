@@ -1,6 +1,5 @@
-package com.wolfyscript.scafall.scheduling
+package com.wolfyscript.scafall.scheduler
 
-import com.wolfyscript.scafall.ModWrapper
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -20,7 +19,7 @@ import kotlin.coroutines.CoroutineContext
  * @property fn The suspendable function to execute
  * @property timer The timer configuration for task execution scheduling
  * @property delay The initial delay before task execution begins
- * @property mod The mod wrapper associated with this task
+ * @property owner The mod wrapper associated with this task
  */
 internal class AsyncTask(
     parentCoroutineContext: CoroutineContext,
@@ -28,7 +27,7 @@ internal class AsyncTask(
     val fn: suspend () -> Unit,
     override val timer: Timer = Timer.Once,
     override val delay: Delay = Delay.Instant,
-    override val mod: ModWrapper,
+    override val owner: TaskOwner,
 ) : ScafallTask, CoroutineScope {
 
     override var nextRunTicks: Long = 0

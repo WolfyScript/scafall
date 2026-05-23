@@ -1,4 +1,4 @@
-package com.wolfyscript.scafall.scheduling
+package com.wolfyscript.scafall.scheduler
 
 /**
  * The initial delay of a [Task] after queuing it.

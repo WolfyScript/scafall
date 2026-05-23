@@ -6,13 +6,12 @@ import com.wolfyscript.scafall.maven.MavenRepositoryHandlerImpl
 import com.wolfyscript.scafall.registry.ScafallCommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
-import com.wolfyscript.scafall.scheduling.SimpleScheduler
+import com.wolfyscript.scafall.scheduler.SimpleScheduler
 import com.wolfyscript.scafall.spigot.api.platform.SpigotPlatformManager
 import com.wolfyscript.scafall.spigotlike.ScafallSpigotLike
 import com.wolfyscript.scafall.spigotlike.api.BukkitPluginWrapper
 import com.wolfyscript.scafall.spigotlike.api.factories.SpigotFactoriesImpl
 import com.wolfyscript.scafall.spigotlike.compat.PluginDependencyLoader
-import net.minecraft.server.MinecraftServer
 import org.bukkit.Bukkit
 import org.bukkit.Server
 import org.bukkit.plugin.java.JavaPlugin

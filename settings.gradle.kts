@@ -53,6 +53,7 @@ plugins {
 
 // Platforms
 sequenceOf(
+    "scheduler",
     "core",
     "loader-api",
     "spigotlike",

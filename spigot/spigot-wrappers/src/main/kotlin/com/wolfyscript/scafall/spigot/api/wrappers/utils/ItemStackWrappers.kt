@@ -41,7 +41,7 @@ private val craftStackHandleField: Field? = try {
  *
  * @see snapshot
  */
-fun ItemStack.wrap() : com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack {
+fun ItemStack.wrap() : ScafallItemStack {
     // Note ItemStacks may not be CraftItemStacks (e.g. created via ItemStack constructor).
     // In that case, we simply create the NMS stack copy of it. However, changes to the wrapped stack won't apply to the original!
     val craftStack = this as? CraftItemStack ?: return CraftItemStack.asNMSCopy(this).wrap()

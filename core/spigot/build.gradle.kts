@@ -14,7 +14,7 @@ plugins {
 dependencies {
     implementation(projects.core.coreSpigotlike)
     api(projects.core)
-    implementation(projects.core.spigot.coreSpigotSpigotWrappers)
+    implementation(projects.wrappers.wrappersSpigot)
     implementation(projects.loaderApi)
     api(sharedLibs.item.nbt.api)
     api(sharedLibs.adventure.platform.bukkit)

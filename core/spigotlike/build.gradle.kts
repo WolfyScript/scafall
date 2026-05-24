@@ -12,7 +12,7 @@ plugins {
 
 dependencies {
     api(projects.core)
-    implementation(projects.core.spigot.coreSpigotSpigotWrappers)
+    implementation(projects.wrappers.wrappersSpigot)
     implementation(projects.loaderApi)
     api(sharedLibs.item.nbt.api)
     api(sharedLibs.adventure.platform.bukkit)
@@ -32,7 +32,7 @@ tasks {
         dependencies {
             include(project(project.projects.core))
             include(project(project.projects.loaderApi))
-            include(project(project.projects.core.spigot.coreSpigotSpigotWrappers))
+            include(project(project.projects.wrappers.wrappersSpigot))
             include(dependency(sharedLibs.jackson.dataformat.hocon))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL

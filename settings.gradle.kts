@@ -63,11 +63,21 @@ sequenceOf(
     project(":$it").projectDir = file(it.replace(":", "/"))
 }
 
+// Wrappers
+sequenceOf(
+    "spigot",
+).forEach {
+    include(":wrappers:${it}")
+    project(":wrappers:${it}").apply {
+        projectDir = file("wrappers/${it.replace(":", "/")}")
+        name = "wrappers-${it.replace(":", "-")}"
+    }
+}
+
 // Core
 sequenceOf(
     "spigotlike",
     "spigot",
-    "spigot:spigot-wrappers",
     "paper",
     "fabric",
     "sponge",

@@ -1,14 +1,14 @@
 package com.wolfyscript.scafall.spigot.api.wrappers.utils
 
-import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.wrappers.minecraft.snapshot
-import com.wolfyscript.scafall.wrappers.minecraft.unwrap
 import com.wolfyscript.scafall.wrappers.minecraft.wrap
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackLike
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import org.bukkit.craftbukkit.inventory.CraftItemStack
 import org.bukkit.inventory.ItemStack
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.lang.reflect.Field
 
 /**
@@ -19,7 +19,7 @@ private val craftStackHandleField: Field? = try {
     field.isAccessible = true
     field
 } catch (e: ReflectiveOperationException) {
-    ScafallProvider.get().logger.error(
+    LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME).error(
         "Failed to get the handle field from CraftItemStack! Please report this issue to the Scafall GitHub page!",
         e
     )

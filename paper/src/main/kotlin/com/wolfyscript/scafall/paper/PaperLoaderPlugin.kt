@@ -13,7 +13,7 @@ class PaperLoaderPlugin : JavaPlugin() {
         "com.wolfyscript.scafall.InternalBootstrap"
     )
     private val scafall: ScafallPaper = bootstrap.loadModule {
-        ScafallPaper(this.classLoader, this)
+        ScafallPaper(this.classLoader, this, slF4JLogger)
     }
 
     override fun onLoad() {

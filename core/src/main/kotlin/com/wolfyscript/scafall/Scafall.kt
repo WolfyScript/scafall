@@ -2,6 +2,7 @@ package com.wolfyscript.scafall
 
 import com.wolfyscript.scafall.compat.DependencyManager
 import com.wolfyscript.scafall.config.jackson.JacksonUtil
+import com.wolfyscript.scafall.core.ModIdentifier
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.factories.Factories
@@ -63,14 +64,13 @@ interface Scafall : Module<ScafallServer, Client> {
      * Provides access to the mod information for the Scafall API.
      * This includes information about the mod, such as its name, version, and dependencies.
      */
-    val modInfo: ModWrapper
+    val identifier: ModIdentifier
 
     /**
      * Provides access to the logger used by scafall.
      * This logger can be used to log various messages and events within scafall.
      */
     val logger: Logger
-        get() = modInfo.logger
 
     /**
      * Provides access to the JacksonUtil for the Scafall API.
@@ -79,14 +79,14 @@ interface Scafall : Module<ScafallServer, Client> {
     val jacksonUtil: JacksonUtil
 
     /**
-     * Creates or retrieves a mod wrapper for the specified [modName].
+     * Creates or retrieves a mod wrapper for the specified [id].
      * If a mod wrapper already exists for the specified mod name, it will be retrieved.
      * If no mod wrapper exists for the specified mod name, a new one will be created.
      *
-     * @param modName The name of the mod to create or retrieve a wrapper for.
+     * @param id The name of the mod to create or retrieve a wrapper for.
      * @return The mod wrapper for the specified mod name, or null if no such wrapper exists.
      */
-    fun createOrGetPluginWrapper(modName: String) : ModWrapper?
+    fun getModIdentifier(id: String) : ModIdentifier?
 
     companion object
 

@@ -4,7 +4,7 @@ import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.compat.Dependency
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
-import com.wolfyscript.scafall.spigotlike.api.into
+import com.wolfyscript.scafall.spigotlike.api.plugin
 import com.wolfyscript.scafall.spigotlike.compat.PluginDependency
 import io.th0rgal.oraxen.api.events.OraxenItemsLoadedEvent
 import org.bukkit.Bukkit
@@ -22,7 +22,7 @@ class OraxenDependency : Dependency, Listener {
     override var isInitialized: Boolean = false
 
     init {
-        Bukkit.getPluginManager().registerEvents(this, ScafallProvider.get().modInfo.into().plugin)
+        ScafallProvider.get().identifier.plugin()?.let { Bukkit.getPluginManager().registerEvents(this, it) }
     }
 
     override fun onInit() {

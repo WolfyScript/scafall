@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.sponge.api
 
-import com.wolfyscript.scafall.ModWrapper
+import com.wolfyscript.scafall.core.ModIdentifier
 import com.wolfyscript.scafall.ScafallCommon
 import com.wolfyscript.scafall.registry.ScafallCommonRegistries
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
@@ -13,10 +13,11 @@ import com.wolfyscript.scafall.scheduler.SimpleScheduler
 import com.wolfyscript.scafall.sponge.ScafallSpongeBootstrap
 import com.wolfyscript.scafall.sponge.api.factories.SpongeFactories
 import com.wolfyscript.scafall.sponge.api.platform.PlatformManagerImpl
+import org.slf4j.Logger
 import org.spongepowered.api.Sponge
 import kotlin.jvm.optionals.getOrNull
 
-class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : ScafallCommon() {
+class ScafallSponge(val bootstrap: ScafallSpongeBootstrap, override val logger: Logger) : ScafallCommon() {
 
     override lateinit var mavenDependencyHandler: MavenDependencyHandler
     override lateinit var mavenRepositoryHandler: MavenRepositoryHandler
@@ -24,7 +25,7 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : ScafallCommon() {
     override lateinit var scheduler: Scheduler
     override val platformManager: PlatformManager = PlatformManagerImpl(this)
     override lateinit var factories: Factories
-    override val modInfo: ModWrapper = bootstrap.corePlugin
+    override val identifier: ModIdentifier = bootstrap.corePlugin
 
     fun init() {
         TODO("Not yet implemented")
@@ -32,14 +33,14 @@ class ScafallSponge(val bootstrap: ScafallSpongeBootstrap) : ScafallCommon() {
 
     fun load() {
         factories = SpongeFactories(this)
-        scheduler = SimpleScheduler()
+        scheduler = SimpleScheduler(logger)
         registries = ScafallCommonRegistries()
 
         // maven
     }
 
-    override fun createOrGetPluginWrapper(pluginName: String): ModWrapper? {
-        return Sponge.pluginManager().plugin(pluginName).getOrNull()?.let { SpongePluginWrapper(it) }
+    override fun getModIdentifier(pluginName: String): ModIdentifier? {
+        return Sponge.pluginManager().plugin(pluginName).getOrNull()?.let { SpongePluginIdentifier(it) }
     }
 
 }

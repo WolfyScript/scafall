@@ -5,6 +5,7 @@ import com.wolfyscript.scafall.loader.ScafallLoader
 import net.minecraft.server.MinecraftServer
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
+import org.slf4j.LoggerFactory
 
 class SpigotLoaderPlugin : JavaPlugin() {
 
@@ -14,7 +15,7 @@ class SpigotLoaderPlugin : JavaPlugin() {
         "com.wolfyscript.scafall.InternalBootstrap"
     )
     private val scafall: ScafallSpigot = bootstrap.loadModule {
-        ScafallSpigot(this.classLoader, this)
+        ScafallSpigot(this.classLoader, this, LoggerFactory.getLogger(logger.name))
     }
 
     override fun onLoad() {

@@ -5,6 +5,7 @@ import com.wolfyscript.scafall.compat.Dependency
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
 import com.wolfyscript.scafall.spigotlike.api.into
+import com.wolfyscript.scafall.spigotlike.api.plugin
 import com.wolfyscript.scafall.spigotlike.compat.PluginDependency
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
@@ -23,7 +24,9 @@ class DenizenDependency : Dependency, Listener {
     override var isInitialized: Boolean = false
 
     init {
-        Bukkit.getPluginManager().registerEvents(this, ScafallProvider.get().modInfo.into().plugin)
+        ScafallProvider.get().identifier.plugin()?.let { 
+            Bukkit.getPluginManager().registerEvents(this, it) 
+        }
     }
 
     override fun onInit() {

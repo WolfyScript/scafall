@@ -1,8 +1,8 @@
 package com.wolfyscript.scafall.platform
 
-import com.wolfyscript.scafall.ModWrapper
+import com.wolfyscript.scafall.core.ModIdentifier
 
-inline fun <reified T : ModWrapper> ModWrapper.into(): T {
+inline fun <reified T : ModIdentifier> ModIdentifier.into(): T {
     if (this is T) {
         return this
     }

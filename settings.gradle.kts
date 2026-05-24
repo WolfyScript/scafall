@@ -51,21 +51,31 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-// Platforms
+// Main Modules
 sequenceOf(
     "identifiers",
     "wrappers",
     "scheduler",
-    "core",
     "loader-api",
+    "core",
+).forEach {
+    include(":$it")
+    project(":$it").projectDir = file(it.replace(":", "/"))
+}
+
+// Core
+sequenceOf(
     "spigotlike",
     "spigot",
     "spigot:spigot-wrappers",
     "paper",
     "fabric",
     "sponge",
-    "sponge:loader"
+    "sponge:loader",
 ).forEach {
-    include(":$it")
-    project(":$it").projectDir = file(it.replace(":", "/"))
+    include(":core:${it}")
+    project(":core:${it}").apply {
+        projectDir = file("core/${it.replace(":", "/")}")
+        name = "core-${it.replace(":", "-")}"
+    }
 }

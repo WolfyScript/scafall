@@ -1,7 +1,6 @@
 import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
 
 plugins {
-    kotlin("jvm")
     `java-library`
     `maven-publish`
     id("scafall.common")
@@ -13,9 +12,9 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.spigotlike)
+    implementation(projects.core.coreSpigotlike)
     api(projects.core)
-    implementation(projects.spigot.spigotWrappers)
+    implementation(projects.core.spigot.coreSpigotSpigotWrappers)
     implementation(projects.loaderApi)
     api(sharedLibs.item.nbt.api)
     api(sharedLibs.adventure.platform.bukkit)
@@ -31,13 +30,11 @@ fun archiveName(): String {
 tasks {
     shadowJar {
         archiveFileName.set("${archiveName()}.jar")
+
         dependencies {
-            include(project(project.projects.spigotlike))
+            include(project(project.projects.core.coreSpigotlike))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
-    }
-    assemble {
-        dependsOn(shadowJar)
     }
 }
 
@@ -48,7 +45,7 @@ artifacts {
 bukkitPluginYaml {
     name = "scafall"
     version = project.version.toString()
-    main = "com.wolfyscript.scafall.paper.PaperLoaderPlugin"
+    main = "com.wolfyscript.scafall.spigot.SpigotLoaderPlugin"
     apiVersion = sharedLibs.versions.minecraft.get() // Only support the latest Minecraft version!
     authors.add("WolfyScript")
     load = BukkitPluginYaml.PluginLoadOrder.STARTUP
@@ -68,6 +65,7 @@ bukkitPluginYaml {
             add(it.toString())
         }
         add(sharedLibs.adventure.platform.bukkit.get().toString())
+
         addAll(
             sharedLibs.jackson.kotlin.get().toString(),
             sharedLibs.jackson.databind.get().toString(),
@@ -97,13 +95,14 @@ bukkitPluginYaml {
 minecraftServers {
     libName.set("${archiveName()}.jar") // Makes sure to copy the correct file
     servers {
-        // Paper test servers
-        register("paper") {
+        // Scaffolding will only support 1.21+
+        register("spigot") {
             destFileName.set("scafall.jar")
             version.set(sharedLibs.versions.minecraft.get())
-            type.set("PAPER")
-            imageVersion.set("java${sharedLibs.versions.jdk.get()}")
-            ports.add("25566:25565")
+            type.set("SPIGOT")
+            imageVersion.set("java${sharedLibs.versions.jdk.get()}-graalvm") // need jdk to build from source
+            extraEnv.put("BUILD_FROM_SOURCE", "true")
+            ports.add("25565:25565")
         }
     }
 }
@@ -115,6 +114,6 @@ modrinth {
     versionType.set("alpha")
     uploadFile.set(tasks.shadowJar)
     gameVersions.set(listOf(sharedLibs.versions.minecraft.get()))
-    loaders.set(listOf("paper", "purpur"))
+    loaders.set(listOf("spigot"))
     changelog.set(System.getenv("CHANGELOG") ?: "")
 }

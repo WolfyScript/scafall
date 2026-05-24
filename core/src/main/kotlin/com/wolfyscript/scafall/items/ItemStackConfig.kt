@@ -1,4 +1,4 @@
-package com.wolfyscript.scafall.wrappers.world.items
+package com.wolfyscript.scafall.items
 
 import com.fasterxml.jackson.annotation.*
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver
@@ -6,6 +6,8 @@ import com.wolfyscript.scafall.config.jackson.RegistryKeyTypeIdResolver
 import com.wolfyscript.scafall.eval.context.EvalContext
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
+import com.wolfyscript.scafall.wrappers.world.items.ScafallItemStack
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 

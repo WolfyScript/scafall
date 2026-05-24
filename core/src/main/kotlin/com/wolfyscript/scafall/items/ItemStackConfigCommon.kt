@@ -1,10 +1,11 @@
-package com.wolfyscript.scafall.wrappers.world.items
+package com.wolfyscript.scafall.items
 
 import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonSetter
 import com.wolfyscript.scafall.eval.value_provider.ValueProvider
 import com.wolfyscript.scafall.eval.value_provider.ValueProviderIntegerConst
 import com.wolfyscript.scafall.identifier.Key
+import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
 
 /**
  * A template configuration for an ItemStack.
@@ -30,7 +31,7 @@ abstract class ItemStackConfigCommon(
      * A map of overrides for the item stack. Each override is identified by a Key and
      * contains a specific configuration for that item.
      *
-     * @see ItemStackConfig.Override
+     * @see Override
      * @see Key
      */
     override var overrides: Map<Key, ItemStackConfig.Override> = emptyMap()

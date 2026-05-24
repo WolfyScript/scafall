@@ -7,7 +7,7 @@ import com.wolfyscript.scafall.ScafallBootstrap
 import com.wolfyscript.scafall.sponge.api.ScafallSponge
 import com.wolfyscript.scafall.sponge.api.SpongePluginIdentifier
 import com.wolfyscript.scafall.sponge.api.wrappers.world.items.SpongeItemStackConfig
-import com.wolfyscript.scafall.wrappers.world.items.ItemStackConfig
+import com.wolfyscript.scafall.items.ItemStackConfig
 import org.slf4j.LoggerFactory
 import org.spongepowered.plugin.PluginContainer
 import java.util.function.Consumer

@@ -2,8 +2,7 @@ package com.wolfyscript.scafall.config.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
-import com.wolfyscript.scafall.identifier.Key
-import com.wolfyscript.scafall.identifier.KeyImpl
+import com.wolfyscript.scafall.identifier.registerKeyTypeMappings
 import com.wolfyscript.scafall.items.ItemStackRef
 import com.wolfyscript.scafall.items.ItemStackRefImpl
 import com.wolfyscript.scafall.wrappers.world.items.ItemStackSnapshot
@@ -21,7 +20,7 @@ class JacksonUtilImpl : JacksonUtil {
             addAbstractTypeMapping(ItemStackSnapshot::class.java, ItemStackSnapshotImpl::class.java)
 
             addAbstractTypeMapping(ItemStackRef::class.java, ItemStackRefImpl::class.java)
-            addAbstractTypeMapping(Key::class.java, KeyImpl::class.java)
+            registerKeyTypeMappings()
         }
     }
 

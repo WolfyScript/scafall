@@ -6,7 +6,6 @@ import com.google.common.base.Preconditions
 import com.wolfyscript.scafall.identifier.Key.Companion.KEY_REGEX
 import com.wolfyscript.scafall.identifier.Key.Companion.NAMESPACE_REGEX
 import net.minecraft.resources.Identifier
-import java.util.regex.Pattern
 
 internal class KeyImpl @JsonCreator(mode = JsonCreator.Mode.DISABLED) internal constructor(override val namespace: String, override val value: String) : Key {
 

@@ -1,5 +1,6 @@
 package com.wolfyscript.scafall.identifier
 
+import com.fasterxml.jackson.databind.module.SimpleModule
 import com.wolfyscript.scafall.identifier.Key.Companion.KEY_REGEX
 import com.wolfyscript.scafall.identifier.Key.Companion.NAMESPACE_REGEX
 import net.minecraft.resources.Identifier
@@ -22,3 +23,10 @@ fun net.kyori.adventure.key.Key.toScafall() : Key = Key.key(this.namespace(), th
  * Converts a minecraft [ResourceLocation] to a scafall [com.wolfyscript.scafall.identifier.Key]
  */
 fun Identifier.toScafall() : Key = Key.key(this.namespace, this.path)
+
+/**
+ * Used to bind the [Key] to its implementation in Jackson
+ */
+fun SimpleModule.registerKeyTypeMappings() {
+    addAbstractTypeMapping(Key::class.java, KeyImpl::class.java)
+}

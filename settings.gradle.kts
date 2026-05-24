@@ -53,6 +53,8 @@ plugins {
 
 // Platforms
 sequenceOf(
+    "identifiers",
+    "wrappers",
     "scheduler",
     "core",
     "loader-api",

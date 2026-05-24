@@ -1,8 +1,8 @@
 package com.wolfyscript.scafall.wrappers.world.items
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.identifier.Key
+import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtIo
@@ -36,8 +36,8 @@ internal sealed class ItemStackLikeCommon : ItemStackLike {
         get() = mcStack.isEmpty
 
     override fun toNBTString(): String {
-        val registryAccess = ScafallProvider.get().server?.minecraftServer?.registryAccess()
-        val result = ItemStack.CODEC.encodeStart(registryAccess?.createSerializationContext(NbtOps.INSTANCE), mcStack)
+        val registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY)
+        val result = ItemStack.CODEC.encodeStart(registryAccess.createSerializationContext(NbtOps.INSTANCE), mcStack)
         // TODO: handle errors
         return result.result().map { it.toString() }.orElse("")
     }
@@ -45,8 +45,8 @@ internal sealed class ItemStackLikeCommon : ItemStackLike {
     override fun toNBTBytes(): ByteArray {
         val stream = ByteArrayOutputStream()
 
-        val registryAccess = ScafallProvider.get().server?.minecraftServer?.registryAccess()
-        val result = ItemStack.CODEC.encodeStart(registryAccess?.createSerializationContext(NbtOps.INSTANCE), mcStack).result().getOrNull()
+        val registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY)
+        val result = ItemStack.CODEC.encodeStart(registryAccess.createSerializationContext(NbtOps.INSTANCE), mcStack).result().getOrNull()
 
         if (result == null || result !is CompoundTag) {
             return ByteArray(0)

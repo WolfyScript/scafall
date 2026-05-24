@@ -15,7 +15,7 @@ minecraftDockerRun {
     // By default the container is removed when stopped.
     // That makes it impossible to know why a container may fail to start.
     // In that case disable it to debug and delete container manually.
-//     clean.set(false)
+    clean.set(false)
     platform.set(ContainerPlatform.PODMAN)
     env.putAll(
         mapOf(
@@ -31,7 +31,8 @@ minecraftDockerRun {
         // Constrain to only use 2 cpus to better align with real production servers
         "--cpus",
         "2",
-        "--userns=keep-id"
+        "--userns=keep-id",
+        "--replace"
     )
     ports.set(listOf(debugPortMapping))
 }

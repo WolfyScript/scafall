@@ -19,8 +19,23 @@ tasks {
         archiveBaseName = "scafall-core"
 
         dependencies {
-            include(dependency("com.wolfyscript.scafall:.*"))
+            include {
+                it.moduleGroup.startsWith("com.wolfyscript.scafall")
+            }
         }
+    }
+}
+
+configurations {
+    named("apiElements") {
+        outgoing.artifacts.clear()
+        outgoing.variants.clear()
+        outgoing.artifact(tasks.shadowJar)
+    }
+    named("runtimeElements") {
+        outgoing.artifacts.clear()
+        outgoing.variants.clear()
+        outgoing.artifact(tasks.shadowJar)
     }
 }
 

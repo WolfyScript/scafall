@@ -32,7 +32,7 @@ publishing {
     publications {
         create<MavenPublication>("lib") {
             from(components.getByName("java"))
-            groupId = "com.wolfyscript.scafall"
+            groupId = "com.wolfyscript.scafall.core"
             artifactId = "core"
             artifact(tasks.kotlinSourcesJar) {
                 classifier = "sources"

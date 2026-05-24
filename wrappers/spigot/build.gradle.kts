@@ -24,8 +24,8 @@ publishing {
     publications {
         create<MavenPublication>("lib") {
             from(components.getByName("java"))
-            groupId = "com.wolfyscript.scafall.spigot"
-            artifactId = "spigot-api"
+            groupId = "com.wolfyscript.scafall.wrappers"
+            artifactId = "wrappers-spigot"
             artifact(tasks.kotlinSourcesJar)
         }
     }

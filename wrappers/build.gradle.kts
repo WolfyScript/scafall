@@ -14,8 +14,8 @@ publishing {
     publications {
         create<MavenPublication>("lib") {
             from(components.getByName("java"))
-            groupId = "com.wolfyscript.scafall"
-            artifactId = "scheduler"
+            groupId = "com.wolfyscript.scafall.wrappers"
+            artifactId = "wrappers"
             artifact(tasks.kotlinSourcesJar) {
                 classifier = "sources"
             }

@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     id("scafall.common")
+    id("scafall.publishing")
     alias(sharedLibs.plugins.fabric.loom)
 }
 

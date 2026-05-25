@@ -1,8 +1,5 @@
-import org.jfrog.gradle.plugin.artifactory.task.ArtifactoryTask
-
 plugins {
     kotlin("jvm")
-    alias(sharedLibs.plugins.artifactory)
     alias(sharedLibs.plugins.fabric.loom) apply false
 }
 
@@ -18,28 +15,8 @@ tasks {
     test {
         useJUnitPlatform()
     }
-    withType<ArtifactoryTask> {
-        skip = true
-    }
 }
 
 kotlin {
     jvmToolchain(25)
-}
-
-artifactory {
-    publish {
-        contextUrl = "https://artifacts.wolfyscript.com/artifactory"
-        repository {
-            repoKey = "gradle-dev-local"
-            username = project.properties["wolfyRepoPublishUsername"].toString()
-            password = project.properties["wolfyRepoPublishToken"].toString()
-        }
-        defaults {
-            publications("lib")
-            setPublishArtifacts(true)
-            setPublishPom(true)
-            isPublishBuildInfo = false
-        }
-    }
 }

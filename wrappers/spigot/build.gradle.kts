@@ -3,6 +3,7 @@ plugins {
     `maven-publish`
     id("scafall.common")
     id("scafall.spigotlike")
+    id("scafall.publishing")
     alias(sharedLibs.plugins.shadow)
 }
 

@@ -3,6 +3,7 @@ plugins {
     id("scafall.common")
     alias(sharedLibs.plugins.shadow)
     alias(sharedLibs.plugins.fabric.loom)
+    id("scafall.publishing")
 }
 
 dependencies {

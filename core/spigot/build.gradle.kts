@@ -24,7 +24,7 @@ dependencies {
 }
 
 fun archiveName(): String {
-    return "${rootProject.name}-${project.version}-${project.name}-${sharedLibs.versions.minecraft.get()}"
+    return "${rootProject.name}-${project.version}-spigot-${sharedLibs.versions.minecraft.get()}"
 }
 
 tasks {

@@ -18,6 +18,6 @@
 * remove entity wrapper functions and properties
 * refactor: rename ItemStackSnapshot create function
 
-## Scheduler
+### Scheduler
 * fix: missing logger
 * feat: TaskOwner for scafall independent task owner support

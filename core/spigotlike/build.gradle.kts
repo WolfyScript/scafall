@@ -25,14 +25,8 @@ dependencies {
     compileOnly(libs.bundles.spigot.external.plugins)
 }
 
-fun archiveName(): String {
-    return "scafall-${project.version}-spigot-${sharedLibs.versions.minecraft.get()}"
-}
-
 tasks {
     shadowJar {
-        archiveFileName.set("${archiveName()}.jar")
-
         dependencies {
             include {
                 it.moduleGroup.startsWith("com.wolfyscript.scafall")
@@ -45,8 +39,6 @@ tasks {
 
 artifacts {
     archives(tasks.shadowJar)
-    default(tasks.shadowJar)
-    implementation(tasks.shadowJar)
 }
 
 bukkitPluginYaml {

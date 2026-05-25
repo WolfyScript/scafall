@@ -36,6 +36,9 @@ tasks {
     shadowJar {
         archiveFileName.set("${archiveName()}.jar")
         dependencies {
+            include {
+                it.moduleGroup.startsWith("com.wolfyscript.scafall")
+            }
             include(project(project.projects.core.coreSpigotlike))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL

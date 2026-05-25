@@ -1,7 +1,6 @@
 plugins {
     `java-library`
     id("scafall.common")
-    alias(sharedLibs.plugins.shadow)
     alias(sharedLibs.plugins.fabric.loom)
     id("scafall.publishing")
 }
@@ -13,35 +12,6 @@ dependencies {
     api(projects.scheduler)
     implementation(kotlin("reflect"))
     minecraft(sharedLibs.minecraft)
-}
-
-tasks {
-    shadowJar {
-        archiveBaseName = "scafall-core"
-
-        dependencies {
-            include {
-                it.moduleGroup.startsWith("com.wolfyscript.scafall")
-            }
-        }
-    }
-}
-
-configurations {
-    named("apiElements") {
-        outgoing.artifacts.clear()
-        outgoing.variants.clear()
-        outgoing.artifact(tasks.shadowJar)
-    }
-    named("runtimeElements") {
-        outgoing.artifacts.clear()
-        outgoing.variants.clear()
-        outgoing.artifact(tasks.shadowJar)
-    }
-}
-
-artifacts {
-    archives(tasks.shadowJar)
 }
 
 publishing {

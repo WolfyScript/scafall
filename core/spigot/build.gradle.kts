@@ -12,8 +12,8 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.core)
     implementation(projects.core.coreSpigotlike)
-    api(projects.core)
     implementation(projects.wrappers.wrappersSpigot)
     implementation(projects.loaderApi)
     api(sharedLibs.item.nbt.api)

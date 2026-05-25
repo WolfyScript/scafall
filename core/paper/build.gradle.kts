@@ -13,10 +13,14 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.core)
     implementation(projects.core.coreSpigotlike)
-    api(projects.core)
+    implementation(projects.identifiers)
+    implementation(projects.wrappers)
     implementation(projects.wrappers.wrappersSpigot)
+    implementation(projects.scheduler)
     implementation(projects.loaderApi)
+
     api(sharedLibs.item.nbt.api)
     api(sharedLibs.adventure.platform.bukkit)
 

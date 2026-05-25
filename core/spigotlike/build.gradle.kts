@@ -11,9 +11,13 @@ plugins {
 }
 
 dependencies {
-    api(projects.core)
-    implementation(projects.wrappers.wrappersSpigot)
     implementation(projects.loaderApi)
+    implementation(projects.core)
+    implementation(projects.identifiers)
+    implementation(projects.wrappers)
+    implementation(projects.wrappers.wrappersSpigot)
+    implementation(projects.scheduler)
+
     api(sharedLibs.item.nbt.api)
     api(sharedLibs.adventure.platform.bukkit)
 
@@ -30,9 +34,9 @@ tasks {
         archiveFileName.set("${archiveName()}.jar")
 
         dependencies {
-            include(project(project.projects.core))
-            include(project(project.projects.loaderApi))
-            include(project(project.projects.wrappers.wrappersSpigot))
+            include {
+                it.moduleGroup.startsWith("com.wolfyscript.scafall")
+            }
             include(dependency(sharedLibs.jackson.dataformat.hocon))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL

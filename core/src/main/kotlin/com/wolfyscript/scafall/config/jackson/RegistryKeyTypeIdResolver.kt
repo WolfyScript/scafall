@@ -48,13 +48,7 @@ class RegistryKeyTypeIdResolver : TypeIdResolverBase() {
         }
 
         val namespace = superType.rawClass.getAnnotation(DefaultNamespace::class.java)?.namespace ?: registry.key.namespace
-        val key = if (id.contains(':')) {
-            Key.parse(id)
-        } else {
-            // Complete the key with the default namespace if it isn't yet.
-            // It assumes that the default namespace is equal to the namespace of the registry (alternatively, it can be overwritten).
-            Key.key(namespace, id)
-        }
+        val key = Key.parse(namespace, id)
 
         val clazz = getTypeClass(key, registry)
         return if (clazz != null) {

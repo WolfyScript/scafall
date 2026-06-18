@@ -62,6 +62,17 @@ interface Key : Namespaced {
         @JvmStatic
         fun parse(string: String): Key = parse(string, SEPARATOR)
 
+        @JvmStatic
+        fun parse(defaultNamespace: String? = SCAFFOLDING_NAMESPACE, value: String): Key {
+            return if (value.contains(':')) {
+                parse(value)
+            } else {
+                // Complete the key with the default namespace if it isn't yet.
+                // It assumes that the default namespace is equal to the namespace of the registry (alternatively, it can be overwritten).
+                key(defaultNamespace ?: SCAFFOLDING_NAMESPACE, value)
+            }
+        }
+
         /**
          * Creates a new Key from a minecraft ResourceLocation
          */

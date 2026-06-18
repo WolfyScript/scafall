@@ -10,7 +10,7 @@ dependencyResolutionManagement {
 
     versionCatalogs {
         create("sharedLibs") {
-            from("com.wolfyscript.scafall:scafall-versions:1.3.0")
+            from("com.wolfyscript.scafall:scafall-versions:1.5.0")
         }
     }
 }

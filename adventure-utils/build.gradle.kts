@@ -6,12 +6,6 @@ plugins {
 }
 
 dependencies {
-    api(projects.loaderApi)
-    api(projects.adventureUtils)
-    api(projects.identifiers)
-    api(projects.wrappers)
-    api(projects.scheduler)
-    implementation(kotlin("reflect"))
     minecraft(sharedLibs.minecraft)
 }
 
@@ -19,8 +13,8 @@ publishing {
     publications {
         create<MavenPublication>("lib") {
             from(components.getByName("java"))
-            groupId = "com.wolfyscript.scafall.core"
-            artifactId = "core"
+            groupId = "com.wolfyscript.scafall.adventure-utils"
+            artifactId = "adventure-utils"
             artifact(tasks.kotlinSourcesJar) {
                 classifier = "sources"
             }

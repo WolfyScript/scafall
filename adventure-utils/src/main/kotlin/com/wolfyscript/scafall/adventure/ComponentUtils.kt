@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall.adventure
 
-import com.wolfyscript.scafall.ScafallProvider
+import com.google.gson.JsonParseException
+import com.mojang.serialization.JsonOps
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.ComponentBuilder
 import net.kyori.adventure.text.ComponentLike
@@ -8,6 +9,10 @@ import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.Style
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
+import net.minecraft.core.RegistryAccess
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.network.chat.ComponentSerialization
 
 /**
  * Converts this adventure Component to a Minecraft Chat Component using the best platform specific conversion.
@@ -15,11 +20,14 @@ import net.kyori.adventure.text.format.TextDecoration
  * @return The vanilla Minecraft chat component representation of this adventure component
  */
 fun Component.vanilla(): net.minecraft.network.chat.Component {
-    val scafall = ScafallProvider.get()
-    if (scafall.server != null) {
-        return scafall.server!!.adventure.toVanilla(this)
+    val json = GsonComponentSerializer.gson().serializeToTree(this)
+    val holder = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY)
+
+    val result = ComponentSerialization.CODEC.decode(holder.createSerializationContext(JsonOps.INSTANCE), json)
+    if (result.isError) {
+        throw JsonParseException(result.error().get().message())
     }
-    TODO("Client adventure not supported yet")
+    return result.result().get().first
 }
 
 /**

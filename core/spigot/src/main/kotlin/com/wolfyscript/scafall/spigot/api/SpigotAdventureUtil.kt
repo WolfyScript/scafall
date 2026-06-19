@@ -1,14 +1,8 @@
 package com.wolfyscript.scafall.spigot.api
 
-import com.google.gson.JsonParseException
-import com.mojang.serialization.JsonOps
 import com.wolfyscript.scafall.adventure.AdventureUtil
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
-import net.minecraft.core.RegistryAccess
-import net.minecraft.core.registries.BuiltInRegistries
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.*
 
@@ -44,14 +38,4 @@ class SpigotAdventureUtil() : AdventureUtil {
         return adventure.console()
     }
 
-    override fun toVanilla(component: Component): net.minecraft.network.chat.Component {
-        val json = GsonComponentSerializer.gson().serializeToTree(component)
-        val holder = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY)
-
-        val result = net.minecraft.network.chat.ComponentSerialization.CODEC.decode(holder.createSerializationContext(JsonOps.INSTANCE), json)
-        if (result.isError) {
-            throw JsonParseException(result.error().get().message())
-        }
-        return result.result().get().first
-    }
 }

@@ -56,6 +56,7 @@ sequenceOf(
     "identifiers",
     "wrappers",
     "scheduler",
+    "adventure-utils",
     "loader-api",
     "core",
 ).forEach {

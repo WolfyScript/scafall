@@ -1,8 +1,6 @@
 package com.wolfyscript.scafall.adventure
 
 import net.kyori.adventure.audience.Audience
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.minimessage.MiniMessage
 import java.util.*
 
 /**
@@ -34,18 +32,5 @@ interface AdventureUtil {
      * @return An Audience representing system messages
      */
     fun system(): Audience
-
-    /**
-     * Converts an Adventure Component to a Minecraft Chat Component.
-     *
-     * This method uses the platform-specific implementation to convert between Adventure and Minecraft's native component types.
-     *
-     * @param component The Adventure Component to convert
-     * @return The corresponding Minecraft Chat Component
-     */
-    fun toVanilla(component: Component): net.minecraft.network.chat.Component
-
-    val miniMsg: MiniMessage
-        get() = MiniMessage.miniMessage()
 
 }

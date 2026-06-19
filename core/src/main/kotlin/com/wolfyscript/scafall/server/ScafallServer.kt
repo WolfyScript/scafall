@@ -1,6 +1,5 @@
 package com.wolfyscript.scafall.server
 
-import com.wolfyscript.scafall.adventure.AdventureUtil
 import com.wolfyscript.scafall.loader.module.Server
 import net.minecraft.server.MinecraftServer
 
@@ -21,7 +20,5 @@ interface ScafallServer : Server {
     val minecraftServer: MinecraftServer
 
     val isDedicated: Boolean
-
-    val adventure: AdventureUtil
 
 }

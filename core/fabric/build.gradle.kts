@@ -25,6 +25,7 @@ dependencies {
     implementation(include(projects.loaderApi)!!)
 
     implementation(include(sharedLibs.adventure.platform.fabric.get())!!)
+    implementation(include(sharedLibs.adventure.platform.shared.get())!!)
     implementation(include(sharedLibs.jackson.kotlin.get())!!)
 
     implementation(include(sharedLibs.typesafe.config.get())!!)

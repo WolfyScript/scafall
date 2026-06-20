@@ -1,23 +1,26 @@
-`v1.0-alpha.0.5`
+`v1.0-alpha.1.0`
 
 ### General
-* move some packages into a separate standalone modules.  
+* update to Minecraft 26.2
+* move adventure utilities into a separate standalone module.  
   Making it possible to selectively shade them into your project when needed.
-  * identifiers
-  * wrappers
-  * scheduler
+
+### Identifiers
+* add `Key.parse` function with default namespace
 
 ### Core
-* refactor: rename ModWrapper to ModIdentifier
-* build: no longer shade core deps & shade in platform modules instead
+* Removed Adventure Audiences abstraction
 
-### Wrappers
-* feat: add ItemStackRef.toTemplate for compatibility with ItemStackTemplates
-* feat: add ItemStackTemplate wrapper
-* feat: add separate util functions to convert to Minecraft types (without wrapper)
-* remove entity wrapper functions and properties
-* refactor: rename ItemStackSnapshot create function
+### Spigot
+Due to PaperMC discontinuing maintenance and support for Adventure on the Spigot platform.
 
-### Scheduler
-* fix: missing logger
-* feat: TaskOwner for scafall independent task owner support
+> We recommend that users of these libraries update to modern platforms that natively support Adventure
+> 
+> *See [adventure-platform GitHub](https://github.com/PaperMC/adventure-platform#adventure-platform)*
+
+This update removes Adventure support, and the Adventure utils are now in a separate module
+but no longer shaded into the scafall spigot build.
+
+**Important:** Because of those changes, I am considering dropping support for Spigot/Bukkit in the near future.  
+I'm still evaluating if there are any other ways, but I'm unable to maintain a custom adventure-platform implementation. 
+CustomCrafting and especially viewportl make heavy use of Adventure, so yeah... not looking good for spigot so far. 

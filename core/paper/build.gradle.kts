@@ -16,6 +16,7 @@ dependencies {
     implementation(projects.core)
     implementation(projects.core.coreSpigotlike)
     implementation(projects.identifiers)
+    implementation(projects.adventureUtils)
     implementation(projects.wrappers)
     implementation(projects.wrappers.wrappersSpigot)
     implementation(projects.scheduler)

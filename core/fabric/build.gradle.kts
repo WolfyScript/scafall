@@ -20,6 +20,7 @@ loom {
 dependencies {
     implementation(include(projects.core)!!)
     implementation(include(projects.identifiers)!!)
+    implementation(include(projects.adventureUtils)!!)
     implementation(include(projects.wrappers)!!)
     implementation(include(projects.scheduler)!!)
     implementation(include(projects.loaderApi)!!)

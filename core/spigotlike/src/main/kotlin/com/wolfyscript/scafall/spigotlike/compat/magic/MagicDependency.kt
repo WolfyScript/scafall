@@ -22,7 +22,7 @@ class MagicDependency : Dependency, Listener {
     override var isInitialized: Boolean = false
 
     init {
-        ScafallProvider.get().identifier.plugin()?.let { Bukkit.getPluginManager().registerEvents(this, it) }
+        ScafallProvider.get().plugin().let { Bukkit.getPluginManager().registerEvents(this, it) }
     }
 
     override fun onInit() {

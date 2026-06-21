@@ -2,7 +2,6 @@ package com.wolfyscript.scafall
 
 import com.wolfyscript.scafall.compat.DependencyManager
 import com.wolfyscript.scafall.config.jackson.JacksonUtil
-import com.wolfyscript.scafall.core.ModIdentifier
 import com.wolfyscript.scafall.maven.MavenDependencyHandler
 import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.factories.Factories
@@ -11,6 +10,7 @@ import com.wolfyscript.scafall.loader.module.Module
 import com.wolfyscript.scafall.platform.PlatformManager
 import com.wolfyscript.scafall.registry.ScafallRegistries
 import com.wolfyscript.scafall.scheduler.Scheduler
+import com.wolfyscript.scafall.scheduler.TaskOwner
 import com.wolfyscript.scafall.server.ScafallServer
 import org.slf4j.Logger
 
@@ -19,7 +19,7 @@ import org.slf4j.Logger
  *
  * It is usually registered in the service manager of the platform.
  */
-interface Scafall : Module<ScafallServer, Client> {
+interface Scafall : Module<ScafallServer, Client>, TaskOwner {
 
     /**
      * Provides access to all the registries that Scafall offers.
@@ -61,12 +61,6 @@ interface Scafall : Module<ScafallServer, Client> {
     val factories: Factories
 
     /**
-     * Provides access to the mod information for the Scafall API.
-     * This includes information about the mod, such as its name, version, and dependencies.
-     */
-    val identifier: ModIdentifier
-
-    /**
      * Provides access to the logger used by scafall.
      * This logger can be used to log various messages and events within scafall.
      */
@@ -77,16 +71,6 @@ interface Scafall : Module<ScafallServer, Client> {
      * This JacksonUtil can be used to serialize and deserialize JSON data within the Scafall API.
      */
     val jacksonUtil: JacksonUtil
-
-    /**
-     * Creates or retrieves a mod wrapper for the specified [id].
-     * If a mod wrapper already exists for the specified mod name, it will be retrieved.
-     * If no mod wrapper exists for the specified mod name, a new one will be created.
-     *
-     * @param id The name of the mod to create or retrieve a wrapper for.
-     * @return The mod wrapper for the specified mod name, or null if no such wrapper exists.
-     */
-    fun getModIdentifier(id: String) : ModIdentifier?
 
     companion object
 

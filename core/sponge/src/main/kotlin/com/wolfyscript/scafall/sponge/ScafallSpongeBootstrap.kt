@@ -1,11 +1,9 @@
 package com.wolfyscript.scafall.sponge
 
 import com.fasterxml.jackson.databind.module.SimpleModule
-import com.wolfyscript.scafall.core.ModIdentifier
 import com.wolfyscript.scafall.Scafall
 import com.wolfyscript.scafall.ScafallBootstrap
 import com.wolfyscript.scafall.sponge.api.ScafallSponge
-import com.wolfyscript.scafall.sponge.api.SpongePluginIdentifier
 import com.wolfyscript.scafall.sponge.api.wrappers.world.items.SpongeItemStackConfig
 import com.wolfyscript.scafall.items.ItemStackConfig
 import org.slf4j.LoggerFactory
@@ -14,7 +12,6 @@ import java.util.function.Consumer
 
 class ScafallSpongeBootstrap(applyScafall: Consumer<Scafall>, val classLoader: ClassLoader, plugin: PluginContainer) : ScafallBootstrap(classLoader) {
 
-    internal val corePlugin: ModIdentifier = SpongePluginIdentifier(plugin)
     val bridge: ScafallSponge = ScafallSponge(this, LoggerFactory.getLogger(plugin.logger().name))
 
     init {

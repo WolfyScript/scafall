@@ -14,11 +14,13 @@ import com.wolfyscript.scafall.spigotlike.compat.magic.MagicDependency
 import com.wolfyscript.scafall.spigotlike.compat.mmoitems.MMOItemsDependency
 import com.wolfyscript.scafall.spigotlike.compat.mythicmobs.MythicMobsDependency
 import com.wolfyscript.scafall.spigotlike.compat.oraxen.OraxenDependency
+import org.bukkit.plugin.java.JavaPlugin
 
 abstract class ScafallSpigotLike : ScafallCommon() {
 
     abstract override val registries: ScafallCommonRegistries
     abstract override val factories: CommonFactories
+    abstract val plugin: JavaPlugin
 
     override fun onInit() {
         super.onInit()

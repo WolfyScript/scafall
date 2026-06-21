@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.maven
 
-import com.wolfyscript.scafall.core.ModIdentifier
+import com.wolfyscript.scafall.identifier.Key
 import java.util.Collections.unmodifiableSet
 
 class MavenRepositoryHandlerImpl() : MavenRepositoryHandler {
@@ -9,9 +9,9 @@ class MavenRepositoryHandlerImpl() : MavenRepositoryHandler {
     override val repositories: Set<MavenRepository>
         get() = unmodifiableSet(internalRepositories)
 
-    private val internalPluginRepositories: MutableMap<ModIdentifier, Set<MavenRepository>> = mutableMapOf()
+    private val internalPluginRepositories: MutableMap<Key, Set<MavenRepository>> = mutableMapOf()
 
-    override fun pluginRepositories(plugin: ModIdentifier): Set<MavenRepository> {
+    override fun pluginRepositories(plugin: Key): Set<MavenRepository> {
         return internalPluginRepositories.getOrDefault(plugin, setOf())
     }
 

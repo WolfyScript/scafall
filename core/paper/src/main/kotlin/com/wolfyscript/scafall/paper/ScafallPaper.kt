@@ -1,7 +1,6 @@
 package com.wolfyscript.scafall.paper
 
 import com.destroystokyo.paper.event.server.ServerTickStartEvent
-import com.wolfyscript.scafall.core.ModIdentifier
 import com.wolfyscript.scafall.maven.MavenDependencyHandlerImpl
 import com.wolfyscript.scafall.maven.MavenRepositoryHandlerImpl
 import com.wolfyscript.scafall.registry.ScafallCommonRegistries
@@ -10,24 +9,20 @@ import com.wolfyscript.scafall.maven.MavenRepositoryHandler
 import com.wolfyscript.scafall.paper.api.PaperPlatformManager
 import com.wolfyscript.scafall.scheduler.SimpleScheduler
 import com.wolfyscript.scafall.spigotlike.ScafallSpigotLike
-import com.wolfyscript.scafall.spigotlike.api.BukkitPluginIdentifier
 import com.wolfyscript.scafall.spigotlike.api.factories.SpigotFactoriesImpl
 import com.wolfyscript.scafall.spigotlike.compat.PluginDependencyLoader
-import org.bukkit.Bukkit
 import org.bukkit.Server
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import org.slf4j.Logger
 
-class ScafallPaper(val classLoader: ClassLoader, val plugin: JavaPlugin, override val logger: Logger) : ScafallSpigotLike(), Listener {
+class ScafallPaper(val classLoader: ClassLoader, override val plugin: JavaPlugin, override val logger: Logger) : ScafallSpigotLike(), Listener {
 
     //
     // Note: This is called before this bridge is registered! ScafallProvider.get() will fail!
     //       Only init things that don't depend on it and use init() instead!
     //
-
-    override val identifier: ModIdentifier = BukkitPluginIdentifier(plugin)
 
     // Essentials
     override val factories: SpigotFactoriesImpl = SpigotFactoriesImpl(this)
@@ -54,10 +49,6 @@ class ScafallPaper(val classLoader: ClassLoader, val plugin: JavaPlugin, overrid
 
     fun initServer(bukkitServer: Server) {
         server = ScafallServerPaper(this, bukkitServer)
-    }
-
-    override fun getModIdentifier(id: String): ModIdentifier? {
-        return Bukkit.getPluginManager().getPlugin(id)?.let { BukkitPluginIdentifier(it) }
     }
 
     /**

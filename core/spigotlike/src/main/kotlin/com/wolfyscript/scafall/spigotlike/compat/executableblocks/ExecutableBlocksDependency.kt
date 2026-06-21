@@ -5,7 +5,6 @@ import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.compat.Dependency
 import com.wolfyscript.scafall.identifier.Key
 import com.wolfyscript.scafall.registry.ScafallRegistryTypes
-import com.wolfyscript.scafall.spigotlike.api.into
 import com.wolfyscript.scafall.spigotlike.api.plugin
 import com.wolfyscript.scafall.spigotlike.compat.PluginDependency
 import org.bukkit.Bukkit
@@ -23,7 +22,7 @@ class ExecutableBlocksDependency : Dependency, Listener {
     override var isInitialized: Boolean = false
 
     init {
-        ScafallProvider.get().identifier.plugin()?.let { Bukkit.getPluginManager().registerEvents(this, it) }
+        ScafallProvider.get().plugin().let { Bukkit.getPluginManager().registerEvents(this, it) }
     }
 
     override fun onInit() {

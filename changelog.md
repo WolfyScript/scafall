@@ -1,3 +1,15 @@
+`v1.0-alpha.2.0`
+
+### Core
+* refactor: remove ModIdentifier & make Scafall a TaskOwner
+
+#### Spigot
+* build: shade dataformat hocon into spigot and paper jar
+
+#### Paper
+* build: shade dataformat hocon into spigot and paper jar
+
+
 `v1.0-alpha.1.0`
 
 ### General

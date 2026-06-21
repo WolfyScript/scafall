@@ -2,6 +2,7 @@ plugins {
     `java-library`
     `maven-publish`
     id("scafall.common")
+    id("scafall.publishing")
 }
 
 dependencies {

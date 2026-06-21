@@ -35,7 +35,7 @@ tasks {
             include {
                 it.moduleGroup.startsWith("com.wolfyscript.scafall")
             }
-            include(project(project.projects.core.coreSpigotlike))
+            include(dependency(sharedLibs.jackson.dataformat.hocon))
         }
         metaInf.duplicatesStrategy = DuplicatesStrategy.FAIL
     }

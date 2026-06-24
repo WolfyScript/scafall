@@ -16,7 +16,7 @@ fun Player.wrap(): ScafallPlayer {
     if (this is ServerPlayer) {
         return ScafallServerPlayerImpl(this)
     }
-    throw NotImplementedError("ClientPlayer not supported yet") // TODO: Implement client player support
+    return ScafallPlayerImpl(this)
 }
 
 /**

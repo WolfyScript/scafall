@@ -10,6 +10,7 @@ import net.kyori.adventure.text.format.Style
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.ComponentSerialization
@@ -20,10 +21,13 @@ import net.minecraft.network.chat.ComponentSerialization
  * @return The vanilla Minecraft chat component representation of this adventure component
  */
 fun Component.vanilla(): net.minecraft.network.chat.Component {
-    val json = GsonComponentSerializer.gson().serializeToTree(this)
-    val holder = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY)
+    return vanilla(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY))
+}
 
-    val result = ComponentSerialization.CODEC.decode(holder.createSerializationContext(JsonOps.INSTANCE), json)
+fun Component.vanilla(lookup: HolderLookup.Provider): net.minecraft.network.chat.Component {
+    val json = GsonComponentSerializer.gson().serializeToTree(this)
+
+    val result = ComponentSerialization.CODEC.decode(lookup.createSerializationContext(JsonOps.INSTANCE), json)
     if (result.isError) {
         throw JsonParseException(result.error().get().message())
     }

@@ -10,7 +10,7 @@ class PaperPlatformManager(scafallPaper: ScafallPaper) : CommonPlatformManager(s
     override val platformType: PlatformType = detectPlatform()
 
     private fun detectPlatform(): PlatformType {
-        // We can use the API (which is still experimental though) to check which platform it is
+        // We can use the API to check which platform it is
         if (ServerBuildInfo.buildInfo().isBrandCompatible(net.kyori.adventure.key.Key.key("papermc", "folia"))) {
             return PlatformType.FOLIA
         }

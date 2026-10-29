@@ -29,7 +29,7 @@ fun Player.wrap(): ScafallServerPlayer {
  *
  * In case the wrapper is not a [ScafallServerPlayer], it tries to find a player using the uuid.
  */
-fun ScafallPlayer.unwrapSpigot(): Player? {
+fun ScafallPlayer.unwrapSpigot(): Player {
     if (this is ScafallServerPlayer) {
         return this.unwrapSpigot()
     }

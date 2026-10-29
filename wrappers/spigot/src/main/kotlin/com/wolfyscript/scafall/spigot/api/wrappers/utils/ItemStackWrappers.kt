@@ -68,7 +68,7 @@ fun ItemStack.snapshot() : ItemStackSnapshot {
  * @return The Bukkit ItemStack representation of the Scafall ItemStackSnapshot.
  */
 fun ItemStackSnapshot.unwrapSpigot(): ItemStack {
-    return CraftItemStack.asCraftMirror(this.unwrap())
+    return CraftItemStack.asBukkitCopy(this.unwrap())
 }
 
 /**
@@ -77,12 +77,12 @@ fun ItemStackSnapshot.unwrapSpigot(): ItemStack {
  * @return The Bukkit ItemStack representation of the Scafall ItemStack.
  */
 fun ScafallItemStack.unwrapSpigot(): ItemStack {
-    return CraftItemStack.asCraftMirror(this.unwrap())
+    return CraftItemStack.asBukkitMirror(this.unwrap())
 }
 
 /**
  * Unwraps this item stack wrapper to a Bukkit [ItemStack]
  */
 fun ItemStackLike.unwrapSpigot(): ItemStack {
-    return CraftItemStack.asCraftMirror(this.unwrap())
+    return CraftItemStack.asBukkitMirror(this.unwrap())
 }

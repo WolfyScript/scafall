@@ -17,7 +17,7 @@ dependencies {
     implementation(projects.wrappers.wrappersSpigot)
     implementation(projects.loaderApi)
     api(sharedLibs.item.nbt.api)
-    api(sharedLibs.adventure.platform.bukkit)
+//    api(sharedLibs.adventure.platform.bukkit)
 
     paperweight.paperDevBundle(sharedLibs.versions.papermc.get())
     compileOnly(libs.bundles.spigot.external.plugins)
@@ -67,7 +67,7 @@ bukkitPluginYaml {
         sharedLibs.bundles.adventure.get().forEach {
             add(it.toString())
         }
-        add(sharedLibs.adventure.platform.bukkit.get().toString())
+//        add(sharedLibs.adventure.platform.bukkit.get().toString())
 
         addAll(
             sharedLibs.jackson.kotlin.get().toString(),

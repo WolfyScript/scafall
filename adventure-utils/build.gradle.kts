@@ -7,6 +7,7 @@ plugins {
 
 dependencies {
     minecraft(sharedLibs.minecraft)
+    implementation(sharedLibs.adventure.text.gson)
 }
 
 publishing {

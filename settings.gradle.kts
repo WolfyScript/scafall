@@ -81,8 +81,6 @@ sequenceOf(
     "spigot",
     "paper",
     "fabric",
-    "sponge",
-    "sponge:loader",
 ).forEach {
     include(":core:${it}")
     project(":core:${it}").apply {

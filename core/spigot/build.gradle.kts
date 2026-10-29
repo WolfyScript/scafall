@@ -98,7 +98,6 @@ bukkitPluginYaml {
 minecraftServers {
     libName.set("${archiveName()}.jar") // Makes sure to copy the correct file
     servers {
-        // Scaffolding will only support 1.21+
         register("spigot") {
             destFileName.set("scafall.jar")
             version.set(sharedLibs.versions.minecraft.get())
@@ -113,7 +112,7 @@ minecraftServers {
 modrinth {
     token.set(System.getenv("MODRINTH_TOKEN"))
     projectId.set("scafall")
-    versionNumber.set(project.version.toString())
+    versionNumber.set("${project.version}-spigot")
     versionType.set("alpha")
     uploadFile.set(tasks.shadowJar)
     gameVersions.set(listOf(sharedLibs.versions.minecraft.get()))

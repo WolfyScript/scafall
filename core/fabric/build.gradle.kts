@@ -91,7 +91,7 @@ minecraftServers {
 modrinth {
     token.set(System.getenv("MODRINTH_TOKEN"))
     projectId.set("scafall")
-    versionNumber.set(project.version.toString())
+    versionNumber.set("${project.version}-fabric")
     versionType.set("alpha")
     uploadFile.set(tasks.jar)
     changelog.set(System.getenv("CHANGELOG") ?: "")

@@ -117,7 +117,7 @@ minecraftServers {
 }
 
 modrinth {
-    versionNumber.set("${project.version}-paper")
+    versionNumber.set("${project.version}+paper")
     uploadFile.set(tasks.shadowJar)
     loaders.set(listOf("paper", "purpur"))
 }

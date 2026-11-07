@@ -90,7 +90,7 @@ minecraftServers {
 }
 
 modrinth {
-    versionNumber.set("${project.version}-fabric")
+    versionNumber.set("${project.version}+fabric")
     uploadFile.set(tasks.jar)
     loaders.set(listOf("fabric"))
 

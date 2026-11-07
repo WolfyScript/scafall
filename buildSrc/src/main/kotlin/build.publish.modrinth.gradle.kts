@@ -33,12 +33,12 @@ private fun createPlatformProjectChangelog(): String {
     val schedulerChangelog = File(changelogDir, "scheduler.md").readText()
 
     return buildString {
-        if (customNotes.isNotBlank()) appendLine(customNotes)
-        appendLine(platformProject)
+        if (customNotes.isNotBlank()) append(customNotes)
+        if (platformProject.isNotBlank()) appendLine().append(platformProject)
 
-        if (wrapperChangelog.isNotBlank()) appendLine("## Wrappers").appendLine(wrapperChangelog)
-        if (identifierChangelog.isNotBlank()) appendLine("## Identifiers").appendLine(identifierChangelog)
-        if (schedulerChangelog.isNotBlank()) appendLine("## Scheduler").appendLine(schedulerChangelog)
+        if (wrapperChangelog.isNotBlank()) appendLine().append("## Wrappers").append(wrapperChangelog)
+        if (identifierChangelog.isNotBlank()) appendLine().append("## Identifiers").append(identifierChangelog)
+        if (schedulerChangelog.isNotBlank()) appendLine().append("## Scheduler").append(schedulerChangelog)
     }
 }
 

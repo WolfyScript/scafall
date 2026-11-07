@@ -111,7 +111,7 @@ minecraftServers {
 }
 
 modrinth {
-    versionNumber.set("${project.version}-spigot")
+    versionNumber.set("${project.version}+spigot")
     uploadFile.set(tasks.shadowJar)
     loaders.set(listOf("spigot"))
 }

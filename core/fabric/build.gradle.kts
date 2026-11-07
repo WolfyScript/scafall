@@ -4,7 +4,8 @@ plugins {
     id("scafall.common")
     id("scafall.docker.run")
     alias(sharedLibs.plugins.fabric.loom)
-    alias(sharedLibs.plugins.modrinth.minotaur)
+    id("build.docs.changelog")
+    id("build.publish.modrinth")
 }
 
 loom {
@@ -89,12 +90,11 @@ minecraftServers {
 }
 
 modrinth {
-    token.set(System.getenv("MODRINTH_TOKEN"))
-    projectId.set("scafall")
     versionNumber.set("${project.version}-fabric")
-    versionType.set("alpha")
     uploadFile.set(tasks.jar)
-    changelog.set(System.getenv("CHANGELOG") ?: "")
-    gameVersions.set(listOf(sharedLibs.versions.minecraft.get()))
     loaders.set(listOf("fabric"))
+
+    dependencies {
+        required.project("fabric-api", "fabric-language-kotlin")
+    }
 }

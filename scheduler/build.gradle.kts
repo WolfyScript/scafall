@@ -2,6 +2,7 @@ plugins {
     `java-library`
     id("scafall.publishing")
     id("scafall.common")
+    id("build.docs.changelog")
 }
 
 dependencies {

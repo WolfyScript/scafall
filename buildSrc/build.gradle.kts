@@ -15,6 +15,8 @@ dependencies {
     implementation(files(sharedLibs::class.java.protectionDomain.codeSource.location))
 
     implementation(sharedLibs.plugins.artifactory.text())
+    implementation(sharedLibs.plugins.modrinth.minotaur.text())
+    implementation(sharedLibs.plugins.git.changelog.text())
     implementation(sharedLibs.plugins.devtools.docker.run.text())
     implementation(sharedLibs.plugins.devtools.docker.minecraft.text())
     implementation(sharedLibs.plugins.paperweight.userdev.text())

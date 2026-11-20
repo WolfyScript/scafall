@@ -2,10 +2,20 @@ rootProject.name = "scafall"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+val wolfyReleasesUrl = providers.gradleProperty("wolfyReleasesUrl").get()
+val wolfySnapshotsUrl = providers.gradleProperty("wolfySnapshotsUrl").get()
+
 dependencyResolutionManagement {
     repositories {
 //        mavenLocal()
-        maven("https://artifacts.wolfyscript.com/artifactory/gradle-dev")
+        maven {
+            url = uri(wolfyReleasesUrl)
+            mavenContent { releasesOnly() }
+        }
+        maven {
+            url = uri(wolfySnapshotsUrl)
+            mavenContent { snapshotsOnly() }
+        }
     }
 
     versionCatalogs {
@@ -16,6 +26,9 @@ dependencyResolutionManagement {
 }
 
 pluginManagement {
+    val wolfyReleasesUrl = providers.gradleProperty("wolfyReleasesUrl").get()
+    val wolfySnapshotsUrl = providers.gradleProperty("wolfySnapshotsUrl").get()
+
     repositories {
         gradlePluginPortal()
         mavenCentral()
@@ -42,7 +55,14 @@ pluginManagement {
                 includeGroupAndSubgroups("net.minecraftforge")
             }
         }
-        maven("https://artifacts.wolfyscript.com/artifactory/gradle-dev")
+        maven {
+            url = uri(wolfyReleasesUrl)
+            mavenContent { releasesOnly() }
+        }
+        maven {
+            url = uri(wolfySnapshotsUrl)
+            mavenContent { snapshotsOnly() }
+        }
         maven("https://maven.neoforged.net/releases")
     }
 }

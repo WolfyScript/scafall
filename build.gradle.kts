@@ -18,5 +18,5 @@ tasks {
 }
 
 kotlin {
-    jvmToolchain(25)
+    jvmToolchain(Integer.parseInt(sharedLibs.versions.jdk.get()))
 }

@@ -1,9 +1,19 @@
 rootProject.name = "buildSrc" // fix gradle warning with type-safe project accessors
 
+val wolfyReleasesUrl = providers.gradleProperty("wolfyReleasesUrl").get()
+val wolfySnapshotsUrl = providers.gradleProperty("wolfySnapshotsUrl").get()
+
 dependencyResolutionManagement {
     repositories {
 //        mavenLocal()
-        maven("https://artifacts.wolfyscript.com/artifactory/gradle-dev")
+        maven {
+            url = uri(wolfyReleasesUrl)
+            mavenContent { releasesOnly() }
+        }
+        maven {
+            url = uri(wolfySnapshotsUrl)
+            mavenContent { snapshotsOnly() }
+        }
     }
 
     versionCatalogs {
@@ -17,10 +27,20 @@ dependencyResolutionManagement {
 }
 
 pluginManagement {
+    val wolfyReleasesUrl = providers.gradleProperty("wolfyReleasesUrl").get()
+    val wolfySnapshotsUrl = providers.gradleProperty("wolfySnapshotsUrl").get()
+
     repositories {
         mavenLocal()
         mavenCentral()
         gradlePluginPortal()
-        maven("https://artifacts.wolfyscript.com/artifactory/gradle-dev")
+        maven {
+            url = uri(wolfyReleasesUrl)
+            mavenContent { releasesOnly() }
+        }
+        maven {
+            url = uri(wolfySnapshotsUrl)
+            mavenContent { snapshotsOnly() }
+        }
     }
 }

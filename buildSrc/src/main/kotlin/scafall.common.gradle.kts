@@ -4,6 +4,9 @@ plugins {
     kotlin("jvm")
 }
 
+val wolfyReleasesUrl = providers.gradleProperty("wolfyReleasesUrl").get()
+val wolfySnapshotsUrl = providers.gradleProperty("wolfySnapshotsUrl").get()
+
 repositories {
     mavenCentral()
     maven {
@@ -18,7 +21,14 @@ repositories {
         name = "central-snapshots"
         mavenContent { snapshotsOnly() }
     }
-    maven(url = "https://artifacts.wolfyscript.com/artifactory/gradle-dev")
+    maven {
+        url = uri(wolfyReleasesUrl)
+        mavenContent { releasesOnly() }
+    }
+    maven {
+        url = uri(wolfySnapshotsUrl)
+        mavenContent { snapshotsOnly() }
+    }
     maven(url = "https://libraries.minecraft.net/")
     maven(url = "https://jitpack.io")
     maven(url = "https://repo.maven.apache.org/maven2/")

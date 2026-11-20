@@ -2,8 +2,8 @@
 
 [versions]
 # external plugins
-spigot-plugin-score = "4.24.4.15"
-spigot-plugin-executableblocks = "4.24.4.15"
+spigot-plugin-score = "5.26.11.17"
+spigot-plugin-executableblocks = "5.26.11.12"
 spigot-plugin-denizen = "1.2.5-SNAPSHOT"
 spigot-plugin-eco = "6.76.2"
 spigot-plugin-itemsadder = "3.1.5"
@@ -15,13 +15,10 @@ spigot-plugin-mmoitems = "6.10.1-SNAPSHOT"
 spigot-plugin-placeholderapi = "2.11.6"
 ## ##
 
-## Sponge Impl dependencies ##
-sponge-impl = "1.21.5-15.0.0-SNAPSHOT"
-
 [libraries]
 ## Spigot Impl dependencies ##
-spigot-plugin-score = { module = "com.ssomar.score:SCore", version.ref = "spigot-plugin-score" }
-spigot-plugin-executableblocks = { module = "com.ssomar.executableblocks:ExecutableBlocks", version.ref = "spigot-plugin-executableblocks" }
+spigot-plugin-score = { module = "com.ssomar:SCore", version.ref = "spigot-plugin-score" }
+spigot-plugin-executableblocks = { module = "com.ssomar.executableblocks:ExecutableBlocks-API", version.ref = "spigot-plugin-executableblocks" }
 spigot-plugin-denizen = { module = "com.denizenscript:denizen", version.ref = "spigot-plugin-denizen" }
 spigot-plugin-eco = { module = "com.willfp:eco", version.ref = "spigot-plugin-eco" }
 spigot-plugin-itemsadder = { module = "com.github.LoneDev6:api-itemsadder", version.ref = "spigot-plugin-itemsadder" }
@@ -31,9 +28,6 @@ spigot-plugin-mythic = { module = "io.lumine:Mythic-Dist", version.ref = "spigot
 spigot-plugin-mythiclib = { module = "io.lumine:MythicLib-dist", version.ref = "spigot-plugin-mythiclib" }
 spigot-plugin-mmoitems = { module = "net.Indyuce:MMOItems-API", version.ref = "spigot-plugin-mmoitems" }
 spigot-plugin-placeholderapi = { module = "me.clip:placeholderapi", version.ref = "spigot-plugin-placeholderapi" }
-
-## Sponge Impl dependencies ##
-spongepowered-impl = { module = "org.spongepowered:sponge", version.ref = "sponge-impl" }
 
 [bundles]
 spigot-external-plugins = [

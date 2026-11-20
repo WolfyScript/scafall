@@ -1,6 +1,7 @@
 package com.wolfyscript.scafall.spigotlike.compat.executableblocks
 
-import com.ssomar.executableblocks.executableblocks.ExecutableBlocksManager
+import com.ssomar.score.api.executableblocks.ExecutableBlocksAPI
+import com.ssomar.score.api.executableblocks.config.ExecutableBlocksManagerInterface
 import com.wolfyscript.scafall.compat.DependencyResolverSettings
 import com.wolfyscript.scafall.items.ItemStackIdentifier
 import com.wolfyscript.scafall.spigot.api.wrappers.utils.unwrapSpigot
@@ -19,7 +20,7 @@ class ExecutableBlocksStackIdentifier(
     val id: String,
 ) : ItemStackIdentifier {
 
-    val manager: ExecutableBlocksManager = ExecutableBlocksManager.getInstance()
+    val manager: ExecutableBlocksManagerInterface = ExecutableBlocksAPI.getExecutableBlocksManager()
 
     override fun matches(
         stack: ItemStackLike,

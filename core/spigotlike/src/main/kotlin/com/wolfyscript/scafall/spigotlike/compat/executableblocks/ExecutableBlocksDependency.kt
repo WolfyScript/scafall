@@ -1,6 +1,6 @@
 package com.wolfyscript.scafall.spigotlike.compat.executableblocks
 
-import com.ssomar.executableblocks.api.load.ExecutableBlocksPostLoadEvent
+import com.ssomar.score.api.executableblocks.load.ExecutableBlocksPostLoadEvent
 import com.wolfyscript.scafall.ScafallProvider
 import com.wolfyscript.scafall.compat.Dependency
 import com.wolfyscript.scafall.identifier.Key

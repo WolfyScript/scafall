@@ -11,18 +11,52 @@ val Project.sharedLibs
     get() = the<org.gradle.accessors.dm.LibrariesForSharedLibs>()
 
 repositories {
-    mavenLocal()
+//    mavenLocal()
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
 
-    maven("https://repo.auxilor.io/repository/maven-public/")
-    maven(url = "https://maven.enginehub.org/repo/")
-    maven(url = "https://repo.citizensnpcs.co")
-    maven(url = "https://repo.codemc.io/repository/maven-public/")
-    maven(url = "https://repo.extendedclip.com/content/repositories/placeholderapi/")
-    maven(url = "https://nexus.phoenixdevt.fr/repository/maven-public/")
-    maven(url = "https://mvn.lumine.io/repository/maven-public/")
-    maven(url = "https://www.iani.de/nexus/content/repositories/public/")
+    exclusiveContent {
+        forRepository {
+            maven("https://repo.auxilor.io/repository/maven-public/")
+        }
+        filter {
+            includeGroup("com.willfp")
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven("https://repo.citizensnpcs.co")
+        }
+        filter {
+            includeGroup("com.denizenscript")
+            includeGroup("net.citizensnpcs")
+            includeGroup("net.citizensnpcs")
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven(url = "https://repo.extendedclip.com/content/repositories/placeholderapi/")
+        }
+        filter {
+            includeGroup("me.clip")
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven("https://mvn.lumine.io/repository/maven-public/")
+        }
+        filter {
+            includeGroup("io.lumine")
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven ("https://repo.ssomar.com/releases")
+        }
+        filter {
+            includeGroupAndSubgroups("com.ssomar")
+        }
+    }
 }
 
 kotlin {

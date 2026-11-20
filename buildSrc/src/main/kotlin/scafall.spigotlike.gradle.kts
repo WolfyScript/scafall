@@ -17,6 +17,14 @@ repositories {
 
     exclusiveContent {
         forRepository {
+            maven("https://repo.codemc.io/repository/maven-public/")
+        }
+        filter {
+            includeGroup("de.tr7zw")
+        }
+    }
+    exclusiveContent {
+        forRepository {
             maven("https://repo.auxilor.io/repository/maven-public/")
         }
         filter {
@@ -42,16 +50,23 @@ repositories {
         }
     }
     exclusiveContent {
-        forRepository {
+        forRepositories(
+            maven("https://nexus.phoenixdevt.fr/repository/maven-public/"),
             maven("https://mvn.lumine.io/repository/maven-public/")
-        }
+        )
         filter {
+            includeGroup("net.Indyuce")
             includeGroup("io.lumine")
         }
     }
     exclusiveContent {
         forRepository {
-            maven ("https://repo.ssomar.com/releases")
+            maven("https://repo.ssomar.com/releases") {
+                metadataSources {
+                    // Pom files include invalid metadata, so we ignore it.
+                    artifact()
+                }
+            }
         }
         filter {
             includeGroupAndSubgroups("com.ssomar")
